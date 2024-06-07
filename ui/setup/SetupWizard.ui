@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SetupWizard</class>
+ <widget class="QWizard" name="SetupWizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>824</width>
+    <height>608</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Wizard</string>
+  </property>
+  <widget class="IntroPage" name="wizardPage1"/>
+  <widget class="QWizardPage" name="wizardPage2"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>IntroPage</class>
+   <extends>QWizardPage</extends>
+   <header>setup/IntroPage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

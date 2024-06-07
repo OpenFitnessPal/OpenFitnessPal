@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 3.5)
 project(OFP VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS "ui/")
+set(CMAKE_AUTOUIC_SEARCH_PATHS "ui/setup")
 
-set(CMAKE_AUTOUIC ON)
+# set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
@@ -23,20 +24,37 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 
 find_package(OFPLib REQUIRED)
 
-set(PROJECT_SOURCES
-        main.cpp
-        src/MainWindow.cpp
-        include/MainWindow.h
-        ui/MainWindow.ui
+set(CODE_SOURCES
+    main.cpp
+    src/FoodSearch.cpp
+    include/FoodSearch.h
 
-        include/SearchItemWidget.h src/SearchItemWidget.cpp ui/SearchItemWidget.ui
+    include/SearchItemWidget.h src/SearchItemWidget.cpp
+    include/MainWindow.h src/MainWindow.cpp
 
+    include/setup/SetupWizard.h src/setup/SetupWizard.cpp
+    include/setup/IntroPage.h src/setup/IntroPage.cpp
 )
+
+set(UI_SOURCES
+    ui/SearchItemWidget.ui
+    ui/MainWindow.ui
+    ui/setup/SetupWizard.ui
+    ui/setup/IntroPage.ui
+    ui/FoodSearch.ui
+)
+
+set(SOURCES
+    ${UI_SOURCES}
+    ${CODE_SOURCES}
+)
+
+qt_wrap_ui(SOURCES ${UI_SOURCES})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(OFP
         MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
+        ${SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET OFP APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -45,26 +63,28 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     if(ANDROID)
         add_library(OFP SHARED
-            ${PROJECT_SOURCES}
+            ${SOURCES}
         )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(OFP
-            ${PROJECT_SOURCES}
+    # Define properties for Android with Qt 5 after find_package() calls as:
+    #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+else()
+    add_executable(OFP
+        ${SOURCES}
 
-        )
-    endif()
+    )
+endif()
 endif()
 
 target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network ofp)
 target_include_directories(OFP PRIVATE include/)
+# target_include_directories(OFP PRIVATE include/setup)
+target_include_directories(OFP PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.OFP)
+    set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.OFP)
 endif()
 set_target_properties(OFP PROPERTIES
     ${BUNDLE_ID_OPTION}
