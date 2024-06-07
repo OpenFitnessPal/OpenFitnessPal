@@ -22,6 +22,8 @@ endif()
 
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 
+# link_directories(/usr/local/lib)
+set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
 find_package(OFPLib REQUIRED)
 
 set(CODE_SOURCES
@@ -34,13 +36,17 @@ set(CODE_SOURCES
 
     include/setup/SetupWizard.h src/setup/SetupWizard.cpp
     include/setup/IntroPage.h src/setup/IntroPage.cpp
+    include/setup/GoalsPage.h src/setup/GoalsPage.cpp
 )
 
 set(UI_SOURCES
     ui/SearchItemWidget.ui
     ui/MainWindow.ui
+
     ui/setup/SetupWizard.ui
     ui/setup/IntroPage.ui
+    ui/setup/GoalsPage.ui
+
     ui/FoodSearch.ui
 )
 
@@ -77,6 +83,7 @@ endif()
 
 target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network ofp)
 target_include_directories(OFP PRIVATE include/)
+target_include_directories(OFP PRIVATE /usr/local/include)
 # target_include_directories(OFP PRIVATE include/setup)
 target_include_directories(OFP PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 

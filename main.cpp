@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         settings.setValue("firstRun", true);
 
         SetupWizard *wizard = new SetupWizard(&w);
-        wizard->show();
+        wizard->showMaximized();
     }
     return a.exec();
 }

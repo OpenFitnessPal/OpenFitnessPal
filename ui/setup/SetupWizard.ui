@@ -6,21 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
-    <height>608</height>
+    <width>1000</width>
+    <height>1000</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Wizard</string>
   </property>
-  <widget class="IntroPage" name="wizardPage1"/>
-  <widget class="QWizardPage" name="wizardPage2"/>
+  <widget class="IntroPage" name="intro">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+  </widget>
+  <widget class="GoalsPage" name="goals"/>
  </widget>
  <customwidgets>
   <customwidget>
    <class>IntroPage</class>
    <extends>QWizardPage</extends>
    <header>setup/IntroPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GoalsPage</class>
+   <extends>QWizardPage</extends>
+   <header>setup/GoalsPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
