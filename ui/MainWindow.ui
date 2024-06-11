@@ -11,30 +11,58 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>OpenFitnessPal</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QStackedWidget" name="stackedWidget">
-      <widget class="QWidget" name="page"/>
-      <widget class="QWidget" name="page_2"/>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabShape">
+       <enum>QTabWidget::TabShape::Triangular</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::TextElideMode::ElideRight</enum>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <property name="movable">
+       <bool>false</bool>
+      </property>
+      <widget class="JournalPage" name="journal">
+       <attribute name="title">
+        <string>Journal</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="recipes">
+       <attribute name="title">
+        <string>Recipes</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="settings">
+       <attribute name="title">
+        <string>Settings</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>JournalPage</class>
+   <extends>QWidget</extends>
+   <header>pages/JournalPage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

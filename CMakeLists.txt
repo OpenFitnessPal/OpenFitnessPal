@@ -2,17 +2,13 @@ cmake_minimum_required(VERSION 3.5)
 
 project(OFP VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_AUTOUIC_SEARCH_PATHS "ui/")
-set(CMAKE_AUTOUIC_SEARCH_PATHS "ui/setup")
-
-# set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Widgets Network)
 
 if (FORCE_QT6)
     set(QT_VERSION_MAJOR 6)
@@ -20,47 +16,83 @@ elseif (FORCE_QT5)
     set(QT_VERSION_MAJOR 5)
 endif()
 
+set(QT_VERSION_MAJOR 6)
+
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 
 # link_directories(/usr/local/lib)
-set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
+# set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
 find_package(OFPLib REQUIRED)
 
-set(CODE_SOURCES
+# set(CODE_SOURCES
+#     main.cpp
+#     src/FoodSearch.cpp include/FoodSearch.h
+
+#     include/SearchItemWidget.h src/SearchItemWidget.cpp
+#     include/MainWindow.h src/MainWindow.cpp
+
+#     include/setup/SetupWizard.h src/setup/SetupWizard.cpp
+#     include/setup/IntroPage.h src/setup/IntroPage.cpp
+#     include/setup/GoalsPage.h src/setup/GoalsPage.cpp
+
+#     include/pages/JournalPage.h src/pages/JournalPage.cpp
+
+#     include/items/JournalItem.h src/items/JournalItem.cpp
+# )
+
+set(UI_ELEMENTS
+    FoodSearch
+    SearchItemWidget
+    MainWindow
+
+    setup/SetupWizard
+    setup/IntroPage
+    setup/GoalsPage
+
+    pages/JournalPage
+
+    items/JournalItem
+    items/MealLog
+)
+
+foreach(ELEMENT ${UI_ELEMENTS})
+    set(HEADERS ${HEADERS} include/${ELEMENT}.h)
+    set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
+    set(UI ${UI} ui/${ELEMENT}.ui)
+endforeach()
+
+# set(UI_SOURCES
+#     ui/SearchItemWidget.ui
+#     ui/MainWindow.ui
+
+#     ui/setup/SetupWizard.ui
+#     ui/setup/IntroPage.ui
+#     ui/setup/GoalsPage.ui
+
+#     ui/pages/JournalPage.ui
+
+#     ui/items/JournalItem.ui
+
+#     ui/FoodSearch.ui
+# )
+
+# set(SOURCES
+#     ${UI_SOURCES}
+#     ${CODE_SOURCES}
+# )
+set(PROJECT_SOURCES
     main.cpp
-    src/FoodSearch.cpp
-    include/FoodSearch.h
-
-    include/SearchItemWidget.h src/SearchItemWidget.cpp
-    include/MainWindow.h src/MainWindow.cpp
-
-    include/setup/SetupWizard.h src/setup/SetupWizard.cpp
-    include/setup/IntroPage.h src/setup/IntroPage.cpp
-    include/setup/GoalsPage.h src/setup/GoalsPage.cpp
+    ${UI}
+    ${HEADERS}
+    ${SOURCES}
 )
 
-set(UI_SOURCES
-    ui/SearchItemWidget.ui
-    ui/MainWindow.ui
-
-    ui/setup/SetupWizard.ui
-    ui/setup/IntroPage.ui
-    ui/setup/GoalsPage.ui
-
-    ui/FoodSearch.ui
-)
-
-set(SOURCES
-    ${UI_SOURCES}
-    ${CODE_SOURCES}
-)
-
-qt_wrap_ui(SOURCES ${UI_SOURCES})
+qt_wrap_ui(SOURCES ${UI})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(OFP
         MANUAL_FINALIZATION
-        ${SOURCES}
+        ${PROJECT_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET OFP APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -69,21 +101,20 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     if(ANDROID)
         add_library(OFP SHARED
-            ${SOURCES}
+            ${PROJECT_SOURCES}
         )
     # Define properties for Android with Qt 5 after find_package() calls as:
     #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
 else()
     add_executable(OFP
-        ${SOURCES}
-
+        ${PROJECT_SOURCES}
     )
 endif()
 endif()
 
 target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network ofp)
 target_include_directories(OFP PRIVATE include/)
-target_include_directories(OFP PRIVATE /usr/local/include)
+# target_include_directories(OFP PRIVATE /usr/local/include)
 # target_include_directories(OFP PRIVATE include/setup)
 target_include_directories(OFP PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 

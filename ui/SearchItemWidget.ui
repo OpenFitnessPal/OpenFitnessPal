@@ -26,7 +26,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignTop">
+   <item row="1" column="0">
     <widget class="QLabel" name="brand">
      <property name="palette">
       <palette>
@@ -55,12 +55,17 @@
        <disabled/>
       </palette>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>Brand</string>
+      <string>Brand, Serving Size</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTop">
+   <item row="0" column="1" rowspan="2">
     <widget class="QLabel" name="cals">
      <property name="palette">
       <palette>
@@ -89,8 +94,16 @@
        <disabled/>
       </palette>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>0 kcals</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
    </item>

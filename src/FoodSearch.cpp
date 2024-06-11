@@ -2,7 +2,7 @@
 #include "ui_FoodSearch.h"
 
 FoodSearch::FoodSearch(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
     , ui(new Ui::FoodSearch)
 {
     ui->setupUi(this);
@@ -24,8 +24,14 @@ void FoodSearch::search()
 
     m_manager->search(ui->searchBar->text());
     m_manager->connect(m_manager, &OFPManager::searchComplete, this, [this](QList<FoodItem> items) {
-        for (const FoodItem &item : items) {
+        for (FoodItem &item : items) {
             SearchItemWidget *widget = new SearchItemWidget(item, this);
+
+            connect(widget, &SearchItemWidget::selected, this, [this, item]() mutable {
+                emit itemSelected(item);
+                close();
+            });
+
             ui->results->addWidget(widget);
             m_widgets.append(widget);
         }

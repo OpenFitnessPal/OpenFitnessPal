@@ -16,12 +16,19 @@ public:
     explicit SearchItemWidget(const FoodItem &item, QWidget *parent = nullptr);
     ~SearchItemWidget();
 
+    FoodItem item();
+
 private:
     Ui::SearchItemWidget *ui;
+
+    FoodItem m_item;
 
     void mousePressEvent(QMouseEvent *e);
 
     const QString m_siteName;
+
+signals:
+    void selected();
 };
 
 #endif // SEARCHITEMWIDGET_H

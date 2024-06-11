@@ -10,7 +10,7 @@ OpenFitnessPal is very WIP. Help would be appreciated.
 - [ ] Exercise tracking
 - [ ] Daily planning--exercises & meals for the day
 - [ ] Real-time exercise tracking
-- [ ] Food search
+- [x] Food search
 - [ ] Food details
 - [ ] Recipes
 

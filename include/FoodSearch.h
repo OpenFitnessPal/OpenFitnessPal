@@ -1,7 +1,7 @@
 #ifndef FOODSEARCH_H
 #define FOODSEARCH_H
 
-#include <QMainWindow>
+#include <QDialog>
 #include <OFP/OFPManager.h>
 #include "SearchItemWidget.h"
 
@@ -11,7 +11,7 @@ class FoodSearch;
 }
 QT_END_NAMESPACE
 
-class FoodSearch : public QWidget
+class FoodSearch : public QDialog
 {
     Q_OBJECT
 
@@ -21,6 +21,10 @@ public:
 
 public slots:
     void search();
+
+signals:
+    void itemSelected(FoodItem &item);
+
 private:
     Ui::FoodSearch *ui;
 

@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     w.show();
 
     QSettings settings(&a);
-    if (true) {//!settings.value("firstRun", false).toBool()) {
+    if (false) {//!settings.value("firstRun", false).toBool()) {
         settings.setValue("firstRun", true);
 
         SetupWizard *wizard = new SetupWizard(&w);

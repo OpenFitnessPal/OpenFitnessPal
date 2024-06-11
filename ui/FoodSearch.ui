@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>FoodSearch</class>
- <widget class="QWidget" name="FoodSearch">
+ <widget class="QDialog" name="FoodSearch">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,18 +10,44 @@
     <height>526</height>
    </rect>
   </property>
+  <property name="windowTitle">
+   <string>Search</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="searchBar"/>
-   </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Search:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="searchBar">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QPushButton" name="pushButton">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Submit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="3">
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -32,7 +58,7 @@
         <x>0</x>
         <y>0</y>
         <width>800</width>
-        <height>475</height>
+        <height>463</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="results"/>
@@ -42,7 +68,40 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FoodSearch</receiver>
+   <slot>search()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>770</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>searchBar</sender>
+   <signal>returnPressed()</signal>
+   <receiver>FoodSearch</receiver>
+   <slot>search()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>406</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>search()</slot>
  </slots>
