@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=OpenFitnessPal
+Comment=A fitness-tracking application, track your foods & exercises.
+Exec=OFP
+Categories=Education;Utility

@@ -8,11 +8,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Widgets Network)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network)
 
-if (FORCE_QT6)
+if (${FORCE_QT6})
     set(QT_VERSION_MAJOR 6)
-elseif (FORCE_QT5)
+elseif (${FORCE_QT5})
     set(QT_VERSION_MAJOR 5)
 endif()
 
@@ -23,22 +23,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 # link_directories(/usr/local/lib)
 # set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
 find_package(OFPLib REQUIRED)
-
-# set(CODE_SOURCES
-#     main.cpp
-#     src/dialogs/FoodSearch.cpp include/dialogs/FoodSearch.h
-
-#     include/items/FoodInfoWidget.h src/items/FoodInfoWidget.cpp
-#     include/MainWindow.h src/MainWindow.cpp
-
-#     include/setup/SetupWizard.h src/setup/SetupWizard.cpp
-#     include/setup/IntroPage.h src/setup/IntroPage.cpp
-#     include/setup/GoalsPage.h src/setup/GoalsPage.cpp
-
-#     include/pages/JournalPage.h src/pages/JournalPage.cpp
-
-#     include/items/JournalItem.h src/items/JournalItem.cpp
-# )
 
 set(UI_ELEMENTS
     MainWindow
@@ -71,25 +55,6 @@ foreach(ELEMENT ${CODE_ELEMENTS})
     set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
 endforeach()
 
-# set(UI_SOURCES
-#     ui/items/FoodInfoWidget.ui
-#     ui/MainWindow.ui
-
-#     ui/setup/SetupWizard.ui
-#     ui/setup/IntroPage.ui
-#     ui/setup/GoalsPage.ui
-
-#     ui/pages/JournalPage.ui
-
-#     ui/items/JournalItem.ui
-
-#     ui/dialogs/FoodSearch.ui
-# )
-
-# set(SOURCES
-#     ${UI_SOURCES}
-#     ${CODE_SOURCES}
-# )
 set(PROJECT_SOURCES
     main.cpp
     ${UI}
@@ -121,6 +86,8 @@ else()
     )
 endif()
 endif()
+
+add_subdirectory("program_info")
 
 target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network ofp)
 target_include_directories(OFP PRIVATE include/)
