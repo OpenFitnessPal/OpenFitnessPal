@@ -1,7 +1,7 @@
 #!/bin/sh
 
-mv ui/{$1,$2}.ui
-mv include/{$1,$2}.h
-mv src/{$1,$2}.cpp
+mv ui/$1/{$2,$3}.ui
+mv include/$1/{$2,$3}.h
+mv src/$1/{$2,$3}.cpp
 
-find src include ui CMakeLists.txt -exec sed -i "s/$1/$2/g" {} \;
+find src include ui CMakeLists.txt -type f -exec sed -i "s/$2/$3/g" {} \;

@@ -26,9 +26,9 @@ find_package(OFPLib REQUIRED)
 
 # set(CODE_SOURCES
 #     main.cpp
-#     src/FoodSearch.cpp include/FoodSearch.h
+#     src/dialogs/FoodSearch.cpp include/dialogs/FoodSearch.h
 
-#     include/SearchItemWidget.h src/SearchItemWidget.cpp
+#     include/items/FoodInfoWidget.h src/items/FoodInfoWidget.cpp
 #     include/MainWindow.h src/MainWindow.cpp
 
 #     include/setup/SetupWizard.h src/setup/SetupWizard.cpp
@@ -41,8 +41,6 @@ find_package(OFPLib REQUIRED)
 # )
 
 set(UI_ELEMENTS
-    FoodSearch
-    SearchItemWidget
     MainWindow
 
     setup/SetupWizard
@@ -51,8 +49,15 @@ set(UI_ELEMENTS
 
     pages/JournalPage
 
-    items/JournalItem
     items/MealLog
+    items/FoodInfoWidget
+
+    dialogs/FoodServingEdit
+    dialogs/FoodSearch
+)
+
+set(CODE_ELEMENTS
+
 )
 
 foreach(ELEMENT ${UI_ELEMENTS})
@@ -61,8 +66,13 @@ foreach(ELEMENT ${UI_ELEMENTS})
     set(UI ${UI} ui/${ELEMENT}.ui)
 endforeach()
 
+foreach(ELEMENT ${CODE_ELEMENTS})
+    set(HEADERS ${HEADERS} include/${ELEMENT}.h)
+    set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
+endforeach()
+
 # set(UI_SOURCES
-#     ui/SearchItemWidget.ui
+#     ui/items/FoodInfoWidget.ui
 #     ui/MainWindow.ui
 
 #     ui/setup/SetupWizard.ui
@@ -73,7 +83,7 @@ endforeach()
 
 #     ui/items/JournalItem.ui
 
-#     ui/FoodSearch.ui
+#     ui/dialogs/FoodSearch.ui
 # )
 
 # set(SOURCES

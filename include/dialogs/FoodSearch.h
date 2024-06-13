@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <OFP/OFPManager.h>
-#include "SearchItemWidget.h"
+#include "items/FoodInfoWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,12 +23,12 @@ public slots:
     void search();
 
 signals:
-    void itemSelected(FoodItem &item);
+    void itemSelected(const FoodItem &item, const ServingSize &size, const double units);
 
 private:
     Ui::FoodSearch *ui;
 
     OFPManager *m_manager;
-    QList<SearchItemWidget *> m_widgets{};
+    QList<FoodInfoWidget *> m_widgets{};
 };
 #endif // FOODSEARCH_H
