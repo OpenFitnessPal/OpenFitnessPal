@@ -32,9 +32,12 @@ set(UI_ELEMENTS
     setup/GoalsPage
 
     pages/JournalPage
+    pages/ExercisePage
 
     items/MealLog
     items/FoodInfoWidget
+    items/ExerciseSet
+    items/Exercise
 
     dialogs/FoodServingEdit
     dialogs/FoodSearch

@@ -44,7 +44,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Daily Journal</string>
+          <string>Food Journal</string>
          </property>
          <property name="scaledContents">
           <bool>true</bool>

@@ -38,9 +38,14 @@
       <property name="movable">
        <bool>false</bool>
       </property>
-      <widget class="JournalPage" name="journal">
+      <widget class="JournalPage" name="food">
        <attribute name="title">
-        <string>Journal</string>
+        <string>Food</string>
+       </attribute>
+      </widget>
+      <widget class="ExercisePage" name="exercise">
+       <attribute name="title">
+        <string>Exercise</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="recipes">
@@ -63,6 +68,12 @@
    <class>JournalPage</class>
    <extends>QWidget</extends>
    <header>pages/JournalPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ExercisePage</class>
+   <extends>QWidget</extends>
+   <header>pages/ExercisePage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
