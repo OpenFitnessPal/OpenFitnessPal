@@ -273,7 +273,40 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>accept</sender>
+   <signal>clicked()</signal>
+   <receiver>FoodServingEdit</receiver>
+   <slot>sendFood()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>352</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>191</x>
+     <y>235</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>reject</sender>
+   <signal>clicked()</signal>
+   <receiver>FoodServingEdit</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>30</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>191</x>
+     <y>235</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>sendFood()</slot>
   <slot>calcMacros()</slot>

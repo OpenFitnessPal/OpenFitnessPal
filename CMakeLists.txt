@@ -8,7 +8,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network Sql)
 
 if (${FORCE_QT6})
     set(QT_VERSION_MAJOR 6)
@@ -18,7 +18,7 @@ endif()
 
 set(QT_VERSION_MAJOR 6)
 
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network Sql)
 
 # link_directories(/usr/local/lib)
 # set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
@@ -44,7 +44,8 @@ set(UI_ELEMENTS
 )
 
 set(CODE_ELEMENTS
-
+    data/DataManager
+    data/CacheManager
 )
 
 foreach(ELEMENT ${UI_ELEMENTS})
@@ -70,8 +71,7 @@ qt_wrap_ui(SOURCES ${UI})
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(OFP
         MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
+        ${PROJECT_SOURCES}    )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET OFP APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
@@ -92,7 +92,7 @@ endif()
 
 add_subdirectory("program_info")
 
-target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network ofp)
+target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Sql ofp)
 target_include_directories(OFP PRIVATE include/)
 # target_include_directories(OFP PRIVATE /usr/local/include)
 # target_include_directories(OFP PRIVATE include/setup)

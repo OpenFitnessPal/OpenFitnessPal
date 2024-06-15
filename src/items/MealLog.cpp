@@ -1,4 +1,5 @@
 #include "items/MealLog.h"
+#include "data/CacheManager.h"
 #include "dialogs/FoodServingEdit.h"
 #include "ui_MealLog.h"
 
@@ -25,6 +26,10 @@ void MealLog::addItem() {
     search->show();
 
     connect(search, &FoodSearch::itemSelected, this, [this](const FoodItem &item, const ServingSize &size, const double units) {
+        qDebug() << "caching";
+        CacheManager::cacheFoodItem(item);
+        qDebug() << "Cached";
+
         FoodInfoWidget *food = new FoodInfoWidget(item, this, size, units);
 
         connect(food, &FoodInfoWidget::selected, this, [this, food, item, size, units] {

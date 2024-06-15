@@ -80,9 +80,9 @@
    </item>
    <item>
     <widget class="QSpinBox" name="weight">
-    <property name="maximum">
-     <number>2000</number>
-    </property>
+     <property name="maximum">
+      <number>2000</number>
+     </property>
     </widget>
    </item>
    <item>

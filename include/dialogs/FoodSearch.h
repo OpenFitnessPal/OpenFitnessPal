@@ -30,5 +30,7 @@ private:
 
     OFPManager *m_manager;
     QList<FoodInfoWidget *> m_widgets{};
+
+    void addFood(FoodItem &item);
 };
 #endif // FOODSEARCH_H
