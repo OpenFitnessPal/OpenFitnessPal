@@ -11,6 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->dateEdit, &QDateEdit::userDateChanged, ui->food, &JournalPage::setDate);
     connect(ui->dateEdit, &QDateEdit::userDateChanged, ui->exercise, &ExercisePage::setDate);
+
+    connect(ui->tabWidget, &QTabWidget::currentChanged, this, [this](int i) {
+        if (i == ui->tabWidget->indexOf(ui->food)) {
+            ui->food->updateMealNames();
+        }
+    });
 }
 
 MainWindow::~MainWindow()

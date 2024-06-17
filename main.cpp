@@ -7,6 +7,8 @@
 #include "data/DataManager.h"
 #include "data/CacheManager.h"
 
+#include "Settings.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -20,9 +22,8 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    QSettings settings(&a);
-    if (false) {//!settings.value("firstRun", false).toBool()) {
-        settings.setValue("firstRun", true);
+    if (Settings::FirstRun.value().toBool()) {
+        Settings::FirstRun.setValue(false);
 
         SetupWizard *wizard = new SetupWizard(&w);
         wizard->showMaximized();

@@ -17,6 +17,7 @@ public:
 
 public slots:
     void setDate(QDate date);
+    void updateMealNames();
 
 private:
     Ui::JournalPage *ui;

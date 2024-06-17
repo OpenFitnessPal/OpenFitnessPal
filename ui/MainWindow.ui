@@ -70,14 +70,14 @@
         <string>Exercise</string>
        </attribute>
       </widget>
+      <widget class="SettingsPage" name="settings">
+       <attribute name="title">
+        <string>Settings</string>
+       </attribute>
+      </widget>
       <widget class="QWidget" name="recipes">
        <attribute name="title">
         <string>Recipes</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="settings">
-       <attribute name="title">
-        <string>Settings</string>
        </attribute>
       </widget>
      </widget>
@@ -99,6 +99,12 @@
    <class>ExercisePage</class>
    <extends>QWidget</extends>
    <header>pages/ExercisePage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SettingsPage</class>
+   <extends>QWidget</extends>
+   <header>pages/SettingsPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

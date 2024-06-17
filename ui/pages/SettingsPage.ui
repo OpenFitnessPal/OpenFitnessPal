@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingsPage</class>
+ <widget class="QWidget" name="SettingsPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>593</width>
+    <height>434</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>18</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>573</width>
+        <height>414</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Meal 1 Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="meal1">
+         <property name="placeholderText">
+          <string>Meal 1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Meal 2 Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="meal2">
+         <property name="placeholderText">
+          <string>Meal 2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Meal 3 Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="meal3">
+         <property name="placeholderText">
+          <string>Meal 3</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Meal 4 Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="meal4">
+         <property name="placeholderText">
+          <string>Meal 4</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Meal 5 Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="meal5">
+         <property name="placeholderText">
+          <string>Meal 5</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>meal1</sender>
+   <signal>editingFinished()</signal>
+   <receiver>SettingsPage</receiver>
+   <slot>meal1Changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>meal2</sender>
+   <signal>editingFinished()</signal>
+   <receiver>SettingsPage</receiver>
+   <slot>meal2Changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>meal3</sender>
+   <signal>editingFinished()</signal>
+   <receiver>SettingsPage</receiver>
+   <slot>meal3Changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>meal4</sender>
+   <signal>editingFinished()</signal>
+   <receiver>SettingsPage</receiver>
+   <slot>meal4Changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>180</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>meal5</sender>
+   <signal>editingFinished()</signal>
+   <receiver>SettingsPage</receiver>
+   <slot>meal5Changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>meal1Changed()</slot>
+  <slot>meal2Changed()</slot>
+  <slot>meal3Changed()</slot>
+  <slot>meal4Changed()</slot>
+  <slot>meal5Changed()</slot>
+ </slots>
+</ui>

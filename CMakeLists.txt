@@ -33,6 +33,7 @@ set(UI_ELEMENTS
 
     pages/JournalPage
     pages/ExercisePage
+    pages/SettingsPage
 
     items/MealLog
     items/FoodInfoWidget
@@ -46,6 +47,8 @@ set(UI_ELEMENTS
 set(CODE_ELEMENTS
     data/DataManager
     data/CacheManager
+
+    Settings
 )
 
 foreach(ELEMENT ${UI_ELEMENTS})
@@ -71,7 +74,8 @@ qt_wrap_ui(SOURCES ${UI})
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(OFP
         MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}    )
+        ${PROJECT_SOURCES}
+    )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET OFP APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
