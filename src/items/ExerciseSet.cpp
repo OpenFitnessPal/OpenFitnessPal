@@ -16,8 +16,6 @@ ExerciseSet::ExerciseSet(ExerciseSet *other)
 {
     ui->setupUi(this);
 
-    qDebug() << other->reps() << other->weight();
-
     setReps(other->reps());
     setWeight(other->weight());
     setTime(other->time());

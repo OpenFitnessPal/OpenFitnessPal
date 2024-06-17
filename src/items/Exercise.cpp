@@ -18,7 +18,6 @@ Exercise::~Exercise()
 void Exercise::addSet()
 {
     ExerciseSet *set;
-    qDebug() << m_sets << m_sets.empty();
     if (!m_sets.empty()) {
         set = new ExerciseSet(m_sets.last());
     } else {

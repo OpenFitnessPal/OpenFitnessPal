@@ -20,6 +20,8 @@ public:
 
     static QList<FoodItem> search(const QString &pattern);
 
+    static FoodItem itemById(const QString &id);
+
 private:
     static QList<FoodItem> cachedFoods;
 

@@ -4,6 +4,8 @@
 #include <QApplication>
 #include <QSettings>
 
+#include "data/DataManager.h"
+#include "data/CacheManager.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,6 +13,9 @@ int main(int argc, char *argv[])
     a.setOrganizationName("OpenFitnessPal");
     a.setApplicationName("OpenFitnessPal");
     a.setApplicationVersion("0.0.1");
+
+    CacheManager::init();
+    DataManager::init();
 
     MainWindow w;
     w.show();

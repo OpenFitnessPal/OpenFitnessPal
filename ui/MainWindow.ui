@@ -16,6 +16,28 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QDateEdit" name="dateEdit">
+      <property name="font">
+       <font>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+      <property name="displayFormat">
+       <string>MM/dd/yyyy</string>
+      </property>
+      <property name="date">
+       <date>
+        <year>2024</year>
+        <month>6</month>
+        <day>5</day>
+       </date>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="tabPosition">
        <enum>QTabWidget::TabPosition::South</enum>
@@ -69,6 +91,9 @@
    <extends>QWidget</extends>
    <header>pages/JournalPage.h</header>
    <container>1</container>
+   <slots>
+    <slot>setDate(QDate)</slot>
+   </slots>
   </customwidget>
   <customwidget>
    <class>ExercisePage</class>

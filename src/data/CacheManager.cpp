@@ -1,5 +1,7 @@
 #include "data/CacheManager.h"
 
+#include <OFP/FoodItem.h>
+
 #include <QFile>
 #include <QDir>
 #include <QDirIterator>
@@ -15,15 +17,15 @@ QDir CacheManager::cacheDir{};
 
 void CacheManager::init()
 {
-    QDir cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    bool ok = cacheDir.mkdir("openfitnesspal");
+    cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    bool ok = cacheDir.mkpath("foods");
 
     if (!ok) {
-        QMessageBox::critical(nullptr, "mkdir failed", "Failed to make cache directory. Check permissions on your local cache directory.", QMessageBox::StandardButton::Ok);
+        QMessageBox::critical(nullptr, "mkpath failed", "Failed to make cache directory. Check permissions on your local cache directory.", QMessageBox::StandardButton::Ok);
         std::exit(127);
     }
 
-    cacheDir.cd("openfitnesspal");
+    cacheDir.cd("foods");
 
     QDirIterator cacheIter(cacheDir.absolutePath(), {"*.json"}, QDir::Files);
 
@@ -43,9 +45,9 @@ CacheManager::CacheResult CacheManager::cacheFoodItem(const FoodItem &item)
     QJsonObject obj = item.toJson();
     QJsonDocument doc{obj};
 
-    QFile file(cacheDir.filePath(item.id() + ".json"));
+    QFile file(cacheDir.absoluteFilePath(item.id() + ".json"));
     if (file.exists()) {
-        if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
             goto error;
         }
 
@@ -53,8 +55,12 @@ CacheManager::CacheResult CacheManager::cacheFoodItem(const FoodItem &item)
         if (content == doc.toJson()) {
             return NoOp;
         }
-    } else if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+    } else if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         goto error;
+    }
+
+    if (cachedFoods.contains(item)) {
+        cachedFoods.removeOne(item);
     }
 
     cachedFoods.append(item);
@@ -86,4 +92,15 @@ QList<FoodItem> CacheManager::search(const QString &pattern)
     }
 
     return results;
+}
+
+FoodItem CacheManager::itemById(const QString &id)
+{
+    for (const FoodItem &food : cachedFoods) {
+        if (food.id() == id) {
+            return food;
+        }
+    }
+
+    return FoodItem{};
 }

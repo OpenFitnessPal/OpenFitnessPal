@@ -15,6 +15,9 @@ public:
     explicit JournalPage(QWidget *parent = nullptr);
     ~JournalPage();
 
+public slots:
+    void setDate(QDate date);
+
 private:
     Ui::JournalPage *ui;
 };
