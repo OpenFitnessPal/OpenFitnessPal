@@ -37,6 +37,7 @@ void MealLog::addItem() {
 void MealLog::addFood(const FoodItem &item, const ServingSize &size, const double units)
 {
     FoodInfoWidget *food = new FoodInfoWidget(item, this, size, units);
+    food->showDelete();
     m_widgets.append(food);
 
     connect(food, &FoodInfoWidget::selected, this, [this, food, item, size, units] {
@@ -50,6 +51,13 @@ void MealLog::addFood(const FoodItem &item, const ServingSize &size, const doubl
 
             DataManager::saveFood(m_number, m_date, item, size, units);
         });
+    });
+
+    connect(food, &FoodInfoWidget::deleteRequested, this, [this, food, item] {
+        DataManager::removeFood(m_number, m_date, item);
+        ui->verticalLayout->removeWidget(food);
+        m_widgets.removeOne(food);
+        food->deleteLater();
     });
 
     ui->verticalLayout->addWidget(food);

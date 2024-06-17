@@ -1,7 +1,9 @@
 #ifndef EXERCISEPAGE_H
 #define EXERCISEPAGE_H
 
+#include "items/Exercise.h"
 #include <QWidget>
+#include <qdatetime.h>
 
 namespace Ui {
 class ExercisePage;
@@ -17,9 +19,15 @@ public:
 
 public slots:
     void addExercise();
+    void addExercise(Exercise *exercise);
+
+    void setDate(const QDate &newDate);
 
 private:
     Ui::ExercisePage *ui;
+
+    QList<Exercise *> m_exercises;
+    QDate m_date;
 };
 
 #endif // EXERCISEPAGE_H

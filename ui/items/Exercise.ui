@@ -115,9 +115,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>exerciseName</sender>
+   <signal>editingFinished()</signal>
+   <receiver>Exercise</receiver>
+   <slot>change()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>357</x>
+     <y>31</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>248</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addSet()</slot>
   <slot>deleteRequested()</slot>
+  <slot>change()</slot>
  </slots>
 </ui>

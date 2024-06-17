@@ -26,6 +26,11 @@ public:
 
     void updateLabels();
 
+    void showDelete();
+
+public slots:
+    void remove();
+
 private:
     Ui::FoodInfoWidget *ui;
 
@@ -37,6 +42,7 @@ private:
 
 signals:
     void selected();
+    void deleteRequested();
 };
 
 #endif // SEARCHITEMWIDGET_H

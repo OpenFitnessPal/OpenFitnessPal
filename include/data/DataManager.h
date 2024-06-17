@@ -7,6 +7,8 @@
 
 typedef std::tuple<FoodItem, ServingSize, double> FoodServing;
 
+class Exercise;
+
 class DataManager
 {
 public:
@@ -18,8 +20,12 @@ public:
         NoOp
     };
 
+    static DataError removeFood(int meal, QDate date, const FoodItem &item);
     static DataError saveFood(int meal, QDate date, const FoodItem &item, const ServingSize &size, const double units);
     static QList<FoodServing> loadFoods(int meal, QDate date);
+
+    static DataError saveExercises(QList<Exercise *> exercises, QDate date);
+    static QList<Exercise *> loadExercises(QWidget *parent, QDate date);
 
 private:
     static QDir dataDir;

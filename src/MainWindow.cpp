@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->dateEdit->setDate(QDate::currentDate());
 
     connect(ui->dateEdit, &QDateEdit::userDateChanged, ui->food, &JournalPage::setDate);
+    connect(ui->dateEdit, &QDateEdit::userDateChanged, ui->exercise, &ExercisePage::setDate);
 }
 
 MainWindow::~MainWindow()

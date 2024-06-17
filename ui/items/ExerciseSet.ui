@@ -141,9 +141,59 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>reps</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ExerciseSet</receiver>
+   <slot>change()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>131</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>27</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>time</sender>
+   <signal>userTimeChanged(QTime)</signal>
+   <receiver>ExerciseSet</receiver>
+   <slot>change()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>523</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>27</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>weight</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ExerciseSet</receiver>
+   <slot>change()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>336</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>27</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>removeRequested()</signal>
+  <signal>dataChanged()</signal>
   <slot>remove()</slot>
+  <slot>change()</slot>
  </slots>
 </ui>

@@ -3,7 +3,6 @@
 
 #include <QDesktopServices>
 
-// TODO: make this more extensible and usable
 FoodInfoWidget::FoodInfoWidget(const FoodItem &item, QWidget *parent, const ServingSize &size, const double units)
     : QWidget(parent)
     , ui(new Ui::FoodInfoWidget)
@@ -11,11 +10,12 @@ FoodInfoWidget::FoodInfoWidget(const FoodItem &item, QWidget *parent, const Serv
     , m_units(units)
 {
     ui->setupUi(this);
+    ui->remove->setHidden(true);
 
     ServingSize servingSize = size;
 
     if (size.baseMultiplier() == 0.0) {
-        for (ServingSize serving : item.servingSizes()) {
+        for (const ServingSize &serving : item.servingSizes()) {
             if (serving.baseMultiplier() == 1) {
                 servingSize = serving;
             }
@@ -35,6 +35,16 @@ void FoodInfoWidget::updateLabels() {
     ui->brand->setText(m_item.brand() + ", " + QString::number(m_units * m_size.defaultValue()) + " " + m_size.baseUnit());
     ui->cals->setText(QString::number(m_item.calories() * m_size.multiplier(m_units)) + "kcal");
     ui->food->setText(m_item.name());
+}
+
+void FoodInfoWidget::showDelete()
+{
+    ui->remove->setHidden(false);
+}
+
+void FoodInfoWidget::remove()
+{
+    emit deleteRequested();
 }
 
 void FoodInfoWidget::mousePressEvent(QMouseEvent *e) {

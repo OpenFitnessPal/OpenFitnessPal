@@ -60,3 +60,8 @@ void ExerciseSet::remove()
 {
     emit removeRequested();
 }
+
+void ExerciseSet::change()
+{
+    emit dataChanged();
+}

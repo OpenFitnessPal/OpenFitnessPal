@@ -28,7 +28,11 @@ void Exercise::addSet()
         ui->exerciseLayout->removeWidget(set);
         m_sets.removeOne(set);
         set->deleteLater();
+
+        emit dataChanged();
     });
+
+    connect(set, &ExerciseSet::dataChanged, this, &Exercise::dataChanged);
 
     ui->exerciseLayout->insertWidget(m_sets.count(), set, 0, Qt::AlignTop);
     m_sets.append(set);
@@ -40,4 +44,46 @@ void Exercise::deleteRequested()
     if (button == QMessageBox::Yes) {
         emit removeRequested();
     }
+}
+
+void Exercise::change()
+{
+    emit dataChanged();
+}
+
+void Exercise::setSets(const QList<ExerciseSet *> &newSets)
+{
+    m_sets = newSets;
+
+    int i = 0;
+    for (ExerciseSet *set : newSets) {
+        ui->exerciseLayout->insertWidget(i, set, 0, Qt::AlignTop);
+        ++i;
+
+        connect(set, &ExerciseSet::removeRequested, this, [this, set] {
+            ui->exerciseLayout->removeWidget(set);
+            m_sets.removeOne(set);
+            set->deleteLater();
+
+            emit dataChanged();
+        });
+
+        connect(set, &ExerciseSet::dataChanged, this, &Exercise::dataChanged);
+
+    }
+}
+
+QList<ExerciseSet *> Exercise::sets() const
+{
+    return m_sets;
+}
+
+void Exercise::setName(const QString &name)
+{
+    ui->exerciseName->setText(name);
+}
+
+QString Exercise::name()
+{
+    return ui->exerciseName->text();
 }

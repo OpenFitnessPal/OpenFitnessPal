@@ -28,8 +28,12 @@ public:
 public slots:
     void remove();
 
+    void change();
+
 signals:
     void removeRequested();
+
+    void dataChanged();
 
 private:
     Ui::ExerciseSet *ui;
