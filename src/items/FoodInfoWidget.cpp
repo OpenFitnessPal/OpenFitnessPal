@@ -2,7 +2,9 @@
 #include "ui_FoodInfoWidget.h"
 
 #include <QDesktopServices>
+#include <QMouseEvent>
 
+// TODO: improve touch control
 FoodInfoWidget::FoodInfoWidget(const FoodItem &item, QWidget *parent, const ServingSize &size, const double units)
     : QWidget(parent)
     , ui(new Ui::FoodInfoWidget)
@@ -47,7 +49,7 @@ void FoodInfoWidget::remove()
     emit deleteRequested();
 }
 
-void FoodInfoWidget::mousePressEvent(QMouseEvent *e) {
+void FoodInfoWidget::mouseReleaseEvent(QMouseEvent *e) {
     emit selected();
 }
 

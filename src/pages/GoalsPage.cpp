@@ -4,6 +4,7 @@
 
 #include <QMessageBox>
 
+// TODO: save everything upon startup
 GoalsPage::GoalsPage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::GoalsPage)
@@ -12,7 +13,9 @@ GoalsPage::GoalsPage(QWidget *parent)
 
     QVariantMap data = DataManager::loadInfo();
 
-#define INT_SPINBOX(name) if (data.contains(#name)) ui->name->setValue(data.value(#name).toInt());
+#define INT_SPINBOX(name) if (data.contains(#name)) ui->name->setValue(data.value(#name).toInt()); \
+    else DataManager::saveInfo(#name, ui->name->value());
+
     INT_SPINBOX(carbs)
     INT_SPINBOX(fat)
     INT_SPINBOX(protein)

@@ -4,8 +4,6 @@
 
 #include <data/CacheManager.h>
 
-
-
 FoodSearch::FoodSearch(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::FoodSearch)
@@ -24,7 +22,7 @@ void FoodSearch::search()
 {
     for (FoodInfoWidget *w : m_widgets) {
         ui->results->removeWidget(w);
-        w->deleteLater();
+        w->setHidden(true);
     }
 
     if (ui->offline->isChecked()) {
@@ -48,7 +46,7 @@ void FoodSearch::addFood(FoodItem &item)
 
     connect(widget, &FoodInfoWidget::selected, this, [this, item]() mutable {
         FoodServingEdit *m_edit = new FoodServingEdit(item, this);
-        m_edit->showMaximized();
+        m_edit->show();
 
         connect(m_edit, &FoodServingEdit::foodReady, this, &FoodSearch::itemSelected);
         connect(m_edit, &FoodServingEdit::foodReady, this, &FoodSearch::close);

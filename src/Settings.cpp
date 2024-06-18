@@ -1,14 +1,16 @@
 #include "Settings.h"
 
-#include <QSettings>
 #include <QApplication>
+#include <QSettings>
 
-QVariant Setting::value() const {
+QVariant Setting::value() const
+{
     QSettings settings(qApp);
     return settings.value(Name, DefaultValue);
 }
 
-void Setting::setValue(const QVariant &value) const {
+void Setting::setValue(const QVariant &value) const
+{
     QSettings settings(qApp);
     settings.setValue(Name, value);
 }

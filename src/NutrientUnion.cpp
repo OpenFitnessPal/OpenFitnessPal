@@ -1,7 +1,5 @@
 #include "NutrientUnion.h"
 
-
-
 NutrientUnion NutrientUnion::operator+=(const NutrientUnion &other)
 {
     this->calcium += other.calcium;
@@ -31,7 +29,8 @@ double NutrientUnion::calories() const
     return fat * 9 + (carbs - fiber) * 4 + protein * 4;
 }
 
-NutrientUnion operator+(const NutrientUnion &a, const NutrientUnion &b) {
+NutrientUnion operator+(const NutrientUnion &a, const NutrientUnion &b)
+{
     NutrientUnion n;
 
     n.calcium = a.calcium + b.calcium;

@@ -21,7 +21,6 @@ public slots:
     void meal3Changed();
     void meal4Changed();
     void meal5Changed();
-
 private:
     Ui::SettingsPage *ui;
 };

@@ -3,8 +3,8 @@
 #include <QApplication>
 #include <QSettings>
 
-#include "data/DataManager.h"
 #include "data/CacheManager.h"
+#include "data/DataManager.h"
 
 #include "Settings.h"
 
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         Settings::FirstRun.setValue(false);
 
         // SetupWizard *wizard = new SetupWizard(&w);
-        // wizard->showMaximized();
+        // wizard->show();
     }
     return a.exec();
 }
