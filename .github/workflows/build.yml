@@ -19,7 +19,7 @@ jobs:
 
           - os: ubuntu-20.04
             qt_host: linux
-            qt_version: '6.6.0'
+            qt_version: '6.7.1'
             qt_arch: gcc_64
 
             #- os: ubuntu-20.04
@@ -30,7 +30,7 @@ jobs:
 
           - os: windows-2022
             qt_host: windows
-            qt_version: '6.6.0'
+            qt_version: '6.7.1'
             qt_arch: win64_msvc2019_64
 
     runs-on: ${{ matrix.os }}
@@ -62,7 +62,7 @@ jobs:
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
 
-    - name: Install Qt 6.6.0
+    - name: Install Qt 6.7.1
       uses: jurplel/install-qt-action@v3.3.0
       with:
         cache: on
@@ -93,7 +93,7 @@ jobs:
         git submodule update --init --recursive
         declare QTPATH="${{ github.workspace }}/../Qt/${{ matrix.qt_version }}"
 
-        cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=$QTPATH/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=$QTPATH/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=$QTPATH/${{ matrix.qt_arch }}/lib/cmake
+        cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=$QTPATH/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=$QTPATH/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -G "Ninja"
         cmake --build ${{ env.BUILD_DIR }} --parallel $(nproc)
 
     - name: Configure and Build (Windows)
@@ -157,7 +157,7 @@ jobs:
       shell: cmd
       run: |
         mkdir ${{ env.INSTALL_DIR }}
-        set PATH=%PATH%;"${{ runner.workspace }}\Qt\6.6.0\msvc2019_64\bin"
+        set PATH=%PATH%;"${{ runner.workspace }}\Qt\6.7.1\msvc2019_64\bin"
 
         windeployqt ${{ env.BUILD_DIR }}\OpenFitnessPal.exe --dir ${{ env.INSTALL_DIR }}
         cp ${{ env.BUILD_DIR }}\OpenFitnessPal.exe ${{ env.INSTALL_DIR }}
