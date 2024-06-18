@@ -37,9 +37,11 @@ set(UI_ELEMENTS
     items/ExerciseSet
     items/Exercise
     items/MacroPreview
+    items/NutrientProgressBar
 
     dialogs/FoodServingEdit
     dialogs/FoodSearch
+    dialogs/NutrientDialog
 )
 
 set(CODE_ELEMENTS

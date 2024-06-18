@@ -20,6 +20,10 @@ public:
 
 private:
     Ui::MacroPreview *ui;
+
+    NutrientUnion m_nutrients;
+
+    void mousePressEvent(QMouseEvent *e);
 };
 
 #endif // MACROPREVIEW_H

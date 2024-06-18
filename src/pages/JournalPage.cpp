@@ -61,6 +61,5 @@ void JournalPage::updateMealNames()
 
 void JournalPage::updateMacroPreview()
 {
-    qDebug() << "updating this john";
     ui->macros->setNutrients(getNutrients());
 }

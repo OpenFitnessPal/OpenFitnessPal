@@ -1,4 +1,5 @@
 #include "items/MacroPreview.h"
+#include "dialogs/NutrientDialog.h"
 #include "ui_MacroPreview.h"
 
 #include <data/DataManager.h>
@@ -8,6 +9,11 @@ MacroPreview::MacroPreview(QWidget *parent)
     , ui(new Ui::MacroPreview)
 {
     ui->setupUi(this);
+
+    ui->cals->setUnit("kcal");
+    ui->carbs->setUnit("g");
+    ui->fat->setUnit("g");
+    ui->protein->setUnit("g");
 }
 
 MacroPreview::~MacroPreview()
@@ -17,24 +23,29 @@ MacroPreview::~MacroPreview()
 
 void MacroPreview::setNutrients(const NutrientUnion &n)
 {
+    m_nutrients = n;
+
     int cals = DataManager::getInfo("calories").toInt();
 
     double targetCarbs = DataManager::getInfo("carbs").toDouble() / 100. * cals / 4.;
     double targetFat = DataManager::getInfo("fat").toDouble() / 100. * cals / 9.;
     double targetProtein = DataManager::getInfo("protein").toDouble() / 100. * cals / 4.;
 
-    ui->carbTotal->setText(QString::number(n.carbs) + "g");
-    ui->fatTotal->setText(QString::number(n.fat) + "g");
-    ui->proteinTotal->setText(QString::number(n.protein) + "g");
-    ui->calTotal->setText(QString::number(n.calories()) + "kcal");
+    ui->carbs->setTotal(n.carbs);
+    ui->fat->setTotal(n.fat);
+    ui->protein->setTotal(n.protein);
+    ui->cals->setTotal(n.calories());
 
-    ui->carbTarget->setText(QString::number(targetCarbs) + "g");
-    ui->fatTarget->setText(QString::number(targetFat) + "g");
-    ui->proteinTarget->setText(QString::number(targetProtein) + "g");
-    ui->calTarget->setText(QString::number(cals) + "kcal");
+    ui->carbs->setTarget(targetCarbs);
+    ui->fat->setTarget(targetFat);
+    ui->protein->setTarget(targetProtein);
+    ui->cals->setTarget(cals);
+}
 
-    ui->carbs->setValue(std::min(n.carbs / targetCarbs * 100.0, 100.0));
-    ui->fat->setValue(std::min(n.fat / targetFat * 100.0, 100.0));
-    ui->protein->setValue(std::min(n.protein / targetProtein * 100.0, 100.0));
-    ui->cals->setValue(std::min(n.calories() / cals * 100.0, 100.0));
+void MacroPreview::mousePressEvent(QMouseEvent *e)
+{
+    QWidget::mousePressEvent(e);
+
+    NutrientDialog *dialog = new NutrientDialog(m_nutrients, this);
+    dialog->show();
 }
