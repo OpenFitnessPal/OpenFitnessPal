@@ -1,8 +1,8 @@
 #ifndef FOODSERVINGEDIT_H
 #define FOODSERVINGEDIT_H
 
+#include "FoodItem.h"
 #include <QDialog>
-#include <OFP/FoodItem.h>
 
 namespace Ui {
 class FoodServingEdit;

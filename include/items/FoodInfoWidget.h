@@ -1,7 +1,7 @@
 #ifndef SEARCHITEMWIDGET_H
 #define SEARCHITEMWIDGET_H
 
-#include <OFP/FoodItem.h>
+#include "FoodItem.h"
 #include <QWidget>
 
 namespace Ui {

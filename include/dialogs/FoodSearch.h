@@ -2,7 +2,7 @@
 #define FOODSEARCH_H
 
 #include <QDialog>
-#include <OFP/OFPManager.h>
+#include "OFPManager.h"
 #include "items/FoodInfoWidget.h"
 
 QT_BEGIN_NAMESPACE

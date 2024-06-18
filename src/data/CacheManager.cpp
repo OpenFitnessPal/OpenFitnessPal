@@ -1,7 +1,5 @@
 #include "data/CacheManager.h"
 
-#include <OFP/FoodItem.h>
-
 #include <QFile>
 #include <QDir>
 #include <QDirIterator>

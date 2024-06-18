@@ -48,7 +48,7 @@ void FoodSearch::addFood(FoodItem &item)
 
     connect(widget, &FoodInfoWidget::selected, this, [this, item]() mutable {
         FoodServingEdit *m_edit = new FoodServingEdit(item, this);
-        m_edit->show();
+        m_edit->showMaximized();
 
         connect(m_edit, &FoodServingEdit::foodReady, this, &FoodSearch::itemSelected);
         connect(m_edit, &FoodServingEdit::foodReady, this, &FoodSearch::close);

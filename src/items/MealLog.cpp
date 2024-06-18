@@ -24,7 +24,7 @@ void MealLog::setMealName(const QString &name) {
 
 void MealLog::addItem() {
     FoodSearch *search = new FoodSearch(this);
-    search->show();
+    search->showMaximized();
 
     connect(search, &FoodSearch::itemSelected, this, [this](const FoodItem &item, const ServingSize &size, const double units) {
         CacheManager::cacheFoodItem(item);
@@ -42,7 +42,7 @@ void MealLog::addFood(const FoodItem &item, const ServingSize &size, const doubl
 
     connect(food, &FoodInfoWidget::selected, this, [this, food, item, size, units] {
         FoodServingEdit *edit = new FoodServingEdit(item, this, food->size(), food->units());
-        edit->show();
+        edit->showMaximized();
 
         connect(edit, &FoodServingEdit::foodReady, this, [this, food](const FoodItem &item, const ServingSize &size, const double units) {
             food->setSize(size);

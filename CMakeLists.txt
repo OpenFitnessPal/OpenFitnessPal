@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.25)
 
 project(OFP VERSION 0.1 LANGUAGES CXX)
 
@@ -8,7 +8,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network)
+find_package(Qt NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network)
 
 if (${FORCE_QT6})
     set(QT_VERSION_MAJOR 6)
@@ -22,7 +22,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 
 # link_directories(/usr/local/lib)
 # set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
-find_package(OFPLib REQUIRED)
+# find_package(OFPLib REQUIRED)
+
+add_subdirectory(3rd_party)
+find_package(OFPLib)
 
 set(UI_ELEMENTS
     MainWindow
@@ -73,9 +76,15 @@ set(PROJECT_SOURCES
 
 qt_wrap_ui(SOURCES ${UI})
 
+if(ANDROID)
+    set(ANDROID_GUI ON)
+    set(MANIFEST_FILE ${CMAKE_CURRENT_SOURCE_DIR}/android/AndroidManifest.xml)
+endif()
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(OFP
         MANUAL_FINALIZATION
+        ${MANIFEST_FILE}
         ${PROJECT_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
@@ -85,6 +94,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     if(ANDROID)
         add_library(OFP SHARED
+            ${MANIFEST_FILE}
             ${PROJECT_SOURCES}
         )
     # Define properties for Android with Qt 5 after find_package() calls as:
@@ -98,18 +108,17 @@ endif()
 
 add_subdirectory("program_info")
 
-target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network ofp)
+target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network OFPLib)
 target_include_directories(OFP PRIVATE include/)
 # target_include_directories(OFP PRIVATE /usr/local/include)
 # target_include_directories(OFP PRIVATE include/setup)
 target_include_directories(OFP PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+# target_include_directories(OFP PRIVATE "$<TARGET_PROPERTY:OFPLib,INTERFACE_INCLUDE_DIRECTORIES>")
+include_directories(${OFPLib_SOURCE_DIR}/include)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-    set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.OFP)
-endif()
 set_target_properties(OFP PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
@@ -117,6 +126,13 @@ set_target_properties(OFP PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+if (ANDROID)
+    set_target_properties(OFP PROPERTIES
+        QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
+        COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS} MOBILE")
+endif()
+
 
 include(GNUInstallDirs)
 install(TARGETS OFP

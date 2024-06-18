@@ -47,5 +47,5 @@ void MacroPreview::mousePressEvent(QMouseEvent *e)
     QWidget::mousePressEvent(e);
 
     NutrientDialog *dialog = new NutrientDialog(m_nutrients, this);
-    dialog->show();
+    dialog->showMaximized();
 }

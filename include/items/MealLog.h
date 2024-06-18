@@ -3,8 +3,6 @@
 
 #include <QWidget>
 
-#include <OFP/FoodItem.h>
-
 #include "data/DataManager.h"
 #include "NutrientUnion.h"
 

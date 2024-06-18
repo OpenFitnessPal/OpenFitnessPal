@@ -1,8 +1,7 @@
 #ifndef CACHEMANAGER_H
 #define CACHEMANAGER_H
 
-#include <OFP/FoodItem.h>
-
+#include "FoodItem.h"
 #include <QDir>
 
 class CacheManager

@@ -1,7 +1,7 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
-#include <OFP/FoodItem.h>
+#include "FoodItem.h"
 
 #include <QDir>
 
