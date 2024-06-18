@@ -133,7 +133,7 @@ jobs:
       shell: bash
       run: |
         sudo apt-get install libxcb-cursor-dev libxcb-cursor0
-        sudo cmake --install ${{ env.BUILD_DIR }}\_deps\ofplib-build
+        sudo cmake --install ${{ env.BUILD_DIR }}/_deps/ofplib-build
 
         mkdir -p ${{ env.INSTALL_APPIMAGE_DIR}}/usr/{lib,bin}
 
