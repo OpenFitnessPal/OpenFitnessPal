@@ -24,7 +24,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 # set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
 # find_package(OFPLib REQUIRED)
 
-add_subdirectory(3rd_party)
+add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
 find_package(OFPLib)
 
 set(UI_ELEMENTS
