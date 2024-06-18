@@ -1,0 +1,63 @@
+name: Build Application and Make Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+
+  build_release:
+    name: Build Release
+    uses: ./.github/workflows/build.yml
+    with:
+      build_type: Release
+    secrets: inherit
+
+  create_release:
+    needs: build_release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+          path: 'OpenFitnessPal-source'
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+      - name: Grab and store version
+        run: |
+          tag_name=$(echo ${{ github.ref }} | grep -oE "[^/]+$")
+          echo "VERSION=$tag_name" >> $GITHUB_ENV
+      - name: Package artifacts properly
+        run: |
+          mv ${{ github.workspace }}/OpenFitnessPal-source OpenFitnessPal-${{ env.VERSION }}
+          ls *
+          mv OpenFitnessPal-Linux-Binary*/OpenFitnessPal.tar.gz OpenFitnessPal-Linux-Binary-${{ env.VERSION }}.tar.gz
+          mv OpenFitnessPal-*.AppImage/OpenFitnessPal-*.AppImage OpenFitnessPal-Linux-${{ env.VERSION }}-x86_64.AppImage
+          zip -r OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip OpenFitnessPal-Windows-Portable*/* OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
+
+          tar -czf OpenFitnessPal-${{ env.VERSION }}.tar.gz OpenFitnessPal-${{ env.VERSION }}
+          #mv OpenFitnessPal-Android*/*.apk OpenFitnessPal-Android-${{ env.VERSION }}.apk
+
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          name: OpenFitnessPal ${{ env.VERSION }}
+          draft: true
+          prerelease: false
+          files: |
+            OpenFitnessPal-Linux-Binary-${{ env.VERSION }}.tar.gz
+            OpenFitnessPal-Linux-${{ env.VERSION }}-x86_64.AppImage
+            OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
+            OpenFitnessPal-${{ env.VERSION }}.tar.gz
+            #OpenFitnessPal-Android-${{ env.VERSION }}.apk
