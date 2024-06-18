@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->tabWidget, &QTabWidget::currentChanged, this, [this](int i) {
         if (i == ui->tabWidget->indexOf(ui->food)) {
             ui->food->updateMealNames();
+            ui->food->updateMacroPreview();
         }
     });
 }

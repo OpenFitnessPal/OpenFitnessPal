@@ -36,6 +36,7 @@ set(UI_ELEMENTS
     items/FoodInfoWidget
     items/ExerciseSet
     items/Exercise
+    items/MacroPreview
 
     dialogs/FoodServingEdit
     dialogs/FoodSearch
@@ -46,6 +47,7 @@ set(CODE_ELEMENTS
     data/CacheManager
 
     Settings
+    NutrientUnion
 )
 
 foreach(ELEMENT ${UI_ELEMENTS})
@@ -61,6 +63,7 @@ endforeach()
 
 set(PROJECT_SOURCES
     main.cpp
+
     ${UI}
     ${HEADERS}
     ${SOURCES}

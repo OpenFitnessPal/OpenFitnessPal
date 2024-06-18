@@ -49,6 +49,8 @@ void MealLog::addFood(const FoodItem &item, const ServingSize &size, const doubl
             food->setUnits(units);
             food->updateLabels();
 
+            emit foodsChanged();
+
             DataManager::saveFood(m_number, m_date, item, size, units);
         });
     });
@@ -58,7 +60,11 @@ void MealLog::addFood(const FoodItem &item, const ServingSize &size, const doubl
         ui->verticalLayout->removeWidget(food);
         m_widgets.removeOne(food);
         food->deleteLater();
+
+        emit foodsChanged();
     });
+
+    emit foodsChanged();
 
     ui->verticalLayout->addWidget(food);
 
@@ -100,4 +106,35 @@ void MealLog::setNumber(int newNumber)
     m_number = newNumber;
 
     reloadFood();
+}
+
+NutrientUnion MealLog::getNutrients()
+{
+    NutrientUnion n;
+    for (FoodInfoWidget *w : m_widgets) {
+        FoodItem item = w->item();
+
+        double mult = w->size().baseMultiplier() * w->units();
+
+        n.calcium += item.calcium() * mult;
+        n.carbs += item.carbs() * mult;
+        n.fat += item.fat() * mult;
+        n.satFat += item.satFat() * mult;
+        n.monoFat += item.monoFat() * mult;
+        n.polyFat += item.polyFat() * mult;
+        n.transFat += item.transFat() * mult;
+        n.fiber += item.fiber() * mult;
+        n.sugar += item.sugar() * mult;
+        n.addedSugar += item.addedSugar() * mult;
+        n.protein += item.protein() * mult;
+        n.cholesterol += item.cholesterol() * mult;
+        n.iron += item.iron() * mult;
+        n.sodium += item.sodium() * mult;
+        n.potassium += item.potassium() * mult;
+        n.vitaminA += item.vitaminA() * mult;
+        n.vitaminC += item.vitaminC() * mult;
+        n.vitaminD += item.vitaminD() * mult;
+    }
+
+    return n;
 }

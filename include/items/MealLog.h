@@ -6,10 +6,13 @@
 #include <OFP/FoodItem.h>
 
 #include "data/DataManager.h"
+#include "NutrientUnion.h"
 
 namespace Ui {
 class MealLog;
 }
+
+class FoodInfoWidget;
 
 class MealLog : public QWidget
 {
@@ -23,6 +26,8 @@ public:
 
     void setNumber(int newNumber);
 
+    NutrientUnion getNutrients();
+
 public slots:
     void addItem();
     void addFood(const FoodItem &item, const ServingSize &size, const double units);
@@ -30,10 +35,13 @@ public slots:
 
     void setDate(QDate date);
 
+signals:
+    void foodsChanged();
+
 private:
     Ui::MealLog *ui;
 
-    QList<QWidget *> m_widgets;
+    QList<FoodInfoWidget *> m_widgets;
 
     int m_number;
     QDate m_date;

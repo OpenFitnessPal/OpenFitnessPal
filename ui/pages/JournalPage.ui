@@ -58,6 +58,16 @@
         </widget>
        </item>
        <item>
+        <widget class="MacroPreview" name="macros">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="MealLog" name="meal1" native="true"/>
        </item>
        <item>
@@ -83,6 +93,12 @@
    <class>MealLog</class>
    <extends>QWidget</extends>
    <header>items/MealLog.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MacroPreview</class>
+   <extends>QFrame</extends>
+   <header>items/MacroPreview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -15,11 +15,30 @@ JournalPage::JournalPage(QWidget *parent)
     ui->meal3->setNumber(3);
     ui->meal4->setNumber(4);
     ui->meal5->setNumber(5);
+
+    connect(ui->meal1, &MealLog::foodsChanged, this, &JournalPage::updateMacroPreview);
+    connect(ui->meal2, &MealLog::foodsChanged, this, &JournalPage::updateMacroPreview);
+    connect(ui->meal3, &MealLog::foodsChanged, this, &JournalPage::updateMacroPreview);
+    connect(ui->meal4, &MealLog::foodsChanged, this, &JournalPage::updateMacroPreview);
+    connect(ui->meal5, &MealLog::foodsChanged, this, &JournalPage::updateMacroPreview);
+
+    updateMacroPreview();
 }
 
 JournalPage::~JournalPage()
 {
     delete ui;
+}
+
+NutrientUnion JournalPage::getNutrients()
+{
+    NutrientUnion n;
+    n += ui->meal1->getNutrients();
+    n += ui->meal2->getNutrients();
+    n += ui->meal3->getNutrients();
+    n += ui->meal4->getNutrients();
+    n += ui->meal5->getNutrients();
+    return n;
 }
 
 void JournalPage::setDate(QDate date)
@@ -38,4 +57,10 @@ void JournalPage::updateMealNames()
     ui->meal3->setMealName(Settings::Meal3Name.value().toString());
     ui->meal4->setMealName(Settings::Meal4Name.value().toString());
     ui->meal5->setMealName(Settings::Meal5Name.value().toString());
+}
+
+void JournalPage::updateMacroPreview()
+{
+    qDebug() << "updating this john";
+    ui->macros->setNutrients(getNutrients());
 }
