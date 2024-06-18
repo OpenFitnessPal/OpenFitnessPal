@@ -8,7 +8,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network Sql)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network)
 
 if (${FORCE_QT6})
     set(QT_VERSION_MAJOR 6)
@@ -18,7 +18,7 @@ endif()
 
 set(QT_VERSION_MAJOR 6)
 
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network Sql)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 
 # link_directories(/usr/local/lib)
 # set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
@@ -27,13 +27,10 @@ find_package(OFPLib REQUIRED)
 set(UI_ELEMENTS
     MainWindow
 
-    setup/SetupWizard
-    setup/IntroPage
-    setup/GoalsPage
-
     pages/JournalPage
     pages/ExercisePage
     pages/SettingsPage
+    pages/GoalsPage
 
     items/MealLog
     items/FoodInfoWidget
@@ -96,7 +93,7 @@ endif()
 
 add_subdirectory("program_info")
 
-target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Sql ofp)
+target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network ofp)
 target_include_directories(OFP PRIVATE include/)
 # target_include_directories(OFP PRIVATE /usr/local/include)
 # target_include_directories(OFP PRIVATE include/setup)

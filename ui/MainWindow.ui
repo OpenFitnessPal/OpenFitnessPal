@@ -46,7 +46,7 @@
        <enum>QTabWidget::TabShape::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="elideMode">
        <enum>Qt::TextElideMode::ElideRight</enum>
@@ -60,9 +60,9 @@
       <property name="movable">
        <bool>false</bool>
       </property>
-      <widget class="JournalPage" name="food">
+      <widget class="SettingsPage" name="settings">
        <attribute name="title">
-        <string>Food</string>
+        <string>Settings</string>
        </attribute>
       </widget>
       <widget class="ExercisePage" name="exercise">
@@ -70,14 +70,19 @@
         <string>Exercise</string>
        </attribute>
       </widget>
-      <widget class="SettingsPage" name="settings">
+      <widget class="JournalPage" name="food">
        <attribute name="title">
-        <string>Settings</string>
+        <string>Food</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="recipes">
        <attribute name="title">
         <string>Recipes</string>
+       </attribute>
+      </widget>
+      <widget class="GoalsPage" name="goals">
+       <attribute name="title">
+        <string>Goals</string>
        </attribute>
       </widget>
      </widget>
@@ -105,6 +110,12 @@
    <class>SettingsPage</class>
    <extends>QWidget</extends>
    <header>pages/SettingsPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GoalsPage</class>
+   <extends>QWidget</extends>
+   <header>pages/GoalsPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

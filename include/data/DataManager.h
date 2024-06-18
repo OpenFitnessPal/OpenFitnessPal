@@ -27,6 +27,10 @@ public:
     static DataError saveExercises(QList<Exercise *> exercises, QDate date);
     static QList<Exercise *> loadExercises(QWidget *parent, QDate date);
 
+    static DataError saveInfo(QString field, QVariant data);
+    static QVariantMap loadInfo();
+    static QVariant getInfo(const QString &field);
+
 private:
     static QDir dataDir;
 };

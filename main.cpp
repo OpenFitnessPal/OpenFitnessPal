@@ -1,5 +1,4 @@
 #include "MainWindow.h"
-#include "setup/SetupWizard.h"
 
 #include <QApplication>
 #include <QSettings>
@@ -25,8 +24,8 @@ int main(int argc, char *argv[])
     if (Settings::FirstRun.value().toBool()) {
         Settings::FirstRun.setValue(false);
 
-        SetupWizard *wizard = new SetupWizard(&w);
-        wizard->showMaximized();
+        // SetupWizard *wizard = new SetupWizard(&w);
+        // wizard->showMaximized();
     }
     return a.exec();
 }
