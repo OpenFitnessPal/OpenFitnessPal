@@ -44,14 +44,14 @@ void MealLog::addFood(const FoodItem &item, const ServingSize &size, const doubl
         FoodServingEdit *edit = new FoodServingEdit(item, this, food->size(), food->units());
         edit->show();
 
-        connect(edit, &FoodServingEdit::foodReady, this, [this, food](const FoodItem &item, const ServingSize &size, const double units) {
-            food->setSize(size);
+        connect(edit, &FoodServingEdit::foodReady, this, [this, food](const FoodItem &item, const ServingSize &servingSize, const double units) {
+            food->setSize(servingSize);
             food->setUnits(units);
             food->updateLabels();
 
             emit foodsChanged();
 
-            DataManager::saveFood(m_number, m_date, item, size, units);
+            DataManager::saveFood(m_number, m_date, item, servingSize, units);
         });
     });
 

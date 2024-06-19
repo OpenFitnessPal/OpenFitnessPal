@@ -26,9 +26,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 # set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
 # find_package(OFPLib REQUIRED)
 
-add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
-find_package(OFPLib)
-
 set(UI_ELEMENTS
     MainWindow
 
@@ -57,6 +54,9 @@ set(CODE_ELEMENTS
     NutrientUnion
 )
 
+add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
+find_package(OFPLib)
+
 foreach(ELEMENT ${UI_ELEMENTS})
     set(HEADERS ${HEADERS} include/${ELEMENT}.h)
     set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
@@ -74,6 +74,9 @@ set(PROJECT_SOURCES
     ${UI}
     ${HEADERS}
     ${SOURCES}
+
+    # weird moc bug
+    ${OFPLib_SOURCE_DIR}/include/OFPManager.h
 )
 
 qt_wrap_ui(SOURCES ${UI})
