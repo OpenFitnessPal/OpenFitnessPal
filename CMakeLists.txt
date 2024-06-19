@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Network)
 
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
 if (${FORCE_QT6})
     set(QT_VERSION_MAJOR 6)
 elseif (${FORCE_QT5})
