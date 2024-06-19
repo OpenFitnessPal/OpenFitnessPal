@@ -28,10 +28,10 @@ jobs:
             #qt_arch: android_arm64_v8a
             #qt_version: '6.6.0'
 
-            #- os: windows-2022
-            #qt_host: windows
-            #qt_version: '6.7.1'
-            #qt_arch: win64_msvc2019_64
+          - os: windows-2022
+            qt_host: windows
+            qt_version: '6.7.1'
+            qt_arch: win64_msvc2019_64
 
     runs-on: ${{ matrix.os }}
 
@@ -133,7 +133,7 @@ jobs:
       shell: bash
       run: |
         sudo apt-get install libxcb-cursor-dev libxcb-cursor0
-        sudo cmake --install ${{ env.BUILD_DIR }}/_deps/ofplib-build
+        sudo cmake --install ${{ env.BUILD_DIR }}/_deps/ofplib-build --prefix=/usr
 
         mkdir -p ${{ env.INSTALL_APPIMAGE_DIR}}/usr/{lib,bin}
 
