@@ -54,7 +54,7 @@ set(CODE_ELEMENTS
     NutrientUnion
 )
 
-add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
+add_subdirectory(3rd_party)
 find_package(OFPLib)
 
 foreach(ELEMENT ${UI_ELEMENTS})
