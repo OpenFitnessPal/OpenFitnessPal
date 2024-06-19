@@ -63,6 +63,7 @@ NutrientDialog::NutrientDialog(const NutrientUnion &n, QWidget *parent)
     SAME(sodium)
     SAME(potassium)
     SAME(fiber)
+    SAME(sugar)
 
     DIFF(sat, satFat)
     DIFF(mono, monoFat)

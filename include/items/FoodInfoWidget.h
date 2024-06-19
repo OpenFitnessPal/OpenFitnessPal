@@ -38,7 +38,7 @@ private:
     ServingSize m_size;
     double m_units;
 
-    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
 
 signals:
     void selected();

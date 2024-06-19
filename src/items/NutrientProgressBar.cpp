@@ -6,6 +6,7 @@ NutrientProgressBar::NutrientProgressBar(QWidget *parent)
     , ui(new Ui::NutrientProgressBar)
 {
     ui->setupUi(this);
+    ui->bar->setValue(0);
 }
 
 NutrientProgressBar::~NutrientProgressBar()
