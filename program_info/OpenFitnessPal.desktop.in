@@ -2,6 +2,6 @@
 Type=Application
 Name=OpenFitnessPal
 Comment=A fitness-tracking application, track your foods & exercises.
-Exec=OFP
 Icon=OpenFitnessPal
 Categories=Utility
+Exec=OpenFitnessPal

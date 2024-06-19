@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 
-project(OFP VERSION 0.1 LANGUAGES CXX)
+project(OpenFitnessPal VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -75,6 +75,9 @@ set(PROJECT_SOURCES
     ${HEADERS}
     ${SOURCES}
 
+    icons.qrc
+    theme/qrc/breeze.qrc
+
     # weird moc bug
     ${OFPLib_SOURCE_DIR}/include/OFPManager.h
 )
@@ -87,25 +90,25 @@ if(ANDROID)
 endif()
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(OFP
+    qt_add_executable(OpenFitnessPal
         MANUAL_FINALIZATION
         ${MANIFEST_FILE}
         ${PROJECT_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET OFP APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#    set_property(TARGET OpenFitnessPal APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
-        add_library(OFP SHARED
+        add_library(OpenFitnessPal SHARED
             ${MANIFEST_FILE}
             ${PROJECT_SOURCES}
         )
     # Define properties for Android with Qt 5 after find_package() calls as:
     #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
 else()
-    add_executable(OFP
+    add_executable(OpenFitnessPal
         ${PROJECT_SOURCES}
     )
 endif()
@@ -113,18 +116,18 @@ endif()
 
 add_subdirectory("program_info")
 
-target_link_libraries(OFP PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network OFPLib)
-target_include_directories(OFP PRIVATE include/)
-# target_include_directories(OFP PRIVATE /usr/local/include)
-# target_include_directories(OFP PRIVATE include/setup)
-target_include_directories(OFP PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-# target_include_directories(OFP PRIVATE "$<TARGET_PROPERTY:OFPLib,INTERFACE_INCLUDE_DIRECTORIES>")
+target_link_libraries(OpenFitnessPal PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network OFPLib)
+target_include_directories(OpenFitnessPal PRIVATE include/)
+# target_include_directories(OpenFitnessPal PRIVATE /usr/local/include)
+# target_include_directories(OpenFitnessPal PRIVATE include/setup)
+target_include_directories(OpenFitnessPal PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+# target_include_directories(OpenFitnessPal PRIVATE "$<TARGET_PROPERTY:OFPLib,INTERFACE_INCLUDE_DIRECTORIES>")
 include_directories(${OFPLib_SOURCE_DIR}/include)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-set_target_properties(OFP PROPERTIES
+set_target_properties(OpenFitnessPal PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -133,19 +136,19 @@ set_target_properties(OFP PROPERTIES
 )
 
 if (ANDROID)
-    set_target_properties(OFP PROPERTIES
+    set_target_properties(OpenFitnessPal PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
         COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS} MOBILE")
 endif()
 
 
 include(GNUInstallDirs)
-install(TARGETS OFP
+install(TARGETS OpenFitnessPal
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(OFP)
+    qt_finalize_executable(OpenFitnessPal)
 endif()
