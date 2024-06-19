@@ -53,7 +53,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" alignment="Qt::AlignmentFlag::AlignBottom">
+   <item row="0" column="1">
     <widget class="QLabel" name="food">
      <property name="font">
       <font>
@@ -105,9 +105,6 @@
      <property name="text">
       <string>0 kcals</string>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
     </widget>
    </item>
    <item row="0" column="0" rowspan="2">
@@ -119,13 +116,22 @@
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset theme="QIcon::ThemeIcon::EditDelete"/>
+      <iconset resource="../../icons.qrc">
+       <normaloff>:/icons/trash</normaloff>:/icons/trash</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>remove</sender>

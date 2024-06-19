@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=OpenFitnessPal
+Name=@OFP_APP_NAME@
 Comment=A fitness-tracking application, track your foods & exercises.
-Exec=OFP
-Categories=Education;Utility
+Icon=@OFP_APP_NAME@
+Categories=Utility
+Exec=@OFP_APP_NAME@

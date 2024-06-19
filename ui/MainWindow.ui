@@ -17,13 +17,34 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QDateEdit" name="dateEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>30</height>
+       </size>
+      </property>
       <property name="font">
        <font>
-        <pointsize>24</pointsize>
+        <pointsize>16</pointsize>
        </font>
       </property>
+      <property name="wrapping">
+       <bool>true</bool>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
+      </property>
       <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::UpDownArrows</enum>
       </property>
       <property name="displayFormat">
        <string>MM/dd/yyyy</string>
@@ -39,17 +60,23 @@
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
       <property name="tabPosition">
-       <enum>QTabWidget::TabPosition::South</enum>
+       <enum>QTabWidget::South</enum>
       </property>
       <property name="tabShape">
-       <enum>QTabWidget::TabShape::Triangular</enum>
+       <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
        <number>2</number>
       </property>
       <property name="elideMode">
-       <enum>Qt::TextElideMode::ElideRight</enum>
+       <enum>Qt::ElideLeft</enum>
       </property>
       <property name="documentMode">
        <bool>false</bool>

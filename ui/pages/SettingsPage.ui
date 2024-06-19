@@ -12,7 +12,7 @@
   </property>
   <property name="font">
    <font>
-    <pointsize>18</pointsize>
+    <pointsize>9</pointsize>
    </font>
   </property>
   <property name="windowTitle">
@@ -21,6 +21,11 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QScrollArea" name="scrollArea">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -36,6 +41,11 @@
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Meal 1 Name:</string>
          </property>
@@ -43,6 +53,11 @@
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="meal1">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="placeholderText">
           <string>Meal 1</string>
          </property>
@@ -50,6 +65,11 @@
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Meal 2 Name:</string>
          </property>
@@ -57,6 +77,11 @@
        </item>
        <item row="1" column="1">
         <widget class="QLineEdit" name="meal2">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="placeholderText">
           <string>Meal 2</string>
          </property>
@@ -64,6 +89,11 @@
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Meal 3 Name:</string>
          </property>
@@ -71,6 +101,11 @@
        </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="meal3">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="placeholderText">
           <string>Meal 3</string>
          </property>
@@ -78,6 +113,11 @@
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_4">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Meal 4 Name:</string>
          </property>
@@ -85,6 +125,11 @@
        </item>
        <item row="3" column="1">
         <widget class="QLineEdit" name="meal4">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="placeholderText">
           <string>Meal 4</string>
          </property>
@@ -92,6 +137,11 @@
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_5">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Meal 5 Name:</string>
          </property>
@@ -99,6 +149,11 @@
        </item>
        <item row="4" column="1">
         <widget class="QLineEdit" name="meal5">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
          <property name="placeholderText">
           <string>Meal 5</string>
          </property>

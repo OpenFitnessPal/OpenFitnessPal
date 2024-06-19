@@ -206,12 +206,11 @@ bool GoalsPage::verifyMacros()
     int protein = ui->protein->value();
 
     bool good = carbs + fat + protein == 100;
-    QPalette palette = ui->carbs->palette();
-    palette.setColor(QPalette::Text, good ? Qt::white : Qt::red);
+    QString stylesheet = "QSpinBox { color: " + (good ? QColor(Qt::white).name() : QColor(Qt::red).name()) + "; }";
 
-    ui->carbs->setPalette(palette);
-    ui->fat->setPalette(palette);
-    ui->protein->setPalette(palette);
+    ui->carbs->setStyleSheet(stylesheet);
+    ui->fat->setStyleSheet(stylesheet);
+    ui->protein->setStyleSheet(stylesheet);
 
     if (good) {
         DataManager::saveInfo("carbs", ui->carbs->value());
