@@ -97,10 +97,11 @@ jobs:
 
     - name: Configure and Build (Windows)
       if: runner.os == 'Windows'
+      shell: cmd
       run: |
         cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
 
-        cmake --build ${{ env.BUILD_DIR }} --config ${{ inputs.build_type }} --parallel $(nproc)
+        cmake --build ${{ env.BUILD_DIR }} --config ${{ inputs.build_type }} --parallel $(nproc) & dir ${{ env.BUILD_DIR }}\_deps/ofplib-build
 
     - name: Package (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
