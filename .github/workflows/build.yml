@@ -99,7 +99,7 @@ jobs:
       if: runner.os == 'Windows'
       shell: bash
       run: |
-        cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
+        cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
 
         cmake --build ${{ env.BUILD_DIR }} --config ${{ inputs.build_type }} --parallel $(nproc) || dir ${{ env.BUILD_DIR }}/_deps/ofplib-build
 

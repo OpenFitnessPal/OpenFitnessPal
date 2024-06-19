@@ -1,7 +1,7 @@
 # Config stuff
 if(UNIX AND NOT(APPLE))
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/OpenFitnessPal.desktop DESTINATION "share/applications")
-    #install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/OpenFitnessPal.svg DESTINATION "share/icons/hicolor/scalable/apps")
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/OpenFitnessPal.svg DESTINATION "share/icons/hicolor/scalable/apps")
     #install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/OpenFitnessPal-symbolic.svg DESTINATION "share/icons/hicolor/symbolic/apps" RENAME OpenFitnessPal.svg)
 endif()
 
