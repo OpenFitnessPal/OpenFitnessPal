@@ -63,6 +63,9 @@
      <property name="text">
       <string>Food</string>
      </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item row="0" column="2" rowspan="2">
