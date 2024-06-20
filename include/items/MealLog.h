@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "data/DataManager.h"
+#include "FoodItem.h"
 #include "NutrientUnion.h"
 
 namespace Ui {

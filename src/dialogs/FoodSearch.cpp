@@ -2,6 +2,7 @@
 #include "data/DataManager.h"
 #include "dialogs/FoodServingEdit.h"
 #include "dialogs/RecipeAdd.h"
+#include "items/FoodInfoWidget.h"
 #include "items/RecipeInfoWidget.h"
 #include "ui_FoodSearch.h"
 
@@ -24,43 +25,53 @@ FoodSearch::~FoodSearch()
 
 void FoodSearch::search()
 {
-    for (QWidget *w : m_widgets) {
+    QLayout *layout = ui->tabWidget->currentWidget()->layout();
+    for (QWidget *w : m_widgets.values(layout)) {
         ui->results->removeWidget(w);
         w->setHidden(true);
     }
 
-    if (ui->offline->isChecked()) {
-        if (ui->recipes->isChecked()) {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-            QRegExp regex(".*" + ui->searchBar->text() + ".*", Qt::CaseInsensitive);
-#else
-            QRegularExpression regex(".*" + ui->searchBar->text() + ".*", QRegularExpression::PatternOption::CaseInsensitiveOption);
-#endif
+    m_widgets.remove(layout);
 
-            QList<Recipe> allRecipes = DataManager::loadRecipes();
-
-            for (const Recipe &recipe : allRecipes) {
-                if (recipe.name().contains(regex)) {
-                    addRecipe(recipe);
-                }
-            }
-        } else {
-            QList<FoodItem> foods = CacheManager::search(ui->searchBar->text());
-            for (const FoodItem &item : foods) {
-                addFood(item);
-            }
-        }
-    } else {
+    switch (ui->tabWidget->currentIndex()) {
+    // online
+    case 0:
+        ui->submit->setDisabled(true);
         m_manager->search(ui->searchBar->text());
         m_manager->connect(m_manager, &OFPManager::searchComplete, this, [this](QList<FoodItem> items) {
-                for (const FoodItem &item : items) {
-                    addFood(item);
-                }
-            }, Qt::SingleShotConnection);
+            for (const FoodItem &item : items) {
+                addFood(item, ui->onlineWidgets);
+            }
+            ui->submit->setEnabled(true);
+        }, Qt::SingleShotConnection);
+        break;
+    // offline
+    case 1:
+        for (const FoodItem &item : CacheManager::search(ui->searchBar->text())) {
+            addFood(item, ui->offlineWidgets);
+        }
+        break;
+    // recipes
+    case 2: {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+        QRegExp regex(".*" + ui->searchBar->text() + ".*", Qt::CaseInsensitive);
+#else
+        QRegularExpression regex(".*" + ui->searchBar->text() + ".*", QRegularExpression::PatternOption::CaseInsensitiveOption);
+#endif
+
+        for (const Recipe &recipe : DataManager::loadRecipes()) {
+            if (recipe.name().contains(regex)) {
+                addRecipe(recipe);
+            }
+        }
+        break;
+    }
+    default:
+        break;
     }
 }
 
-void FoodSearch::addFood(const FoodItem &item)
+void FoodSearch::addFood(const FoodItem &item, QVBoxLayout *layout)
 {
     FoodInfoWidget *widget = new FoodInfoWidget(FoodServing{item}, this);
 
@@ -72,8 +83,9 @@ void FoodSearch::addFood(const FoodItem &item)
         connect(m_edit, &FoodServingEdit::foodReady, this, &FoodSearch::close);
     });
 
-    ui->results->addWidget(widget);
-    m_widgets.append(widget);
+    layout->addWidget(widget, 1, Qt::AlignTop);
+    widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    m_widgets.insert(layout, widget);
 }
 
 void FoodSearch::addRecipe(const Recipe &recipe)
@@ -88,7 +100,8 @@ void FoodSearch::addRecipe(const Recipe &recipe)
         connect(edit, &RecipeAdd::recipeReady, this, &FoodSearch::close);
     });
 
-    ui->results->addWidget(widget);
-    m_widgets.append(widget);
+    ui->recipeWidgets->addWidget(widget, 1, Qt::AlignTop);
+    widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    m_widgets.insert(ui->recipeWidgets, widget);
 
 }

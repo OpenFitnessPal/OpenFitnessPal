@@ -1,9 +1,12 @@
 #include "items/MealLog.h"
 #include "data/CacheManager.h"
 #include "dialogs/FoodServingEdit.h"
+#include "items/FoodInfoWidget.h"
 #include "ui_MealLog.h"
 
 #include "dialogs/FoodSearch.h"
+
+#include <data/DataManager.h>
 
 MealLog::MealLog(QWidget *parent)
     : QWidget(parent)

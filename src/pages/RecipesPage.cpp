@@ -60,7 +60,8 @@ void RecipesPage::addRecipe(const Recipe &recipe)
         recipeWidget->deleteLater();
     });
 
-    ui->recipes->addWidget(recipeWidget);
+    ui->recipes->addWidget(recipeWidget, 1, Qt::AlignTop);
+    recipeWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
 

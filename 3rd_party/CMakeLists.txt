@@ -8,7 +8,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0074 NEW)
 FetchContent_Declare(
         OFPLib
         GIT_REPOSITORY https://git.swurl.xyz/swirl/OFPLib.git
-        GIT_TAG        a7b006ed495c119c569c1de5b909d6c2e2371bc7
+        GIT_TAG        f1b5e3be4225fbf4b6be9db9fed8f1f491f6039a
         OVERRIDE_FIND_PACKAGE
 )
 FetchContent_MakeAvailable(OFPLib)
