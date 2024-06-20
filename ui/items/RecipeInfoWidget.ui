@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FoodInfoWidget</class>
- <widget class="QWidget" name="FoodInfoWidget">
+ <class>RecipeInfoWidget</class>
+ <widget class="QWidget" name="RecipeInfoWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -136,7 +136,7 @@
   <connection>
    <sender>remove</sender>
    <signal>clicked()</signal>
-   <receiver>FoodInfoWidget</receiver>
+   <receiver>RecipeInfoWidget</receiver>
    <slot>remove()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -39,68 +39,20 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="16" column="9">
-        <widget class="QLabel" name="label_29">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QLabel" name="label_3">
+       <item row="17" column="0" colspan="2">
+        <widget class="QLabel" name="label_28">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>Target Calories</string>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="2" colspan="7">
-        <widget class="QSpinBox" name="vitaminA">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>1000</number>
-         </property>
-         <property name="singleStep">
-          <number>1</number>
-         </property>
-         <property name="value">
-          <number>100</number>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="9">
-        <widget class="QLabel" name="label_20">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
+          <string>Vitamin A</string>
          </property>
         </widget>
        </item>
        <item row="20" column="9">
-        <widget class="QLabel" name="label_36">
+        <widget class="QLabel" name="label_35">
          <property name="font">
           <font>
            <pointsize>9</pointsize>
@@ -111,39 +63,15 @@
          </property>
         </widget>
        </item>
-       <item row="12" column="1">
-        <widget class="QLabel" name="label_24">
+       <item row="13" column="3" colspan="6">
+        <widget class="QSpinBox" name="trans">
          <property name="font">
           <font>
            <pointsize>11</pointsize>
           </font>
          </property>
-         <property name="text">
-          <string>Trans</string>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="9" colspan="2">
-        <widget class="QLabel" name="label_10">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2" colspan="7">
-        <widget class="QSpinBox" name="carbs">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
@@ -155,11 +83,47 @@
           <number>1</number>
          </property>
          <property name="value">
-          <number>30</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
-       <item row="19" column="2" colspan="7">
+       <item row="8" column="9">
+        <widget class="QLabel" name="label_15">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2" colspan="7">
+        <widget class="QSpinBox" name="calories">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+         <property name="minimum">
+          <number>10</number>
+         </property>
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="singleStep">
+          <number>10</number>
+         </property>
+         <property name="value">
+          <number>2000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="20" column="2" colspan="7">
         <widget class="QSpinBox" name="sodium">
          <property name="font">
           <font>
@@ -167,7 +131,7 @@
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
@@ -183,109 +147,55 @@
          </property>
         </widget>
        </item>
-       <item row="21" column="2" colspan="7">
-        <widget class="QSpinBox" name="cholesterol">
+       <item row="9" column="2" colspan="7">
+        <widget class="QSpinBox" name="fat">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
          </property>
          <property name="maximum">
-          <number>30000</number>
+          <number>100</number>
          </property>
          <property name="singleStep">
           <number>1</number>
          </property>
          <property name="value">
-          <number>500</number>
+          <number>35</number>
          </property>
         </widget>
        </item>
-       <item row="5" column="9">
-        <widget class="QLabel" name="label_14">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="22" column="4">
-        <spacer name="verticalSpacer">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="7" column="1">
-        <widget class="QLabel" name="label_16">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Sugar</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="9">
-        <widget class="QLabel" name="label_21">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="20" column="2" colspan="7">
-        <widget class="QSpinBox" name="potassium">
+       <item row="19" column="2" colspan="7">
+        <widget class="QSpinBox" name="vitaminD">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
          </property>
          <property name="maximum">
-          <number>30000</number>
+          <number>1000</number>
          </property>
          <property name="singleStep">
           <number>1</number>
          </property>
          <property name="value">
-          <number>5000</number>
+          <number>100</number>
          </property>
         </widget>
        </item>
-       <item row="11" column="3" colspan="6">
+       <item row="12" column="3" colspan="6">
         <widget class="QSpinBox" name="poly">
          <property name="font">
           <font>
@@ -293,7 +203,7 @@
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
@@ -309,20 +219,8 @@
          </property>
         </widget>
        </item>
-       <item row="21" column="9">
-        <widget class="QLabel" name="label_38">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>mg</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="9" colspan="2">
-        <widget class="QLabel" name="label_8">
+       <item row="12" column="9">
+        <widget class="QLabel" name="label_21">
          <property name="font">
           <font>
            <pointsize>9</pointsize>
@@ -333,7 +231,43 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="8" column="1">
+        <widget class="QLabel" name="label_16">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Sugar</string>
+         </property>
+        </widget>
+       </item>
+       <item row="19" column="9" colspan="2">
+        <widget class="QLabel" name="label_33">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="9">
+        <widget class="QLabel" name="label_20">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
         <widget class="QLabel" name="label_13">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -351,19 +285,313 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="9">
-        <widget class="QLabel" name="label_4">
+       <item row="10" column="9">
+        <widget class="QLabel" name="label_17">
          <property name="font">
           <font>
            <pointsize>9</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>kcal</string>
+          <string>%</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="2" colspan="7">
+       <item row="14" column="0" colspan="2">
+        <widget class="QLabel" name="label_11">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Protein</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="9" colspan="2">
+        <widget class="QLabel" name="label_10">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="17" column="9">
+        <widget class="QLabel" name="label_29">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="16" column="9">
+        <widget class="QLabel" name="label_27">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="0" colspan="2">
+        <widget class="QLabel" name="label_25">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Calcium</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Goal</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Target Calories</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QLabel" name="label_22">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Polyunsaturated</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QLabel" name="label_6">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Carbs</string>
+         </property>
+        </widget>
+       </item>
+       <item row="21" column="0" colspan="2">
+        <widget class="QLabel" name="label_37">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Potassium</string>
+         </property>
+        </widget>
+       </item>
+       <item row="23" column="4">
+        <spacer name="verticalSpacer">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="6" column="9">
+        <widget class="QLabel" name="label_14">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="9" colspan="2">
+        <widget class="QLabel" name="label_31">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="9">
+        <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>lbs</string>
+         </property>
+        </widget>
+       </item>
+       <item row="19" column="0" colspan="2">
+        <widget class="QLabel" name="label_32">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Vitamin D</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="3" colspan="6">
+        <widget class="QSpinBox" name="mono">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>30</number>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="1">
+        <widget class="QLabel" name="label_24">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Trans</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="9">
+        <widget class="QLabel" name="label_23">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="9" colspan="2">
+        <widget class="QLabel" name="label_8">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="17" column="2" colspan="7">
+        <widget class="QSpinBox" name="vitaminA">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="2" colspan="7">
+        <widget class="QSpinBox" name="calcium">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2" colspan="7">
         <widget class="QComboBox" name="goal">
          <property name="font">
           <font>
@@ -397,152 +625,8 @@
          </item>
         </widget>
        </item>
-       <item row="10" column="1">
-        <widget class="QLabel" name="label_19">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Monounsaturated</string>
-         </property>
-        </widget>
-       </item>
-       <item row="17" column="0" colspan="2">
-        <widget class="QLabel" name="label_30">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Vitamin C</string>
-         </property>
-        </widget>
-       </item>
-       <item row="19" column="9">
-        <widget class="QLabel" name="label_35">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>mg</string>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="0" colspan="2">
-        <widget class="QLabel" name="label_11">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Protein</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Current Weight</string>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="2" colspan="7">
-        <widget class="QSpinBox" name="iron">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>1000</number>
-         </property>
-         <property name="singleStep">
-          <number>1</number>
-         </property>
-         <property name="value">
-          <number>100</number>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QLabel" name="label_6">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Carbs</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="1">
-        <widget class="QLabel" name="label_22">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Polyunsaturated</string>
-         </property>
-        </widget>
-       </item>
-       <item row="20" column="0" colspan="2">
-        <widget class="QLabel" name="label_37">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Potassium</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="3" colspan="6">
-        <widget class="QSpinBox" name="trans">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="singleStep">
-          <number>1</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="17" column="9" colspan="2">
-        <widget class="QLabel" name="label_31">
+       <item row="5" column="9" colspan="2">
+        <widget class="QLabel" name="label_7">
          <property name="font">
           <font>
            <pointsize>9</pointsize>
@@ -553,19 +637,43 @@
          </property>
         </widget>
        </item>
-       <item row="18" column="0" colspan="2">
-        <widget class="QLabel" name="label_32">
+       <item row="16" column="0" colspan="2">
+        <widget class="QLabel" name="label_26">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>Vitamin D</string>
+          <string>Iron</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
+       <item row="6" column="3" colspan="6">
+        <widget class="QSpinBox" name="fiber">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
         <widget class="QLabel" name="label_9">
          <property name="font">
           <font>
@@ -577,55 +685,31 @@
          </property>
         </widget>
        </item>
-       <item row="17" column="2" colspan="7">
-        <widget class="QSpinBox" name="vitaminC">
+       <item row="14" column="2" colspan="7">
+        <widget class="QSpinBox" name="protein">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
          </property>
          <property name="maximum">
-          <number>1000</number>
+          <number>100</number>
          </property>
          <property name="singleStep">
           <number>1</number>
          </property>
          <property name="value">
-          <number>100</number>
+          <number>35</number>
          </property>
         </widget>
        </item>
-       <item row="7" column="9">
-        <widget class="QLabel" name="label_15">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="0" colspan="2">
-        <widget class="QLabel" name="label_25">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Calcium</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="3" colspan="6">
+       <item row="10" column="3" colspan="6">
         <widget class="QSpinBox" name="sat">
          <property name="font">
           <font>
@@ -633,7 +717,7 @@
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
@@ -649,39 +733,87 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Goal</string>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="9" colspan="2">
-        <widget class="QLabel" name="label_12">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="18" column="2" colspan="7">
-        <widget class="QSpinBox" name="vitaminD">
+       <item row="21" column="2" colspan="7">
+        <widget class="QSpinBox" name="potassium">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>30000</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>5000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <widget class="QLabel" name="label_19">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Monounsaturated</string>
+         </property>
+        </widget>
+       </item>
+       <item row="20" column="0" colspan="2">
+        <widget class="QLabel" name="label_34">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Sodium</string>
+         </property>
+        </widget>
+       </item>
+       <item row="22" column="2" colspan="7">
+        <widget class="QSpinBox" name="cholesterol">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>30000</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>500</number>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="2" colspan="7">
+        <widget class="QSpinBox" name="vitaminC">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
@@ -697,31 +829,91 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="2" colspan="7">
-        <widget class="QSpinBox" name="fat">
+       <item row="22" column="9">
+        <widget class="QLabel" name="label_38">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>mg</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2" colspan="7">
+        <widget class="QPushButton" name="recalc">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="singleStep">
-          <number>1</number>
-         </property>
-         <property name="value">
-          <number>35</number>
+         <property name="text">
+          <string>Recalculate Goals</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2" colspan="7">
+       <item row="15" column="9" colspan="2">
+        <widget class="QLabel" name="label_12">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QLabel" name="label_18">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Saturated</string>
+         </property>
+        </widget>
+       </item>
+       <item row="21" column="9">
+        <widget class="QLabel" name="label_36">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>mg</string>
+         </property>
+        </widget>
+       </item>
+       <item row="22" column="0" colspan="2">
+        <widget class="QLabel" name="label_39">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cholesterol</string>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="0" colspan="2">
+        <widget class="QLabel" name="label_30">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Vitamin C</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" colspan="7">
         <widget class="QDoubleSpinBox" name="weight">
          <property name="font">
           <font>
@@ -729,10 +921,10 @@
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="correctionMode">
-          <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+          <enum>QAbstractSpinBox::CorrectionMode::CorrectToPreviousValue</enum>
          </property>
          <property name="minimum">
           <double>1.000000000000000</double>
@@ -745,183 +937,27 @@
          </property>
         </widget>
        </item>
-       <item row="13" column="2" colspan="7">
-        <widget class="QSpinBox" name="protein">
+       <item row="1" column="0" colspan="2">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Current Weight</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2" colspan="7">
+        <widget class="QSpinBox" name="carbs">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="singleStep">
-          <number>1</number>
-         </property>
-         <property name="value">
-          <number>35</number>
-         </property>
-        </widget>
-       </item>
-       <item row="18" column="9" colspan="2">
-        <widget class="QLabel" name="label_33">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="9" colspan="2">
-        <widget class="QLabel" name="label_7">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="0" colspan="2">
-        <widget class="QLabel" name="label_26">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Iron</string>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="0" colspan="2">
-        <widget class="QLabel" name="label_28">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Vitamin A</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2" colspan="7">
-        <widget class="QSpinBox" name="calories">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="minimum">
-          <number>10</number>
-         </property>
-         <property name="maximum">
-          <number>10000</number>
-         </property>
-         <property name="singleStep">
-          <number>10</number>
-         </property>
-         <property name="value">
-          <number>2000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="21" column="0" colspan="2">
-        <widget class="QLabel" name="label_39">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Cholesterol</string>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="9">
-        <widget class="QLabel" name="label_27">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="9">
-        <widget class="QLabel" name="label_2">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>lbs</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="1">
-        <widget class="QLabel" name="label_18">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Saturated</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="9">
-        <widget class="QLabel" name="label_23">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="19" column="0" colspan="2">
-        <widget class="QLabel" name="label_34">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Sodium</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="3" colspan="6">
-        <widget class="QSpinBox" name="mono">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
@@ -937,15 +973,15 @@
          </property>
         </widget>
        </item>
-       <item row="14" column="2" colspan="7">
-        <widget class="QSpinBox" name="calcium">
+       <item row="16" column="2" colspan="7">
+        <widget class="QSpinBox" name="iron">
          <property name="font">
           <font>
            <pointsize>18</pointsize>
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
@@ -961,55 +997,7 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="3" colspan="6">
-        <widget class="QSpinBox" name="fiber">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="singleStep">
-          <number>1</number>
-         </property>
-         <property name="value">
-          <number>10</number>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2" colspan="7">
-        <widget class="QPushButton" name="recalc">
-         <property name="font">
-          <font>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Recalculate Goals</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="9">
-        <widget class="QLabel" name="label_17">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="3" colspan="6">
+       <item row="8" column="3" colspan="6">
         <widget class="QSpinBox" name="sugar">
          <property name="font">
           <font>
@@ -1017,7 +1005,7 @@
           </font>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
          <property name="minimum">
           <number>0</number>
@@ -1030,6 +1018,35 @@
          </property>
          <property name="value">
           <number>25</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="9">
+        <widget class="QLabel" name="label_4">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>kcal</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="11">
+        <widget class="QLabel" name="label_40">
+         <property name="font">
+          <font>
+           <family>Noto Sans</family>
+           <pointsize>22</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Nutrition Goals</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
         </widget>
        </item>

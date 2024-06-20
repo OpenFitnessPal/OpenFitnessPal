@@ -26,37 +26,49 @@ void MealLog::addItem() {
     FoodSearch *search = new FoodSearch(this);
     search->show();
 
-    connect(search, &FoodSearch::itemSelected, this, [this](const FoodItem &item, const ServingSize &size, const double units) {
-        CacheManager::cacheFoodItem(item);
-        DataManager::saveFood(m_number, QDate::currentDate(), item, size, units);
+    connect(search, &FoodSearch::itemSelected, this, [this](const FoodServing &food) {
+        CacheManager::cacheFoodItem(food.item);
+        DataManager::saveFood(m_number, QDate::currentDate(), food);
 
-        addFood(item, size, units);
+        addFood(food);
+    });
+
+    connect(search, &FoodSearch::recipeSelected, this, [this](const Recipe &recipe, const double units) {
+        for (FoodServing food : recipe.foods()) {
+            food.units *= units / recipe.servings();
+
+            CacheManager::cacheFoodItem(food.item);
+            DataManager::saveFood(m_number, QDate::currentDate(), food);
+
+            addFood(food);
+        }
     });
 }
 
-void MealLog::addFood(const FoodItem &item, const ServingSize &size, const double units)
+void MealLog::addFood(const FoodServing &serving)
 {
-    FoodInfoWidget *food = new FoodInfoWidget(item, this, size, units);
+    FoodInfoWidget *food = new FoodInfoWidget(serving, this);
     food->showDelete();
     m_widgets.append(food);
 
-    connect(food, &FoodInfoWidget::selected, this, [this, food, item, size, units] {
-        FoodServingEdit *edit = new FoodServingEdit(item, this, food->size(), food->units());
+    connect(food, &FoodInfoWidget::selected, this, [this, food] {
+        FoodServingEdit *edit = new FoodServingEdit(food->food(), this);
         edit->show();
 
-        connect(edit, &FoodServingEdit::foodReady, this, [this, food](const FoodItem &item, const ServingSize &servingSize, const double units) {
-            food->setSize(servingSize);
-            food->setUnits(units);
+        connect(edit, &FoodServingEdit::foodReady, this, [this, food](const FoodServing &serving) {
+            DataManager::removeFood(m_number, m_date, food->food());
+
+            food->setFood(serving);
             food->updateLabels();
 
             emit foodsChanged();
 
-            DataManager::saveFood(m_number, m_date, item, servingSize, units);
+            DataManager::saveFood(m_number, m_date, serving);
         });
     });
 
-    connect(food, &FoodInfoWidget::deleteRequested, this, [this, food, item] {
-        DataManager::removeFood(m_number, m_date, item);
+    connect(food, &FoodInfoWidget::deleteRequested, this, [this, food, serving] {
+        DataManager::removeFood(m_number, m_date, serving);
         ui->verticalLayout->removeWidget(food);
         m_widgets.removeOne(food);
         food->deleteLater();
@@ -68,13 +80,6 @@ void MealLog::addFood(const FoodItem &item, const ServingSize &size, const doubl
 
     ui->verticalLayout->addWidget(food);
 
-}
-
-void MealLog::addFood(const FoodServing &serving)
-{
-    addFood(std::get<0>(serving),
-            std::get<1>(serving),
-            std::get<2>(serving));
 }
 
 void MealLog::reloadFood()
@@ -112,28 +117,11 @@ NutrientUnion MealLog::getNutrients()
 {
     NutrientUnion n;
     for (FoodInfoWidget *w : m_widgets) {
-        FoodItem item = w->item();
+        FoodItem item = w->food().item;
 
-        double mult = w->size().baseMultiplier() * w->units();
+        double mult = w->food().size.baseMultiplier() * w->food().units;
 
-        n.calcium += item.calcium() * mult;
-        n.carbs += item.carbs() * mult;
-        n.fat += item.fat() * mult;
-        n.satFat += item.satFat() * mult;
-        n.monoFat += item.monoFat() * mult;
-        n.polyFat += item.polyFat() * mult;
-        n.transFat += item.transFat() * mult;
-        n.fiber += item.fiber() * mult;
-        n.sugar += item.sugar() * mult;
-        n.addedSugar += item.addedSugar() * mult;
-        n.protein += item.protein() * mult;
-        n.cholesterol += item.cholesterol() * mult;
-        n.iron += item.iron() * mult;
-        n.sodium += item.sodium() * mult;
-        n.potassium += item.potassium() * mult;
-        n.vitaminA += item.vitaminA() * mult;
-        n.vitaminC += item.vitaminC() * mult;
-        n.vitaminD += item.vitaminD() * mult;
+        n += item.nutrients() * mult;
     }
 
     return n;

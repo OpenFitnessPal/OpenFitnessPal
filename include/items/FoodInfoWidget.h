@@ -13,20 +13,15 @@ class FoodInfoWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit FoodInfoWidget(const FoodItem &item, QWidget *parent = nullptr, const ServingSize &size = ServingSize{}, const double units = 1);
+    FoodInfoWidget(const FoodServing &food, QWidget *parent = nullptr);
     ~FoodInfoWidget();
-
-    FoodItem item();
-
-    ServingSize size() const;
-    void setSize(const ServingSize &newSize);
-
-    double units() const;
-    void setUnits(double newUnits);
 
     void updateLabels();
 
     void showDelete();
+
+    FoodServing food() const;
+    void setFood(const FoodServing &newServing);
 
 public slots:
     void remove();
@@ -34,9 +29,7 @@ public slots:
 private:
     Ui::FoodInfoWidget *ui;
 
-    FoodItem m_item;
-    ServingSize m_size;
-    double m_units;
+    FoodServing m_food;
 
     void mouseReleaseEvent(QMouseEvent *e);
 

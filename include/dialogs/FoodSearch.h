@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "OFPManager.h"
+#include "Recipe.h"
 #include "items/FoodInfoWidget.h"
 
 QT_BEGIN_NAMESPACE
@@ -23,14 +24,16 @@ public slots:
     void search();
 
 signals:
-    void itemSelected(const FoodItem &item, const ServingSize &size, const double units);
+    void itemSelected(const FoodServing &food);
+    void recipeSelected(const Recipe &recipe, const double units);
 
 private:
     Ui::FoodSearch *ui;
 
     OFPManager *m_manager;
-    QList<FoodInfoWidget *> m_widgets{};
+    QList<QWidget *> m_widgets{};
 
-    void addFood(FoodItem &item);
+    void addFood(const FoodItem &item);
+    void addRecipe(const Recipe &recipe);
 };
 #endif // FOODSEARCH_H

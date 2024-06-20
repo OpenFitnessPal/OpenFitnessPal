@@ -1061,13 +1061,13 @@ QComboBox::down-arrow:focus
 
 QAbstractSpinBox
 {
-    padding: 0.23em;
+    padding: 0.05em;
     border: 0.09em solid #76797c;
     background-color: #1d2023;
     color: #eff0f1;
     border-radius: 0.09em;
     min-width: 3em;
-    min-height: 1em;
+    min-height: 1.25em;
 }
 
 QAbstractSpinBox:hover

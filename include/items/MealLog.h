@@ -28,8 +28,7 @@ public:
 
 public slots:
     void addItem();
-    void addFood(const FoodItem &item, const ServingSize &size, const double units);
-    void addFood(const FoodServing &serving);
+    void addFood(const FoodServing &food);
 
     void setDate(QDate date);
 

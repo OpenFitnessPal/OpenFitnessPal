@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>574</width>
-    <height>55</height>
+    <height>57</height>
    </rect>
   </property>
   <property name="font">
@@ -22,7 +22,7 @@
    <item>
     <widget class="QToolButton" name="remove">
      <property name="text">
-      <string>...</string>
+      <string/>
      </property>
      <property name="icon">
       <iconset resource="../../icons.qrc">
@@ -50,12 +50,19 @@
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="reps"/>
+    <widget class="QSpinBox" name="reps">
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
      <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
+      <enum>QSizePolicy::Policy::Fixed</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -80,6 +87,9 @@
    </item>
    <item>
     <widget class="QSpinBox" name="weight">
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
      <property name="maximum">
       <number>2000</number>
      </property>
@@ -87,8 +97,11 @@
    </item>
    <item>
     <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
      <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
+      <enum>QSizePolicy::Policy::Fixed</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -113,6 +126,9 @@
    </item>
    <item>
     <widget class="QTimeEdit" name="time">
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
      <property name="displayFormat">
       <string>mm:ss</string>
      </property>

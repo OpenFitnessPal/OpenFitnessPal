@@ -37,15 +37,19 @@ set(UI_ELEMENTS
     pages/ExercisePage
     pages/SettingsPage
     pages/GoalsPage
+    pages/RecipesPage
 
     items/MealLog
     items/FoodInfoWidget
+    items/RecipeInfoWidget
     items/ExerciseSet
     items/Exercise
     items/MacroPreview
     items/NutrientProgressBar
 
     dialogs/FoodServingEdit
+    dialogs/RecipeEdit
+    dialogs/RecipeAdd
     dialogs/FoodSearch
     dialogs/NutrientDialog
 )
@@ -55,7 +59,7 @@ set(CODE_ELEMENTS
     data/CacheManager
 
     Settings
-    NutrientUnion
+    Recipe
 )
 
 add_subdirectory(3rd_party)

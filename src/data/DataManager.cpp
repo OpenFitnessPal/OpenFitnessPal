@@ -6,9 +6,11 @@
 #include <QFile>
 #include <QDir>
 #include <QStandardPaths>
+#include <QJsonArray>
 
 #include <QMessageBox>
 #include <QDirIterator>
+#include <qjsondocument.h>
 
 QDir DataManager::dataDir{};
 
@@ -31,27 +33,54 @@ void DataManager::init()
 
 }
 
-DataManager::DataError DataManager::removeFood(int meal, QDate date, const FoodItem &item)
+DataManager::DataError DataManager::removeFood(int meal, QDate date, const FoodServing &food)
 {
     QString dateString = date.toString("MM-dd-yyyy");
     QDir dir(dataDir);
     dir.cd("journal");
 
-    bool ok = dir.cd(dateString);
+    bool ok = dir.cd(dateString + "/meals");
 
     if (!ok) {
         // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return NoOp;
     }
 
-    dir.cd("meals");
-    dir.cd(QString::number(meal));
+    QFile file(dir.absoluteFilePath(QString::number(meal) + ".json"));
+    if (!file.open(QIODevice::ReadOnly)) {
+        return NoOp;
+    }
 
-    QFile file(dir.absoluteFilePath(item.id()));
-    return file.remove() ? Success : Failure;
+    QByteArray data = file.readAll();
+
+    file.close();
+
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    QJsonArray array = doc.array();
+    QJsonObject obj = food.toJson();
+
+    for (int i = 0; i < array.size(); ++i) {
+        if (array.at(i).toObject() == obj) {
+            array.removeAt(i);
+            break;
+        }
+    }
+
+    QByteArray toWrite = QJsonDocument(array).toJson();
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QMessageBox::critical(nullptr, "Write failed", "Failed to save some meal data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        return Failure;
+    }
+
+    file.write(toWrite);
+
+    file.close();
+
+    return Success;
 }
 
-DataManager::DataError DataManager::saveFood(int meal, QDate date, const FoodItem &item, const ServingSize &size, const double units)
+DataManager::DataError DataManager::saveFood(int meal, QDate date, const FoodServing &food)
 {
     QString dateString = date.toString("MM-dd-yyyy");
     QDir dir(dataDir);
@@ -65,27 +94,14 @@ DataManager::DataError DataManager::saveFood(int meal, QDate date, const FoodIte
     }
 
     dir.cd(dateString);
-    for (int i = 1; i < 6; ++i) {
-        dir.mkpath("meals/" + QString::number(i));
-    }
+
+    dir.mkpath("meals");
 
     dir.cd("meals");
-    dir.cd(QString::number(meal));
 
-    QFile file(dir.absoluteFilePath(item.id()));
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QMessageBox::critical(nullptr, "Write failed", "Failed to save food data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        return Failure;
-    }
+    QFile file(dir.absoluteFilePath(QString::number(meal) + ".json"));
 
-    QByteArray data = QString(QString::number(units)
-                              + "\n" + QString::number(size.baseMultiplier())
-                              + "\n" + size.unit()).toUtf8();
-
-    file.write(data);
-    file.close();
-
-    return Success;
+    return addJsonObject(file, food.toJson());
 }
 
 QList<FoodServing> DataManager::loadFoods(int meal, QDate date)
@@ -102,41 +118,93 @@ QList<FoodServing> DataManager::loadFoods(int meal, QDate date)
     dir.cd(dateString);
 
     dir.cd("meals");
-    dir.cd(QString::number(meal));
+    QFile f(dir.absoluteFilePath(QString::number(meal) + ".json"));
 
-    QDirIterator iter(dir);
-
-    while (iter.hasNext()) {
-        QFile f = iter.next();
-        if (f.fileName().endsWith(".") || f.fileName().endsWith("..")) continue;
-
-        f.open(QIODevice::ReadOnly | QIODevice::Text);
-        QString id = f.fileName().split('/').last();
-
-        QString data = f.readAll();
-        QStringList list = data.split('\n');
-
-        if (list.empty() || list.length() != 3) {
-            continue;
-        }
-
-        QStringList unit = list.at(2).split(' ');
-
-        double defaultValue = unit.at(0).toInt();
-        QString unitString = unit.last(unit.length() - 1).join(' ');
-
-        FoodItem item = CacheManager::itemById(id);
-
-        ServingSize size = ServingSize(list.at(1).toDouble(), unitString, defaultValue);
-        double units = list.at(0).toDouble();
-
-        FoodServing serving(item, size, units);
-        servings.append(serving);
-
-        f.close();
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return servings;
     }
 
+    QByteArray data = f.readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+
+    QJsonArray array = doc.array();
+
+    for (QJsonValueRef ref : array) {
+        QJsonObject obj = ref.toObject();
+        servings.append(FoodServing::fromJson(obj));
+    }
+
+    f.close();
+
     return servings;
+}
+
+DataManager::DataError DataManager::removeRecipe(const Recipe &recipe)
+{
+    QFile file(dataDir.absoluteFilePath("recipes.json"));
+    if (!file.open(QIODevice::ReadOnly)) {
+        return NoOp;
+    }
+
+    QByteArray data = file.readAll();
+
+    file.close();
+
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    QJsonArray array = doc.array();
+    QJsonObject obj = recipe.toJson();
+
+    for (int i = 0; i < array.size(); ++i) {
+        if (array.at(i).toObject() == obj) {
+            array.removeAt(i);
+            break;
+        }
+    }
+
+    QByteArray toWrite = QJsonDocument(array).toJson();
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QMessageBox::critical(nullptr, "Write failed", "Failed to save some recipe data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        return Failure;
+    }
+
+    file.write(toWrite);
+
+    file.close();
+
+    return Success;
+}
+
+DataManager::DataError DataManager::saveRecipe(const Recipe &recipe)
+{
+    QFile file(dataDir.absoluteFilePath("recipes.json"));
+
+    return addJsonObject(file, recipe.toJson());
+}
+
+QList<Recipe> DataManager::loadRecipes()
+{
+    QList<Recipe> recipes;
+
+    QFile f(dataDir.absoluteFilePath("recipes.json"));
+
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return recipes;
+    }
+
+    QByteArray data = f.readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+
+    QJsonArray array = doc.array();
+
+    for (QJsonValueRef ref : array) {
+        QJsonObject obj = ref.toObject();
+        recipes.append(Recipe::fromJson(obj));
+    }
+
+    f.close();
+
+    return recipes;
 }
 
 DataManager::DataError DataManager::saveExercises(QList<Exercise *> exercises, QDate date)
@@ -313,4 +381,33 @@ QVariant DataManager::getInfo(const QString &field)
 
     return value;
 
+}
+
+DataManager::DataError DataManager::addJsonObject(QFile &file, const QJsonObject &obj)
+{
+    QJsonArray array;
+
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray data = file.readAll();
+
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        array = doc.array();
+
+        file.close();
+    }
+
+    array.append(obj);
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QMessageBox::critical(nullptr, "Write failed", "Failed to write some data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        return Failure;
+    }
+
+    QByteArray toWrite = QJsonDocument(array).toJson();
+
+    file.write(toWrite);
+
+    file.close();
+
+    return Success;
 }

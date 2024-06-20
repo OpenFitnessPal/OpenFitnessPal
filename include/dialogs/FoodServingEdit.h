@@ -13,7 +13,7 @@ class FoodServingEdit : public QDialog
     Q_OBJECT
 
 public:
-    explicit FoodServingEdit(const FoodItem &item, QWidget *parent = nullptr, const ServingSize &size = ServingSize{}, const double units = 1);
+    FoodServingEdit(const FoodServing &food, QWidget *parent = nullptr);
     ~FoodServingEdit();
 
 public slots:
@@ -21,7 +21,7 @@ public slots:
     void calcMacros();
 
 signals:
-    void foodReady(const FoodItem &item, const ServingSize &size, const double units);
+    void foodReady(const FoodServing &food);
 
 private:
     Ui::FoodServingEdit *ui;

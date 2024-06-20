@@ -41,10 +41,10 @@
        <bool>false</bool>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
       <property name="buttonSymbols">
-       <enum>QAbstractSpinBox::UpDownArrows</enum>
+       <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
       </property>
       <property name="displayFormat">
        <string>MM/dd/yyyy</string>
@@ -67,16 +67,16 @@
        </sizepolicy>
       </property>
       <property name="tabPosition">
-       <enum>QTabWidget::South</enum>
+       <enum>QTabWidget::TabPosition::South</enum>
       </property>
       <property name="tabShape">
-       <enum>QTabWidget::Triangular</enum>
+       <enum>QTabWidget::TabShape::Triangular</enum>
       </property>
       <property name="currentIndex">
        <number>2</number>
       </property>
       <property name="elideMode">
-       <enum>Qt::ElideLeft</enum>
+       <enum>Qt::TextElideMode::ElideLeft</enum>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -102,7 +102,7 @@
         <string>Food</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="recipes">
+      <widget class="RecipesPage" name="recipes">
        <attribute name="title">
         <string>Recipes</string>
        </attribute>
@@ -143,6 +143,12 @@
    <class>GoalsPage</class>
    <extends>QWidget</extends>
    <header>pages/GoalsPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RecipesPage</class>
+   <extends>QWidget</extends>
+   <header>pages/RecipesPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

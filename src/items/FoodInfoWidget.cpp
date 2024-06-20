@@ -5,26 +5,25 @@
 #include <QMouseEvent>
 
 // TODO: improve touch control
-FoodInfoWidget::FoodInfoWidget(const FoodItem &item, QWidget *parent, const ServingSize &size, const double units)
+FoodInfoWidget::FoodInfoWidget(const FoodServing &food, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::FoodInfoWidget)
-    , m_item(item)
-    , m_units(units)
+    , m_food(food)
 {
     ui->setupUi(this);
     ui->remove->setHidden(true);
 
-    ServingSize servingSize = size;
+    ServingSize size = food.size;
 
     if (size.baseMultiplier() == 0.0) {
-        for (const ServingSize &serving : item.servingSizes()) {
+        for (const ServingSize &serving : food.item.servingSizes()) {
             if (serving.baseMultiplier() == 1) {
-                servingSize = serving;
+                size = serving;
             }
         }
     }
 
-    m_size = servingSize;
+    m_food.size = size;
     updateLabels();
 }
 
@@ -34,9 +33,9 @@ FoodInfoWidget::~FoodInfoWidget()
 }
 
 void FoodInfoWidget::updateLabels() {
-    ui->brand->setText(m_item.brand() + ", " + QString::number(m_units * m_size.defaultValue()) + " " + m_size.baseUnit());
-    ui->cals->setText(QString::number(m_item.calories() * m_size.multiplier(m_units)) + "kcal");
-    ui->food->setText(m_item.name());
+    ui->brand->setText(m_food.item.brand() + ", " + QString::number(m_food.units * m_food.size.defaultValue()) + " " + m_food.size.baseUnit());
+    ui->cals->setText(QString::number(m_food.item.nutrients().calories() * m_food.size.multiplier(m_food.units)) + "kcal");
+    ui->food->setText(m_food.item.name());
 }
 
 void FoodInfoWidget::showDelete()
@@ -49,30 +48,17 @@ void FoodInfoWidget::remove()
     emit deleteRequested();
 }
 
+FoodServing FoodInfoWidget::food() const
+{
+    return m_food;
+}
+
+void FoodInfoWidget::setFood(const FoodServing &newServing)
+{
+    m_food = newServing;
+    updateLabels();
+}
+
 void FoodInfoWidget::mouseReleaseEvent(QMouseEvent *e) {
     emit selected();
-}
-
-FoodItem FoodInfoWidget::item() {
-    return m_item;
-}
-
-ServingSize FoodInfoWidget::size() const
-{
-    return m_size;
-}
-
-void FoodInfoWidget::setSize(const ServingSize &newSize)
-{
-    m_size = newSize;
-}
-
-double FoodInfoWidget::units() const
-{
-    return m_units;
-}
-
-void FoodInfoWidget::setUnits(double newUnits)
-{
-    m_units = newUnits;
 }

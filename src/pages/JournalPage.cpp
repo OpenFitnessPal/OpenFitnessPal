@@ -38,6 +38,7 @@ NutrientUnion JournalPage::getNutrients()
     n += ui->meal3->getNutrients();
     n += ui->meal4->getNutrients();
     n += ui->meal5->getNutrients();
+
     return n;
 }
 
@@ -48,6 +49,8 @@ void JournalPage::setDate(QDate date)
     ui->meal3->setDate(date);
     ui->meal4->setDate(date);
     ui->meal5->setDate(date);
+
+    updateMacroPreview();
 }
 
 void JournalPage::updateMealNames()
