@@ -1,5 +1,6 @@
 #include "dialogs/FoodServingEdit.h"
 #include "ui_FoodServingEdit.h"
+#include <qscroller.h>
 
 FoodServingEdit::FoodServingEdit(const FoodServing &food, QWidget *parent)
     : QDialog(parent)
@@ -23,6 +24,8 @@ FoodServingEdit::FoodServingEdit(const FoodServing &food, QWidget *parent)
     } else {
         ui->size->setCurrentIndex(food.item.defaultServingIdx());
     }
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 
     calcMacros();
 }

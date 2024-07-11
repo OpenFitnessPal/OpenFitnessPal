@@ -3,6 +3,7 @@
 #include "ui_GoalsPage.h"
 
 #include <QMessageBox>
+#include <QScroller>
 
 // TODO: save everything upon startup
 GoalsPage::GoalsPage(QWidget *parent)
@@ -10,6 +11,12 @@ GoalsPage::GoalsPage(QWidget *parent)
     , ui(new Ui::GoalsPage)
 {
     ui->setupUi(this);
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
+
+    qApp->inputMethod();
+
+    connect(ui->weight, &QDoubleSpinBox::valueChanged, qApp->inputMethod(), &QInputMethod::show);
 
     QVariantMap data = DataManager::loadInfo();
 

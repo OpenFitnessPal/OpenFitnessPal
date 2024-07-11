@@ -8,6 +8,8 @@
 
 #include <data/DataManager.h>
 
+#include <QMouseEvent>
+
 MealLog::MealLog(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::MealLog)
@@ -107,6 +109,11 @@ void MealLog::setDate(QDate date)
         reloadFood();
     }
     else m_date = date;
+}
+
+void MealLog::mouseMoveEvent(QMouseEvent *e)
+{
+    e->ignore();
 }
 
 void MealLog::setNumber(int newNumber)

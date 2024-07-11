@@ -7,11 +7,15 @@
 
 #include <data/DataManager.h>
 
+#include <QScroller>
+
 RecipesPage::RecipesPage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::RecipesPage)
 {
     ui->setupUi(this);
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 
     QList<Recipe> recipes = DataManager::loadRecipes();
 

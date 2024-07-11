@@ -8,6 +8,8 @@
 
 #include <data/CacheManager.h>
 
+#include <QScroller>
+
 // TODO: change this to use tabs
 FoodSearch::FoodSearch(QWidget *parent)
     : QDialog(parent)
@@ -17,6 +19,10 @@ FoodSearch::FoodSearch(QWidget *parent)
 
     m_manager = new OFPManager(this);
     connect(this, &QDialog::finished, m_manager, &OFPManager::cancelAll);
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
+    QScroller::grabGesture(ui->scrollArea_2, QScroller::LeftMouseButtonGesture);
+    QScroller::grabGesture(ui->scrollArea_3, QScroller::LeftMouseButtonGesture);
 }
 
 FoodSearch::~FoodSearch()

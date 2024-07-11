@@ -3,6 +3,7 @@
 #include "ui_MacroPreview.h"
 
 #include <data/DataManager.h>
+#include <qscroller.h>
 
 MacroPreview::MacroPreview(QWidget *parent)
     : QFrame(parent)
@@ -14,6 +15,16 @@ MacroPreview::MacroPreview(QWidget *parent)
     ui->carbs->setUnit("g");
     ui->fat->setUnit("g");
     ui->protein->setUnit("g");
+
+#ifdef Q_OS_ANDROID
+    ui->gridLayout->removeWidget(ui->carbs);
+    ui->gridLayout->removeWidget(ui->fat);
+    ui->gridLayout->removeWidget(ui->protein);
+
+    ui->gridLayout->addWidget(ui->carbs, 1, 0, 1, 1);
+    ui->gridLayout->addWidget(ui->fat, 2, 0, 1, 1);
+    ui->gridLayout->addWidget(ui->protein, 3, 0, 1, 1);
+#endif
 }
 
 MacroPreview::~MacroPreview()

@@ -4,6 +4,8 @@
 
 #include "data/DataManager.h"
 
+#include <QScroller>
+
 ExercisePage::ExercisePage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::ExercisePage)
@@ -11,6 +13,8 @@ ExercisePage::ExercisePage(QWidget *parent)
     ui->setupUi(this);
 
     setDate(QDate::currentDate());
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 }
 
 ExercisePage::~ExercisePage()

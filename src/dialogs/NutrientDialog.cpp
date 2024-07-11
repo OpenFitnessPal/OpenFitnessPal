@@ -2,6 +2,7 @@
 #include "ui_NutrientDialog.h"
 
 #include <data/DataManager.h>
+#include <qscroller.h>
 
 NutrientDialog::NutrientDialog(const NutrientUnion &n, QWidget *parent)
     : QDialog(parent)
@@ -72,6 +73,8 @@ NutrientDialog::NutrientDialog(const NutrientUnion &n, QWidget *parent)
 
 #undef DIFF
 #undef SAME
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 }
 
 NutrientDialog::~NutrientDialog()
