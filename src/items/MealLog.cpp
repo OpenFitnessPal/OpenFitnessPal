@@ -29,7 +29,7 @@ void MealLog::setMealName(const QString &name) {
 
 void MealLog::addItem() {
     FoodSearch *search = new FoodSearch(this);
-    search->show();
+    search->showMaximized();
 
     connect(search, &FoodSearch::itemSelected, this, [this](const FoodServing &food) {
         CacheManager::cacheFoodItem(food.item);
@@ -58,7 +58,7 @@ void MealLog::addFood(const FoodServing &serving)
 
     connect(food, &FoodInfoWidget::selected, this, [this, food] {
         FoodServingEdit *edit = new FoodServingEdit(food->food(), this);
-        edit->show();
+        edit->showMaximized();
 
         connect(edit, &FoodServingEdit::foodReady, this, [this, food](const FoodServing &serving) {
             DataManager::removeFood(m_number, m_date, food->food());
