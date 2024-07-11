@@ -14,33 +14,6 @@
    <string>Search</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="1" colspan="2">
-    <widget class="QLineEdit" name="searchBar">
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>20</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Search:</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="3">
     <widget class="QPushButton" name="submit">
      <property name="font">
@@ -50,6 +23,18 @@
      </property>
      <property name="text">
       <string>Submit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="cancel">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Cancel</string>
      </property>
     </widget>
    </item>
@@ -150,6 +135,15 @@
      </widget>
     </widget>
    </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QLineEdit" name="searchBar">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
@@ -178,6 +172,22 @@
    <hints>
     <hint type="sourcelabel">
      <x>406</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>FoodSearch</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>107</x>
      <y>26</y>
     </hint>
     <hint type="destinationlabel">
