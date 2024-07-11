@@ -161,6 +161,8 @@ endif()
 add_subdirectory("program_info")
 
 target_link_libraries(${OFP_APP_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network OFPLib)
+target_link_options(${OFP_APP_NAME} PRIVATE -Wl,--no-undefined -Wno-undef)
+
 target_include_directories(${OFP_APP_NAME} PRIVATE include/)
 target_include_directories(${OFP_APP_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${OFPLib_SOURCE_DIR}/include)
