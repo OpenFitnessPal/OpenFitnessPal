@@ -10,21 +10,32 @@ NutrientDialog::NutrientDialog(const NutrientUnion &n, QWidget *parent)
 {
     ui->setupUi(this);
 
+    // this is cancer
+    ui->calcium->setName("Calcium");
+    ui->vitaminA->setName("Vitamin A");
+    ui->vitaminC->setName("Vitamin C");
+    ui->vitaminD->setName("Vitamin D");
+    ui->iron->setName("Iron");
+
+    ui->protein->setName("Protein");
+    ui->carbs->setName("Carbs");
+    ui->sugar->setName("Sugar");
+    ui->fiber->setName("Fiber");
+    ui->sat->setName("Saturated Fat");
+    ui->mono->setName("Monounsaturated Fat");
+    ui->poly->setName("Polyunsaturated Fat");
+    ui->trans->setName("Trans Fat");
+    ui->fat->setName("Total Fat");
+
+    ui->cholesterol->setName("Cholesterol");
+    ui->sodium->setName("Sodium");
+    ui->potassium->setName("Potassium");
+
     ui->calcium->setUnit("%");
     ui->vitaminA->setUnit("%");
     ui->vitaminC->setUnit("%");
     ui->vitaminD->setUnit("%");
     ui->iron->setUnit("%");
-
-    ui->protein->setUnit("g");
-    ui->carbs->setUnit("g");
-    ui->sugar->setUnit("g");
-    ui->fiber->setUnit("g");
-    ui->sat->setUnit("g");
-    ui->mono->setUnit("g");
-    ui->poly->setUnit("g");
-    ui->trans->setUnit("g");
-    ui->fat->setUnit("g");
 
     ui->cholesterol->setUnit("mg");
     ui->sodium->setUnit("mg");
@@ -39,12 +50,10 @@ NutrientDialog::NutrientDialog(const NutrientUnion &n, QWidget *parent)
     ui->carbs->setTotal(n.carbs);
     ui->fat->setTotal(n.fat);
     ui->protein->setTotal(n.protein);
-    ui->cals->setTotal(n.calories());
 
     ui->carbs->setTarget(targetCarbs);
     ui->fat->setTarget(targetFat);
     ui->protein->setTarget(targetProtein);
-    ui->cals->setTarget(cals);
 
     double target;
     double total;

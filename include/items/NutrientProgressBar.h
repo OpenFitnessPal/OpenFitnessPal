@@ -19,13 +19,15 @@ public:
     void setTotal(const double newTotal);
 
     void setUnit(const QString &unit);
+    void setName(const QString &name);
 
 private:
     Ui::NutrientProgressBar *ui;
 
-    void resetBar();
+    void reset();
 
     QString m_unit = "g";
+    QString m_name = "";
 
     double m_total = 0.;
     double m_target = 0.;
