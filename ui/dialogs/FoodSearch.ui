@@ -68,7 +68,7 @@
       </font>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="online">
       <attribute name="title">
@@ -103,7 +103,7 @@
        <item>
         <widget class="QScrollArea" name="scrollArea">
          <property name="horizontalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
+          <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
          </property>
          <property name="widgetResizable">
           <bool>true</bool>
