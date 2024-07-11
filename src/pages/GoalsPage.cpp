@@ -141,7 +141,7 @@ void GoalsPage::cholesterolChanged(const int value) {
 
 void GoalsPage::goalChanged(int value) {
     if (m_first) return;
-    if (recalcGoal()) DataManager::saveInfo("goal", value);
+    recalcGoal();
 }
 
 void GoalsPage::caloriesChanged(int value) {
@@ -154,56 +154,70 @@ void GoalsPage::weightChanged(double value) {
     DataManager::saveInfo("weight", value);
 }
 
-bool GoalsPage::recalcGoal()
+void GoalsPage::recalcGoal()
 {
-    auto button = QMessageBox::question(this, "Recalculate Goals", "Are you sure you want to recalculate your goals? This will overwrite target calories, carbs, fats, and proteins.");
-    if (button == QMessageBox::No) return false;
+    this->setDisabled(true);
+    auto button = new QMessageBox(
+        QMessageBox::Question, "Recalculate Goals",
+        "Are you sure you want to recalculate your goals?"
+        " This will overwrite target calories, carbs, fats, and proteins.",
+        QMessageBox::Yes | QMessageBox::No,
+        this);
 
-    int weightMultiplier = 0;
-    int carbsPercentage = 30;
-    int fatPercentage = 30;
-    int proteinPercentage = 40;
+    button->show();
 
-    double weight = ui->weight->value();
+    connect(button, &QDialog::rejected, this, [this] {
+        setEnabled(true);
+    });
 
-    switch (ui->goal->currentIndex()) {
-    // fast weight loss
-    case 0:
-        weightMultiplier = 15;
-        fatPercentage = 25;
-        proteinPercentage = 45;
-        break;
-    // slow weight loss
-    case 1:
-        weightMultiplier = 17;
-        break;
-    // maintain
-    case 2:
-        weightMultiplier = 18;
-        break;
-    // slow weight gain
-    case 3:
-        weightMultiplier = 19;
-        carbsPercentage = 35;
-        proteinPercentage = 35;
-        break;
-    // fast weight gain
-    case 4:
-        weightMultiplier = 21;
-        carbsPercentage = 35;
-        fatPercentage = 35;
-        proteinPercentage = 30;
-        break;
-    default:
-        break;
-    }
+    connect(button, &QDialog::accepted, this, [this] {
+        int weightMultiplier = 0;
+        int carbsPercentage = 30;
+        int fatPercentage = 30;
+        int proteinPercentage = 40;
 
-    ui->calories->setValue(weight * weightMultiplier);
-    ui->carbs->setValue(carbsPercentage);
-    ui->fat->setValue(fatPercentage);
-    ui->protein->setValue(proteinPercentage);
+        double weight = ui->weight->value();
 
-    return true;
+        switch (ui->goal->currentIndex()) {
+        // fast weight loss
+        case 0:
+            weightMultiplier = 15;
+            fatPercentage = 25;
+            proteinPercentage = 45;
+            break;
+        // slow weight loss
+        case 1:
+            weightMultiplier = 17;
+            break;
+        // maintain
+        case 2:
+            weightMultiplier = 18;
+            break;
+        // slow weight gain
+        case 3:
+            weightMultiplier = 19;
+            carbsPercentage = 35;
+            proteinPercentage = 35;
+            break;
+        // fast weight gain
+        case 4:
+            weightMultiplier = 21;
+            carbsPercentage = 35;
+            fatPercentage = 35;
+            proteinPercentage = 30;
+            break;
+        default:
+            break;
+        }
+
+        ui->calories->setValue(weight * weightMultiplier);
+        ui->carbs->setValue(carbsPercentage);
+        ui->fat->setValue(fatPercentage);
+        ui->protein->setValue(proteinPercentage);
+
+        setEnabled(true);
+        DataManager::saveInfo("goal", ui->goal->currentIndex());
+    });
 }
 
 bool GoalsPage::verifyMacros()
