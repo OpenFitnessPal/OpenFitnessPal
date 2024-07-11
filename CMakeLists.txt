@@ -143,6 +143,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
+        set(QT_ANDROID_TARGET_SDK_VERSION 30)
+
         add_library(${OFP_APP_NAME} SHARED
             ${MANIFEST_FILE}
             ${PROJECT_SOURCES}
@@ -160,10 +162,7 @@ add_subdirectory("program_info")
 
 target_link_libraries(${OFP_APP_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network OFPLib)
 target_include_directories(${OFP_APP_NAME} PRIVATE include/)
-# target_include_directories(${OFP_APP_NAME} PRIVATE /usr/local/include)
-# target_include_directories(${OFP_APP_NAME} PRIVATE include/setup)
 target_include_directories(${OFP_APP_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-# target_include_directories(${OFP_APP_NAME} PRIVATE "$<TARGET_PROPERTY:OFPLib,INTERFACE_INCLUDE_DIRECTORIES>")
 include_directories(${OFPLib_SOURCE_DIR}/include)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

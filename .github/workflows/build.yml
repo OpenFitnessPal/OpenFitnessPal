@@ -80,7 +80,7 @@ jobs:
     - name: Prepare AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
       run: |
-        sudo apt-get install libstdc++-10-dev gcc-10 ninja-build
+        sudo apt-get install libstdc++-10-dev gcc-10 ninja-build openjdk-17-jdk
         wget "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage"
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
@@ -95,11 +95,10 @@ jobs:
 
     - name: Configure and Build (Windows)
       if: runner.os == 'Windows'
-      shell: bash
       run: |
         cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
 
-        cmake --build ${{ env.BUILD_DIR }} --config ${{ inputs.build_type }} --parallel $(nproc) || dir ${{ env.BUILD_DIR }}/_deps/ofplib-build
+        cmake --build ${{ env.BUILD_DIR }} --config ${{ inputs.build_type }} --parallel $(nproc)
 
     - name: Package (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
@@ -175,35 +174,35 @@ jobs:
 
     - name: Upload Release APK (Linux)
       if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
         path: ${{steps.sign_apk.outputs.signedReleaseFile}}
 
     - name: Upload Debug APK (Linux)
       if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Debug'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
         path: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/debug/android-build-debug.apk
 
     - name: Upload portable tarball (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: OpenFitnessPal-${{ runner.os }}-Binary-${{ env.VERSION }}-${{ inputs.build_type }}
         path: OpenFitnessPal.tar.gz
 
     - name: Upload AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
         path: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
 
     - name: Upload portable zip (Windows)
       if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: OpenFitnessPal-Windows-Portable-${{ env.VERSION }}-${{ inputs.build_type }}
         path: ${{ env.INSTALL_DIR }}/**
