@@ -13,17 +13,11 @@ FoodInfoWidget::FoodInfoWidget(const FoodServing &food, QWidget *parent)
     ui->setupUi(this);
     ui->remove->setHidden(true);
 
-    ServingSize size = food.size;
-
-    if (size.baseMultiplier() == 0.0) {
-        for (const ServingSize &serving : food.item.servingSizes()) {
-            if (serving.baseMultiplier() == 1) {
-                size = serving;
-            }
-        }
+    if (m_food.size.baseMultiplier() == 0.0) {
+        m_food.size = food.item.defaultServing();
+        m_food.units = 1.0;
     }
 
-    m_food.size = size;
     updateLabels();
 }
 

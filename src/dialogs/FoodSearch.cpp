@@ -16,6 +16,7 @@ FoodSearch::FoodSearch(QWidget *parent)
     ui->setupUi(this);
 
     m_manager = new OFPManager(this);
+    connect(this, &QDialog::finished, m_manager, &OFPManager::cancelAll);
 }
 
 FoodSearch::~FoodSearch()
@@ -27,7 +28,7 @@ void FoodSearch::search()
 {
     QLayout *layout = ui->tabWidget->currentWidget()->layout();
     for (QWidget *w : m_widgets.values(layout)) {
-        ui->results->removeWidget(w);
+        layout->removeWidget(w);
         w->setHidden(true);
     }
 

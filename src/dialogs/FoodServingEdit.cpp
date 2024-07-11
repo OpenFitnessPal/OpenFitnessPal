@@ -15,14 +15,13 @@ FoodServingEdit::FoodServingEdit(const FoodServing &food, QWidget *parent)
             ui->size->addItem(servingSize.unit());
             m_sizeMap.insert(servingSize.unit(), servingSize);
         }
+    }
 
-        if (food.size.baseMultiplier() != 0.0) {
-            ui->size->setCurrentText(food.size.unit());
-            ui->servings->setValue(food.units);
-        }
-        else if (servingSize.baseMultiplier() == 1.0) {
-            ui->size->setCurrentText(servingSize.unit());
-        }
+    if (food.size.baseMultiplier() != 0.0) {
+        ui->size->setCurrentText(food.size.unit());
+        ui->servings->setValue(food.units);
+    } else {
+        ui->size->setCurrentIndex(food.item.defaultServingIdx());
     }
 
     calcMacros();

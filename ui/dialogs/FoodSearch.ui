@@ -53,57 +53,95 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="4">
-    <widget class="QScrollArea" name="scrollArea">
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+   <item row="1" column="0" colspan="4">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="minimumSize">
+      <size>
+       <width>782</width>
+       <height>445</height>
+      </size>
      </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <bold>true</bold>
+      </font>
      </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>800</width>
-        <height>463</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="results">
+     <property name="currentIndex">
+      <number>2</number>
+     </property>
+     <widget class="QWidget" name="online">
+      <attribute name="title">
+       <string>Online</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="layout1">
        <item>
-        <widget class="QTabWidget" name="tabWidget">
-         <property name="minimumSize">
-          <size>
-           <width>782</width>
-           <height>445</height>
-          </size>
+        <widget class="QScrollArea" name="scrollArea_2">
+         <property name="widgetResizable">
+          <bool>true</bool>
          </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="currentIndex">
-          <number>2</number>
-         </property>
-         <widget class="QWidget" name="online">
-          <attribute name="title">
-           <string>Online</string>
-          </attribute>
+         <widget class="QWidget" name="scrollAreaWidgetContents_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>778</width>
+            <height>404</height>
+           </rect>
+          </property>
           <layout class="QVBoxLayout" name="onlineWidgets"/>
          </widget>
-         <widget class="QWidget" name="offline">
-          <attribute name="title">
-           <string>Offline</string>
-          </attribute>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="offline">
+      <attribute name="title">
+       <string>Offline</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="layout">
+       <item>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>778</width>
+            <height>404</height>
+           </rect>
+          </property>
           <layout class="QVBoxLayout" name="offlineWidgets"/>
          </widget>
-         <widget class="QWidget" name="recipes">
-          <attribute name="title">
-           <string>Recipes</string>
-          </attribute>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="recipes">
+      <attribute name="title">
+       <string>Recipes</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="layout2">
+       <item>
+        <widget class="QScrollArea" name="scrollArea_3">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>778</width>
+            <height>404</height>
+           </rect>
+          </property>
           <layout class="QVBoxLayout" name="recipeWidgets"/>
          </widget>
         </widget>
