@@ -65,6 +65,7 @@ jobs:
       with:
         cache: on
         version: ${{ matrix.qt_version }}
+        aqtversion: ==3.1.*
 
     - name: Install Qt (Android)
       if: matrix.qt_target == 'android'
@@ -73,6 +74,7 @@ jobs:
         cache: on
         version: ${{ matrix.qt_version }}
         target: ${{ matrix.qt_target }}
+        aqtversion: ==3.1.*
         arch: ${{ matrix.qt_arch }}
 
     - name: Prepare AppImage (Linux)
