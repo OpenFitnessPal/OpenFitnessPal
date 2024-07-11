@@ -22,7 +22,7 @@ jobs:
             qt_version: '6.7.2'
             qt_arch: gcc_64
 
-            - os: ubuntu-20.04
+          - os: ubuntu-20.04
             qt_host: linux
             qt_target: android
             qt_arch: android_arm64_v8a
