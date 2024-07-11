@@ -26,7 +26,7 @@ jobs:
             qt_host: linux
             qt_target: android
             qt_arch: android_arm64_v8a
-            qt_version: '6.7.2.'
+            qt_version: '6.7.2'
 
           - os: windows-2022
             qt_host: windows
@@ -60,7 +60,7 @@ jobs:
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
 
-    - name: Install Qt 6.7.1
+    - name: Install Qt ${{ matrix.qt_version }}
       uses: jurplel/install-qt-action@v3.3.0
       with:
         cache: on
