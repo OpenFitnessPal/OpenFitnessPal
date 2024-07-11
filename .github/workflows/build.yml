@@ -19,28 +19,21 @@ jobs:
 
           - os: ubuntu-20.04
             qt_host: linux
-            qt_version: '6.7.1'
+            qt_version: '6.7.2'
             qt_arch: gcc_64
 
-            #- os: ubuntu-20.04
-            #qt_host: linux
-            #qt_target: android
-            #qt_arch: android_arm64_v8a
-            #qt_version: '6.6.0'
+            - os: ubuntu-20.04
+            qt_host: linux
+            qt_target: android
+            qt_arch: android_arm64_v8a
+            qt_version: '6.7.2.'
 
           - os: windows-2022
             qt_host: windows
-            qt_version: '6.7.1'
+            qt_version: '6.7.2'
             qt_arch: win64_msvc2019_64
 
     runs-on: ${{ matrix.os }}
-
-    env:
-      INSTALL_DIR: "install"
-      INSTALL_APPIMAGE_DIR: "install-appdir"
-      BUILD_DIR: "build"
-      VERSION: "1.0.0"
-      # stupid workaround because github actions sucks
 
     steps:
     - uses: actions/checkout@v3
@@ -53,7 +46,12 @@ jobs:
       shell: bash
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
-        echo ${{ matrix.qt_arch }}
+        tag_name=$(git describe --tags --abbrev=0)
+        echo "VERSION=$tag_name" >> $GITHUB_ENV
+        echo "BUILD_DIR=${{ github.workspace }}/build" >> $GITHUB_ENV
+        echo "INSTALL_DIR=${{ github.workspace }}/install" >> $GITHUB_ENV
+        echo "INSTALL_APPIMAGE_DIR=${{ github.workspace }}/install-appdir" >> $GITHUB_ENV
+        echo "DATE=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_ENV
 
     - name: Install MSVC (Windows)
       if: runner.os == 'Windows'
@@ -66,18 +64,16 @@ jobs:
       uses: jurplel/install-qt-action@v3.3.0
       with:
         cache: on
-        version: 6.7.1
-        aqtversion: ==3.1.*
+        version: ${{ matrix.qt_version }}
 
-        #    - name: Install Qt (Android)
-        #if: matrix.qt_target == 'android'
-        #uses: jurplel/install-qt-action@v3.3.0
-        #with:
-        #cache: on
-        #version: 6.6.0
-        #aqtversion: ==3.1.*
-        #target: ${{ matrix.qt_target }}
-        #arch: ${{ matrix.qt_arch }}
+    - name: Install Qt (Android)
+      if: matrix.qt_target == 'android'
+      uses: jurplel/install-qt-action@v3.3.0
+      with:
+        cache: on
+        version: ${{ matrix.qt_version }}
+        target: ${{ matrix.qt_target }}
+        arch: ${{ matrix.qt_arch }}
 
     - name: Prepare AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
@@ -111,23 +107,23 @@ jobs:
         cd ${{ env.INSTALL_DIR }}
         tar --owner root --group root -czf ../OpenFitnessPal.tar.gz *
 
-        #- name: Sign APK (Android)
-        #if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
-        #uses: r0adkll/sign-android-release@v1
-        #id: sign_apk
-        #with:
+    - name: Sign APK (Android)
+      if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
+      uses: r0adkll/sign-android-release@v1
+      id: sign_apk
+      with:
         # The directory to find your release to sign
-        #releaseDirectory: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/release
+        releaseDirectory: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/release
         # The key used to sign your release in base64 encoded format
-        #signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
         # The key alias
-        #alias: ${{ secrets.ALIAS }}
+        alias: ${{ secrets.ALIAS }}
         # The password to the keystore
-        #keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+        keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
         # wee woo
-        #keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
-        #env:
-        #BUILD_TOOLS_VERSION: "34.0.0"
+        keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
+      env:
+        BUILD_TOOLS_VERSION: "34.0.0"
 
     - name: Package AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
@@ -174,20 +170,20 @@ jobs:
       ##
       # UPLOAD BUILDS
       ##
-      #
-      #- name: Upload Release APK (Linux)
-      #if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
-      #uses: actions/upload-artifact@v3
-      #with:
-      #  name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
-      #  path: ${{steps.sign_apk.outputs.signedReleaseFile}}
 
-        #- name: Upload Debug APK (Linux)
-        #if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Debug'
-        #uses: actions/upload-artifact@v3
-        #with:
-        #name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
-        #path: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/debug/android-build-debug.apk
+    - name: Upload Release APK (Linux)
+      if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
+      uses: actions/upload-artifact@v3
+      with:
+        name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
+        path: ${{steps.sign_apk.outputs.signedReleaseFile}}
+
+    - name: Upload Debug APK (Linux)
+      if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Debug'
+      uses: actions/upload-artifact@v3
+      with:
+        name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
+        path: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/debug/android-build-debug.apk
 
     - name: Upload portable tarball (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'

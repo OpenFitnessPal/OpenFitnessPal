@@ -26,10 +26,6 @@ set(QT_VERSION_MAJOR 6)
 
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Network)
 
-# link_directories(/usr/local/lib)
-# set(OFPLib_DIR "/usr/local/share/OFPLib/cmake")
-# find_package(OFPLib REQUIRED)
-
 set(UI_ELEMENTS
     MainWindow
 
@@ -195,6 +191,7 @@ install(TARGETS ${OFP_APP_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-if(QT_VERSION_MAJOR EQUAL 6)
+qt_policy(set QTP0002 NEW)
+# if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(${OFP_APP_NAME})
-endif()
+# endif()
