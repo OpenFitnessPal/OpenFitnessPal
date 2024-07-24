@@ -45,7 +45,7 @@ jobs:
           zip -r OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip OpenFitnessPal-Windows-Portable*/* OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
 
           tar -czf OpenFitnessPal-${{ env.VERSION }}.tar.gz OpenFitnessPal-${{ env.VERSION }}
-          #mv OpenFitnessPal-Android*/*.apk OpenFitnessPal-Android-${{ env.VERSION }}.apk
+          mv OpenFitnessPal-Android*/*.apk OpenFitnessPal-Android-${{ env.VERSION }}.apk
 
       - name: Create release
         id: create_release
@@ -60,4 +60,4 @@ jobs:
             OpenFitnessPal-Linux-${{ env.VERSION }}-x86_64.AppImage
             OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
             OpenFitnessPal-${{ env.VERSION }}.tar.gz
-            #OpenFitnessPal-Android-${{ env.VERSION }}.apk
+            OpenFitnessPal-Android-${{ env.VERSION }}.apk

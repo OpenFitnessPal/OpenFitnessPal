@@ -19,6 +19,18 @@
    <string>Nutrient Overview</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item alignment="Qt::AlignmentFlag::AlignLeft">
+    <widget class="QPushButton" name="cancel">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="sizeAdjustPolicy">
@@ -33,387 +45,60 @@
         <x>0</x>
         <y>0</y>
         <width>886</width>
-        <height>748</height>
+        <height>699</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Calories</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="NutrientProgressBar" name="cals" native="true"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Fiber</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_16">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Sugar</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="NutrientProgressBar" name="sugar" native="true"/>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Fat</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="NutrientProgressBar" name="fat" native="true"/>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_18">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Saturated Fat</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="NutrientProgressBar" name="sat" native="true"/>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="label_19">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Monounsaturated Fat</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <widget class="NutrientProgressBar" name="mono" native="true"/>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="label_22">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Polyunsaturated Fat</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1">
-        <widget class="NutrientProgressBar" name="poly" native="true"/>
-       </item>
-       <item row="9" column="0">
-        <widget class="QLabel" name="label_24">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Trans Fat</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="1">
-        <widget class="NutrientProgressBar" name="trans" native="true"/>
-       </item>
-       <item row="10" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Protein</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="1">
-        <widget class="NutrientProgressBar" name="protein" native="true"/>
-       </item>
        <item row="11" column="0">
-        <widget class="QLabel" name="label_25">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Calcium</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="1">
-        <widget class="NutrientProgressBar" name="calcium" native="true"/>
-       </item>
-       <item row="12" column="0">
-        <widget class="QLabel" name="label_26">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Iron</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="1">
         <widget class="NutrientProgressBar" name="iron" native="true"/>
        </item>
-       <item row="13" column="0">
-        <widget class="QLabel" name="label_28">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Vitamin A</string>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="1">
+       <item row="12" column="0">
         <widget class="NutrientProgressBar" name="vitaminA" native="true"/>
        </item>
-       <item row="14" column="0">
-        <widget class="QLabel" name="label_30">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Vitamin C</string>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="1">
-        <widget class="NutrientProgressBar" name="vitaminC" native="true"/>
+       <item row="8" column="0">
+        <widget class="NutrientProgressBar" name="trans" native="true"/>
        </item>
        <item row="15" column="0">
-        <widget class="QLabel" name="label_32">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Vitamin D</string>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="1">
-        <widget class="NutrientProgressBar" name="vitaminD" native="true"/>
-       </item>
-       <item row="16" column="0">
-        <widget class="QLabel" name="label_34">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Sodium</string>
-         </property>
-        </widget>
-       </item>
-       <item row="17" column="0">
-        <widget class="QLabel" name="label_37">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Potassium</string>
-         </property>
-        </widget>
-       </item>
-       <item row="18" column="0">
-        <widget class="QLabel" name="label_39">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Cholesterol</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="NutrientProgressBar" name="fiber" native="true"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="NutrientProgressBar" name="carbs" native="true"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Carbs</string>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="1">
         <widget class="NutrientProgressBar" name="sodium" native="true"/>
        </item>
-       <item row="17" column="1">
+       <item row="9" column="0">
+        <widget class="NutrientProgressBar" name="protein" native="true"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="NutrientProgressBar" name="sat" native="true"/>
+       </item>
+       <item row="14" column="0">
+        <widget class="NutrientProgressBar" name="vitaminD" native="true"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="NutrientProgressBar" name="fat" native="true"/>
+       </item>
+       <item row="17" column="0">
+        <widget class="NutrientProgressBar" name="cholesterol" native="true"/>
+       </item>
+       <item row="10" column="0">
+        <widget class="NutrientProgressBar" name="calcium" native="true"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="NutrientProgressBar" name="sugar" native="true"/>
+       </item>
+       <item row="13" column="0">
+        <widget class="NutrientProgressBar" name="vitaminC" native="true"/>
+       </item>
+       <item row="7" column="0">
+        <widget class="NutrientProgressBar" name="poly" native="true"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="NutrientProgressBar" name="carbs" native="true"/>
+       </item>
+       <item row="16" column="0">
         <widget class="NutrientProgressBar" name="potassium" native="true"/>
        </item>
-       <item row="18" column="1">
-        <widget class="NutrientProgressBar" name="cholesterol" native="true"/>
+       <item row="2" column="0">
+        <widget class="NutrientProgressBar" name="fiber" native="true"/>
+       </item>
+       <item row="6" column="0">
+        <widget class="NutrientProgressBar" name="mono" native="true"/>
        </item>
       </layout>
      </widget>
@@ -430,5 +115,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>NutrientDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>452</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

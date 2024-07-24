@@ -38,7 +38,7 @@ public slots:
     void caloriesChanged(int value);
     void weightChanged(double value);
 
-    bool recalcGoal();
+    void recalcGoal();
 
 private:
     Ui::GoalsPage *ui;

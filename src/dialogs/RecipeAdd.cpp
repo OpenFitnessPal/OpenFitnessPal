@@ -3,6 +3,7 @@
 #include "ui_RecipeAdd.h"
 
 #include <dialogs/FoodSearch.h>
+#include <qscroller.h>
 
 RecipeAdd::RecipeAdd(QWidget *parent, const Recipe &recipe)
     : QDialog(parent)
@@ -13,6 +14,8 @@ RecipeAdd::RecipeAdd(QWidget *parent, const Recipe &recipe)
 
     ui->name->setText(recipe.name());
     ui->servings->setValue(recipe.servings());
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 }
 
 RecipeAdd::~RecipeAdd()

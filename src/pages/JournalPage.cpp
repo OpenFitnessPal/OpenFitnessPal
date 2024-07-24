@@ -2,11 +2,15 @@
 #include "Settings.h"
 #include "ui_JournalPage.h"
 
+#include <QScroller>
+
 JournalPage::JournalPage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::JournalPage)
 {
     ui->setupUi(this);
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 
     updateMealNames();
 

@@ -5,6 +5,7 @@
 #include "dialogs/FoodServingEdit.h"
 
 #include <dialogs/FoodSearch.h>
+#include <qscroller.h>
 
 RecipeEdit::RecipeEdit(QWidget *parent, const Recipe &recipe, const double units)
     : QDialog(parent)
@@ -18,6 +19,8 @@ RecipeEdit::RecipeEdit(QWidget *parent, const Recipe &recipe, const double units
     for (const FoodServing &serving : recipe.foods()) {
         addFood(serving);
     }
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 }
 
 RecipeEdit::~RecipeEdit()

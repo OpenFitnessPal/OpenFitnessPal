@@ -2,11 +2,15 @@
 #include "ui_SettingsPage.h"
 #include "Settings.h"
 
+#include <QScroller>
+
 SettingsPage::SettingsPage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SettingsPage)
 {
     ui->setupUi(this);
+
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 
     ui->meal1->setText(Settings::Meal1Name.value().toString());
     ui->meal2->setText(Settings::Meal2Name.value().toString());

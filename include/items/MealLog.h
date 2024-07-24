@@ -36,6 +36,8 @@ signals:
     void foodsChanged();
 
 private:
+    void mouseMoveEvent(QMouseEvent *e);
+
     Ui::MealLog *ui;
 
     QList<FoodInfoWidget *> m_widgets;

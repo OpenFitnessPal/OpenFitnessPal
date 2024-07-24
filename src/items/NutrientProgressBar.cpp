@@ -17,23 +17,35 @@ NutrientProgressBar::~NutrientProgressBar()
 void NutrientProgressBar::setTarget(const double newTarget)
 {
     m_target = newTarget;
-    ui->target->setText(QString::number(newTarget) + m_unit);
-    resetBar();
+    reset();
 }
 
 void NutrientProgressBar::setTotal(const double newTotal)
 {
     m_total = newTotal;
-    ui->total->setText(QString::number(newTotal) + m_unit);
-    resetBar();
+    reset();
 }
 
 void NutrientProgressBar::setUnit(const QString &unit)
 {
     m_unit = unit;
+    reset();
 }
 
-void NutrientProgressBar::resetBar()
+void NutrientProgressBar::setName(const QString &name)
+{
+    m_name = name;
+    reset();
+}
+
+void NutrientProgressBar::reset()
 {
     ui->bar->setValue(std::min(m_total / m_target * 100.0, 100.0));
+    ui->target->setText(QString::number(std::round(m_target * 100.) / 100.) + m_unit);
+    ui->total->setText(QString::number(std::round(m_total * 100.) / 100.) + m_unit);
+
+    double left = std::round((m_target - m_total) * 100.) / 100.;
+    if (left < 0) left = 0;
+    ui->left->setText(QString::number(left) + m_unit);
+    ui->name->setText(m_name);
 }
