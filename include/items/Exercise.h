@@ -1,43 +1,42 @@
 #ifndef EXERCISE_H
 #define EXERCISE_H
 
+#include <QObject>
+#include <QQmlEngine>
+
 #include "items/ExerciseSet.h"
-#include <QWidget>
 
-namespace Ui {
-class Exercise;
-}
-
-class Exercise : public QWidget
+class Exercise : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QList<ExerciseSet> sets READ sets WRITE setSets NOTIFY setsChanged)
+    QML_ELEMENT
 
 public:
-    explicit Exercise(QWidget *parent = nullptr);
-    ~Exercise();
+    Exercise(QObject *parent = nullptr);
+    Exercise(const Exercise &other);
+    Exercise operator=(const Exercise &other);
 
-    QList<ExerciseSet *> sets() const;
+    QString name() const;
+    void setName(const QString &newName);
 
-    void setName(const QString &name);
-    QString name();
-
-    void setSets(const QList<ExerciseSet *> &newSets);
+    QList<ExerciseSet> sets() const;
+    void setSets(const QList<ExerciseSet> &newSets);
 
 public slots:
     void addSet();
-    void deleteRequested();
-
-    void change();
+    void addSet(int reps, int weight);
+    void removeSet(int idx);
+    void changeSet(int idx, int reps, int weight);
 
 signals:
-    void removeRequested();
-
-    void dataChanged();
+    void nameChanged();
+    void setsChanged();
 
 private:
-    Ui::Exercise *ui;
-
-    QList<ExerciseSet *> m_sets;
+    QString m_name;
+    QList<ExerciseSet> m_sets;
 };
 
 #endif // EXERCISE_H

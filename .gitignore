@@ -73,3 +73,7 @@ CMakeLists.txt.user*
 *.exe
 
 build
+appimage
+CMakeLists.txt.user*
+*.qtds
+*.shared

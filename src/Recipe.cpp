@@ -2,7 +2,11 @@
 
 #include <QJsonArray>
 
-Recipe::Recipe() {}
+Recipe::Recipe() {
+    m_foods = {};
+    m_name = "";
+    m_servings = 1;
+}
 
 void Recipe::addFood(const FoodServing &food)
 {
@@ -14,9 +18,26 @@ void Recipe::removeFood(const FoodServing &food)
     m_foods.removeOne(food);
 }
 
+void Recipe::setFoods(const QList<FoodServing> &foods)
+{
+    m_foods = foods;
+}
+
 QList<FoodServing> Recipe::foods() const
 {
     return m_foods;
+}
+
+QList<FoodServing> Recipe::asServings(double units)
+{
+    QList<FoodServing> foods;
+    for (FoodServing &food : m_foods) {
+        food.units *= units / m_servings;
+
+        foods.append(food);
+    }
+
+    return foods;
 }
 
 NutrientUnion Recipe::nutrients(double units)

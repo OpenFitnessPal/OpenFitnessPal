@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=@OFP_APP_NAME@
+Name=@OFP_EXEC_NAME@
 Comment=A fitness-tracking application, track your foods & exercises.
-Icon=@OFP_APP_NAME@
+Icon=@OFP_EXEC_NAME@
 Categories=Utility
-Exec=@OFP_APP_NAME@
+Exec=@OFP_EXEC_NAME@
