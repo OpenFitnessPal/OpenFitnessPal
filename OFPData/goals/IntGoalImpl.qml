@@ -5,9 +5,22 @@ IntGoalForm {
     id: impl
     width: parent.width
 
-    spinBox.onValueChanged: (value) => impl.goalValueChanged(value)
+    function sendValue() {
+        impl.value = spinBox.value
+        impl.goalValueChanged(spinBox.value)
 
-    // spinBox.onValueChanged: if (isValid) goalManager[internalName] = spinBox.value
+        if (isValid) {
+            goalManager.setValue(internalName, spinBox.value)
+        }
+    }
 
-    // Component.onCompleted: spinBox.value = goalManager[internalName]
+    Component.onCompleted: {
+        let val = goalManager.getValue(internalName)
+        if (typeof val !== 'undefined') {
+            impl.value = goalManager.getValue(internalName)
+            spinBox.value = impl.value
+        }
+
+        spinBox.valueChanged.connect(sendValue)
+    }
 }

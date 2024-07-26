@@ -7,6 +7,7 @@
 
 #include "DataManager.h"
 #include "CacheManager.h"
+#include "GoalManager.h"
 #include "Settings.h"
 #include "autogen/environment.h"
 
@@ -30,10 +31,13 @@ int main(int argc, char *argv[])
 
     Settings settings;
     Recipe recipe;
+    GoalManager manager;
+
     DataManager::init();
     CacheManager::init();
 
     engine.rootContext()->setContextProperty("settings", &settings);
+    engine.rootContext()->setContextProperty("goalManager", &manager);
     engine.rootContext()->setContextProperty("blankRecipe", QVariant::fromValue(recipe));
 
     const QUrl url(mainQmlFile);

@@ -20,6 +20,14 @@ Rectangle {
     property alias fat: fat
     property alias protein: protein
 
+    property alias sugar: sugar
+    property alias fiber: fiber
+
+    property alias satFat: satFat
+    property alias monoFat: monoFat
+    property alias polyFat: polyFat
+    property alias transFat: transFat
+
     ColumnLayout {
         anchors.fill: parent
 
@@ -30,6 +38,7 @@ Rectangle {
 
         IntGoalImpl {
             id: carbs
+            value: 40
 
             isRootItem: true
 
@@ -37,8 +46,6 @@ Rectangle {
             Layout.fillWidth: true
             internalName: "carbs"
             suffix: "%"
-
-            max: 100 - fat.value - protein.value
         }
 
         ColumnLayout {
@@ -48,6 +55,7 @@ Rectangle {
 
             IntGoalImpl {
                 id: fiber
+                value: 10
 
                 isRootItem: false
 
@@ -55,12 +63,11 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "fiber"
                 suffix: "%"
-
-                max: 100 - sugar.value
             }
 
             IntGoalImpl {
                 id: sugar
+                value: 20
 
                 isRootItem: false
 
@@ -68,13 +75,12 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "sugar"
                 suffix: "%"
-
-                max: 100 - fiber.value
             }
         }
 
         IntGoalImpl {
             id: fat
+            value: 30
 
             isRootItem: true
 
@@ -82,8 +88,6 @@ Rectangle {
             Layout.fillWidth: true
             internalName: "fat"
             suffix: "%"
-
-            max: 100 - carbs.value - protein.value
         }
 
         ColumnLayout {
@@ -93,63 +97,60 @@ Rectangle {
 
             IntGoalImpl {
                 id: satFat
+                value: 65
 
                 isRootItem: false
 
                 name: "Saturated Fat"
                 Layout.fillWidth: true
-                internalName: "satFat"
+                internalName: "sat"
                 suffix: "%"
-
-                max: 100 - monoFat.value - polyFat.value - transFat.value
 
                 Layout.row: 0
             }
 
             IntGoalImpl {
                 id: monoFat
+                value: 30
 
                 isRootItem: false
 
                 name: "Monounsaturated Fat"
                 Layout.fillWidth: true
-                internalName: "monoFat"
+                internalName: "mono"
                 suffix: "%"
-
-                max: 100 - satFat.value - polyFat.value - transFat.value
 
                 Layout.row: 1
             }
 
             IntGoalImpl {
                 id: polyFat
+                value: 5
 
                 isRootItem: false
 
                 name: "Polyunsaturated Fat"
                 Layout.fillWidth: true
-                internalName: "polyFat"
+                internalName: "poly"
                 suffix: "%"
-
-                max: 100 - satFat.value - monoFat.value - transFat.value
             }
 
             IntGoalImpl {
                 id: transFat
+                value: 0
 
                 isRootItem: false
 
                 name: "Trans Fat"
                 Layout.fillWidth: true
-                internalName: "transFat"
+                internalName: "trans"
                 suffix: "%"
-
-                max: 100 - satFat.value - polyFat.value - monoFat.value
             }
         }
 
         IntGoalImpl {
             id: protein
+            value: 30
 
             isRootItem: true
 
@@ -157,8 +158,6 @@ Rectangle {
             Layout.fillWidth: true
             internalName: "protein"
             suffix: "%"
-
-            max: 100 - carbs.value - fat.value
         }
     }
 }

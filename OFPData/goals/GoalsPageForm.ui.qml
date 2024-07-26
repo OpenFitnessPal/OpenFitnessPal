@@ -37,10 +37,10 @@ Rectangle {
         anchors.top: text1.bottom
         anchors.bottom: parent.bottom
 
-        anchors.leftMargin: 8
-        anchors.rightMargin: 16
+        anchors.leftMargin: 0
+        anchors.rightMargin: 0
         anchors.topMargin: 8
-        anchors.bottomMargin: 8
+        anchors.bottomMargin: 40
 
         ColumnLayout {
             anchors.left: parent.left
@@ -56,6 +56,118 @@ Rectangle {
                 id: macroGoals
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+            }
+
+            IntGoalImpl {
+                id: calcium
+                value: 100
+
+                isRootItem: true
+
+                name: "Calcium"
+                Layout.fillWidth: true
+                internalName: "calcium"
+                suffix: "%"
+
+                max: 10000
+            }
+
+            IntGoalImpl {
+                id: iron
+                value: 100
+
+                isRootItem: true
+
+                name: "Iron"
+                Layout.fillWidth: true
+                internalName: "iron"
+                suffix: "%"
+
+                max: 10000
+            }
+
+            IntGoalImpl {
+                id: vitaminA
+                value: 100
+
+                isRootItem: true
+
+                name: "Vitamin A"
+                Layout.fillWidth: true
+                internalName: "vitaminA"
+                suffix: "%"
+
+                max: 10000
+            }
+
+            IntGoalImpl {
+                id: vitaminC
+                value: 100
+
+                isRootItem: true
+
+                name: "Vitamin C"
+                Layout.fillWidth: true
+                internalName: "vitaminC"
+                suffix: "%"
+
+                max: 10000
+            }
+
+            IntGoalImpl {
+                id: vitaminD
+                value: 100
+
+                isRootItem: true
+
+                name: "Vitamin D"
+                Layout.fillWidth: true
+                internalName: "vitaminD"
+                suffix: "%"
+
+                max: 10000
+            }
+
+            IntGoalImpl {
+                id: sodium
+                value: 6000
+
+                isRootItem: true
+
+                name: "Sodium"
+                Layout.fillWidth: true
+                internalName: "sodium"
+                suffix: "mg"
+
+                max: 100000
+            }
+
+            IntGoalImpl {
+                id: potassium
+                value: 4000
+
+                isRootItem: true
+
+                name: "Potassium"
+                Layout.fillWidth: true
+                internalName: "potassium"
+                suffix: "mg"
+
+                max: 100000
+            }
+
+            IntGoalImpl {
+                id: cholesterol
+                value: 600
+
+                isRootItem: true
+
+                name: "Cholesterol"
+                Layout.fillWidth: true
+                internalName: "cholesterol"
+                suffix: "mg"
+
+                max: 100000
             }
         }
     }

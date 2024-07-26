@@ -53,7 +53,7 @@ Rectangle {
         anchors.bottomMargin: 4
 
         font.pixelSize: fontSize
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
     }
 
@@ -61,8 +61,8 @@ Rectangle {
         id: spinBox
         editable: true
         to: max
-        suffix: suffix
-        value: value
+        suffix: root.suffix
+        value: root.value
 
         anchors.right: parent.right
         anchors.left: parent.horizontalCenter
@@ -73,7 +73,6 @@ Rectangle {
         anchors.rightMargin: 8
         anchors.topMargin: 4
         anchors.bottomMargin: 4
-
     }
 }
 

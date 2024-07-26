@@ -34,6 +34,7 @@ set(CODE_ELEMENTS
 
     Settings
     Recipe
+    GoalManager
 
     models/FoodServingModel
     models/FoodServingComboBoxModel
@@ -91,8 +92,6 @@ project(${OFP_APP_NAME} VERSION ${OFP_GIT_TAG_NUMERO} LANGUAGES CXX)
 # Build Date
 string(TIMESTAMP TODAY "%Y-%m-%d")
 set(OFP_BUILD_TIMESTAMP "${TODAY}")
-
-# TODO: buildconfig
 
 qt_add_executable(${CMAKE_PROJECT_NAME} ${PROJECT_SRC})
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"

@@ -16,10 +16,6 @@ SpinBox {
     }
 
     valueFromText: function(text, locale) {
-        console.log(text)
-        console.log(text.replace(suffix, ""))
-        console.log(Number.fromLocaleString(locale, text.replace(suffix, "")))
         return Number.fromLocaleString(locale, text.replace(suffix, ""))
-        // return 30
     }
 }
