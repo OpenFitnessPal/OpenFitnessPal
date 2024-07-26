@@ -6,6 +6,8 @@ set_source_files_properties(Constants.qml
 		QT_QML_SINGLETON_TYPE true
 )
 
+
+
 qt_add_library(OFPData STATIC)
 qt6_add_qml_module(OFPData
     URI "OFPData"
@@ -14,8 +16,43 @@ qt6_add_qml_module(OFPData
 	QML_FILES
 		"EventListSimulator.qml"
 		"Constants.qml"
-		"EventListModel.qml"
 		"DirectoryFontLoader.qml"
+		"EventListModel.qml"
+		"DateSelect.qml"
+		"AddButton.ui.qml"
+		"RemoveButton.ui.qml"
+		"App.qml"
+		"DoubleSpinBox.qml"
+		"food/MealLogImpl.qml"
+		"food/FoodSearchImpl.qml"
+		"food/FoodServingEditImpl.qml"
+		"food/FoodServingInfoForm.ui.qml"
+		"food/MealLogForm.ui.qml"
+		"food/FoodPageImpl.qml"
+		"food/FoodPageForm.ui.qml"
+		"food/FoodServingInfoImpl.qml"
+		"food/FoodServingEditForm.ui.qml"
+		"food/FoodSearchForm.ui.qml"
+		"exercise/ExercisePageForm.ui.qml"
+		"exercise/ExerciseSetImpl.qml"
+		"exercise/ExerciseForm.ui.qml"
+		"exercise/ExercisePageImpl.qml"
+		"exercise/ExerciseImpl.qml"
+		"exercise/ExerciseSetForm.ui.qml"
+		"recipes/RecipeAddImpl.qml"
+		"recipes/RecipesPageImpl.qml"
+		"recipes/RecipeAddForm.ui.qml"
+		"recipes/RecipesPageForm.ui.qml"
+		"recipes/RecipeEditForm.ui.qml"
+		"recipes/RecipeInfoForm.ui.qml"
+		"recipes/RecipeInfoImpl.qml"
+		"recipes/RecipeEditImpl.qml"
+		"goals/GoalsPageForm.ui.qml"
+		"goals/GoalsPageImpl.qml"
+		"goals/IntGoalImpl.qml"
+		"goals/IntGoalForm.ui.qml"
+		"goals/PercentageBox.qml"
+		"settings/SettingsPage.ui.qml"
 )
 
 

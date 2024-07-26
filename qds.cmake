@@ -2,9 +2,7 @@
 ### Do not change
 
 add_subdirectory(OFPData)
-add_subdirectory(OFPContent)
 add_subdirectory(App)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-        OFPDataplugin
-	OFPContentplugin)
+	OFPDataplugin)

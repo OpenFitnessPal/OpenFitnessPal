@@ -7,9 +7,8 @@
 #include "qqmlextensionplugin.h"
 
 Q_IMPORT_QML_PLUGIN(OFPDataPlugin)
-Q_IMPORT_QML_PLUGIN(OFPContentPlugin)
 
-const char mainQmlFile[] = "qrc:/qt/qml/OFPContent/App.qml";
+const char mainQmlFile[] = "qrc:/qt/qml/OFPData/App.qml";
 
 #ifdef BUILD_QDS_COMPONENTS
 

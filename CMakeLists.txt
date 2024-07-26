@@ -101,7 +101,7 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     qtquickcontrols2.conf)
 
 qt_add_qml_module(${OFP_APP_NAME}
-    URI OFPTest
+    URI OFPNative
     VERSION 1.0
     SOURCES
     ${PROJECT_SRC}

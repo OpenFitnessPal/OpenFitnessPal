@@ -29,31 +29,20 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    ListView {
-        id: listView
+    Flickable {
+        id: flickable
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: text1.bottom
         anchors.bottom: parent.bottom
+
         anchors.leftMargin: 8
         anchors.rightMargin: 8
-        anchors.topMargin: 18
+        anchors.topMargin: 8
         anchors.bottomMargin: 8
+
         boundsMovement: Flickable.StopAtBounds
         boundsBehavior: Flickable.StopAtBounds
-        model: ListModel {}
-        delegate: Row {
-            spacing: 5
-            Rectangle {
-                width: 100
-                height: 20
-                color: colorCode
-            }
-
-            Text {
-                width: 100
-                text: name
-            }
-        }
     }
 }

@@ -4,8 +4,8 @@
 import QmlProject
 
 Project {
-    mainFile: "OFPContent/App.qml"
-    mainUiFile: "OFPContent/SettingsPage.ui.qml"
+    mainFile: "OFPData/App.qml"
+    mainUiFile: "OFPData/AddButton2.ui.qml"
     targetDirectory: "/opt/OFP"
     enableCMakeGeneration: true
     widgetApp: true
@@ -30,15 +30,19 @@ Project {
 
     ShaderTool {
         args: "-s --glsl \"100 es,120,150\" --hlsl 50 --msl 12"
-        files: [ "OFPContent/shaders/*" ]
+        files: [ "OFPData/shaders/*" ]
     }
 
     QmlFiles {
-        directory: "OFP"
+        directory: "OFPData"
     }
 
     QmlFiles {
-        directory: "OFPContent"
+        directory: "OFPData/exercise"
+    }
+
+    QmlFiles {
+        directory: "OFPData/food"
     }
 
     QmlFiles {
@@ -46,15 +50,11 @@ Project {
     }
 
     JavaScriptFiles {
-        directory: "OFP"
-    }
-
-    JavaScriptFiles {
-        directory: "OFP"
+        directory: "OFPData"
     }
 
     ImageFiles {
-        directory: "OFPContent"
+        directory: "OFPData"
     }
 
     ImageFiles {

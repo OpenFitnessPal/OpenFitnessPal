@@ -25,6 +25,6 @@ QtObject {
 
 
     property StudioApplication application: StudioApplication {
-        fontPath: Qt.resolvedUrl("../../OFPContent/" + relativeFontDirectory)
+        fontPath: Qt.resolvedUrl("../../OFPData/" + relativeFontDirectory)
     }
 }

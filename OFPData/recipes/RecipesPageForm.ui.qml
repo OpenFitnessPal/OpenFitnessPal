@@ -10,7 +10,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 import OFPData
-import QtQuick.Layouts
+
 
 Rectangle {
     id: rectangle
@@ -18,10 +18,13 @@ Rectangle {
     height: Constants.pageHeight
     color: Constants.baseColor
 
+    property alias add: add
+    property alias listView: listView
+
     Text {
         id: text1
         color: "#ffffff"
-        text: qsTr("Goals")
+        text: qsTr("Recipes")
         anchors.top: parent.top
         anchors.topMargin: 8
         font.pixelSize: 24
@@ -29,31 +32,28 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
+    AddButton {
+        id: add
+
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: 8
+        anchors.topMargin: 8
+    }
+
     ListView {
         id: listView
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: text1.bottom
+        anchors.top: add.bottom
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 8
-        anchors.rightMargin: 8
-        anchors.topMargin: 18
-        anchors.bottomMargin: 8
+
+        anchors.leftMargin: 15
+        anchors.rightMargin: 15
+        anchors.topMargin: 15
+        anchors.bottomMargin: 40
+
         boundsMovement: Flickable.StopAtBounds
         boundsBehavior: Flickable.StopAtBounds
-        model: ListModel {}
-        delegate: Row {
-            spacing: 5
-            Rectangle {
-                width: 100
-                height: 20
-                color: colorCode
-            }
-
-            Text {
-                width: 100
-                text: name
-            }
-        }
     }
 }
