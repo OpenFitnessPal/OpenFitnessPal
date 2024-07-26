@@ -29,8 +29,8 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    Flickable {
-        id: flickable
+    ScrollView {
+        id: scroll
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -38,11 +38,25 @@ Rectangle {
         anchors.bottom: parent.bottom
 
         anchors.leftMargin: 8
-        anchors.rightMargin: 8
+        anchors.rightMargin: 16
         anchors.topMargin: 8
         anchors.bottomMargin: 8
 
-        boundsMovement: Flickable.StopAtBounds
-        boundsBehavior: Flickable.StopAtBounds
+        ColumnLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 0
+            anchors.rightMargin: 0
+            anchors.topMargin: 0
+            anchors.bottomMargin: 0
+
+            MacroGoals {
+                id: macroGoals
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+        }
     }
 }

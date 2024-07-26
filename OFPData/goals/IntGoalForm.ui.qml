@@ -15,45 +15,71 @@ import QtQuick.Layouts
 Rectangle {
     id: root
 
-    color: Constants.sub1Color
+    signal goalValueChanged(int value)
 
+    property bool isRootItem: true
     property bool isValid: true
 
-    property int fontSize: 18
-    property int name: "Goal Name"
+    property string name: "Goal Name"
+    property string internalName: "goal"
+    property string suffix: "%"
+
+    property int max: 100
+    property int value
 
     property alias spinBox: spinBox
 
-    width: 480
-    height: 80
+    color: isRootItem ? Constants.baseColor : Constants.sub1Color
 
-    RowLayout {
-        id: rowLayout
-        anchors.fill: parent
+    property int fontSize: isRootItem ? 18 : 14
+
+    width: 480
+    height: isRootItem ? 50 : 35
+
+    Text {
+        id: goalName
+        color: isValid ? "#ffffff" : "#ffff00"
+
+        text: qsTr(name + ":")
+
+        anchors.left: parent.left
+        anchors.right: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+
         anchors.leftMargin: 8
         anchors.rightMargin: 8
-        anchors.topMargin: 8
-        anchors.bottomMargin: 8
+        anchors.topMargin: 4
+        anchors.bottomMargin: 4
 
-        Text {
-            id: goalName
-            color: isValid ? "#ffffff" : "#ffff00"
+        font.pixelSize: fontSize
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
 
-            Layout.row: 0
+    SuffixedSpinBox {
+        id: spinBox
+        editable: true
+        to: max
+        suffix: suffix
+        value: value
 
-            text: qsTr(name)
-            font.pixelSize: fontSize
-            Layout.fillHeight: false
-        }
+        anchors.right: parent.right
+        anchors.left: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
 
-        PercentageBox {
-            id: spinBox
-            editable: true
+        anchors.leftMargin: 8
+        anchors.rightMargin: 8
+        anchors.topMargin: 4
+        anchors.bottomMargin: 4
 
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            Layout.row: 1
-        }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorColor:"#00000c"}
+}
+##^##*/
+

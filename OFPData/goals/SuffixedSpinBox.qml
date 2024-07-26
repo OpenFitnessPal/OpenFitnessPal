@@ -9,15 +9,17 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 SpinBox {
-    from: 0
-    to: 100
-    value: 0
+    property string suffix: "%"
 
-    textFromValue: function(value) {
-        return value + "%"
+    textFromValue: function(value, locale) {
+        return value + suffix
     }
 
-    valueFromText: function(text) {
-        return text.substring(0, text.length - 1)
+    valueFromText: function(text, locale) {
+        console.log(text)
+        console.log(text.replace(suffix, ""))
+        console.log(Number.fromLocaleString(locale, text.replace(suffix, "")))
+        return Number.fromLocaleString(locale, text.replace(suffix, ""))
+        // return 30
     }
 }
