@@ -18,6 +18,12 @@ Rectangle {
     height: Constants.pageHeight
     color: Constants.baseColor
 
+    property alias recalc: recalc
+    property alias goal: goal
+    property alias weight: weight
+    property alias calories: calories
+    property alias macros: macros
+
     Text {
         id: text1
         color: "#ffffff"
@@ -52,8 +58,53 @@ Rectangle {
             anchors.topMargin: 0
             anchors.bottomMargin: 0
 
+            IntGoalImpl {
+                id: weight
+                value: 135
+
+                isRootItem: true
+
+                name: "Current Weight"
+                Layout.fillWidth: true
+                internalName: "weight"
+                suffix: "lbs"
+
+                max: 10000
+            }
+
+            WeightGoal {
+                id: goal
+
+                Layout.leftMargin: 8
+                // Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+
+            IntGoalImpl {
+                id: calories
+                value: 2500
+
+                isRootItem: true
+
+                name: "Target Calories"
+                Layout.fillWidth: true
+                internalName: "calories"
+                suffix: "kcal"
+
+                max: 10000
+            }
+
+            ToolButton {
+                id: recalc
+                text: "Recalculate Goals"
+                font.pointSize: 16
+                highlighted: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            }
+
             MacroGoals {
-                id: macroGoals
+                id: macros
+                width: 450
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }

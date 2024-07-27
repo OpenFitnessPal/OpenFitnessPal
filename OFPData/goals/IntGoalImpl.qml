@@ -6,6 +6,7 @@ IntGoalForm {
     width: parent.width
 
     function sendValue() {
+        console.log("Value Changed for " + name + " to " + spinBox.value)
         impl.value = spinBox.value
         impl.goalValueChanged(spinBox.value)
 

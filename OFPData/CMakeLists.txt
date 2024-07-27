@@ -30,6 +30,8 @@ qt6_add_qml_module(OFPData
 		"goals/SuffixedSpinBox.qml"
 		"goals/MacroGoals.qml"
 		"goals/IntGoalImpl.qml"
+		"goals/WeightGoal.qml"
+		"goals/GoalSpinBox.qml"
 		"food/MealLogImpl.qml"
 		"food/FoodSearchForm.ui.qml"
 		"food/FoodServingEditImpl.qml"

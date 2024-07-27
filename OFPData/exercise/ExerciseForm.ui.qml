@@ -11,7 +11,6 @@ import QtQuick.Controls 2.15
 
 import OFPData
 
-
 Rectangle {
     id: exercise
 
@@ -50,6 +49,7 @@ Rectangle {
         anchors.leftMargin: 8
         anchors.rightMargin: 8
         anchors.topMargin: 8
+        renderType: Text.NativeRendering
         font.pointSize: 20
         placeholderText: qsTr("Exercise Name")
     }

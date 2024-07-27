@@ -6,6 +6,19 @@ MacroGoalsForm {
 
     property bool startup: true
 
+    function setMacros(newCarbs, newFat, newProtein) {
+
+        console.log("Carbs: " + newCarbs + " Fat: " + newFat + " Carbs: " + newProtein)
+
+        // carbs.value = newCarbs
+        // fat.value = newFat
+        // protein.value = newProtein
+
+        carbs.spinBox.value = newCarbs
+        fat.spinBox.value = newFat
+        protein.spinBox.value = newProtein
+    }
+
     function checkMacrosValid() {
         if (startup) {
             carbs.value = goalManager.getValue("carbs")

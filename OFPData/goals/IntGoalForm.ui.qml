@@ -31,10 +31,10 @@ Rectangle {
 
     color: isRootItem ? Constants.baseColor : Constants.sub1Color
 
-    property int fontSize: isRootItem ? 18 : 14
+    property int fontSize: isRootItem ? 16 : 12
 
     width: 480
-    height: isRootItem ? 50 : 35
+    height: isRootItem ? 40 : 35
 
     Text {
         id: goalName
