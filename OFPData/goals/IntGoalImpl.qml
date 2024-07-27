@@ -6,7 +6,6 @@ IntGoalForm {
     width: parent.width
 
     function sendValue() {
-        console.log("Value Changed for " + name + " to " + spinBox.value)
         impl.value = spinBox.value
         impl.goalValueChanged(spinBox.value)
 
@@ -15,10 +14,19 @@ IntGoalForm {
         }
     }
 
+    function setValue(newValue) {
+        spinBox.valueChanged.disconnect(sendValue)
+
+        spinBox.value = newValue
+        impl.value = newValue
+
+        spinBox.valueChanged.connect(sendValue)
+    }
+
     Component.onCompleted: {
         let val = goalManager.getValue(internalName)
         if (typeof val !== 'undefined') {
-            impl.value = goalManager.getValue(internalName)
+            impl.value = val
             spinBox.value = impl.value
         }
 

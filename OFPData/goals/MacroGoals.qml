@@ -7,16 +7,23 @@ MacroGoalsForm {
     property bool startup: true
 
     function setMacros(newCarbs, newFat, newProtein) {
+        carbs.goalValueChanged.disconnect(checkMacrosValid)
+        fat.goalValueChanged.disconnect(checkMacrosValid)
+        protein.goalValueChanged.disconnect(checkMacrosValid)
 
-        console.log("Carbs: " + newCarbs + " Fat: " + newFat + " Carbs: " + newProtein)
+        carbs.max = 100
+        fat.max = 100
+        protein.max = 100
 
-        // carbs.value = newCarbs
-        // fat.value = newFat
-        // protein.value = newProtein
+        carbs.setValue(newCarbs)
+        fat.setValue(newFat)
+        protein.setValue(newProtein)
 
-        carbs.spinBox.value = newCarbs
-        fat.spinBox.value = newFat
-        protein.spinBox.value = newProtein
+        checkMacrosValid()
+
+        carbs.goalValueChanged.connect(checkMacrosValid)
+        fat.goalValueChanged.connect(checkMacrosValid)
+        protein.goalValueChanged.connect(checkMacrosValid)
     }
 
     function checkMacrosValid() {

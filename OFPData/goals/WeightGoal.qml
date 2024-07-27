@@ -38,9 +38,16 @@ Rectangle {
 
         Layout.fillWidth: true
 
-        onValueChanged: {
-                            index = value
-                            goalChanged(value)
-                        }
+        function sendIndex() {
+            index = value
+            goalChanged(value)
+        }
+
+        Component.onCompleted: {
+            value = goalManager.getValue("goal")
+            index = value
+
+            valueChanged.connect(sendIndex)
+        }
     }
 }

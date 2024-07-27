@@ -26,30 +26,31 @@ GoalsPageForm {
         switch (goal.index) {
             // fast weight loss
         case 0:
-            weightMultiplier = 14.;
-            fatPercentage = 25.;
+            weightMultiplier = 12.;
+            carbsPercentage = 25.;
+            fatPercentage = 30.;
             proteinPercentage = 45.;
             break;
             // slow weight loss
         case 1:
-            weightMultiplier = 16.;
+            weightMultiplier = 14.;
             fatPercentage = 30.;
             proteinPercentage = 40.;
             break;
             // maintain
         case 2:
-            weightMultiplier = 18.;
+            weightMultiplier = 15.;
             break;
             // slow weight gain
         case 3:
-            weightMultiplier = 20.;
+            weightMultiplier = 16.;
             carbsPercentage = 35.;
             fatPercentage = 30.;
             proteinPercentage = 35.;
             break;
             // fast weight gain
         case 4:
-            weightMultiplier = 22.;
+            weightMultiplier = 18.;
             carbsPercentage = 35.;
             fatPercentage = 35.;
             proteinPercentage = 30.;
