@@ -23,15 +23,18 @@ Rectangle {
 
     property alias swipe: swipe
     property alias journal: journal
+    property alias nutrition: nutrition
 
     SwipeView {
         id: swipe
         anchors.fill: parent
         anchors.bottomMargin: 40
         interactive: false
+        currentIndex: 0
 
         JournalPage {
             id: journal
+            visible: true
         }
 
         NutritionInfo {

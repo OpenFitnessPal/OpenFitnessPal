@@ -18,6 +18,8 @@ Rectangle {
     visible: true
     color: Constants.sub1Color
 
+    signal closeOut()
+
     property alias cal: cal
     property alias carbs: carbs
     property alias fiber: fiber
@@ -36,11 +38,14 @@ Rectangle {
     property alias calcium: calcium
     property alias iron: iron
 
+    property alias header: header
+
     ScrollView {
         anchors.fill: parent
         ColumnLayout {
             anchors.fill: parent
             NutritionInfoHeader {
+                id: header
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Layout.fillWidth: true
                 width: Layout.width

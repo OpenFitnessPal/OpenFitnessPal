@@ -7,6 +7,8 @@ import OFPData
 Rectangle {
     color: Constants.baseColor
 
+    signal nutritionInfoRequested()
+
     property alias mealLog1: mealLog1
     property alias mealLog2: mealLog2
     property alias mealLog3: mealLog3
@@ -15,29 +17,17 @@ Rectangle {
 
     property alias calPreview: calPreview
 
-    Text {
-        id: text1
-
-        color: "#ffffff"
-        text: qsTr("Journal")
-        anchors.top: parent.top
-        anchors.topMargin: 8
-        font.pixelSize: 24
-        anchors.horizontalCenter: parent.horizontalCenter
-        font.bold: true
-    }
-
     ScrollView {
         id: scroll
 
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 40
+        anchors.bottomMargin: 0
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.right: parent.right
         anchors.rightMargin: 0
-        anchors.top: text1.bottom
-        anchors.topMargin: 20
+        anchors.top: parent.top
+        anchors.topMargin: 8
 
         ColumnLayout {
             id: colLayout
@@ -51,9 +41,9 @@ Rectangle {
             anchors.bottomMargin: 0
             spacing: 10
 
-            MouseArea {
+            CaloriePreview {
                 id: calPreview
-                Layout.minimumHeight: 60
+                // width: Layout.width
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }

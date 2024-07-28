@@ -7,5 +7,6 @@ FoodPageForm {
     }
 
     swipe.onCurrentItemChanged: reloadData()
-    journal.calPreview.onClicked: swipe.setCurrentIndex(1)
+    journal.onNutritionInfoRequested: swipe.setCurrentIndex(1)
+    nutrition.onCloseOut: swipe.setCurrentIndex(0)
 }

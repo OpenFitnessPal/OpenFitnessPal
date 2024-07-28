@@ -30,5 +30,10 @@ JournalPageForm {
 
         mealLog5.currentDate = currentDate
         mealLog5.reloadData()
+
+        calPreview.reloadData(currentDate)
     }
+
+    calPreview.onClicked: nutritionInfoRequested()
+    Component.onCompleted: calPreview.reloadData(currentDate)
 }

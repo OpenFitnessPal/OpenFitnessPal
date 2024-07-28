@@ -8,8 +8,21 @@ Rectangle {
     id: rectangle
     color: "#000000"
 
-    width: 480
+    signal removeRequested
+
+    // width: 480
     height: 60
+
+    property alias remove: remove
+
+    RemoveButton {
+        id: remove
+
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+
+        anchors.verticalCenter: parent.verticalCenter
+    }
 
     Text {
         id: total

@@ -22,4 +22,6 @@ NutritionInfoForm {
         calcium.reloadData(n.calcium)
         iron.reloadData(n.iron)
     }
+
+    header.onRemoveRequested: closeOut()
 }
