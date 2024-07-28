@@ -21,101 +21,21 @@ Rectangle {
 
     property date currentDate
 
-    property alias mealLog1: mealLog1
-    property alias mealLog2: mealLog2
-    property alias mealLog3: mealLog3
-    property alias mealLog4: mealLog4
-    property alias mealLog5: mealLog5
+    property alias swipe: swipe
+    property alias journal: journal
 
-    Text {
-        id: text1
-
-        color: "#ffffff"
-        text: qsTr("Journal")
-        anchors.top: parent.top
-        anchors.topMargin: 8
-        font.pixelSize: 24
-        anchors.horizontalCenter: parent.horizontalCenter
-        font.bold: true
-    }
-
-    ScrollView {
-        id: scrollView
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: text1.bottom
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
-        anchors.topMargin: 60
+    SwipeView {
+        id: swipe
+        anchors.fill: parent
         anchors.bottomMargin: 40
+        interactive: false
 
-        ColumnLayout {
-            id: colLayout
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 0
-            anchors.rightMargin: 0
-            anchors.topMargin: 0
-            anchors.bottomMargin: 0
-            spacing: 10
+        JournalPage {
+            id: journal
+        }
 
-            MealLogImpl {
-                id: mealLog1
-                Layout.minimumHeight: 60
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                Layout.row: 0
-
-                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
-            }
-
-            MealLogImpl {
-                id: mealLog2
-                Layout.minimumHeight: 60
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                Layout.row: 1
-
-                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
-            }
-
-            MealLogImpl {
-                id: mealLog3
-                Layout.minimumHeight: 60
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                Layout.row: 2
-
-                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
-            }
-
-            MealLogImpl {
-                id: mealLog4
-                Layout.minimumHeight: 60
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                Layout.row: 3
-
-                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
-            }
-
-            MealLogImpl {
-                id: mealLog5
-                Layout.minimumHeight: 60
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                Layout.row: 4
-
-                Layout.preferredHeight: 100 + listView.count * (100 + listView.spacing)
-            }
+        NutritionInfo {
+            id: nutrition
         }
     }
 }

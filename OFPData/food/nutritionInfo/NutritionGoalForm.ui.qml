@@ -13,7 +13,7 @@ import OFPData
 
 Rectangle {
     id: rectangle
-    width: 600
+    // width: 600
     height: 60
     color: Constants.sub1Color
 
@@ -21,7 +21,11 @@ Rectangle {
     property string internalName: "goal"
     property string suffix: "g"
 
+    property bool isPercent: false
+    property bool isFat: false
+
     property alias goalName: goalName
+    property alias goal: goal
     property alias amountLeft: amountLeft
     property alias total: total
     property alias progressBar: progressBar
@@ -66,22 +70,21 @@ Rectangle {
     }
 
     Text {
-        id: amountLeft
+        id: goal
         width: 50
 
-        x: ((total.x + total.width) + (goal.x - goal.width / 2.)) / 2.
+        x: ((total.x + total.width) + (amountLeft.x - amountLeft.width / 2.)) / 2.
         color: "#ffffff"
         text: qsTr("10000.0")
         anchors.verticalCenter: total.verticalCenter
-        // anchors.left: total.right
-        // anchors.leftMargin: 60
+
         font.pixelSize: 14
         horizontalAlignment: Text.AlignRight
         verticalAlignment: Text.AlignVCenter
     }
 
     Text {
-        id: goal
+        id: amountLeft
         width: 76
         color: "#ffffff"
         text: qsTr("10000.0kcal")

@@ -1,7 +1,8 @@
 import QtQuick 2.15
 
-FoodPageForm {
+JournalPageForm {
     id: impl
+
     mealLog1.mealName.text: settings.meal1Name
     mealLog2.mealName.text: settings.meal2Name
     mealLog3.mealName.text: settings.meal3Name
@@ -14,7 +15,7 @@ FoodPageForm {
     mealLog4.mealNumber: 4
     mealLog5.mealNumber: 5
 
-    function reloadData() {
+    function reloadData(currentDate) {
         mealLog1.currentDate = currentDate
         mealLog1.reloadData()
 

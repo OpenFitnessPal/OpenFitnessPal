@@ -35,6 +35,7 @@ set(CODE_ELEMENTS
     Settings
     Recipe
     GoalManager
+    NutritionManager
 
     models/FoodServingModel
     models/FoodServingComboBoxModel

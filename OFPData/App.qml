@@ -123,11 +123,10 @@ Window {
             }
         }
 
-        FoodPageImpl {
+        FoodPage {
             id: foodPage
             Component.onCompleted: {
                 currentDate = new Date()
-                reloadData()
             }
         }
 
