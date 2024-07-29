@@ -1,9 +1,18 @@
-# OpenFitnessPal Rewrite
-A WIP rewrite of OpenFitnessPal in QML, for improved QoL, UI features, and an overall significantly smoother experience, designed to be a unified experience between desktop and mobile.
+# OpenFitnessPal
+A free, open-source fitness tracker to track your exercise, nutrition, and health data.
 
-Once this rewrite is feature-complete, a more comprehensive guide for installation, usage, etc. will be put here, and this will be moved to the main repo.
+## Installation
+First, you'll need to download the appropriate release for your operating system. Currently, builds are available for Windows (portable) and Linux (package, AppImage).
+Windows setup will come soon.
 
-## Download
-Download here.
+Check the [releases](https://github.com/crueter/OpenFitnessPal/releases) tab for the latest release, or you can get debug builds here:
 
 [![Build Application](https://github.com/crueter/QMLTest/actions/workflows/trigger_builds.yml/badge.svg)](https://github.com/crueter/QMLTest/actions/workflows/trigger_builds.yml)
+
+Simply run the executable or AppImage to get started.
+
+## Usage
+Getting started and general usage will be documented on the [wiki](https://github.com/crueter/OpenFitnessPal/wiki/OpenFitnessPal-Wiki).
+
+## Contributing & Forking
+Follow the license and make it clear that your project is NOT OpenFitnessPal.
