@@ -30,22 +30,28 @@ jobs:
         with:
           submodules: 'true'
           path: 'OpenFitnessPal-source'
+          
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
+        
       - name: Grab and store version
         run: |
           tag_name=$(echo ${{ github.ref }} | grep -oE "[^/]+$")
           echo "VERSION=$tag_name" >> $GITHUB_ENV
+
       - name: Package artifacts properly
         run: |
           mv ${{ github.workspace }}/OpenFitnessPal-source OpenFitnessPal-${{ env.VERSION }}
           ls *
+
+          cd ${{ github.workspace }}
+          
           mv OpenFitnessPal-Linux-Binary*/OpenFitnessPal.tar.gz OpenFitnessPal-Linux-Binary-${{ env.VERSION }}.tar.gz
           mv OpenFitnessPal-*.AppImage/OpenFitnessPal-*.AppImage OpenFitnessPal-Linux-${{ env.VERSION }}-x86_64.AppImage
           zip -r OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip OpenFitnessPal-Windows-Portable*/* OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
 
           tar -czf OpenFitnessPal-${{ env.VERSION }}.tar.gz OpenFitnessPal-${{ env.VERSION }}
-          mv OpenFitnessPal-Android*/*.apk OpenFitnessPal-Android-${{ env.VERSION }}.apk
+          # mv OpenFitnessPal-Android*/*.apk OpenFitnessPal-Android-${{ env.VERSION }}.apk
 
       - name: Create release
         id: create_release
@@ -60,4 +66,4 @@ jobs:
             OpenFitnessPal-Linux-${{ env.VERSION }}-x86_64.AppImage
             OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
             OpenFitnessPal-${{ env.VERSION }}.tar.gz
-            OpenFitnessPal-Android-${{ env.VERSION }}.apk
+            # OpenFitnessPal-Android-${{ env.VERSION }}.apk

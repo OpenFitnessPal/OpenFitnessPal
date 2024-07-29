@@ -1,42 +1,37 @@
 #ifndef EXERCISESET_H
 #define EXERCISESET_H
 
-#include <QWidget>
+#include <QObject>
+#include <QTime>
+#include <QQmlEngine>
 
-namespace Ui {
-class ExerciseSet;
-}
-
-class ExerciseSet : public QWidget
+class ExerciseSet : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int reps READ reps WRITE setReps FINAL)
+    Q_PROPERTY(int weight READ weight WRITE setWeight FINAL)
+    // Q_PROPERTY(QTime time READ time WRITE setTime NOTIFY timeChanged FINAL)
+    QML_ELEMENT
 
 public:
-    explicit ExerciseSet(QWidget *parent = nullptr);
-    ExerciseSet(ExerciseSet *other);
-    ~ExerciseSet();
+    ExerciseSet(QObject *parent = nullptr);
+    ExerciseSet(const ExerciseSet &other);
 
-    void setReps(const int reps);
+    ExerciseSet operator=(const ExerciseSet &other);
+
     int reps() const;
+    void setReps(int newReps);
 
-    void setWeight(const int weight);
     int weight() const;
-
-    void setTime(const QTime &time);
-    QTime time() const;
-
-public slots:
-    void remove();
-
-    void change();
-
-signals:
-    void removeRequested();
-
-    void dataChanged();
+    void setWeight(int newWeight);
 
 private:
-    Ui::ExerciseSet *ui;
+    int m_reps = 0;
+    int m_weight = 0;
+    // QTime m_time;
 };
+
+Q_DECLARE_METATYPE(ExerciseSet)
+Q_DECLARE_METATYPE(QList<ExerciseSet>)
 
 #endif // EXERCISESET_H

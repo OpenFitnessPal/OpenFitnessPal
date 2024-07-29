@@ -7,7 +7,7 @@
 
 #include <QJsonDocument>
 
-#include <QMessageBox>
+// #include <QMessageBox>
 
 QList<FoodItem> CacheManager::cachedFoods{};
 
@@ -19,7 +19,7 @@ void CacheManager::init()
     bool ok = cacheDir.mkpath("foods");
 
     if (!ok) {
-        QMessageBox::critical(nullptr, "mkpath failed", "Failed to make cache directory. Check permissions on your local cache directory.", QMessageBox::StandardButton::Ok);
+        // QMessageBox::critical(nullptr, "mkpath failed", "Failed to make cache directory. Check permissions on your local cache directory.", QMessageBox::StandardButton::Ok);
         std::exit(127);
     }
 
@@ -69,7 +69,7 @@ CacheManager::CacheResult CacheManager::cacheFoodItem(const FoodItem &item)
     return Success;
 
 error:
-    QMessageBox::critical(nullptr, "Failed to Cache Food Item", "Couldn't cache food item. Check to ensure local cache directory exists and is writable.", QMessageBox::StandardButton::Ok);
+    // QMessageBox::critical(nullptr, "Failed to Cache Food Item", "Couldn't cache food item. Check to ensure local cache directory exists and is writable.", QMessageBox::StandardButton::Ok);
     return Failure;
 }
 
