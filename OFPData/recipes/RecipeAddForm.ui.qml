@@ -9,7 +9,6 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-
 import OFPData
 
 Rectangle {
@@ -57,22 +56,21 @@ Rectangle {
         text: qsTr("Add Recipe")
         anchors.top: parent.top
         anchors.topMargin: 10
-        font.pixelSize: 24
-        font.bold: true
+        font: Constants.titleFont
+
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
     Text {
         id: recipeName
         color: "#ffffff"
-        text: qsTr("Food Name")
+        text: qsTr("Recipe Name")
         anchors.left: parent.left
         anchors.top: title.bottom
         anchors.leftMargin: 40
         anchors.topMargin: 20
-        font.pixelSize: 20
+        font: Constants.boldSubtitleFont
         wrapMode: Text.WrapAnywhere
-        font.weight: Font.DemiBold
     }
 
     Text {
@@ -83,7 +81,7 @@ Rectangle {
         anchors.top: recipeName.bottom
         anchors.leftMargin: 20
         anchors.topMargin: 30
-        font.pixelSize: 17
+        font: Constants.subSubtitleFont
     }
 
     DoubleSpinBox {
@@ -107,12 +105,11 @@ Rectangle {
         id: text3
         color: "#ffffff"
         text: qsTr("Calories")
-        anchors.left: recipeName.left
+        anchors.left: parent.left
         anchors.top: text1.bottom
-        anchors.leftMargin: 0
+        anchors.leftMargin: 15
         anchors.topMargin: 50
-        font.pixelSize: 20
-        font.weight: Font.Medium
+        font: Constants.mediumSubtitleFont
     }
 
     Text {
@@ -122,7 +119,7 @@ Rectangle {
         text: qsTr("0kcal")
         anchors.top: text3.bottom
         anchors.topMargin: 25
-        font.pixelSize: 16
+        font: Constants.mediumFont
         anchors.horizontalCenter: text3.horizontalCenter
     }
 
@@ -134,8 +131,7 @@ Rectangle {
         anchors.top: text3.top
         anchors.leftMargin: 60
         anchors.topMargin: 0
-        font.pixelSize: 20
-        font.weight: Font.Medium
+        font: Constants.mediumSubtitleFont
     }
 
     Text {
@@ -145,7 +141,7 @@ Rectangle {
         text: qsTr("0g")
         anchors.top: text4.bottom
         anchors.topMargin: 25
-        font.pixelSize: 16
+        font: Constants.mediumFont
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: text4.horizontalCenter
     }
@@ -158,8 +154,7 @@ Rectangle {
         anchors.top: text3.top
         anchors.leftMargin: 60
         anchors.topMargin: 0
-        font.pixelSize: 20
-        font.weight: Font.Medium
+        font: Constants.mediumSubtitleFont
     }
 
     Text {
@@ -169,7 +164,7 @@ Rectangle {
         text: qsTr("0g")
         anchors.top: text5.bottom
         anchors.topMargin: 25
-        font.pixelSize: 16
+        font: Constants.mediumFont
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: text5.horizontalCenter
     }
@@ -182,8 +177,7 @@ Rectangle {
         anchors.top: text3.top
         anchors.leftMargin: 60
         anchors.topMargin: 0
-        font.pixelSize: 20
-        font.weight: Font.Medium
+        font: Constants.mediumSubtitleFont
     }
 
     Text {
@@ -193,7 +187,7 @@ Rectangle {
         text: qsTr("0g")
         anchors.top: text6.bottom
         anchors.topMargin: 25
-        font.pixelSize: 16
+        font: Constants.mediumFont
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: text6.horizontalCenter
     }

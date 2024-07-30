@@ -40,16 +40,20 @@ Rectangle {
 
     property alias header: header
 
+    NutritionInfoHeader {
+        id: header
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+    }
+
     ScrollView {
-        anchors.fill: parent
+        anchors.top: header.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
         ColumnLayout {
             anchors.fill: parent
-            NutritionInfoHeader {
-                id: header
-                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                Layout.fillWidth: true
-                width: Layout.width
-            }
 
             NutritionGoal {
                 Layout.fillWidth: true

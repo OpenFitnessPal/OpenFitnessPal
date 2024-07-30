@@ -50,7 +50,9 @@ Rectangle {
         anchors.rightMargin: 8
         anchors.topMargin: 8
         renderType: Text.NativeRendering
-        font.pointSize: 20
+
+        font: Constants.subtitleFont
+
         placeholderText: qsTr("Exercise Name")
     }
 

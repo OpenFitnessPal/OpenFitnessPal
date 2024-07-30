@@ -9,7 +9,6 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-
 import OFPData
 
 Rectangle {
@@ -39,9 +38,7 @@ Rectangle {
         anchors.leftMargin: 50
         anchors.topMargin: 20
 
-        font.pixelSize: 21
-        font.bold: true
-        font.weight: Font.Medium
+        font: Constants.boldSubtitleFont
     }
 
     AddButton {

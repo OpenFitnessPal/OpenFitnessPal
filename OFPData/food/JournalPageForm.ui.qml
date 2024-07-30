@@ -7,7 +7,7 @@ import OFPData
 Rectangle {
     color: Constants.baseColor
 
-    signal nutritionInfoRequested()
+    signal nutritionInfoRequested
 
     property alias mealLog1: mealLog1
     property alias mealLog2: mealLog2

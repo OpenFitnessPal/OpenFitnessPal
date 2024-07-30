@@ -32,12 +32,9 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: 10
 
-        font.pixelSize: 24
+        font: Constants.titleFont
 
         anchors.horizontalCenter: parent.horizontalCenter
-
-        font.bold: true
-        font.family: Constants.largeFont.family
     }
 
     AddButton {

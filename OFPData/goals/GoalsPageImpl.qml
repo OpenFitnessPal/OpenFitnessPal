@@ -78,4 +78,8 @@ GoalsPageForm {
 
     recalc.onClicked: recalcGoals()
     goal.onGoalChanged: recalcGoals()
+    calories.onGoalValueChanged: {
+        goalManager.setValue("calories", calories.value)
+        changeNutrition()
+    }
 }

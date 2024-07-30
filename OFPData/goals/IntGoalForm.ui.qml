@@ -31,7 +31,7 @@ Rectangle {
 
     color: isRootItem ? Constants.baseColor : Constants.sub1Color
 
-    property int fontSize: isRootItem ? 16 : 12
+    property font myFont: isRootItem ? Constants.mediumFont : Constants.smallFont
 
     width: 480
     height: isRootItem ? 40 : 35
@@ -52,7 +52,7 @@ Rectangle {
         anchors.topMargin: 4
         anchors.bottomMargin: 4
 
-        font.pixelSize: fontSize
+        font: myFont
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
     }

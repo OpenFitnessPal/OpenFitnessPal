@@ -55,6 +55,7 @@ FoodSearchForm {
     recipes.model: recipeModel
     recipes.delegate: RecipeInfoImpl {
         clip: true
+        color: Constants.sub2Color
 
         mouse.onClicked: {
             recipeAdd.add.recipe = recipe

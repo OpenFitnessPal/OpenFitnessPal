@@ -34,7 +34,7 @@ Rectangle {
 
             anchors.left: parent.left
             anchors.leftMargin: 20
-            font.pointSize: 17
+            font: Constants.mediumFont
 
             text: qsTr("Calories Remaining")
         }
@@ -48,7 +48,7 @@ Rectangle {
             anchors.top: title.bottom
             anchors.leftMargin: 5
             anchors.topMargin: 10
-            font.pixelSize: 16
+            font: Constants.mediumFont
         }
 
         Text {
@@ -57,7 +57,7 @@ Rectangle {
             text: qsTr("Goal")
             anchors.top: goal.bottom
             anchors.topMargin: 8
-            font.pixelSize: 14
+            font: Constants.smallFont
             anchors.horizontalCenter: goal.horizontalCenter
         }
 
@@ -70,7 +70,7 @@ Rectangle {
             anchors.top: title.bottom
             anchors.topMargin: 10
 
-            font.pixelSize: 16
+            font: Constants.mediumFont
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -81,7 +81,7 @@ Rectangle {
             anchors.top: food.bottom
             anchors.topMargin: 8
 
-            font.pixelSize: 14
+            font: Constants.smallFont
             anchors.horizontalCenter: food.horizontalCenter
         }
 
@@ -90,7 +90,7 @@ Rectangle {
 
             text: qsTr("-")
             anchors.verticalCenter: food.verticalCenter
-            font.pixelSize: 30
+            font.pointSize: 30
 
             color: "#ffffff"
 
@@ -106,8 +106,7 @@ Rectangle {
             anchors.top: title.bottom
             anchors.topMargin: 10
 
-            font.pixelSize: 16
-            font.bold: true
+            font: Constants.boldMediumFont
             anchors.right: parent.right
 
             anchors.rightMargin: 25
@@ -120,7 +119,7 @@ Rectangle {
             anchors.top: remaining.bottom
             anchors.topMargin: 8
 
-            font.pixelSize: 14
+            font: Constants.smallFont
             anchors.horizontalCenter: remaining.horizontalCenter
         }
 
@@ -129,7 +128,7 @@ Rectangle {
 
             text: qsTr("=")
             anchors.verticalCenter: food.verticalCenter
-            font.pixelSize: 30
+            font.pointSize: 30
 
             color: "#ffffff"
 

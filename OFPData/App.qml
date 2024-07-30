@@ -127,6 +127,7 @@ Window {
             id: foodPage
             Component.onCompleted: {
                 currentDate = new Date()
+                reloadData()
             }
         }
 
@@ -134,6 +135,7 @@ Window {
         }
 
         GoalsPageImpl {
+            onChangeNutrition: foodPage.reloadData()
         }
     }
 

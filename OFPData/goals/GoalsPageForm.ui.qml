@@ -18,6 +18,8 @@ Rectangle {
     height: Constants.pageHeight
     color: Constants.baseColor
 
+    signal changeNutrition
+
     property alias recalc: recalc
     property alias goal: goal
     property alias weight: weight
@@ -30,8 +32,8 @@ Rectangle {
         text: qsTr("Goals")
         anchors.top: parent.top
         anchors.topMargin: 8
-        font.pixelSize: 24
-        font.bold: true
+        font: Constants.titleFont
+
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
@@ -96,7 +98,7 @@ Rectangle {
             ToolButton {
                 id: recalc
                 text: "Recalculate Goals"
-                font.pointSize: 16
+                font: Constants.mediumFont
                 highlighted: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
