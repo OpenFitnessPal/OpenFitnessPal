@@ -45,18 +45,19 @@ Rectangle {
 
             Layout.column: 1
 
-            font.pixelSize: 16
+            font: Constants.mediumFont
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
         }
 
         SpinBox {
             id: repsEdit
+            editable: true
             Layout.fillWidth: true
 
             Layout.column: 2
 
-            font.pointSize: 12
+            font: Constants.tinyFont
         }
 
         Text {
@@ -67,7 +68,7 @@ Rectangle {
 
             Layout.column: 3
 
-            font.pixelSize: 16
+            font: Constants.mediumFont
 
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -75,13 +76,13 @@ Rectangle {
 
         SpinBox {
             id: weightEdit
+            editable: true
             Layout.fillWidth: true
 
             Layout.column: 4
 
-            editable: true
             to: 2000
-            font.pointSize: 12
+            font: Constants.tinyFont
         }
     }
 }

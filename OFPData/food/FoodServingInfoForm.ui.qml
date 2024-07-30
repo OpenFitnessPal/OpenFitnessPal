@@ -39,8 +39,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.leftMargin: 15
             anchors.topMargin: 15
-            font.pixelSize: 18
-            font.weight: Font.DemiBold
+            font: Constants.boldLargeFont
         }
 
         Text {
@@ -51,7 +50,7 @@ Rectangle {
             anchors.top: foodName.bottom
             anchors.leftMargin: 25
             anchors.topMargin: 15
-            font.pixelSize: 12
+            font: Constants.tinyFont
         }
 
         Text {
@@ -64,7 +63,7 @@ Rectangle {
             anchors.right: parent.right
             anchors.rightMargin: 25
 
-            font.pixelSize: 15
+            font: Constants.mediumFont
         }
 
         RemoveButton {

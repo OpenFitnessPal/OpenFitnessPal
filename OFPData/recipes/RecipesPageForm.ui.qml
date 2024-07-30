@@ -27,8 +27,8 @@ Rectangle {
         text: qsTr("Recipes")
         anchors.top: parent.top
         anchors.topMargin: 8
-        font.pixelSize: 24
-        font.bold: true
+        font: Constants.titleFont
+
         anchors.horizontalCenter: parent.horizontalCenter
     }
 

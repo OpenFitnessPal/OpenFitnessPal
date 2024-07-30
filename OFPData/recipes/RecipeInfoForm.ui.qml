@@ -9,7 +9,6 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-
 import OFPData
 
 Rectangle {
@@ -39,8 +38,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.leftMargin: 15
             anchors.topMargin: 15
-            font.pixelSize: 18
-            font.weight: Font.DemiBold
+            font: Constants.boldLargeFont
         }
 
         Text {
@@ -51,7 +49,7 @@ Rectangle {
             anchors.top: recipeName.bottom
             anchors.leftMargin: 25
             anchors.topMargin: 15
-            font.pixelSize: 12
+            font: Constants.tinyFont
         }
 
         Text {
@@ -62,7 +60,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: 25
-            font.pixelSize: 15
+            font: Constants.mediumFont
         }
 
         RemoveButton {

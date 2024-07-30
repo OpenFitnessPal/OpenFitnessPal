@@ -25,7 +25,7 @@ Rectangle {
             color: "#ffffff"
             text: currentDate.toLocaleDateString(Qt.locale(), "MM/dd/yyyy")
             anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: 30
+            font.pointSize: 30
             anchors.verticalCenterOffset: 0
             anchors.horizontalCenterOffset: 0
             anchors.horizontalCenter: parent.horizontalCenter

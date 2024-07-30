@@ -31,9 +31,8 @@ Rectangle {
         text: qsTr("Food Search")
         anchors.top: parent.top
         anchors.topMargin: 10
-        font.pixelSize: 24
+        font: Constants.titleFont
         anchors.horizontalCenter: parent.horizontalCenter
-        font.bold: true
     }
 
     TabBar {
@@ -70,20 +69,24 @@ Rectangle {
         anchors.rightMargin: 15
         anchors.topMargin: 15
         anchors.bottomMargin: 15
+        clip: true
 
         objectName: "swipeView"
         currentIndex: tabBar.currentIndex
 
         ListView {
             id: online
+            clip: true
         }
 
         ListView {
             id: offline
+            clip: true
         }
 
         ListView {
             id: recipes
+            clip: true
         }
     }
 

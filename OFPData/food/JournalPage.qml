@@ -15,6 +15,12 @@ JournalPageForm {
     mealLog4.mealNumber: 4
     mealLog5.mealNumber: 5
 
+    mealLog1.onNutritionUpdated: calPreview.reloadData(currentDate)
+    mealLog2.onNutritionUpdated: calPreview.reloadData(currentDate)
+    mealLog3.onNutritionUpdated: calPreview.reloadData(currentDate)
+    mealLog4.onNutritionUpdated: calPreview.reloadData(currentDate)
+    mealLog5.onNutritionUpdated: calPreview.reloadData(currentDate)
+
     function reloadData(currentDate) {
         mealLog1.currentDate = currentDate
         mealLog1.reloadData()

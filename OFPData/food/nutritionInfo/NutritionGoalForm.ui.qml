@@ -41,7 +41,7 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.rightMargin: 0
         anchors.topMargin: 10
-        font.pixelSize: 16
+        font: Constants.mediumFont
         verticalAlignment: Text.AlignVCenter
     }
 
@@ -64,7 +64,7 @@ Rectangle {
         anchors.verticalCenter: goalName.verticalCenter
         anchors.left: goalName.right
         anchors.leftMargin: 8
-        font.pixelSize: 14
+        font: Constants.smallFont
         horizontalAlignment: Text.AlignRight
         verticalAlignment: Text.AlignVCenter
     }
@@ -78,7 +78,7 @@ Rectangle {
         text: qsTr("10000.0")
         anchors.verticalCenter: total.verticalCenter
 
-        font.pixelSize: 14
+        font: Constants.smallFont
         horizontalAlignment: Text.AlignRight
         verticalAlignment: Text.AlignVCenter
     }
@@ -92,7 +92,7 @@ Rectangle {
         anchors.verticalCenter: total.verticalCenter
         anchors.right: progressBar.right
         anchors.rightMargin: 0
-        font.pixelSize: 14
+        font: Constants.smallFont
         horizontalAlignment: Text.AlignRight
         verticalAlignment: Text.AlignVCenter
     }

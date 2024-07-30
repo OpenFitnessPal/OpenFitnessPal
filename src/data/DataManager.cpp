@@ -105,6 +105,7 @@ DataManager::DataError DataManager::saveFood(int meal, QDate date, const FoodSer
 DataManager::DataError DataManager::truncateSaveFoods(int meal, QDate date, const QList<FoodServing> &foods)
 {
     QString dateString = date.toString("MM-dd-yyyy");
+
     QDir dir(dataDir);
     dir.cd("journal");
 

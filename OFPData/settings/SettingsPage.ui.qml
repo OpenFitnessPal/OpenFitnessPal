@@ -26,10 +26,9 @@ Rectangle {
         text: "Settings"
         anchors.top: parent.top
         anchors.topMargin: 10
-        font.pixelSize: 24
-        font.bold: true
+        font: Constants.titleFont
+
         anchors.horizontalCenter: parent.horizontalCenter
-        font.family: Constants.largeFont.family
     }
 
     GridLayout {
@@ -58,9 +57,8 @@ Rectangle {
             anchors.leftMargin: 20
             anchors.topMargin: 10
 
-            font.pixelSize: 20
-            font.underline: true
-            font.bold: false
+            font: Constants.underlinedSubtitleFont
+
 
             Layout.row: 0
             Layout.column: 0
@@ -72,7 +70,7 @@ Rectangle {
             color: "#ffffff"
             text: qsTr(settings.meal1Name)
 
-            font.pixelSize: 18
+            font: Constants.largeFont
 
             Layout.fillWidth: true
             Layout.row: 0
@@ -88,9 +86,9 @@ Rectangle {
             text: qsTr("Meal 2 Name:")
             anchors.leftMargin: 20
             anchors.topMargin: 20
-            font.pixelSize: 20
-            font.underline: true
-            font.bold: false
+            font: Constants.underlinedSubtitleFont
+
+
             Layout.row: 1
             Layout.column: 0
         }
@@ -101,7 +99,7 @@ Rectangle {
             height: 35
             color: "#ffffff"
             text: qsTr(settings.meal2Name)
-            font.pixelSize: 18
+            font: Constants.largeFont
             onEditingFinished: settings.meal2Name = text
             Layout.row: 1
             Layout.fillWidth: true
@@ -115,9 +113,9 @@ Rectangle {
             text: qsTr("Meal 3 Name:")
             anchors.leftMargin: 20
             anchors.topMargin: 20
-            font.pixelSize: 20
-            font.underline: true
-            font.bold: false
+            font: Constants.underlinedSubtitleFont
+
+
             Layout.row: 2
             Layout.column: 0
         }
@@ -128,7 +126,7 @@ Rectangle {
             height: 35
             color: "#ffffff"
             text: qsTr(settings.meal3Name)
-            font.pixelSize: 18
+            font: Constants.largeFont
             onEditingFinished: settings.meal3Name = text
             Layout.row: 2
             Layout.fillWidth: true
@@ -142,9 +140,9 @@ Rectangle {
             text: qsTr("Meal 4 Name:")
             anchors.leftMargin: 20
             anchors.topMargin: 20
-            font.pixelSize: 20
-            font.underline: true
-            font.bold: false
+            font: Constants.underlinedSubtitleFont
+
+
             Layout.row: 3
             Layout.column: 0
         }
@@ -155,7 +153,7 @@ Rectangle {
             height: 35
             color: "#ffffff"
             text: qsTr(settings.meal4Name)
-            font.pixelSize: 18
+            font: Constants.largeFont
             onEditingFinished: settings.meal4Name = text
             Layout.row: 3
             Layout.fillWidth: true
@@ -169,9 +167,9 @@ Rectangle {
             text: qsTr("Meal 5 Name:")
             anchors.leftMargin: 20
             anchors.topMargin: 20
-            font.pixelSize: 20
-            font.underline: true
-            font.bold: false
+            font: Constants.underlinedSubtitleFont
+
+
             Layout.row: 4
             Layout.column: 0
         }
@@ -182,7 +180,7 @@ Rectangle {
             height: 35
             color: "#ffffff"
             text: qsTr(settings.meal5Name)
-            font.pixelSize: 18
+            font: Constants.largeFont
             onEditingFinished: settings.meal5Name = text
             Layout.row: 4
             Layout.fillWidth: true

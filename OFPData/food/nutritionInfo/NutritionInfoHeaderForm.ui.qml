@@ -30,14 +30,14 @@ Rectangle {
         width: 50
         text: qsTr("Total")
 
-        anchors.top: parent.top
+        anchors.bottom: parent.bottom
 
-        anchors.topMargin: 10
+        anchors.bottomMargin: 10
 
         anchors.left: parent.horizontalCenter
         anchors.leftMargin: 8
 
-        font.pixelSize: 16
+        font: Constants.mediumFont
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
@@ -51,7 +51,7 @@ Rectangle {
         text: qsTr("Goal")
         anchors.verticalCenter: total.verticalCenter
 
-        font.pixelSize: 16
+        font: Constants.mediumFont
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
@@ -65,7 +65,7 @@ Rectangle {
         anchors.verticalCenter: total.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 15
-        font.pixelSize: 16
+        font: Constants.mediumFont
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }

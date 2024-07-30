@@ -23,7 +23,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 0
-        font.pixelSize: 16
+        font: Constants.mediumFont
     }
 
     GoalSpinBox {

@@ -4,6 +4,8 @@ import QtQuick.Controls
 import OFPNative
 
 MealLogForm {
+    signal nutritionUpdated
+
     id: impl
     width: parent.width
     // height: Layout.height
@@ -39,6 +41,7 @@ MealLogForm {
             model.servingSize = food.size
 
             fsm.saveData(currentDate)
+            nutritionUpdated()
         }
 
         mouse.onClicked: {
@@ -53,6 +56,7 @@ MealLogForm {
         onDeleteFood: {
             fsm.removeRow(foodID)
             fsm.saveData(currentDate)
+            nutritionUpdated()
         }
 
         remove.visible: true
@@ -66,5 +70,6 @@ MealLogForm {
         fsm.cache(servings)
 
         fsm.saveData(currentDate)
+        nutritionUpdated()
     }
 }
