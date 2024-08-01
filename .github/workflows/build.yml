@@ -190,7 +190,7 @@ jobs:
       shell: cmd
       run: |
         cd ${{ env.INSTALL_DIR }}
-        makensis -NOCD "${{ env.BUILD_DIR }}/program_info/win_install.nsi"
+        makensis -NOCD "${{ env.BUILD_DIR }}\program_info\win_install.nsi"
 
       ##
       # UPLOAD BUILDS
