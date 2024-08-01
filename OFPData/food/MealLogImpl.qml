@@ -31,8 +31,12 @@ MealLogForm {
 
     listView.model: fsm
     listView.delegate: FoodServingInfoImpl {
-        function editEntry(servings) {
+        function removeConnection() {
             foodEdit.edit.ready.disconnect(editEntry)
+        }
+
+        function editEntry(servings) {
+            removeConnection()
 
             let food = servings[0]
             model.serving = food
@@ -44,12 +48,12 @@ MealLogForm {
 
         mouse.onClicked: {
             foodEdit.edit.foodServing = model.serving
-            console.log("Serving size unit " + foodEdit.edit.foodServing.size.unit())
 
             foodEdit.edit.loadData()
             foodEdit.open()
 
             foodEdit.edit.ready.connect(editEntry)
+            foodEdit.rejected.connect(removeConnection)
         }
 
         onDeleteFood: {

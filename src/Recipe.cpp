@@ -45,10 +45,10 @@ FoodServing Recipe::asFood(double units)
     FoodServing food;
 
     food.units = units;
-    food.size = ServingSize(1.0, "Servings", m_servings);
+    food.sizeIdx = 0;
 
     FoodItem item;
-    item.addServingSize(food.size);
+    item.addServingSize(ServingSize(1.0, "Servings", m_servings));
     item.setName(m_name);
     item.setBrand("Recipe");
 
@@ -69,7 +69,7 @@ NutrientUnion Recipe::nutrients(double units)
     NutrientUnion n;
     for (const FoodServing &serving : m_foods) {
         FoodItem f = serving.item;
-        ServingSize s = serving.size;
+        ServingSize s = serving.size();
         double u = serving.units;
 
         double mult = s.multiplier(u) * units;

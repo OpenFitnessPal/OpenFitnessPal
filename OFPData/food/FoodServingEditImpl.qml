@@ -29,7 +29,7 @@ FoodServingEditForm {
     }
 
     unit.onCurrentIndexChanged: {
-        foodServing.size = unit.valueAt(unit.currentIndex)
+        if (unit.currentIndex !== -1) foodServing.sizeIdx = unit.currentIndex
         resetMacros()
     }
 
@@ -39,17 +39,11 @@ FoodServingEditForm {
     }
 
     function loadData() {
-        let index = fsm.indexOf(foodServing.size)
-        console.log("LoadData pre-clear servingsize unit " + foodServing.size.unit());
         fsm.clear()
-        console.log("LoadData postclear servingsize unit " + foodServing.size.unit());
         fsm.add(foodServing.item.servingSizes)
-        console.log("LoadData post add servingsize unit " + foodServing.size.unit());
 
         servings.value = foodServing.units * 100.0
-        unit.currentIndex = fsm.indexOf(foodServing.size);
-
-        console.log(unit.currentIndex + " " + unit.indexOfValue(foodServing.size))
+        unit.currentIndex = foodServing.sizeIdx
 
         resetMacros()
     }
