@@ -8,7 +8,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0074 NEW)
 FetchContent_Declare(
         OFPLib
         GIT_REPOSITORY https://github.com/crueter/OFPLib.git
-        GIT_TAG        937297fe9a618c8c53edac6f565817c7072122a3
+        GIT_TAG        24fac6b15fec351a10433523f3135ca153110c23
         OVERRIDE_FIND_PACKAGE
 )
 FetchContent_MakeAvailable(OFPLib)
