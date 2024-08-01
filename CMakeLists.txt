@@ -54,7 +54,7 @@ foreach(ELEMENT ${CODE_ELEMENTS})
 endforeach()
 
 if(WIN32)
-    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_APP_NAME}.rc)
+    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_EXEC_NAME}.rc)
     set(OFP_BUILD_PLATFORM "win32")
 elseif(ANDROID)
     set(MANIFEST_FILE android/AndroidManifest.xml)
