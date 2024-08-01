@@ -71,7 +71,7 @@ jobs:
         path: ${{ env.BUILD_DIR }}/_deps/*-src
         key: OpenFitnessPal
 
-    - uses: repolevedavaj/install-nsis@v1.0.1
+    - uses: repolevedavaj/install-nsis@v1.0.2
       if: runner.os == 'Windows'
       with:
         nsis-version: 3.08
