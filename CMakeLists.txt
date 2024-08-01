@@ -53,19 +53,25 @@ foreach(ELEMENT ${CODE_ELEMENTS})
     set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
 endforeach()
 
+if(WIN32)
+    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_APP_NAME}.rc)
+    set(OFP_BUILD_PLATFORM "win32")
+elseif(ANDROID)
+    set(MANIFEST_FILE android/AndroidManifest.xml)
+    set(OFP_BUILD_PLATFORM "android")
+else()
+    set(OFP_BUILD_PLATFORM "lin64")
+endif()
+
 set(PROJECT_SRC ${HEADERS} ${SOURCES}
+    ${RCS_FILE}
+    ${MANIFEST_FILE}
+
     ${OFPLib_SOURCE_DIR}/include/OFPManager.h
     ${OFPLib_SOURCE_DIR}/include/FoodItem.h
     ${OFPLib_SOURCE_DIR}/include/ServingSize.h
     ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
 )
-
-if(WIN32)
-    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_APP_NAME}.rc)
-    set(OFP_BUILD_PLATFORM "win32")
-else()
-    set(OFP_BUILD_PLATFORM "lin64")
-endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/)
 

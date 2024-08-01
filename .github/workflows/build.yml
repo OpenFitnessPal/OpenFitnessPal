@@ -60,6 +60,22 @@ jobs:
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
 
+    - name: Setup CCache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ runner.os }}-${{ inputs.build_type }}
+
+    - name: Cache Build Deps
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.BUILD_DIR }}/_deps/*-src
+        key: OpenFitnessPal
+
+    - uses: repolevedavaj/install-nsis@v1.0.1
+      if: runner.os == 'Windows'
+      with:
+        nsis-version: 3.08
+
     - name: Install Qt ${{ matrix.qt_version }}
       uses: jurplel/install-qt-action@v3.3.0
       with:
@@ -87,19 +103,20 @@ jobs:
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage"
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
 
-    - name: Configure and Build (Linux)
+    - name: Configure (Linux)
       if: runner.os == 'Linux'
       run: |
         declare QTPATH="${{ github.workspace }}/../Qt/${{ matrix.qt_version }}"
 
         cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=$QTPATH/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=$QTPATH/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -G "Ninja"
-        cmake --build ${{ env.BUILD_DIR }} --parallel $(nproc)
 
-    - name: Configure and Build (Windows)
+    - name: Configure (Windows)
       if: runner.os == 'Windows'
       run: |
         cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
 
+    - name: Build
+      run: |
         cmake --build ${{ env.BUILD_DIR }} --config ${{ inputs.build_type }} --parallel $(nproc)
 
     - name: Package (Linux)
@@ -151,7 +168,7 @@ jobs:
 
         ./linuxdeploy-x86_64.AppImage --appdir ${{ env.INSTALL_APPIMAGE_DIR }} --output appimage --plugin qt
 
-    - name: Package (Windows)
+    - name: Package (Windows, Portable)
       if: runner.os == 'Windows'
       shell: cmd
       run: |
@@ -168,6 +185,12 @@ jobs:
           cp C:\Windows\System32\ucrtbase.dll ${{ env.INSTALL_DIR }}
         )
 
+    - name: Package (Windows, Installer)
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        cd ${{ env.INSTALL_DIR }}
+        makensis -NOCD "${{ env.BUILD_DIR }}/program_info/win_install.nsi"
 
       ##
       # UPLOAD BUILDS
@@ -207,3 +230,10 @@ jobs:
       with:
         name: OpenFitnessPal-Windows-Portable-${{ env.VERSION }}-${{ inputs.build_type }}
         path: ${{ env.INSTALL_DIR }}/**
+
+    - name: Upload installer (Windows)
+      if: runner.os == 'Windows'
+      uses: actions/upload-artifact@v3
+      with:
+        name: OpenFitnessPal-${{ runner.os }}-Setup-${{ env.VERSION }}-${{ inputs.build_type }}
+        path: OpenFitnessPal-Setup.exe
