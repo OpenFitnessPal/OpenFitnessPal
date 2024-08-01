@@ -8,8 +8,6 @@ MealLogForm {
 
     id: impl
     width: parent.width
-    // height: Layout.height
-    // clip: true
 
     add.onClicked: {
         search.food.opening()
@@ -33,8 +31,12 @@ MealLogForm {
 
     listView.model: fsm
     listView.delegate: FoodServingInfoImpl {
-        function editEntry(servings) {
+        function removeConnection() {
             foodEdit.edit.ready.disconnect(editEntry)
+        }
+
+        function editEntry(servings) {
+            removeConnection()
 
             let food = servings[0]
             model.serving = food
@@ -45,12 +47,13 @@ MealLogForm {
         }
 
         mouse.onClicked: {
-            foodEdit.edit.foodServing = serving
+            foodEdit.edit.foodServing = model.serving
 
             foodEdit.edit.loadData()
             foodEdit.open()
 
             foodEdit.edit.ready.connect(editEntry)
+            foodEdit.rejected.connect(removeConnection)
         }
 
         onDeleteFood: {
@@ -66,8 +69,8 @@ MealLogForm {
     function addFood(servings) {
         search.food.searchReady.disconnect(addFood)
 
-        fsm.add(servings);
-        fsm.cache(servings)
+        fsm.add(servings)
+        if (!servings[0].isRecipe) fsm.cache(servings)
 
         fsm.saveData(currentDate)
         nutritionUpdated()

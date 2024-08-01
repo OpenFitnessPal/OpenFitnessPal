@@ -30,7 +30,7 @@ QVariant FoodServingModel::data(const QModelIndex &index, int role) const
     if (role == FSMRoleTypes::ITEM) {
         return QVariant::fromValue(m_data[index.row()].item);
     } else if (role == FSMRoleTypes::SIZE) {
-        return QVariant::fromValue(m_data[index.row()].size);
+        return QVariant::fromValue(m_data[index.row()].size());
     } else if (role == FSMRoleTypes::UNITS) {
         return m_data[index.row()].units;
     } else if (role == FSMRoleTypes::ID) {
@@ -70,7 +70,7 @@ void FoodServingModel::add(const FoodItem &item, const ServingSize &size, const 
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     FoodServing s;
     s.item = item;
-    s.size = size;
+    s.sizeIdx = item.servingSizes().indexOf(size);
     s.units = units;
 
     m_data << s;
@@ -79,7 +79,7 @@ void FoodServingModel::add(const FoodItem &item, const ServingSize &size, const 
 
 void FoodServingModel::add(const FoodServing &serving)
 {
-    add(serving.item, serving.size, serving.units);
+    add(serving.item, serving.size(), serving.units);
 }
 
 void FoodServingModel::add(const QList<FoodServing> &serving)
@@ -131,12 +131,14 @@ bool FoodServingModel::setData(const QModelIndex &index, const QVariant &value, 
         return false;
     }
 
+    FoodServing s = m_data[index.row()];
+
     if (role == FSMRoleTypes::ITEM) {
-        m_data[index.row()].item = value.value<FoodItem>();
+        s.item = value.value<FoodItem>();
     } else if (role == FSMRoleTypes::SIZE) {
-        m_data[index.row()].size = value.value<ServingSize>();
+        s.sizeIdx = s.item.servingSizes().indexOf(value.value<ServingSize>());
     } else if (role == FSMRoleTypes::UNITS) {
-        m_data[index.row()].units = value.toDouble();
+        s.units = value.toDouble();
     } else if (role == FSMRoleTypes::SERVING) {
         m_data.replace(index.row(), value.value<FoodServing>());
     } else {

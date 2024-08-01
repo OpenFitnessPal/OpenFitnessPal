@@ -9,7 +9,7 @@ FoodServingComboBoxModel::FoodServingComboBoxModel(QObject *parent)
 
 int FoodServingComboBoxModel::rowCount(const QModelIndex &parent) const
 {
-    return m_data.size();
+    return m_data.count();
 }
 
 int FoodServingComboBoxModel::columnCount(const QModelIndex &parent) const
@@ -19,7 +19,7 @@ int FoodServingComboBoxModel::columnCount(const QModelIndex &parent) const
 
 QVariant FoodServingComboBoxModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
+    if (!index.isValid() || index.row() >= m_data.count()) {
         return QVariant();
     }
 
@@ -42,9 +42,14 @@ void FoodServingComboBoxModel::add(const ServingSize &size)
 
 void FoodServingComboBoxModel::add(const QList<ServingSize> &sizes)
 {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount() + sizes.count());
-    m_data.append(sizes);
-    endInsertRows();
+    for (const ServingSize &s : sizes) {
+        add(s);
+    }
+}
+
+int FoodServingComboBoxModel::indexOf(const ServingSize &size)
+{
+    return m_data.indexOf(size);
 }
 
 void FoodServingComboBoxModel::clear()

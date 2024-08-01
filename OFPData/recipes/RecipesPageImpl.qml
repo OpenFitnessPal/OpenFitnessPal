@@ -22,13 +22,17 @@ RecipesPageForm {
 
     listView.model: rlm
     listView.delegate: RecipeInfoImpl {
+        function removeConnection() {
+            recipeDialog.recipeEdit.ready.disconnect(editEntry)
+        }
+
         function editEntry(recipe) {
             model.recipe = recipe
 
             rlm.saveData()
             reloadData()
 
-            recipeDialog.recipeEdit.ready.disconnect(editEntry)
+            removeConnection()
         }
 
         mouse.onClicked: {
@@ -38,6 +42,7 @@ RecipesPageForm {
             recipeDialog.open()
 
             recipeDialog.recipeEdit.ready.connect(editEntry)
+            recipeDialog.rejected.connect(removeConnection)
         }
 
         onDeleteRecipe: {

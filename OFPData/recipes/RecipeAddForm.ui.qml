@@ -20,6 +20,7 @@ Rectangle {
 
     property alias recipeName: recipeName
     property alias servings: servings
+    property alias checkBox: checkBox
 
     property alias calories: calories
     property alias carbs: carbs
@@ -190,5 +191,19 @@ Rectangle {
         font: Constants.mediumFont
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: text6.horizontalCenter
+    }
+
+    CheckBox {
+        id: checkBox
+
+        anchors.left: text3.left
+        anchors.top: calories.bottom
+        anchors.leftMargin: 0
+        anchors.topMargin: 40
+        checkState: Qt.Checked
+
+        text: qsTr("Add Individual Foods?")
+
+        font: Constants.subSubtitleFont
     }
 }

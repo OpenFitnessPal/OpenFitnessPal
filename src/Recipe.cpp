@@ -31,7 +31,7 @@ QList<FoodServing> Recipe::foods() const
 QList<FoodServing> Recipe::asServings(double units)
 {
     QList<FoodServing> foods;
-    for (FoodServing &food : m_foods) {
+    for (FoodServing food : m_foods) {
         food.units *= units / m_servings;
 
         foods.append(food);
@@ -40,12 +40,36 @@ QList<FoodServing> Recipe::asServings(double units)
     return foods;
 }
 
+FoodServing Recipe::asFood(double units)
+{
+    FoodServing food;
+
+    food.units = units;
+    food.sizeIdx = 0;
+
+    FoodItem item;
+    item.addServingSize(ServingSize(1.0, "Servings", m_servings));
+    item.setName(m_name);
+    item.setBrand("Recipe");
+
+    NutrientUnion n;
+    for (FoodServing &food : m_foods) {
+        n += food.nutrients();
+    }
+
+    item.setNutrients(n);
+
+    food.item = item;
+
+    return food;
+}
+
 NutrientUnion Recipe::nutrients(double units)
 {
     NutrientUnion n;
     for (const FoodServing &serving : m_foods) {
         FoodItem f = serving.item;
-        ServingSize s = serving.size;
+        ServingSize s = serving.size();
         double u = serving.units;
 
         double mult = s.multiplier(u) * units;
