@@ -190,6 +190,7 @@ jobs:
       shell: cmd
       run: |
         cd ${{ env.INSTALL_DIR }}
+        ls ..
         makensis -NOCD "${{ github.workspace }}\build\program_info\win_install.nsi"
 
       ##
