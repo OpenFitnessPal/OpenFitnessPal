@@ -67,7 +67,6 @@ Section "@OFP_EXEC_NAME@"
   File *.dll
   File /r "iconengines"
   File /r "imageformats"
-  File /r "multimedia"
   File /r "platforms"
   File /r "styles"
   File /r "tls"
@@ -132,7 +131,6 @@ Section "Uninstall"
 
   RMDir /r $INSTDIR\iconengines
   RMDir /r $INSTDIR\imageformats
-  RMDir /r $INSTDIR\multimedia
   RMDir /r $INSTDIR\platforms
   RMDir /r $INSTDIR\styles
   RMDir /r $INSTDIR\tls
