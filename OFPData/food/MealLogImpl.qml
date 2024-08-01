@@ -8,8 +8,6 @@ MealLogForm {
 
     id: impl
     width: parent.width
-    // height: Layout.height
-    // clip: true
 
     add.onClicked: {
         search.food.opening()
@@ -45,7 +43,8 @@ MealLogForm {
         }
 
         mouse.onClicked: {
-            foodEdit.edit.foodServing = serving
+            foodEdit.edit.foodServing = model.serving
+            console.log("Serving size unit " + foodEdit.edit.foodServing.size.unit())
 
             foodEdit.edit.loadData()
             foodEdit.open()
@@ -66,8 +65,8 @@ MealLogForm {
     function addFood(servings) {
         search.food.searchReady.disconnect(addFood)
 
-        fsm.add(servings);
-        fsm.cache(servings)
+        fsm.add(servings)
+        if (!servings[0].isRecipe) fsm.cache(servings)
 
         fsm.saveData(currentDate)
         nutritionUpdated()

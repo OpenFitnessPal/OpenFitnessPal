@@ -23,6 +23,7 @@ public:
     QList<FoodServing> foods() const;
 
     Q_INVOKABLE QList<FoodServing> asServings(double units);
+    Q_INVOKABLE FoodServing asFood(double units);
 
     Q_INVOKABLE NutrientUnion nutrients(double units = 1);
 

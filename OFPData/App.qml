@@ -96,7 +96,8 @@ Window {
             submit.onClicked: {
                 recipeAdd.accept();
 
-                ready(recipe.asServings(servings.value / 100.0));
+                ready(checkBox.checked ? recipe.asServings(servings.value / 100.0)
+                                       : [recipe.asFood(servings.value / 100.0)]);
             }
         }
     }

@@ -31,13 +31,37 @@ QList<FoodServing> Recipe::foods() const
 QList<FoodServing> Recipe::asServings(double units)
 {
     QList<FoodServing> foods;
-    for (FoodServing &food : m_foods) {
+    for (FoodServing food : m_foods) {
         food.units *= units / m_servings;
 
         foods.append(food);
     }
 
     return foods;
+}
+
+FoodServing Recipe::asFood(double units)
+{
+    FoodServing food;
+
+    food.units = units;
+    food.size = ServingSize(1.0, "Servings", m_servings);
+
+    FoodItem item;
+    item.addServingSize(food.size);
+    item.setName(m_name);
+    item.setBrand("Recipe");
+
+    NutrientUnion n;
+    for (FoodServing &food : m_foods) {
+        n += food.nutrients();
+    }
+
+    item.setNutrients(n);
+
+    food.item = item;
+
+    return food;
 }
 
 NutrientUnion Recipe::nutrients(double units)
