@@ -15,7 +15,7 @@ RecipeAddForm {
     servings.onValueChanged: resetNutrients()
 
     function reloadData() {
-        servings.value = recipe.servings * 100
+        servings.value = 1 * 100
         resetNutrients()
     }
 

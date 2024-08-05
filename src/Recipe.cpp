@@ -48,7 +48,7 @@ FoodServing Recipe::asFood(double units)
     food.sizeIdx = 0;
 
     FoodItem item;
-    item.addServingSize(ServingSize(1.0, "Servings", m_servings));
+    item.addServingSize(ServingSize(1 / m_servings, "Servings", 1.0));
     item.setName(m_name);
     item.setBrand("Recipe");
 

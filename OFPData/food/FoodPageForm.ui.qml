@@ -27,6 +27,7 @@ Rectangle {
 
     SwipeView {
         id: swipe
+        clip: true
         anchors.fill: parent
         anchors.bottomMargin: 40
         interactive: false
