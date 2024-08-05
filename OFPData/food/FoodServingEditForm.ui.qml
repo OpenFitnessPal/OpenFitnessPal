@@ -148,7 +148,7 @@ Rectangle {
         text: qsTr("Carbs")
         anchors.left: text3.right
         anchors.top: text3.top
-        anchors.leftMargin: 60
+        anchors.leftMargin: 40
         anchors.topMargin: 0
         font: Constants.mediumSubtitleFont
     }
@@ -171,7 +171,7 @@ Rectangle {
         text: qsTr("Fat")
         anchors.left: text4.right
         anchors.top: text3.top
-        anchors.leftMargin: 60
+        anchors.leftMargin: 40
         anchors.topMargin: 0
         font: Constants.mediumSubtitleFont
     }
@@ -194,7 +194,7 @@ Rectangle {
         text: qsTr("Protein")
         anchors.left: text5.right
         anchors.top: text3.top
-        anchors.leftMargin: 60
+        anchors.leftMargin: 40
         anchors.topMargin: 0
         font: Constants.mediumSubtitleFont
     }

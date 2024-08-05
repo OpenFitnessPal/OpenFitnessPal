@@ -13,7 +13,7 @@ import OFPData
 
 Rectangle {
     id: rectangle
-    // width: 600
+    width: 600
     height: 60
     color: Constants.sub1Color
 

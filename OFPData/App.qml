@@ -126,6 +126,7 @@ Window {
 
         FoodPage {
             id: foodPage
+            clip: true
             Component.onCompleted: {
                 currentDate = new Date()
                 reloadData()
