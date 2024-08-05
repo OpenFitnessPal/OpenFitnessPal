@@ -3,11 +3,13 @@ import QtQuick 2.15
 JournalPageForm {
     id: impl
 
-    mealLog1.mealName.text: settings.meal1Name
-    mealLog2.mealName.text: settings.meal2Name
-    mealLog3.mealName.text: settings.meal3Name
-    mealLog4.mealName.text: settings.meal4Name
-    mealLog5.mealName.text: settings.meal5Name
+    function reloadMealNames() {
+        mealLog1.reloadMealName()
+        mealLog2.reloadMealName()
+        mealLog3.reloadMealName()
+        mealLog4.reloadMealName()
+        mealLog5.reloadMealName()
+    }
 
     mealLog1.mealNumber: 1
     mealLog2.mealNumber: 2
@@ -41,5 +43,8 @@ JournalPageForm {
     }
 
     calPreview.onClicked: nutritionInfoRequested()
-    Component.onCompleted: calPreview.reloadData(currentDate)
+    Component.onCompleted: {
+        reloadMealNames()
+        calPreview.reloadData(currentDate)
+    }
 }

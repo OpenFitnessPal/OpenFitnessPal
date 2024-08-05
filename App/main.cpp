@@ -9,7 +9,7 @@
 #include "CacheManager.h"
 #include "GoalManager.h"
 #include "NutritionManager.h"
-#include "Settings.h"
+#include "SettingsManager.h"
 #include "autogen/environment.h"
 
 #include <QQmlContext>
@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    Settings settings;
     Recipe recipe;
     GoalManager manager;
     NutritionManager nutrition;
+    SettingsManager settings;
 
     DataManager::init();
     CacheManager::init();

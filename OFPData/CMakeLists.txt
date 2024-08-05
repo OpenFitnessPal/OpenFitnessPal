@@ -66,7 +66,8 @@ qt6_add_qml_module(OFPData
 		"recipes/RecipeInfoImpl.qml"
 		"recipes/RecipeInfoForm.ui.qml"
 		"recipes/RecipeAddImpl.qml"
-		"settings/SettingsPage.ui.qml"
+		"settings/SettingsPage.qml"
+		"settings/SettingsPageForm.ui.qml"
 )
 
 

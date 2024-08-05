@@ -18,6 +18,10 @@ Window {
         foodPage.reloadData()
     }
 
+    function reloadMealNames() {
+        foodPage.reloadMealNames()
+    }
+
     Dialog {
         id: search
         width: window.width
@@ -113,6 +117,9 @@ Window {
         currentIndex: tabBar.currentIndex
 
         SettingsPage {
+            id: settingsPage
+
+            onMealNamesChanged: reloadMealNames()
         }
 
         ExercisePageImpl {

@@ -31,8 +31,8 @@ find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick)
 set(CODE_ELEMENTS
     data/DataManager
     data/CacheManager
+    data/SettingsManager
 
-    Settings
     Recipe
     GoalManager
     NutritionManager

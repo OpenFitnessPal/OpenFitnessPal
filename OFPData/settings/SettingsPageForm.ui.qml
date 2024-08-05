@@ -20,6 +20,12 @@ Rectangle {
 
     property alias title: title
 
+    property alias meal1Name: meal1Name
+    property alias meal2Name: meal2Name
+    property alias meal3Name: meal3Name
+    property alias meal4Name: meal4Name
+    property alias meal5Name: meal5Name
+
     Text {
         id: title
         color: "#ffffff"
@@ -68,15 +74,12 @@ Rectangle {
             id: meal1Name
             height: 35
             color: "#ffffff"
-            text: qsTr(settings.meal1Name)
 
             font: Constants.largeFont
 
             Layout.fillWidth: true
             Layout.row: 0
             Layout.column: 1
-
-            onEditingFinished: settings.meal1Name = text
         }
 
         Text {
@@ -98,9 +101,8 @@ Rectangle {
             y: 60
             height: 35
             color: "#ffffff"
-            text: qsTr(settings.meal2Name)
             font: Constants.largeFont
-            onEditingFinished: settings.meal2Name = text
+
             Layout.row: 1
             Layout.fillWidth: true
             Layout.column: 1
@@ -125,9 +127,9 @@ Rectangle {
             y: 60
             height: 35
             color: "#ffffff"
-            text: qsTr(settings.meal3Name)
+
             font: Constants.largeFont
-            onEditingFinished: settings.meal3Name = text
+
             Layout.row: 2
             Layout.fillWidth: true
             Layout.column: 1
@@ -152,9 +154,9 @@ Rectangle {
             y: 60
             height: 35
             color: "#ffffff"
-            text: qsTr(settings.meal4Name)
+
             font: Constants.largeFont
-            onEditingFinished: settings.meal4Name = text
+
             Layout.row: 3
             Layout.fillWidth: true
             Layout.column: 1
@@ -179,9 +181,9 @@ Rectangle {
             y: 60
             height: 35
             color: "#ffffff"
-            text: qsTr(settings.meal5Name)
+
             font: Constants.largeFont
-            onEditingFinished: settings.meal5Name = text
+
             Layout.row: 4
             Layout.fillWidth: true
             Layout.column: 1
