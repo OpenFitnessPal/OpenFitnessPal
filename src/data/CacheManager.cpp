@@ -119,12 +119,20 @@ FoodItem CacheManager::itemById(const QString &id)
 
 CacheManager::CacheResult CacheManager::mv(const QString &newPath)
 {
-    bool ok = cacheDir.rename(cacheDir.absolutePath(), newPath);
+    QDir old(cacheDir);
+    old.cd("foods");
+    QDirIterator iter(old, QDirIterator::Subdirectories);
 
-    if (ok) {
-        cacheDir.setPath(newPath);
-        return Success;
+    QDir newDir(newPath);
+    newDir.mkpath("foods");
+
+    while (iter.hasNext()) {
+        QFile f = iter.next();
+        QString name = old.relativeFilePath(f.fileName());
+
+        f.rename(newPath + "/foods/" + name);
     }
 
-    return Failure;
-}
+    cacheDir.setPath(newPath);
+
+    return Success;}

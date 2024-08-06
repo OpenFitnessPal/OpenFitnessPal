@@ -109,6 +109,7 @@ Window {
 
     FolderDialog {
         id: dirSelect
+        currentFolder: "/home"
     }
 
     SwipeView {

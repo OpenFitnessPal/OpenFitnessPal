@@ -23,7 +23,7 @@ void DataManager::init()
     if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
     } else {
-        dir = f.readAll();
+        dir = f.readAll().trimmed();
         f.close();
     }
 
@@ -569,14 +569,41 @@ QVariant DataManager::getInfo(const QString &field)
 
 DataManager::DataError DataManager::mv(const QString &newPath)
 {
-    bool ok = dataDir.rename(dataDir.absolutePath(), newPath);
+    QDir journal(dataDir);
 
-    if (ok) {
-        dataDir.setPath(newPath);
-        return Success;
+    journal.cd("journal");
+
+    QDirIterator jIter(journal, QDirIterator::Subdirectories);
+
+    QDir newDir(newPath);
+    newDir.mkpath("journal");
+    newDir.mkpath("person");
+
+    while (jIter.hasNext()) {
+        QFile f = jIter.next();
+        QString name = journal.relativeFilePath(f.fileName());
+
+        f.rename(newPath + "/journal/" + name);
     }
 
-    return Failure;
+    QDir person(dataDir);
+    person.cd("person");
+
+    QDirIterator pIter(person, QDirIterator::Subdirectories);
+
+    while (pIter.hasNext()) {
+        QFile f = pIter.next();
+        QString name = person.relativeFilePath(f.fileName());
+
+        f.rename(newPath + "/person/" + name);
+    }
+
+    QFile f(dataDir.absoluteFilePath("recipes.json"));
+    f.rename(newPath + "/recipes.json");
+
+    dataDir.setPath(newPath);
+
+    return Success;
 }
 
 DataManager::DataError DataManager::addJsonObject(QFile &file, const QJsonObject &obj)

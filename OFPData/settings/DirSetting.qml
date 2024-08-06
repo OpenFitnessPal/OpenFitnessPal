@@ -13,9 +13,13 @@ DirSettingForm {
     }
 
     function updateDirFromDialog() {
-        let selectedDir = dirSelect.selectedFolder
-        dir.text = selectedDir
-        updateDir(selectedDir)
+        let selectedDir = dirSelect.selectedFolder.toString()
+
+        let path = selectedDir.replace(/^(file:\/{2})/,"");
+        let cleanPath = decodeURIComponent(path);
+
+        dir.text = cleanPath
+        updateDir(cleanPath)
     }
 
     function updateDirFromText() {
@@ -24,7 +28,7 @@ DirSettingForm {
     }
 
     button.onClicked: {
-        dirSelect.currentFolder = settings.get(isCache ? "cacheDir" : "dataDir")
+        dirSelect.currentFolder = "file://" + dir.text.trim()
         dirSelect.open()
 
         dirSelect.accepted.connect(updateDirFromDialog)
@@ -37,7 +41,13 @@ DirSettingForm {
 
         let setting = settings.get(settingName)
         if (typeof setting == "undefined") {
-            setting = StandardPaths.writableLocation(isCache ? StandardPaths.CacheLocation : StandardPaths.AppLocalDataLocation)
+            setting = StandardPaths.writableLocation(isCache ? StandardPaths.CacheLocation : StandardPaths.AppLocalDataLocation).toString()
+
+            let path = setting.replace(/^(file:\/{2})/,"");
+            let cleanPath = decodeURIComponent(path);
+
+            setting = cleanPath
+
             settings.set(settingName, setting)
         }
 
