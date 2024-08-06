@@ -42,6 +42,8 @@ public:
     static QVariantMap loadInfo();
     static QVariant getInfo(const QString &field);
 
+    static DataError mv(const QString &newPath);
+
 private:
     static QDir dataDir;
 

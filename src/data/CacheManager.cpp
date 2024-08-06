@@ -15,11 +15,25 @@ QDir CacheManager::cacheDir{};
 
 void CacheManager::init()
 {
-    cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    QString dir;
+
+    QDir settingsDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+
+    QFile f(settingsDir.absoluteFilePath("cacheDir"));
+
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        dir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    } else {
+        dir = f.readAll();
+        f.close();
+    }
+
+    cacheDir = dir;
+
     bool ok = cacheDir.mkpath("foods");
 
     if (!ok) {
-        // QMessageBox::critical(nullptr, "mkpath failed", "Failed to make cache directory. Check permissions on your local cache directory.", QMessageBox::StandardButton::Ok);
+        qCritical() << "Failed to create food cache directory, exiting.";
         std::exit(127);
     }
 
@@ -101,4 +115,16 @@ FoodItem CacheManager::itemById(const QString &id)
     }
 
     return FoodItem{};
+}
+
+CacheManager::CacheResult CacheManager::mv(const QString &newPath)
+{
+    bool ok = cacheDir.rename(cacheDir.absolutePath(), newPath);
+
+    if (ok) {
+        cacheDir.setPath(newPath);
+        return Success;
+    }
+
+    return Failure;
 }

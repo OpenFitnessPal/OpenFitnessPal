@@ -1,22 +1,18 @@
 #include "data/SettingsManager.h"
+#include "DataManager.h"
+#include <CacheManager.h>
 #include <qdiriterator.h>
 #include <qstandardpaths.h>
 
 SettingsManager::SettingsManager()
 {
-    settingsDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-    bool ok = settingsDir.mkpath("settings");
-
-    if (!ok) {
-        // QMessageBox::critical(nullptr, "mkpath failed", "Failed to make data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        std::exit(127);
-    }
+    settingsDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    settingsDir.mkpath(".");
 }
 
 SettingsManager::SettingsError SettingsManager::set(QString field, QVariant data)
 {
     QDir dir(settingsDir);
-    dir.cd("settings");
 
     QStringList split = field.split('/');
     QString fileName = split.last();
@@ -27,7 +23,6 @@ SettingsManager::SettingsError SettingsManager::set(QString field, QVariant data
         bool ok = dir.mkpath(fileDir);
 
         if (!ok) {
-            // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make personal info directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
             return Failure;
         }
 
@@ -36,7 +31,6 @@ SettingsManager::SettingsError SettingsManager::set(QString field, QVariant data
 
     QFile file(dir.absoluteFilePath(fileName));
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        // QMessageBox::critical(nullptr, "Write failed", "Failed to save personal info. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -49,10 +43,8 @@ SettingsManager::SettingsError SettingsManager::set(QString field, QVariant data
 QVariantMap SettingsManager::load()
 {
     QVariantMap map{};
-    QDir dir(settingsDir);
-    dir.cd("settings");
 
-    QDirIterator iter(dir, QDirIterator::IteratorFlag::Subdirectories);
+    QDirIterator iter(settingsDir, QDirIterator::IteratorFlag::Subdirectories);
 
     while (iter.hasNext()) {
         QFile f = iter.next();
@@ -74,10 +66,8 @@ QVariantMap SettingsManager::load()
 QVariant SettingsManager::get(const QString &field)
 {
     QVariant value{};
-    QDir dir(settingsDir);
-    dir.cd("settings");
 
-    QFile f(dir.absoluteFilePath(field));
+    QFile f(settingsDir.absoluteFilePath(field));
     if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return value;
     }
@@ -89,3 +79,31 @@ QVariant SettingsManager::get(const QString &field)
     return value;
 }
 
+SettingsManager::SettingsError SettingsManager::mvDataDir(const QString &newPath)
+{
+    DataManager::DataError err = DataManager::mv(newPath);
+
+    switch (err) {
+    case DataManager::Failure:
+        return Failure;
+    case DataManager::Success:
+        return Success;
+    default:
+        return NoOp;
+    }
+}
+
+SettingsManager::SettingsError SettingsManager::mvCacheDir(const QString &newPath)
+{
+    CacheManager::CacheResult err = CacheManager::mv(newPath);
+
+    switch (err) {
+    case CacheManager::Failure:
+        return Failure;
+    case CacheManager::Success:
+        return Success;
+    default:
+        return NoOp;
+    }
+
+}

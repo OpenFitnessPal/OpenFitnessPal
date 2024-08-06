@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 import OFPData
 
@@ -104,6 +105,10 @@ Window {
                                        : [recipe.asFood(servings.value / 100.0)]);
             }
         }
+    }
+
+    FolderDialog {
+        id: dirSelect
     }
 
     SwipeView {

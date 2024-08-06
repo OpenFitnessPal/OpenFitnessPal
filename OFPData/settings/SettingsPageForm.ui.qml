@@ -20,11 +20,11 @@ Rectangle {
 
     property alias title: title
 
-    property alias meal1Name: meal1Name
-    property alias meal2Name: meal2Name
-    property alias meal3Name: meal3Name
-    property alias meal4Name: meal4Name
-    property alias meal5Name: meal5Name
+    property alias meal1: meal1
+    property alias meal2: meal2
+    property alias meal3: meal3
+    property alias meal4: meal4
+    property alias meal5: meal5
 
     Text {
         id: title
@@ -50,144 +50,74 @@ Rectangle {
         anchors.bottomMargin: 40
         anchors.topMargin: 8
 
-        rows: 1
         flow: GridLayout.TopToBottom
 
-        columns: 2
-
-        Text {
+        MealNameSetting {
             id: meal1
-            color: "#ffffff"
-            text: qsTr("Meal 1 Name:")
+            mealNumber: 1
+            defaultName: "Breakfast"
 
-            anchors.leftMargin: 20
-            anchors.topMargin: 10
-
-            font: Constants.underlinedSubtitleFont
-
-
-            Layout.row: 0
             Layout.column: 0
-        }
-
-        TextField {
-            id: meal1Name
-            height: 35
-            color: "#ffffff"
-
-            font: Constants.largeFont
-
             Layout.fillWidth: true
             Layout.row: 0
-            Layout.column: 1
         }
 
-        Text {
+        MealNameSetting {
             id: meal2
-            x: 22
-            color: "#ffffff"
-            text: qsTr("Meal 2 Name:")
-            anchors.leftMargin: 20
-            anchors.topMargin: 20
-            font: Constants.underlinedSubtitleFont
+            mealNumber: 2
+            defaultName: "Lunch"
 
-
-            Layout.row: 1
             Layout.column: 0
-        }
-
-        TextField {
-            id: meal2Name
-            y: 60
-            height: 35
-            color: "#ffffff"
-            font: Constants.largeFont
-
-            Layout.row: 1
             Layout.fillWidth: true
-            Layout.column: 1
+            Layout.row: 1
         }
 
-        Text {
+        MealNameSetting {
             id: meal3
-            x: 22
-            color: "#ffffff"
-            text: qsTr("Meal 3 Name:")
-            anchors.leftMargin: 20
-            anchors.topMargin: 20
-            font: Constants.underlinedSubtitleFont
+            mealNumber: 3
+            defaultName: "Dinner"
 
-
-            Layout.row: 2
             Layout.column: 0
-        }
-
-        TextField {
-            id: meal3Name
-            y: 60
-            height: 35
-            color: "#ffffff"
-
-            font: Constants.largeFont
-
-            Layout.row: 2
             Layout.fillWidth: true
-            Layout.column: 1
+            Layout.row: 2
         }
 
-        Text {
+        MealNameSetting {
             id: meal4
-            x: 22
-            color: "#ffffff"
-            text: qsTr("Meal 4 Name:")
-            anchors.leftMargin: 20
-            anchors.topMargin: 20
-            font: Constants.underlinedSubtitleFont
+            mealNumber: 4
+            defaultName: "Preworkout"
 
-
-            Layout.row: 3
             Layout.column: 0
-        }
-
-        TextField {
-            id: meal4Name
-            y: 60
-            height: 35
-            color: "#ffffff"
-
-            font: Constants.largeFont
-
-            Layout.row: 3
             Layout.fillWidth: true
-            Layout.column: 1
+            Layout.row: 3
         }
 
-        Text {
+        MealNameSetting {
             id: meal5
-            x: 22
-            color: "#ffffff"
-            text: qsTr("Meal 5 Name:")
-            anchors.leftMargin: 20
-            anchors.topMargin: 20
-            font: Constants.underlinedSubtitleFont
+            mealNumber: 5
+            defaultName: "Postworkout"
 
-
-            Layout.row: 4
             Layout.column: 0
+            Layout.fillWidth: true
+            Layout.row: 4
         }
 
-        TextField {
-            id: meal5Name
-            y: 60
-            height: 35
-            color: "#ffffff"
+        DirSetting {
+            id: cacheDir
+            isCache: true
 
-            font: Constants.largeFont
-
-            Layout.row: 4
+            Layout.column: 0
             Layout.fillWidth: true
-            Layout.column: 1
+            Layout.row: 5
+        }
+
+        DirSetting {
+            id: dataDir
+            isCache: false
+
+            Layout.column: 0
+            Layout.fillWidth: true
+            Layout.row: 6
         }
     }
-    // }
 }

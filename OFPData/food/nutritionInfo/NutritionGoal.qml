@@ -3,11 +3,11 @@ import QtQuick 2.15
 NutritionGoalForm {
     width: parent.width
     function reloadData(newValue) {
-        let goalValue = goalManager.getValue(internalName)
+        let goalValue = goalManager.get(internalName)
 
         if (isPercent) {
             let div = isFat ? 9. : 4.
-            let calories = goalManager.getValue("calories")
+            let calories = goalManager.get("calories")
 
             goalValue = goalValue / 100. * calories / div
         }

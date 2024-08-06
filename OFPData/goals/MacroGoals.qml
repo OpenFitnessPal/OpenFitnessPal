@@ -28,9 +28,9 @@ MacroGoalsForm {
 
     function checkMacrosValid() {
         if (startup) {
-            carbs.value = goalManager.getValue("carbs")
-            fat.value = goalManager.getValue("fat")
-            protein.value = goalManager.getValue("protein")
+            carbs.value = goalManager.get("carbs")
+            fat.value = goalManager.get("fat")
+            protein.value = goalManager.get("protein")
         }
 
         let valid = (carbs.value + protein.value + fat.value) == 100
@@ -44,9 +44,9 @@ MacroGoalsForm {
         protein.max = 100 - fat.value - carbs.value
 
         if (valid && !startup) {
-            goalManager.setValue("carbs", carbs.value)
-            goalManager.setValue("fat", fat.value)
-            goalManager.setValue("protein", protein.value)
+            goalManager.set("carbs", carbs.value)
+            goalManager.set("fat", fat.value)
+            goalManager.set("protein", protein.value)
         }
 
         startup = false

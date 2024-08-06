@@ -5,12 +5,12 @@ GoalManager::GoalManager(QObject *parent)
     : QObject{parent}
 {}
 
-void GoalManager::setValue(const QString &key, const QVariant &value)
+void GoalManager::set(const QString &key, const QVariant &value)
 {
     DataManager::saveInfo(key, value);
 }
 
-QVariant GoalManager::getValue(const QString &key)
+QVariant GoalManager::get(const QString &key)
 {
     return DataManager::getInfo(key);
 }

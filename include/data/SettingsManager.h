@@ -23,6 +23,8 @@ public:
     Q_INVOKABLE QVariantMap load();
     Q_INVOKABLE QVariant get(const QString &field);
 
+    Q_INVOKABLE SettingsError mvDataDir(const QString &newPath);
+    Q_INVOKABLE SettingsError mvCacheDir(const QString &newPath);
 private:
     QDir settingsDir;
 };

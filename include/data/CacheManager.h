@@ -21,6 +21,8 @@ public:
 
     static FoodItem itemById(const QString &id);
 
+    static CacheResult mv(const QString &newPath);
+
 private:
     static QList<FoodItem> cachedFoods;
 
