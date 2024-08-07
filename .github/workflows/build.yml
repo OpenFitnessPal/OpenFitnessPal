@@ -152,14 +152,14 @@ jobs:
         sudo apt-get install libxcb-cursor-dev libxcb-cursor0
         sudo cmake --install ${{ env.BUILD_DIR }}/_deps/ofplib-build --prefix=/usr
 
-        mkdir -p ${{ env.INSTALL_APPIMAGE_DIR }}/usr/{lib/qt/qml,bin}
+        mkdir -p ${{ env.INSTALL_APPIMAGE_DIR }}/usr/{lib/{qt,qml},bin}
 
         cmake --install ${{ env.BUILD_DIR }} --prefix ${{ env.INSTALL_APPIMAGE_DIR }}/usr
 
         export OUTPUT="OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage"
         export QML_SOURCES_PATHS="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.qt_arch }}/qml"
 
-        cp -r ${QML_SOURCES_PATHS}/QtCore ${{ env.INSTALL_APPIMAGE_DIR }}/usr/lib/qt/qml/
+        cp -r ${QML_SOURCES_PATHS}/QtCore ${{ env.INSTALL_APPIMAGE_DIR }}/usr/qml
 
         chmod +x linuxdeploy-*.AppImage
 
@@ -185,8 +185,10 @@ jobs:
 
         if "${{ inputs.build_type }}" == "Debug" (
           cp C:\Windows\System32\ucrtbased.dll ${{ env.INSTALL_DIR }}
+          cp ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2019_64\bin\Qt6QmlCored.dll ${{ env.INSTALL_DIR }}
         ) else (
           cp C:\Windows\System32\ucrtbase.dll ${{ env.INSTALL_DIR }}
+          cp ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2019_64\bin\Qt6QmlCore.dll ${{ env.INSTALL_DIR }}
         )
 
     - name: Package (Windows, Installer)
