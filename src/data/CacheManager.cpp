@@ -39,6 +39,13 @@ void CacheManager::init()
 
     cacheDir.cd("foods");
 
+    reload();
+}
+
+void CacheManager::reload()
+{
+    cachedFoods.clear();
+
     QDirIterator cacheIter(cacheDir.absolutePath(), {"*.json"}, QDir::Files);
 
     while (cacheIter.hasNext()) {
@@ -50,6 +57,7 @@ void CacheManager::init()
         FoodItem item(doc.object());
         cachedFoods.append(item);
     }
+
 }
 
 CacheManager::CacheResult CacheManager::cacheFoodItem(const FoodItem &item)
@@ -133,6 +141,13 @@ CacheManager::CacheResult CacheManager::mv(const QString &newPath)
         f.rename(newPath + "/foods/" + name);
     }
 
-    cacheDir.setPath(newPath);
+    CacheManager::newPath(newPath);
 
     return Success;}
+
+void CacheManager::newPath(const QString &newPath)
+{
+    cacheDir.setPath(newPath);
+    cacheDir.mkpath("foods");
+    cacheDir.cd("foods");
+}

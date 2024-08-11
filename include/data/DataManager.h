@@ -43,6 +43,7 @@ public:
     static QVariant getInfo(const QString &field);
 
     static DataError mv(const QString &newPath);
+    static void newPath (const QString &newPath);
 
 private:
     static QDir dataDir;

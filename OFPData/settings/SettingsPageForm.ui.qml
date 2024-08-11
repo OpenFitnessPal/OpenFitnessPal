@@ -26,6 +26,9 @@ Rectangle {
     property alias meal4: meal4
     property alias meal5: meal5
 
+    property alias cacheDir: cacheDir
+    property alias dataDir: dataDir
+
     Text {
         id: title
         color: "#ffffff"

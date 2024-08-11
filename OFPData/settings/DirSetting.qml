@@ -1,14 +1,64 @@
 import QtQuick 2.15
+import QtQuick.Dialogs
 import QtCore
 
 DirSettingForm {
-    function updateDir(selectedDir) {
+    signal reloadData
+
+    property string dirToSwitch
+
+    function updateDir(selectedDir, transfer) {
         if (isCache) {
             settings.set("cacheDir", selectedDir)
-            settings.mvCacheDir(selectedDir)
+            if (transfer) {
+                settings.mvCacheDir(selectedDir)
+            } else {
+                settings.newCacheDir(selectedDir)
+            }
         } else {
             settings.set("dataDir", selectedDir)
-            settings.mvDataDir(selectedDir)
+            if (transfer) {
+                settings.mvDataDir(selectedDir)
+            } else {
+                settings.newDataDir(selectedDir)
+            }
+        }
+
+        dir.text = selectedDir
+    }
+
+    function handleButton(button, role) {
+        dataConfirm.buttonClicked.disconnect(handleButton)
+
+        switch (button) {
+        case MessageDialog.Yes:
+            updateDir(dirToSwitch, true)
+            break
+        case MessageDialog.No:
+            updateDir(dirToSwitch, false)
+            break
+        case MessageDialog.Cancel:
+        default:
+            break
+        }
+
+        reloadData()
+    }
+
+    function confirmSwitch(selectedDir) {
+        let needsConfirmation = false
+        if (isCache) {
+            needsConfirmation = settings.cacheExists(selectedDir)
+        } else {
+            needsConfirmation = settings.dataExists(selectedDir)
+        }
+
+        if (needsConfirmation) {
+            dirToSwitch = selectedDir
+            dataConfirm.buttonClicked.connect(handleButton)
+            dataConfirm.open()
+        } else {
+            updateDir(selectedDir, true)
         }
     }
 
@@ -18,13 +68,12 @@ DirSettingForm {
         let path = selectedDir.replace(/^(file:\/{2})/,"");
         let cleanPath = decodeURIComponent(path);
 
-        dir.text = cleanPath
-        updateDir(cleanPath)
+        confirmSwitch(cleanPath)
     }
 
     function updateDirFromText() {
         let selectedDir = dir.text
-        updateDir(selectedDir)
+        confirmSwitch(selectedDir)
     }
 
     button.onClicked: {

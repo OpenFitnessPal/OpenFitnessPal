@@ -25,6 +25,14 @@ public:
 
     Q_INVOKABLE SettingsError mvDataDir(const QString &newPath);
     Q_INVOKABLE SettingsError mvCacheDir(const QString &newPath);
+
+    Q_INVOKABLE void newDataDir(const QString &newPath);
+    Q_INVOKABLE void newCacheDir(const QString &newPath);
+
+    Q_INVOKABLE bool cacheExists(const QString &dir);
+    Q_INVOKABLE bool dataExists(const QString &dir);
+
+    Q_INVOKABLE void reloadCache();
 private:
     QDir settingsDir;
 };

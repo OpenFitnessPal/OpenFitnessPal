@@ -15,12 +15,20 @@ Window {
         exercisesPage.currentDate = date
         foodPage.currentDate = date
 
-        exercisesPage.reloadData()
-        foodPage.reloadData()
+        reloadData()
     }
 
     function reloadMealNames() {
         foodPage.reloadMealNames()
+    }
+
+    function reloadData() {
+        exercisesPage.reloadData()
+        foodPage.reloadData()
+    }
+
+    function reloadCache() {
+        settings.reloadCache()
     }
 
     Dialog {
@@ -112,6 +120,13 @@ Window {
         currentFolder: "/home"
     }
 
+    MessageDialog {
+        id: dataConfirm
+        text: "The directory you selected appears to contain data already."
+        informativeText: "Do you still want to transfer over data from the old directory? Select no if the target directory is from a cloud sync."
+        buttons: MessageDialog.Yes | MessageDialog.No | MessageDialog.Cancel
+    }
+
     SwipeView {
         id: swipeView
         objectName: "swipeView"
@@ -126,6 +141,9 @@ Window {
             id: settingsPage
 
             onMealNamesChanged: reloadMealNames()
+
+            onReloadData: window.reloadData()
+            onReloadCache: window.reloadCache()
         }
 
         ExercisePageImpl {

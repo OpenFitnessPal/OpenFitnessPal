@@ -601,9 +601,14 @@ DataManager::DataError DataManager::mv(const QString &newPath)
     QFile f(dataDir.absoluteFilePath("recipes.json"));
     f.rename(newPath + "/recipes.json");
 
-    dataDir.setPath(newPath);
+    DataManager::newPath(newPath);
 
     return Success;
+}
+
+void DataManager::newPath(const QString &newPath)
+{
+    dataDir.setPath(newPath);
 }
 
 DataManager::DataError DataManager::addJsonObject(QFile &file, const QJsonObject &obj)

@@ -107,3 +107,30 @@ SettingsManager::SettingsError SettingsManager::mvCacheDir(const QString &newPat
     }
 
 }
+
+void SettingsManager::newDataDir(const QString &newPath)
+{
+    DataManager::newPath(newPath);
+}
+
+void SettingsManager::newCacheDir(const QString &newPath)
+{
+    CacheManager::newPath(newPath);
+}
+
+bool SettingsManager::cacheExists(const QString &sdir)
+{
+    QDir dir = sdir;
+    return (dir.exists("foods"));
+}
+
+bool SettingsManager::dataExists(const QString &sdir)
+{
+    QDir dir = sdir;
+    return ((dir.exists("journal") && dir.exists("person")) || dir.exists("recipes.json"));
+}
+
+void SettingsManager::reloadCache()
+{
+    CacheManager::reload();
+}
