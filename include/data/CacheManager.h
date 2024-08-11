@@ -8,6 +8,7 @@ class CacheManager
 {
 public:
     static void init();
+    static void reload();
 
     enum CacheResult {
         Success,
@@ -20,6 +21,9 @@ public:
     static QList<FoodItem> search(const QString &pattern);
 
     static FoodItem itemById(const QString &id);
+
+    static CacheResult mv(const QString &newPath);
+    static void newPath(const QString &newPath);
 
 private:
     static QList<FoodItem> cachedFoods;

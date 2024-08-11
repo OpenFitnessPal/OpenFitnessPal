@@ -11,6 +11,10 @@ FoodPageForm {
         nutrition.reloadData(date)
     }
 
+    function reloadMealNames() {
+        journal.reloadMealNames()
+    }
+
     swipe.onCurrentItemChanged: reloadData()
     journal.onNutritionInfoRequested: swipe.setCurrentIndex(1)
     nutrition.onCloseOut: swipe.setCurrentIndex(0)

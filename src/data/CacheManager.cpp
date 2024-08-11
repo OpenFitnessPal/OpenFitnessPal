@@ -15,15 +15,36 @@ QDir CacheManager::cacheDir{};
 
 void CacheManager::init()
 {
-    cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    QString dir;
+
+    QDir settingsDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+
+    QFile f(settingsDir.absoluteFilePath("cacheDir"));
+
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        dir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    } else {
+        dir = f.readAll();
+        f.close();
+    }
+
+    cacheDir = dir;
+
     bool ok = cacheDir.mkpath("foods");
 
     if (!ok) {
-        // QMessageBox::critical(nullptr, "mkpath failed", "Failed to make cache directory. Check permissions on your local cache directory.", QMessageBox::StandardButton::Ok);
+        qCritical() << "Failed to create food cache directory, exiting.";
         std::exit(127);
     }
 
     cacheDir.cd("foods");
+
+    reload();
+}
+
+void CacheManager::reload()
+{
+    cachedFoods.clear();
 
     QDirIterator cacheIter(cacheDir.absolutePath(), {"*.json"}, QDir::Files);
 
@@ -36,6 +57,7 @@ void CacheManager::init()
         FoodItem item(doc.object());
         cachedFoods.append(item);
     }
+
 }
 
 CacheManager::CacheResult CacheManager::cacheFoodItem(const FoodItem &item)
@@ -101,4 +123,31 @@ FoodItem CacheManager::itemById(const QString &id)
     }
 
     return FoodItem{};
+}
+
+CacheManager::CacheResult CacheManager::mv(const QString &newPath)
+{
+    QDir old(cacheDir);
+    old.cd("foods");
+    QDirIterator iter(old, QDirIterator::Subdirectories);
+
+    QDir newDir(newPath);
+    newDir.mkpath("foods");
+
+    while (iter.hasNext()) {
+        QFile f = iter.next();
+        QString name = old.relativeFilePath(f.fileName());
+
+        f.rename(newPath + "/foods/" + name);
+    }
+
+    CacheManager::newPath(newPath);
+
+    return Success;}
+
+void CacheManager::newPath(const QString &newPath)
+{
+    cacheDir.setPath(newPath);
+    cacheDir.mkpath("foods");
+    cacheDir.cd("foods");
 }

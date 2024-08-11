@@ -31,11 +31,12 @@ find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick)
 set(CODE_ELEMENTS
     data/DataManager
     data/CacheManager
+    data/SettingsManager
 
-    Settings
     Recipe
     GoalManager
     NutritionManager
+    PlatformHelper
 
     models/FoodServingModel
     models/FoodServingComboBoxModel
@@ -62,16 +63,6 @@ elseif(ANDROID)
 else()
     set(OFP_BUILD_PLATFORM "lin64")
 endif()
-
-set(PROJECT_SRC ${HEADERS} ${SOURCES}
-    ${RCS_FILE}
-    ${MANIFEST_FILE}
-
-    ${OFPLib_SOURCE_DIR}/include/OFPManager.h
-    ${OFPLib_SOURCE_DIR}/include/FoodItem.h
-    ${OFPLib_SOURCE_DIR}/include/ServingSize.h
-    ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
-)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/)
 
@@ -100,6 +91,20 @@ project(${OFP_APP_NAME} VERSION ${OFP_GIT_TAG_NUMERO} LANGUAGES CXX)
 string(TIMESTAMP TODAY "%Y-%m-%d")
 set(OFP_BUILD_TIMESTAMP "${TODAY}")
 
+add_subdirectory(buildconfig)
+
+set(PROJECT_SRC ${HEADERS} ${SOURCES}
+    ${RCS_FILE}
+    ${MANIFEST_FILE}
+
+    ${OFPLib_SOURCE_DIR}/include/OFPManager.h
+    ${OFPLib_SOURCE_DIR}/include/FoodItem.h
+    ${OFPLib_SOURCE_DIR}/include/ServingSize.h
+    ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
+
+    ${CMAKE_BINARY_DIR}/buildconfig/BuildConfig.cpp
+)
+
 qt_add_executable(${CMAKE_PROJECT_NAME} ${PROJECT_SRC})
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
@@ -116,7 +121,6 @@ qt_add_qml_module(${OFP_APP_NAME}
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${OFP_EXEC_NAME})
 
 add_subdirectory(program_info/)
-add_subdirectory(buildconfig)
 
 if (ANDROID)
     include(FetchContent)

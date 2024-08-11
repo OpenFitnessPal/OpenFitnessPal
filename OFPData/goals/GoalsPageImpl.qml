@@ -68,7 +68,7 @@ GoalsPageForm {
 
         macros.setMacros(carbs, fat, protein)
 
-        goalManager.setValue("goal", goal.index)
+        goalManager.set("goal", goal.index)
     }
 
     function recalcGoals() {
@@ -79,7 +79,7 @@ GoalsPageForm {
     recalc.onClicked: recalcGoals()
     goal.onGoalChanged: recalcGoals()
     calories.onGoalValueChanged: {
-        goalManager.setValue("calories", calories.value)
+        goalManager.set("calories", calories.value)
         changeNutrition()
     }
 }

@@ -25,6 +25,12 @@ QtObject {
                                                    pixelSize: Qt.application.font.pixelSize * 1.4
                                                })
 
+    readonly property font underlinedMediumFont: Qt.font({
+                                                             family: Qt.application.font.family,
+                                                             pixelSize: Qt.application.font.pixelSize * 1.4,
+                                                             underlined: true
+                                                         })
+
     readonly property font boldMediumFont: Qt.font({
                                                        family: Qt.application.font.family,
                                                        pixelSize: Qt.application.font.pixelSize * 1.4,

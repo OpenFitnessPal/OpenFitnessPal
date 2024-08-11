@@ -25,6 +25,10 @@ MealLogForm {
         fsm.loadData(currentDate)
     }
 
+    function reloadMealName() {
+        mealName.text = settings.get("meal" + mealNumber + "Name")
+    }
+
     Component.onCompleted: {
         reloadData()
     }

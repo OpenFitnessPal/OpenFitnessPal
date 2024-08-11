@@ -14,18 +14,32 @@ QDir DataManager::dataDir{};
 
 void DataManager::init()
 {
-    dataDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    QString dir;
+
+    QDir settingsDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+
+    QFile f(settingsDir.absoluteFilePath("dataDir"));
+
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    } else {
+        dir = f.readAll().trimmed();
+        f.close();
+    }
+
+    dataDir = dir;
+
     bool ok = dataDir.mkpath("journal");
 
     if (!ok) {
-        // QMessageBox::critical(nullptr, "mkpath failed", "Failed to make data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        qCritical() << "Failed to create journal directory, exiting.";
         std::exit(127);
     }
 
     ok = dataDir.mkpath("person");
 
     if (!ok) {
-        // QMessageBox::critical(nullptr, "mkpath failed", "Failed to make data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
+        qCritical() << "Failed to create goal directory, exiting.";
         std::exit(127);
     }
 
@@ -40,7 +54,6 @@ DataManager::DataError DataManager::removeFood(int meal, QDate date, const FoodS
     bool ok = dir.cd(dateString + "/meals");
 
     if (!ok) {
-        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return NoOp;
     }
 
@@ -67,7 +80,6 @@ DataManager::DataError DataManager::removeFood(int meal, QDate date, const FoodS
     QByteArray toWrite = QJsonDocument(array).toJson();
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        // QMessageBox::critical(nullptr, "Write failed", "Failed to save some meal data for today. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
         return Failure;
     }
 
@@ -554,6 +566,50 @@ QVariant DataManager::getInfo(const QString &field)
 
     return value;
 
+}
+
+DataManager::DataError DataManager::mv(const QString &newPath)
+{
+    QDir journal(dataDir);
+
+    journal.cd("journal");
+
+    QDirIterator jIter(journal, QDirIterator::Subdirectories);
+
+    QDir newDir(newPath);
+    newDir.mkpath("journal");
+    newDir.mkpath("person");
+
+    while (jIter.hasNext()) {
+        QFile f = jIter.next();
+        QString name = journal.relativeFilePath(f.fileName());
+
+        f.rename(newPath + "/journal/" + name);
+    }
+
+    QDir person(dataDir);
+    person.cd("person");
+
+    QDirIterator pIter(person, QDirIterator::Subdirectories);
+
+    while (pIter.hasNext()) {
+        QFile f = pIter.next();
+        QString name = person.relativeFilePath(f.fileName());
+
+        f.rename(newPath + "/person/" + name);
+    }
+
+    QFile f(dataDir.absoluteFilePath("recipes.json"));
+    f.rename(newPath + "/recipes.json");
+
+    DataManager::newPath(newPath);
+
+    return Success;
+}
+
+void DataManager::newPath(const QString &newPath)
+{
+    dataDir.setPath(newPath);
 }
 
 DataManager::DataError DataManager::addJsonObject(QFile &file, const QJsonObject &obj)

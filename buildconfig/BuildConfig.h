@@ -1,8 +1,9 @@
 #pragma once
 #include <QString>
+#include <QObject>
 
 class Config {
-   public:
+public:
     Config();
     QString APP_NAME;
     QString ORG_NAME;
