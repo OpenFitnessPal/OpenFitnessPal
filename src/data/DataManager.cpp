@@ -28,6 +28,7 @@ void DataManager::init()
     }
 
     dataDir = dir;
+
     bool ok = dataDir.mkpath("journal");
 
     if (!ok) {

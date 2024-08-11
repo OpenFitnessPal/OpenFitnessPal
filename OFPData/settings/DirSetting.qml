@@ -2,6 +2,8 @@ import QtQuick 2.15
 import QtQuick.Dialogs
 import QtCore
 
+import OFPData
+
 DirSettingForm {
     signal reloadData
 
@@ -77,7 +79,12 @@ DirSettingForm {
     }
 
     button.onClicked: {
-        dirSelect.currentFolder = "file://" + dir.text.trim()
+        if (platform.isWindows()) {
+            dirSelect.currentFolder = "file:///" + dir.text
+        } else {
+            dirSelect.currentFolder = "file://" + dir.text.trim()
+        }
+
         dirSelect.open()
 
         dirSelect.accepted.connect(updateDirFromDialog)
@@ -92,7 +99,14 @@ DirSettingForm {
         if (typeof setting == "undefined") {
             setting = StandardPaths.writableLocation(isCache ? StandardPaths.CacheLocation : StandardPaths.AppLocalDataLocation).toString()
 
-            let path = setting.replace(/^(file:\/{2})/,"");
+            var path
+
+            if (platform.isWindows()) {
+                path = setting.replace(/^(file:\/{3})/,"");
+            } else {
+                path = setting.replace(/^(file:\/{2})/,"");
+            }
+
             let cleanPath = decodeURIComponent(path);
 
             setting = cleanPath

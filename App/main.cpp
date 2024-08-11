@@ -8,6 +8,7 @@
 #include "DataManager.h"
 #include "CacheManager.h"
 #include "GoalManager.h"
+#include "PlatformHelper.h"
 #include "NutritionManager.h"
 #include "SettingsManager.h"
 #include "autogen/environment.h"
@@ -30,6 +31,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
+    PlatformHelper platform;
     Recipe recipe;
     GoalManager manager;
     NutritionManager nutrition;
@@ -41,6 +43,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("settings", &settings);
     engine.rootContext()->setContextProperty("goalManager", &manager);
     engine.rootContext()->setContextProperty("nutritionManager", &nutrition);
+    engine.rootContext()->setContextProperty("platform", &platform);
     engine.rootContext()->setContextProperty("blankRecipe", QVariant::fromValue(recipe));
 
     const QUrl url(mainQmlFile);
