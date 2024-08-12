@@ -122,6 +122,10 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${OFP_EXEC_NA
 
 add_subdirectory(program_info/)
 
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+    MACOSX_BUNDLE TRUE
+)
+
 if(UNIX AND APPLE)
     # Mac bundle settings
     set(MACOSX_BUNDLE_BUNDLE_NAME "${OFP_EXEC_NAME}")
