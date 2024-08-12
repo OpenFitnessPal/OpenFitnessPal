@@ -189,7 +189,7 @@ jobs:
 
         cd ${{ env.BUILD_DIR }}
         ls
-        macdeployqt OpenFitnessPal.app --qmldir $QML_SOURCES_PATH
+        macdeployqt OpenFitnessPal.app -qmldir $QML_SOURCES_PATH
         ls
 
         sudo codesign --sign - --deep --force --entitlements ../program_info/App.entitlements --options runtime OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
