@@ -104,7 +104,7 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         brew update
-        brew install llvm ninja
+        brew install llvm ninja coreutils
 
     - name: Prepare AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
