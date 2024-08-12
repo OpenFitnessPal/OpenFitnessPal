@@ -122,6 +122,21 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${OFP_EXEC_NA
 
 add_subdirectory(program_info/)
 
+if(UNIX AND APPLE)
+    # Mac bundle settings
+    set(MACOSX_BUNDLE_BUNDLE_NAME "${OFP_EXEC_NAME}")
+    set(MACOSX_BUNDLE_INFO_STRING "${OFP_EXEC_NAME}: A free, open-source fitness tracker.")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.${OFP_ORG_NAME}.${OFP_EXEC_NAME}")
+    set(MACOSX_BUNDLE_BUNDLE_VERSION "${OFP_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${OFP_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${OFP_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_ICON_FILE ${OFP_EXEC_NAME}.icns)
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024 ${OFP_ORG_NAME}")
+
+    # install as bundle
+    set(INSTALL_BUNDLE "full")
+endif()
+
 if (ANDROID)
     include(FetchContent)
     FetchContent_Declare(
