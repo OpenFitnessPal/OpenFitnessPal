@@ -240,7 +240,7 @@ jobs:
 
     - name: Upload installer (Windows)
       if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: OpenFitnessPal-${{ runner.os }}-Setup-${{ env.VERSION }}-${{ inputs.build_type }}
         path: OpenFitnessPal-Setup.exe
