@@ -185,10 +185,11 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         export PATH="$PATH;${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/*/bin"
+        export QML_SOURCES_PATHS="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.qt_arch }}/qml"
 
         cd ${{ env.BUILD_DIR }}
         ls
-        macdeployqt OpenFitnessPal.app
+        macdeployqt OpenFitnessPal.app --qmldir $QML_SOURCES_PATH
         ls
 
         sudo codesign --sign - --deep --force --entitlements ../program_info/App.entitlements --options runtime OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
