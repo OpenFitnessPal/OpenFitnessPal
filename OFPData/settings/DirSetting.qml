@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Dialogs
-import QtCore
 
 import OFPData
 
@@ -97,7 +96,7 @@ DirSettingForm {
 
         let setting = settings.get(settingName)
         if (typeof setting == "undefined") {
-            setting = StandardPaths.writableLocation(isCache ? StandardPaths.CacheLocation : StandardPaths.AppLocalDataLocation).toString()
+            setting = isCache ? platform.defaultCacheDir() : platform.defaultDataDir();
 
             var path
 

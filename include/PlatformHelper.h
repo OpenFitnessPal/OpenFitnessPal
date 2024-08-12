@@ -13,6 +13,9 @@ public:
 
     Q_INVOKABLE bool isWindows();
 
+    Q_INVOKABLE QString defaultDataDir();
+    Q_INVOKABLE QString defaultCacheDir();
+
 signals:
 };
 
