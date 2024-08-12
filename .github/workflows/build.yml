@@ -33,10 +33,15 @@ jobs:
             qt_version: '6.7.2'
             qt_arch: win64_msvc2019_64
 
+          - os: macOS-12
+            qt_host: mac
+            qt_version: '6.7.2'
+            qt_arch: clang_64
+
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -95,6 +100,12 @@ jobs:
     #     arch: ${{ matrix.qt_arch }}
     #     modules: qtvirtualkeyboard qtshadertools
 
+    - name: Install Build Dependencies (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        brew update
+        brew install llvm ninja coreutils
+
     - name: Prepare AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
       run: |
@@ -111,7 +122,7 @@ jobs:
         cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=$QTPATH/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=$QTPATH/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -G "Ninja"
 
     - name: Configure (Windows)
-      if: runner.os == 'Windows'
+      if: runner.os == 'Windows' || runner.os == 'macOS'
       run: |
         cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
 
@@ -169,6 +180,24 @@ jobs:
         cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 ${{ env.INSTALL_APPIMAGE_DIR }}/usr/lib/
 
         ./linuxdeploy-x86_64.AppImage --appdir ${{ env.INSTALL_APPIMAGE_DIR }} --output appimage --plugin qt
+
+    - name: Package (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        export PATH="$PATH;${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/*/bin"
+        export QML_SOURCES_PATHS="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/macos/qml"
+
+        ls ${{ runner.workspace }}/Qt/${{ matrix.qt_version }}
+
+        cd ${{ env.BUILD_DIR }}
+        ls $QML_SOURCES_PATHS
+        macdeployqt OpenFitnessPal.app -qmldir=$QML_SOURCES_PATHS -qmlimport=$QML_SOURCES_PATHS
+        ls
+
+        sudo codesign --sign - --deep --force --entitlements ../program_info/App.entitlements --options runtime OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
+        chmod a+x OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
+        cp ../program_info/OpenFitnessPal.icns OpenFitnessPal.app/Contents/Resources
+        tar czf ../OpenFitnessPal.tar.gz OpenFitnessPal.app
 
     - name: Package (Windows, Portable)
       if: runner.os == 'Windows'
@@ -230,6 +259,13 @@ jobs:
       with:
         name: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
         path: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
+
+    - name: Upload tarball (macOS)
+      if: runner.os == 'macOS'
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}
+        path: OpenFitnessPal.tar.gz
 
     - name: Upload portable zip (Windows)
       if: runner.os == 'Windows'

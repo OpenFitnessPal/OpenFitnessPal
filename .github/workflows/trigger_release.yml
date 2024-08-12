@@ -50,6 +50,12 @@ jobs:
           mv OpenFitnessPal-*.AppImage/OpenFitnessPal-*.AppImage OpenFitnessPal-Linux-${{ env.VERSION }}-x86_64.AppImage
           zip -r OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip OpenFitnessPal-Windows-Portable*/* OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
 
+          tar xf OpenFitnessPal-macOS*/OpenFitnessPal.tar.gz
+
+          mv OpenFitnessPal*.app OpenFitnessPal-macOS-${{ env.VERSION }}.app
+
+          zip -r OpenFitnessPal-macOS-${{ env.VERSION }}.zip OpenFitnessPal-macOS-${{ env.VERSION }}.app
+
           mv OpenFitnessPal-Windows-Setup*/OpenFitnessPal* OpenFitnessPal-Windows-Setup-${{ env.VERSION }}.exe
 
           tar -czf OpenFitnessPal-${{ env.VERSION }}.tar.gz OpenFitnessPal-${{ env.VERSION }}
@@ -68,5 +74,6 @@ jobs:
             OpenFitnessPal-Linux-${{ env.VERSION }}-x86_64.AppImage
             OpenFitnessPal-Windows-Portable-${{ env.VERSION }}.zip
             OpenFitnessPal-Windows-Setup-${{ env.VERSION }}.exe
+            OpenFitnessPal-macOS-${{ env.VERSION }}.zip
             # OpenFitnessPal-Android-${{ env.VERSION }}.apk
             OpenFitnessPal-${{ env.VERSION }}.tar.gz
