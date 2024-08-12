@@ -185,7 +185,9 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         export PATH="$PATH;${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/*/bin"
-        export QML_SOURCES_PATHS="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.qt_arch }}/qml"
+        export QML_SOURCES_PATHS="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/*/qml"
+
+        ls ${{ runner.workspace }}/Qt/${{ matrix.qt_version }}
 
         cd ${{ env.BUILD_DIR }}
         ls $QML_SOURCES_PATHS
