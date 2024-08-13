@@ -1,5 +1,6 @@
 #include "items/Exercise.h"
 #include "data/DataManager.h"
+#include <qjsonarray.h>
 
 Exercise::Exercise(QObject *parent)
     : QObject(parent)
@@ -42,6 +43,36 @@ QList<ExerciseSet> Exercise::sets() const
 void Exercise::setSets(const QList<ExerciseSet> &newSets)
 {
     m_sets = newSets;
+}
+
+QJsonObject Exercise::toJson() const
+{
+    QJsonObject obj;
+    obj.insert("name", m_name);
+    QJsonArray arr;
+    for (const ExerciseSet &s : m_sets) {
+        arr.append(s.toJson());
+    }
+    obj.insert("sets", arr);
+    return obj;
+}
+
+Exercise Exercise::fromJson(const QJsonObject &obj)
+{
+    Exercise e;
+    e.setName(obj.value("name").toString());
+
+    QList<ExerciseSet> sets;
+    for (const QJsonValueRef ref : obj.value("sets").toArray()) {
+        sets.append(ExerciseSet::fromJson(ref.toObject()));
+    }
+    e.setSets(sets);
+    return e;
+}
+
+bool Exercise::operator==(const Exercise &other) const
+{
+    return m_name == other.name() && m_sets == other.sets();
 }
 
 

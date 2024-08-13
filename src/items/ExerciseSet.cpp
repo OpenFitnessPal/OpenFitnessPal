@@ -2,6 +2,7 @@
 
 #include <QTime>
 #include <QJSValue>
+#include <qjsonobject.h>
 
 ExerciseSet::ExerciseSet(QObject *parent)
     : QObject(parent)
@@ -39,6 +40,21 @@ void ExerciseSet::setWeight(int newWeight)
     // emit weightChanged();
 }
 
+QJsonObject ExerciseSet::toJson() const
+{
+    QJsonObject obj;
+    obj.insert("reps", m_reps);
+    obj.insert("weight", m_weight);
+    return obj;
+}
+
+ExerciseSet ExerciseSet::fromJson(const QJsonObject &obj)
+{
+    ExerciseSet e;
+    e.setReps(obj.value("reps").toInt());
+    e.setWeight(obj.value("weight").toInt());
+    return e;
+}
 
 int ExerciseSet::reps() const
 {
@@ -51,4 +67,8 @@ void ExerciseSet::setReps(int newReps)
         return;
     m_reps = newReps;
     // emit repsChanged();
+}
+
+bool operator==(const ExerciseSet &a, const ExerciseSet &b) {
+    return a.reps() == b.reps() && a.weight() == b.weight();
 }

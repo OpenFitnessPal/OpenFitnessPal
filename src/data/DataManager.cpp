@@ -45,75 +45,6 @@ void DataManager::init()
 
 }
 
-DataManager::DataError DataManager::removeFood(int meal, QDate date, const FoodServing &food)
-{
-    QString dateString = date.toString("MM-dd-yyyy");
-    QDir dir(dataDir);
-    dir.cd("journal");
-
-    bool ok = dir.cd(dateString + "/meals");
-
-    if (!ok) {
-        return NoOp;
-    }
-
-    QFile file(dir.absoluteFilePath(QString::number(meal) + ".json"));
-    if (!file.open(QIODevice::ReadOnly)) {
-        return NoOp;
-    }
-
-    QByteArray data = file.readAll();
-
-    file.close();
-
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-    QJsonArray array = doc.array();
-    QJsonObject obj = food.toJson();
-
-    for (int i = 0; i < array.size(); ++i) {
-        if (array.at(i).toObject() == obj) {
-            array.removeAt(i);
-            break;
-        }
-    }
-
-    QByteArray toWrite = QJsonDocument(array).toJson();
-
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return Failure;
-    }
-
-    file.write(toWrite);
-
-    file.close();
-
-    return Success;
-}
-
-DataManager::DataError DataManager::saveFood(int meal, QDate date, const FoodServing &food)
-{
-    QString dateString = date.toString("MM-dd-yyyy");
-    QDir dir(dataDir);
-    dir.cd("journal");
-
-    bool ok = dir.mkpath(dateString);
-
-    if (!ok) {
-        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        return Failure;
-    }
-
-    dir.cd(dateString);
-
-    dir.mkpath("meals");
-
-    dir.cd("meals");
-
-    QFile file(dir.absoluteFilePath(QString::number(meal) + ".json"));
-
-    return addJsonObject(file, food.toJson());
-}
-
 DataManager::DataError DataManager::truncateSaveFoods(int meal, QDate date, const QList<FoodServing> &foods)
 {
     QString dateString = date.toString("MM-dd-yyyy");
@@ -191,49 +122,6 @@ QList<FoodServing> DataManager::loadFoods(int meal, QDate date)
     return servings;
 }
 
-DataManager::DataError DataManager::removeRecipe(const Recipe &recipe)
-{
-    QFile file(dataDir.absoluteFilePath("recipes.json"));
-    if (!file.open(QIODevice::ReadOnly)) {
-        return NoOp;
-    }
-
-    QByteArray data = file.readAll();
-
-    file.close();
-
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-    QJsonArray array = doc.array();
-    QJsonObject obj = recipe.toJson();
-
-    for (int i = 0; i < array.size(); ++i) {
-        if (array.at(i).toObject() == obj) {
-            array.removeAt(i);
-            break;
-        }
-    }
-
-    QByteArray toWrite = QJsonDocument(array).toJson();
-
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        // QMessageBox::critical(nullptr, "Write failed", "Failed to save some recipe data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        return Failure;
-    }
-
-    file.write(toWrite);
-
-    file.close();
-
-    return Success;
-}
-
-DataManager::DataError DataManager::saveRecipe(const Recipe &recipe)
-{
-    QFile file(dataDir.absoluteFilePath("recipes.json"));
-
-    return addJsonObject(file, recipe.toJson());
-}
-
 DataManager::DataError DataManager::truncateSaveRecipes(const QList<Recipe> &recipes)
 {
     QFile file(dataDir.absoluteFilePath("recipes.json"));
@@ -301,77 +189,70 @@ QList<Recipe> DataManager::searchRecipes(const QString &query)
     return recipes;
 }
 
-DataManager::DataError DataManager::removeExercise(const Exercise &exercise, const QDate &date)
+DataManager::DataError DataManager::truncateSaveRoutines(const QList<ExerciseRoutine> &routines)
 {
-    QString dateString = date.toString("MM-dd-yyyy");
-    QDir dir(dataDir);
-    dir.cd("journal");
+    QFile file(dataDir.absoluteFilePath("routines.json"));
 
-    bool ok = dir.mkpath(dateString);
+    QJsonArray array;
 
-    if (!ok) {
-        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        return Failure;
+    for (const ExerciseRoutine &r : routines) {
+        array.append(r.toJson());
     }
-
-    dir.cd(dateString);
-
-    ok = dir.mkpath("exercises");
-
-    if (!ok) {
-        // QMessageBox::critical(nullptr, "mkdir failed", "Failed to make today's data directory. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        return Failure;
-    }
-
-    dir.cd("exercises");
-
-    QFile file(dir.absoluteFilePath(exercise.name()));
-    return file.remove() ? Success : Failure;
-}
-
-DataManager::DataError DataManager::saveExercise(const Exercise &ex, QDate date)
-{
-    QString dateString = date.toString("MM-dd-yyyy");
-    QDir dir(dataDir);
-    dir.cd("journal");
-
-    bool ok = dir.mkpath(dateString);
-
-    if (!ok) {
-        return Failure;
-    }
-
-    dir.cd(dateString);
-
-    ok = dir.mkpath("exercises");
-
-    if (!ok) {
-        return Failure;
-    }
-
-    dir.cd("exercises");
-
-    QFile file(dir.absoluteFilePath(ex.name()));
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         return Failure;
     }
 
-    QStringList data;
+    QByteArray toWrite = QJsonDocument(array).toJson();
 
-    for (ExerciseSet &set : ex.sets()) {
-        QStringList csv;
-        csv << QString::number(set.weight()) << QString::number(set.reps());
+    file.write(toWrite);
 
-        data << csv.join(',');
-    }
-
-    data << "";
-
-    file.write(data.join('\n').toUtf8());
     file.close();
 
     return Success;
+}
+
+QList<ExerciseRoutine> DataManager::loadRoutines()
+{
+    QList<ExerciseRoutine> routines;
+
+    QFile f(dataDir.absoluteFilePath("routines.json"));
+
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return routines;
+    }
+
+    QByteArray data = f.readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+
+    QJsonArray array = doc.array();
+
+    for (QJsonValueRef ref : array) {
+        QJsonObject obj = ref.toObject();
+        routines.append(ExerciseRoutine::fromJson(obj));
+    }
+
+    f.close();
+
+    return routines;
+}
+
+QList<ExerciseRoutine> DataManager::searchRoutines(const QString &query)
+{
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QRegExp regex(".*" + query + ".*", Qt::CaseInsensitive);
+#else
+    QRegularExpression regex(".*" + query + ".*", QRegularExpression::PatternOption::CaseInsensitiveOption);
+#endif
+
+    QList<ExerciseRoutine> routines;
+    for (const ExerciseRoutine &routine : loadRoutines()) {
+        if (routine.name().contains(regex)) {
+            routines.append(routine);
+        }
+    }
+
+    return routines;
 }
 
 DataManager::DataError DataManager::truncateSaveExercises(const QList<Exercise> &exercises, QDate date)
@@ -409,18 +290,7 @@ DataManager::DataError DataManager::truncateSaveExercises(const QList<Exercise> 
             return Failure;
         }
 
-        QStringList data;
-
-        for (ExerciseSet &set : ex.sets()) {
-            QStringList csv;
-            csv << QString::number(set.weight()) << QString::number(set.reps());
-
-            data << csv.join(',');
-        }
-
-        data << "";
-
-        file.write(data.join('\n').toUtf8());
+        file.write(QJsonDocument(ex.toJson()).toJson());
         file.close();
     }
 
@@ -455,37 +325,11 @@ QList<Exercise> DataManager::loadExercises(QDate date)
         QString baseName = fileName.split('/').last();
         if (baseName.startsWith('.')) continue;
 
-        Exercise ex;
-
         f.open(QIODevice::ReadOnly | QIODevice::Text);
-        QString data = f.readAll();
-        QStringList lines = data.split('\n');
-
-        QList<ExerciseSet> sets;
-
-        for (const QString &line : lines) {
-            if (line == "") continue;
-
-            QStringList csv = line.split(',');
-
-            if (csv.size() < 2) {
-                continue;
-            }
-
-            ExerciseSet set;
-
-            set.setWeight(csv.at(0).toInt());
-            set.setReps(csv.at(1).toInt());
-
-            sets.append(set);
-        }
-
-        ex.setSets(sets);
-        ex.setName(baseName);
+        QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+        exercises.append(Exercise::fromJson(doc.object()));
 
         f.close();
-
-        exercises.append(ex);
     }
 
     return exercises;
@@ -610,33 +454,4 @@ DataManager::DataError DataManager::mv(const QString &newPath)
 void DataManager::newPath(const QString &newPath)
 {
     dataDir.setPath(newPath);
-}
-
-DataManager::DataError DataManager::addJsonObject(QFile &file, const QJsonObject &obj)
-{
-    QJsonArray array;
-
-    if (file.open(QIODevice::ReadOnly)) {
-        QByteArray data = file.readAll();
-
-        QJsonDocument doc = QJsonDocument::fromJson(data);
-        array = doc.array();
-
-        file.close();
-    }
-
-    array.append(obj);
-
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        // QMessageBox::critical(nullptr, "Write failed", "Failed to write some data. Check permissions on your local data directory.", QMessageBox::StandardButton::Ok);
-        return Failure;
-    }
-
-    QByteArray toWrite = QJsonDocument(array).toJson();
-
-    file.write(toWrite);
-
-    file.close();
-
-    return Success;
 }

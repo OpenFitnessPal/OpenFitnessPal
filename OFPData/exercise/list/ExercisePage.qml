@@ -44,4 +44,6 @@ ExercisePageForm {
     listView.model: exercises
 
     add.onClicked: exercises.add("")
+
+    routines.onClicked: routinesRequested()
 }

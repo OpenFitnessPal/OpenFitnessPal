@@ -15,6 +15,9 @@ import QtQuick.Layouts
 
 Rectangle {
     id: exercisePageForm
+
+    signal routinesRequested
+
     width: Constants.width
     height: Constants.pageHeight
     color: Constants.baseColor
@@ -23,6 +26,7 @@ Rectangle {
 
     property alias add: add
     property alias listView: listView
+    property alias routines: routines
 
     Text {
         id: title
@@ -60,5 +64,14 @@ Rectangle {
         anchors.bottomMargin: 40
         boundsMovement: Flickable.StopAtBounds
         boundsBehavior: Flickable.StopAtBounds
+    }
+
+    Button {
+        id: routines
+        text: qsTr("Edit Routines")
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 10
+        anchors.topMargin: 4
     }
 }
