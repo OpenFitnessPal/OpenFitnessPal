@@ -127,7 +127,7 @@ bool SettingsManager::cacheExists(const QString &sdir)
 bool SettingsManager::dataExists(const QString &sdir)
 {
     QDir dir = sdir;
-    return ((dir.exists("journal") && dir.exists("person")) || dir.exists("recipes.json"));
+    return (dir.exists("journal") || (dir.exists("recipes.json") || dir.exists("routines.json")));
 }
 
 void SettingsManager::reloadCache()

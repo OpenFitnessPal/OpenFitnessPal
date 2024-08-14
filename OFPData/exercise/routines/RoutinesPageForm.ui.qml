@@ -6,59 +6,67 @@ It is supposed to be strictly declarative and only uses a subset of QML. If you 
 this file manually, you might introduce QML code that is not supported by Qt Design Studio.
 Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on .ui.qml files.
 */
-import QtQuick 6.2
-import QtQuick.Controls 6.2
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 import OFPData
 
-import QtQuick.Layouts
-
 Rectangle {
     id: exercisePageForm
+
+    signal closeOut
+    signal editRoutine(int id, var routine)
+
     width: Constants.width
     height: Constants.pageHeight
     color: Constants.baseColor
 
-    property date currentDate
-
+    property alias back: back
     property alias add: add
-    property alias listView: listView
+    property alias routines: routines
 
     Text {
-        id: title
+        id: text1
+        y: 17
         color: "#ffffff"
-        text: "Exercises"
-
+        text: qsTr("Routines")
         anchors.top: parent.top
-        anchors.topMargin: 10
-
-        font: Constants.titleFont
-
+        anchors.topMargin: 8
         anchors.horizontalCenter: parent.horizontalCenter
+        font: Constants.titleFont
     }
 
-    AddButton {
-        id: add
-        anchors.right: parent.right
-        anchors.rightMargin: 15
+    RemoveButton {
+        id: back
+
+        anchors.left: parent.left
         anchors.top: parent.top
-        anchors.topMargin: 7
+        anchors.leftMargin: 8
+        anchors.topMargin: 4
     }
 
     ListView {
-        id: listView
+        id: routines
+
         clip: true
 
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: add.bottom
+        anchors.top: text1.bottom
         anchors.bottom: parent.bottom
+        anchors.leftMargin: 8
+        anchors.rightMargin: 8
+        anchors.topMargin: 20
+        anchors.bottomMargin: 8
+    }
 
-        anchors.leftMargin: 5
-        anchors.rightMargin: 0
-        anchors.topMargin: 15
-        anchors.bottomMargin: 40
-        boundsMovement: Flickable.StopAtBounds
-        boundsBehavior: Flickable.StopAtBounds
+    AddButton {
+        id: add
+
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        anchors.rightMargin: 8
+        anchors.topMargin: 4
     }
 }

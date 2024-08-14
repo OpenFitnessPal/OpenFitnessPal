@@ -146,8 +146,9 @@ Window {
             onReloadCache: window.reloadCache()
         }
 
-        ExercisePageImpl {
+        ExerciseRootPage {
             id: exercisesPage
+            clip: true
 
             Component.onCompleted: {
                 currentDate = new Date()

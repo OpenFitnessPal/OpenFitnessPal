@@ -34,16 +34,19 @@ set(CODE_ELEMENTS
     data/SettingsManager
 
     Recipe
+    ExerciseRoutine
+
     GoalManager
     NutritionManager
     PlatformHelper
 
     models/FoodServingModel
     models/FoodServingComboBoxModel
+    models/RecipeListModel
+
     models/ExerciseListModel
     models/ExerciseSetsModel
-
-    models/RecipeListModel
+    models/ExerciseRoutinesModel
 
     items/Exercise
     items/ExerciseSet

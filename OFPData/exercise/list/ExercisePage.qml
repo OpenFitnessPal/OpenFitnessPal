@@ -12,6 +12,11 @@ ExercisePageForm {
         id: exercises
     }
 
+    function addRoutine(routine) {
+        exercises.addMultiple(routine.exercises)
+        exercises.saveData(currentDate)
+    }
+
     function reloadData() {
         exercises.clear()
 
@@ -44,4 +49,6 @@ ExercisePageForm {
     listView.model: exercises
 
     add.onClicked: exercises.add("")
+
+    routines.onClicked: routinesRequested()
 }

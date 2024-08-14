@@ -24,6 +24,11 @@ public:
     QList<ExerciseSet> sets() const;
     void setSets(const QList<ExerciseSet> &newSets);
 
+    QJsonObject toJson() const;
+    static Exercise fromJson(const QJsonObject &obj);
+
+    bool operator==(const Exercise &other) const;
+
 public slots:
     void addSet();
     void addSet(int reps, int weight);
@@ -38,5 +43,8 @@ private:
     QString m_name;
     QList<ExerciseSet> m_sets;
 };
+
+Q_DECLARE_METATYPE(Exercise)
+Q_DECLARE_METATYPE(QList<Exercise>)
 
 #endif // EXERCISE_H

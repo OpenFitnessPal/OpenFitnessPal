@@ -25,11 +25,16 @@ public:
     int weight() const;
     void setWeight(int newWeight);
 
+    QJsonObject toJson() const;
+    static ExerciseSet fromJson(const QJsonObject &obj);
+
 private:
     int m_reps = 0;
     int m_weight = 0;
     // QTime m_time;
 };
+
+bool operator==(const ExerciseSet &a, const ExerciseSet &b);
 
 Q_DECLARE_METATYPE(ExerciseSet)
 Q_DECLARE_METATYPE(QList<ExerciseSet>)

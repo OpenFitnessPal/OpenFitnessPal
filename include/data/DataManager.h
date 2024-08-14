@@ -1,6 +1,7 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
+#include "ExerciseRoutine.h"
 #include "FoodItem.h"
 #include "Recipe.h"
 #include "qjsvalue.h"
@@ -22,19 +23,17 @@ public:
     };
 
 public:
-    static DataError removeFood(int meal, QDate date, const FoodServing &food);
-    static DataError saveFood(int meal, QDate date, const FoodServing &food);
     static DataError truncateSaveFoods(int meal, QDate date, const QList<FoodServing> &foods);
     static QList<FoodServing> loadFoods(int meal, QDate date);
 
-    static DataError removeRecipe(const Recipe &recipe);
-    static DataError saveRecipe(const Recipe &recipe);
     static DataError truncateSaveRecipes(const QList<Recipe> &recipes);
     static QList<Recipe> loadRecipes();
     static QList<Recipe> searchRecipes(const QString &query);
 
-    static DataError removeExercise(const Exercise &exercise, const QDate &date);
-    static DataError saveExercise(const Exercise &exercise, QDate date);
+    static DataError truncateSaveRoutines(const QList<ExerciseRoutine> &outines);
+    static QList<ExerciseRoutine> loadRoutines();
+    static QList<ExerciseRoutine> searchRoutines(const QString &query);
+
     static DataError truncateSaveExercises(const QList<Exercise> &exercises, QDate date);
     static QList<Exercise> loadExercises(QDate date);
 
@@ -47,8 +46,6 @@ public:
 
 private:
     static QDir dataDir;
-
-    static DataError addJsonObject(QFile &file, const QJsonObject &obj);
 };
 
 #endif // DATAMANAGER_H

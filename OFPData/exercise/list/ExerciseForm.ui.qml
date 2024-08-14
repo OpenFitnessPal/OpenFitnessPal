@@ -76,8 +76,6 @@ Rectangle {
         anchors.rightMargin: 0
         anchors.topMargin: 8
         anchors.bottomMargin: 0
-        boundsMovement: Flickable.StopAtBounds
-        boundsBehavior: Flickable.StopAtBounds
         interactive: false
 
         model: esm
