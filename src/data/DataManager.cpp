@@ -269,30 +269,19 @@ DataManager::DataError DataManager::truncateSaveExercises(const QList<Exercise> 
 
     dir.cd(dateString);
 
-    ok = dir.mkpath("exercises");
+    QFile file(dir.absoluteFilePath("exercises.json"));
 
-    if (!ok) {
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         return Failure;
     }
 
-    dir.cd("exercises");
-
-    QDirIterator iter(dir, QDirIterator::IteratorFlag::Subdirectories);
-
-    while (iter.hasNext()) {
-        QFile f = iter.next();
-        f.remove();
-    }
+    QJsonArray arr;
 
     for (const Exercise & ex : exercises) {
-        QFile file(dir.absoluteFilePath(ex.name()));
-        if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-            return Failure;
-        }
-
-        file.write(QJsonDocument(ex.toJson()).toJson());
-        file.close();
+        arr.append(ex.toJson());
     }
+
+    file.write(QJsonDocument(arr).toJson());
 
     return Success;
 
@@ -311,25 +300,20 @@ QList<Exercise> DataManager::loadExercises(QDate date)
 
     dir.cd(dateString);
 
-    if (!dir.cd("exercises")) {
+    QFile file(dir.absoluteFilePath("exercises.json"));
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return exercises;
     }
 
-    dir.cd("exercises");
+    QByteArray data = file.readAll();
 
-    QDirIterator iter(dir, QDirIterator::IteratorFlag::Subdirectories);
+    file.close();
 
-    while (iter.hasNext()) {
-        QFile f = iter.next();
-        QString fileName = f.fileName();
-        QString baseName = fileName.split('/').last();
-        if (baseName.startsWith('.')) continue;
+    QJsonArray arr = QJsonDocument::fromJson(data).array();
 
-        f.open(QIODevice::ReadOnly | QIODevice::Text);
-        QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
-        exercises.append(Exercise::fromJson(doc.object()));
-
-        f.close();
+    for (const QJsonValueRef ref : arr) {
+        exercises.append(Exercise::fromJson(ref.toObject()));
     }
 
     return exercises;
@@ -443,8 +427,11 @@ DataManager::DataError DataManager::mv(const QString &newPath)
         f.rename(newPath + "/person/" + name);
     }
 
-    QFile f(dataDir.absoluteFilePath("recipes.json"));
-    f.rename(newPath + "/recipes.json");
+    QFile recipes(dataDir.absoluteFilePath("recipes.json"));
+    recipes.rename(newPath + "/recipes.json");
+
+    QFile routines(dataDir.absoluteFilePath("routines.json"));
+    routines.rename(newPath + "/routines.json");
 
     DataManager::newPath(newPath);
 

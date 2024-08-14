@@ -74,6 +74,9 @@ Rectangle {
 
     ListView {
         id: exercises
+
+        clip: true
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: routineNotes.bottom
@@ -82,6 +85,9 @@ Rectangle {
         anchors.rightMargin: 8
         anchors.topMargin: 8
         anchors.bottomMargin: 8
+
+        boundsMovement: Flickable.StopAtBounds
+        boundsBehavior: Flickable.StopAtBounds
     }
 
     AddButton {
@@ -105,6 +111,6 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.leftMargin: 15
         anchors.rightMargin: 15
-        anchors.bottomMargin: 40
+        anchors.bottomMargin: 4
     }
 }

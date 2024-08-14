@@ -13,15 +13,20 @@ RoutinesPageForm {
 
     function setRoutine(id, routine) {
         erm.setRowData(id, routine)
-        routines.itemAtIndex(id).routine = routine
     }
 
     routines.model: erm
     routines.delegate: ExerciseRoutine {
+        clip: true
         width: routines.width
 
         onClicked: {
             editRoutine(rtID, model.routine)
+        }
+
+        onDeleteRoutine: {
+            erm.removeRow(rtID)
+            erm.saveData()
         }
     }
 

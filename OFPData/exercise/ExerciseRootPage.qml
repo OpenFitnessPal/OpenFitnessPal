@@ -22,11 +22,14 @@ ExerciseRootPageForm {
                             }
 
     
-    routineEdit.onAddRoutine: swipe.setCurrentIndex(0)
+    routineEdit.onAddRoutine: (routine) => {
+                                  exercises.addRoutine(routine)
+                                  swipe.setCurrentIndex(0)
+                              }
     routineEdit.onCloseOut: swipe.setCurrentIndex(1)
 
     routineEdit.onChanged: {
-                               routines.setRoutine(routineEdit.id, routineEdit.routine)
-                               routines.save()
-                           }
+        routines.setRoutine(routineEdit.id, routineEdit.routine)
+        routines.save()
+    }
 }

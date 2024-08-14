@@ -16,21 +16,37 @@ Rectangle {
     height: 80
 
     signal clicked
+    signal deleteRoutine(int myId)
 
     color: Constants.sub1Color
     border.color: "#ffffff"
     border.width: 1
-
-    property var routine
 
     property alias routineNotes: routineNotes
     property alias routineName: routineName
 
     property alias mouse: mouse
 
+    property alias remove: remove
+
+    RemoveButton {
+        id: remove
+
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        anchors.verticalCenter: parent.verticalCenter
+    }
+
     MouseArea {
         id: mouse
-        anchors.fill: parent
+        anchors.left: remove.right
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: 6
+        anchors.rightMargin: 0
+        anchors.topMargin: 4
+        anchors.bottomMargin: 4
 
         Text {
             id: routineName
@@ -53,7 +69,7 @@ Rectangle {
             anchors.left: routineName.left
             anchors.bottom: parent.bottom
             anchors.leftMargin: 15
-            anchors.bottomMargin: 6
+            anchors.bottomMargin: 8
             font: Constants.subSubtitleFont
         }
     }

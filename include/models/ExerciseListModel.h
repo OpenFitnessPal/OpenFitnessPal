@@ -26,6 +26,8 @@ public:
     Q_INVOKABLE void setExercises(const QList<Exercise> &exercises);
     Q_INVOKABLE QList<Exercise> exercises();
 
+    Q_INVOKABLE void addMultiple(const QList<Exercise> &exercises);
+
     Q_INVOKABLE void add(QString name = "", QList<ExerciseSet> sets = {});
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 

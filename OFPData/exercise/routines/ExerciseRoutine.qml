@@ -4,6 +4,8 @@ ExerciseRoutineForm {
     id: impl
     mouse.onClicked: impl.clicked()
 
-    routineName.text: routine.name
-    routineNotes.text: routine.notes
+    routineName.text: name
+    routineNotes.text: notes
+
+    remove.onClicked: deleteRoutine(rtID)
 }

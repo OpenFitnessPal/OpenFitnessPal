@@ -36,6 +36,7 @@ Rectangle {
         ExercisePage {
             id: exercises
             visible: true
+            currentDate: rectangle.currentDate
         }
 
         RoutinesPage {

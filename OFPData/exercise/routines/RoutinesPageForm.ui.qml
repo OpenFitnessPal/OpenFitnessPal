@@ -47,6 +47,9 @@ Rectangle {
 
     ListView {
         id: routines
+
+        clip: true
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: text1.bottom
@@ -54,7 +57,7 @@ Rectangle {
         anchors.leftMargin: 8
         anchors.rightMargin: 8
         anchors.topMargin: 20
-        anchors.bottomMargin: 40
+        anchors.bottomMargin: 8
     }
 
     AddButton {

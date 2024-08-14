@@ -12,6 +12,11 @@ ExercisePageForm {
         id: exercises
     }
 
+    function addRoutine(routine) {
+        exercises.addMultiple(routine.exercises)
+        exercises.saveData(currentDate)
+    }
+
     function reloadData() {
         exercises.clear()
 

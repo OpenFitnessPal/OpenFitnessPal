@@ -40,14 +40,19 @@ void ExerciseListModel::setExercises(const QList<Exercise> &exercises)
     m_data.clear();
     endResetModel();
 
-    for(const Exercise &e : exercises) {
-        add(e.name(), e.sets());
-    }
+    addMultiple(exercises);
 }
 
 QList<Exercise> ExerciseListModel::exercises()
 {
     return m_data;
+}
+
+void ExerciseListModel::addMultiple(const QList<Exercise> &exercises)
+{
+    for (const Exercise &e : exercises) {
+        add(e.name(), e.sets());
+    }
 }
 
 void ExerciseListModel::loadData(QDate date)

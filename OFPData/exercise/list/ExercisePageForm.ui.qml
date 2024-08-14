@@ -61,17 +61,18 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.rightMargin: 0
         anchors.topMargin: 15
-        anchors.bottomMargin: 40
+        anchors.bottomMargin: 8
         boundsMovement: Flickable.StopAtBounds
         boundsBehavior: Flickable.StopAtBounds
     }
 
     Button {
         id: routines
-        text: qsTr("Edit Routines")
+        text: qsTr("Routines")
+        anchors.verticalCenter: title.verticalCenter
         anchors.left: parent.left
-        anchors.top: parent.top
         anchors.leftMargin: 10
-        anchors.topMargin: 4
+
+        font: Constants.subSubtitleFont
     }
 }
