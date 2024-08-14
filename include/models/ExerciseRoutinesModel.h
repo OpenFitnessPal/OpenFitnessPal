@@ -18,6 +18,7 @@ public:
         NAME = Qt::UserRole+1,
         NOTES,
         EXERCISES,
+        ROUTINE,
         ID
     };
 
@@ -26,9 +27,11 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
-    Q_INVOKABLE void add(QString name = "", QString notes = "", QList<Exercise> exercises = {});
+    Q_INVOKABLE void add(QString name = "New Routine", QString notes = "", QList<Exercise> exercises = {});
     Q_INVOKABLE void add(const ExerciseRoutine &routine);
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+
+    Q_INVOKABLE void setRowData(int row, const ExerciseRoutine &routine);
 
     Q_INVOKABLE void clear();
 

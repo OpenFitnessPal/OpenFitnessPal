@@ -34,17 +34,26 @@ QVariant ExerciseListModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void ExerciseListModel::loadData(QDate date)
+void ExerciseListModel::setExercises(const QList<Exercise> &exercises)
 {
     beginResetModel();
     m_data.clear();
     endResetModel();
 
-    auto exercises = DataManager::loadExercises(date);
-
     for(const Exercise &e : exercises) {
         add(e.name(), e.sets());
     }
+}
+
+QList<Exercise> ExerciseListModel::exercises()
+{
+    return m_data;
+}
+
+void ExerciseListModel::loadData(QDate date)
+{
+    auto exercises = DataManager::loadExercises(date);
+    setExercises(exercises);
 }
 
 void ExerciseListModel::saveData(QDate date)

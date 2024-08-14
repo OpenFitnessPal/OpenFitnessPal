@@ -5,8 +5,8 @@
 ExerciseRoutine::ExerciseRoutine()
 {
     m_exercises = {};
-    m_name = "";
-    m_notes = "";
+    m_name = "New Routine";
+    m_notes = "Routine";
 }
 
 void ExerciseRoutine::addExercise(const Exercise &exercise)

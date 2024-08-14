@@ -29,6 +29,8 @@ QVariant ExerciseRoutinesModel::data(const QModelIndex &index, int role) const
         return m_data[index.row()].notes();
     } else if (role == ELMRoleTypes::EXERCISES) {
         return QVariant::fromValue(m_data[index.row()].exercises());
+    } else if (role == ELMRoleTypes::ROUTINE) {
+        return QVariant::fromValue(m_data[index.row()]);
     } else if (role == ELMRoleTypes::ID) {
         return index.row();
     }
@@ -82,6 +84,11 @@ bool ExerciseRoutinesModel::removeRows(int row, int count, const QModelIndex &pa
     return true;
 }
 
+void ExerciseRoutinesModel::setRowData(int row, const ExerciseRoutine &routine)
+{
+    m_data.replace(row, routine);
+}
+
 void ExerciseRoutinesModel::clear()
 {
     removeRows(0, m_data.count());
@@ -120,6 +127,7 @@ QHash<int, QByteArray> ExerciseRoutinesModel::roleNames() const
     rez[NAME] = "name";
     rez[NOTES] = "notes";
     rez[EXERCISES] = "exercises";
-    rez[ID] = "exID";
+    rez[ROUTINE] = "routine";
+    rez[ID] = "rtID";
     return rez;
 }

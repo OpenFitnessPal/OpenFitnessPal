@@ -23,6 +23,9 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
+    Q_INVOKABLE void setExercises(const QList<Exercise> &exercises);
+    Q_INVOKABLE QList<Exercise> exercises();
+
     Q_INVOKABLE void add(QString name = "", QList<ExerciseSet> sets = {});
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 

@@ -23,6 +23,7 @@ Rectangle {
     property alias swipe: swipe
     property alias exercises: exercises
     property alias routines: routines
+    property alias routineEdit: routineEdit
 
     SwipeView {
         id: swipe
@@ -39,6 +40,10 @@ Rectangle {
 
         RoutinesPage {
             id: routines
+        }
+        
+        ExerciseRoutineEdit {
+            id: routineEdit
         }
     }
 }

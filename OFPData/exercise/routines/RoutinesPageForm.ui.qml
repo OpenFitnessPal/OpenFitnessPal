@@ -15,12 +15,15 @@ Rectangle {
     id: exercisePageForm
 
     signal closeOut
+    signal editRoutine(int id, var routine)
 
     width: Constants.width
     height: Constants.pageHeight
     color: Constants.baseColor
 
     property alias back: back
+    property alias add: add
+    property alias routines: routines
 
     Text {
         id: text1
@@ -39,6 +42,28 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 8
+        anchors.topMargin: 4
+    }
+
+    ListView {
+        id: routines
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: text1.bottom
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: 8
+        anchors.rightMargin: 8
+        anchors.topMargin: 20
+        anchors.bottomMargin: 40
+    }
+
+    AddButton {
+        id: add
+
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        anchors.rightMargin: 8
         anchors.topMargin: 4
     }
 }
