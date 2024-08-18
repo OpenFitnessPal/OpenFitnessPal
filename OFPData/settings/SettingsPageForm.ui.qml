@@ -18,16 +18,14 @@ Rectangle {
     height: Constants.pageHeight
     color: Constants.baseColor
 
-    property alias title: title
+    signal mealNamesChanged
 
-    property alias meal1: meal1
-    property alias meal2: meal2
-    property alias meal3: meal3
-    property alias meal4: meal4
-    property alias meal5: meal5
+    property alias title: title
 
     property alias cacheDir: cacheDir
     property alias dataDir: dataDir
+    property alias repeater: repeater
+    property alias searchSettings: searchSettings
 
     Text {
         id: title
@@ -40,7 +38,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    GridLayout {
+    ColumnLayout {
         id: grid
 
         anchors.left: parent.left
@@ -53,74 +51,30 @@ Rectangle {
         anchors.bottomMargin: 40
         anchors.topMargin: 8
 
-        flow: GridLayout.TopToBottom
-
-        MealNameSetting {
-            id: meal1
-            mealNumber: 1
-            defaultName: "Breakfast"
-
-            Layout.column: 0
-            Layout.fillWidth: true
-            Layout.row: 0
-        }
-
-        MealNameSetting {
-            id: meal2
-            mealNumber: 2
-            defaultName: "Lunch"
-
-            Layout.column: 0
-            Layout.fillWidth: true
-            Layout.row: 1
-        }
-
-        MealNameSetting {
-            id: meal3
-            mealNumber: 3
-            defaultName: "Dinner"
-
-            Layout.column: 0
-            Layout.fillWidth: true
-            Layout.row: 2
-        }
-
-        MealNameSetting {
-            id: meal4
-            mealNumber: 4
-            defaultName: "Preworkout"
-
-            Layout.column: 0
-            Layout.fillWidth: true
-            Layout.row: 3
-        }
-
-        MealNameSetting {
-            id: meal5
-            mealNumber: 5
-            defaultName: "Postworkout"
-
-            Layout.column: 0
-            Layout.fillWidth: true
-            Layout.row: 4
+        Repeater {
+            id: repeater
+            model: ["Breakfast", "Lunch", "Dinner", "Preworkout", "Postworkout"]
         }
 
         DirSetting {
             id: cacheDir
             isCache: true
 
-            Layout.column: 0
             Layout.fillWidth: true
-            Layout.row: 5
         }
 
         DirSetting {
             id: dataDir
             isCache: false
 
-            Layout.column: 0
             Layout.fillWidth: true
-            Layout.row: 6
+        }
+
+        Button {
+            id: searchSettings
+
+            text: "Search Settings..."
+            Layout.fillWidth: true
         }
     }
 }

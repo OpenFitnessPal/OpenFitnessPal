@@ -137,7 +137,7 @@ Window {
         anchors.left: parent.left
         currentIndex: tabBar.currentIndex
 
-        SettingsPage {
+        SettingsPageRoot {
             id: settingsPage
 
             onMealNamesChanged: reloadMealNames()

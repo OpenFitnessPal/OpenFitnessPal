@@ -8,9 +8,9 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 */
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 2.15
 
 import OFPData
-import QtQuick.Layouts
 
 Rectangle {
     id: rectangle
@@ -18,41 +18,68 @@ Rectangle {
     height: Constants.pageHeight
     color: Constants.baseColor
 
+    property alias remove: remove
+
+    RemoveButton {
+        id: remove
+
+        anchors.left: parent.left
+        anchors.top: parent.top
+
+        anchors.leftMargin: 15
+        anchors.topMargin: 8
+    }
+
     Text {
         id: text1
         color: "#ffffff"
-        text: qsTr("Goals")
+
+        font: Constants.titleFont
+        text: "Search Settings"
         anchors.top: parent.top
         anchors.topMargin: 8
-        font.pixelSize: 24
-        font.bold: true
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    ListView {
-        id: listView
+    ColumnLayout {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: text1.bottom
         anchors.bottom: parent.bottom
         anchors.leftMargin: 8
         anchors.rightMargin: 8
-        anchors.topMargin: 18
         anchors.bottomMargin: 8
-        boundsMovement: Flickable.StopAtBounds
-        boundsBehavior: Flickable.StopAtBounds
-        model: ListModel {}
-        delegate: Row {
-            spacing: 5
-            Rectangle {
-                width: 100
-                height: 20
-                color: colorCode
+
+        CheckBox {
+            id: checkBox
+            text: qsTr("Prefer Generics?")
+            Layout.fillWidth: true
+
+            font: Constants.largeFont
+
+            indicator.width: 32
+            indicator.height: 32
+        }
+
+        RowLayout {
+            Layout.fillWidth: true
+            Text {
+                color: "#ffffff"
+                text: "Results:"
+
+                font: Constants.largeFont
             }
 
-            Text {
-                width: 100
-                text: name
+            SpinBox {
+                value: 10
+                from: 1
+                wrap: true
+                editable: true
+
+                Layout.fillWidth: true
+                Layout.minimumHeight: 50
+
+                font: Constants.largeFont
             }
         }
     }
