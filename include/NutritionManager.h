@@ -12,7 +12,7 @@ class NutritionManager : public QObject
 public:
     explicit NutritionManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE NutrientUnion getDailyNutrients(QDate date);
+    Q_INVOKABLE NutrientUnion getDailyNutrients(QDate date) const;
 
 signals:
 };

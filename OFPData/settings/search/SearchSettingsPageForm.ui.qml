@@ -19,6 +19,11 @@ Rectangle {
     color: Constants.baseColor
 
     property alias remove: remove
+    property alias add: add
+
+    property alias generics: generics
+    property alias results: results
+    property alias filters: filters
 
     RemoveButton {
         id: remove
@@ -44,15 +49,19 @@ Rectangle {
     ColumnLayout {
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: text1.bottom
+        anchors.top: remove.bottom
         anchors.bottom: parent.bottom
+
+        anchors.topMargin: 8
         anchors.leftMargin: 8
         anchors.rightMargin: 8
         anchors.bottomMargin: 8
 
         CheckBox {
-            id: checkBox
+            id: generics
+
             text: qsTr("Prefer Generics?")
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.fillWidth: true
 
             font: Constants.largeFont
@@ -62,6 +71,7 @@ Rectangle {
         }
 
         RowLayout {
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.fillWidth: true
             Text {
                 color: "#ffffff"
@@ -71,16 +81,47 @@ Rectangle {
             }
 
             SpinBox {
+                id: results
+
                 value: 10
                 from: 1
                 wrap: true
                 editable: true
 
                 Layout.fillWidth: true
-                Layout.minimumHeight: 50
+                Layout.minimumHeight: 52
 
                 font: Constants.largeFont
             }
+        }
+
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Text {
+                color: "#ffffff"
+                text: "Nutrient Filters"
+
+                font: Constants.largeFont
+            }
+
+            AddButton {
+                id: add
+
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+
+                Layout.minimumWidth: 51
+            }
+        }
+
+        ListView {
+            id: filters
+            clip: true
+
+            boundsMovement: Flickable.StopAtBounds
+            boundsBehavior: Flickable.StopAtBounds
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
     }
 }

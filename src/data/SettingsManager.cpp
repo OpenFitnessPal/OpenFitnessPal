@@ -10,7 +10,7 @@ SettingsManager::SettingsManager()
     settingsDir.mkpath(".");
 }
 
-SettingsManager::SettingsError SettingsManager::set(QString field, QVariant data)
+SettingsManager::SettingsError SettingsManager::set(QString field, QVariant data) const
 {
     QDir dir(settingsDir);
 
@@ -40,7 +40,7 @@ SettingsManager::SettingsError SettingsManager::set(QString field, QVariant data
     return Success;
 }
 
-QVariantMap SettingsManager::load()
+QVariantMap SettingsManager::load() const
 {
     QVariantMap map{};
 
@@ -63,7 +63,7 @@ QVariantMap SettingsManager::load()
 
 }
 
-QVariant SettingsManager::get(const QString &field)
+QVariant SettingsManager::get(const QString &field) const
 {
     QVariant value{};
 
