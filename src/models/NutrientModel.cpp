@@ -3,24 +3,33 @@
 NutrientModel::NutrientModel(QObject *parent)
     : QAbstractListModel{parent}
 {
-    m_nutrients.append(Nutrient{"Calcium", "calcium"});
-    m_nutrients.append(Nutrient{"Carbs", "carbs"});
-    m_nutrients.append(Nutrient{"Cholesterol", "cholesterol"});
-    m_nutrients.append(Nutrient{"Fat", "fat"});
-    m_nutrients.append(Nutrient{"Fiber", "fiber"});
-    m_nutrients.append(Nutrient{"Iron", "iron"});
-    m_nutrients.append(Nutrient{"Monounsaturated Fat", "mono"});
-    m_nutrients.append(Nutrient{"Polyunsaturated Fat", "poly"});
-    m_nutrients.append(Nutrient{"Potassium", "potassium"});
-    m_nutrients.append(Nutrient{"Protein", "protein"});
-    m_nutrients.append(Nutrient{"Saturated Fat", "sat"});
-    m_nutrients.append(Nutrient{"Sodium", "sodium"});
-    m_nutrients.append(Nutrient{"Sugar", "sugar"});
-    m_nutrients.append(Nutrient{"Trans Fat", "trans"});
-    m_nutrients.append(Nutrient{"Vitamin A", "vitaminA"});
-    m_nutrients.append(Nutrient{"Vitamin C", "vitaminC"});
-    m_nutrients.append(Nutrient{"Vitamin D", "vitaminD"});
+    m_nutrients.append(Nutrient{"Carbs", "carbs", "g"});
+    m_nutrients.append(Nutrient{"Fiber", "fiber", "g"});
+    m_nutrients.append(Nutrient{"Sugar", "sugar", "g"});
+
+    m_nutrients.append(Nutrient{"Fat", "fat", "g"});
+    m_nutrients.append(Nutrient{"Saturated Fat", "sat", "g"});
+    m_nutrients.append(Nutrient{"Monounsaturated Fat", "mono", "g"});
+    m_nutrients.append(Nutrient{"Polyunsaturated Fat", "poly", "g"});
+    m_nutrients.append(Nutrient{"Trans Fat", "trans", "g"});
+
+    m_nutrients.append(Nutrient{"Protein", "protein", "g"});
+
+    m_nutrients.append(Nutrient{"Cholesterol", "cholesterol", "mg"});
+
+    m_nutrients.append(Nutrient{"Sodium", "sodium", "mg"});
+    m_nutrients.append(Nutrient{"Potassium", "potassium", "mg"});
+
+    m_nutrients.append(Nutrient{"Calcium", "calcium", "%"});
+    m_nutrients.append(Nutrient{"Iron", "iron", "%"});
+
+    m_nutrients.append(Nutrient{"Vitamin A", "vitaminA", "%"});
+    m_nutrients.append(Nutrient{"Vitamin C", "vitaminC", "%"});
+    m_nutrients.append(Nutrient{"Vitamin D", "vitaminD", "%"});
 }
+
+// TODO: Implement this in GoalsPage
+// will need to have a calculator for macros & submacros
 
 QDate NutrientModel::date() const
 {
@@ -54,11 +63,14 @@ QVariant NutrientModel::data(const QModelIndex &index, int role) const
 
     QString name = nutrient.name;
     QString displayName = nutrient.displayName;
+    QString suffix = nutrient.suffix;
 
     if (role == NMRoleTypes::NAME) {
         return name;
     } else if (role == NMRoleTypes::DNAME) {
         return displayName;
+    } else if (role == NMRoleTypes::SUFFIX) {
+        return suffix;
     } else if (role == NMRoleTypes::GOAL) {
         return m_goals.get(name);
     } else if (role == NMRoleTypes::VALUE) {
@@ -79,17 +91,17 @@ QVariant NutrientModel::data(const QModelIndex &index, int role) const
 
 void NutrientModel::add(const Nutrient &n)
 {
-    add(n.name, n.displayName);
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+
+    m_data.append(n);
+
+    endInsertRows();
 }
 
 
-void NutrientModel::add(QString name, QString displayName)
+void NutrientModel::add(QString name, QString displayName, QString suffix)
 {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-
-    m_data.append(Nutrient{displayName, name});
-
-    endInsertRows();
+    add(Nutrient{displayName, name, suffix});
 }
 
 void NutrientModel::loadData()
@@ -185,6 +197,7 @@ QHash<int, QByteArray> NutrientModel::roleNames() const
     QHash<int,QByteArray> rez;
     rez[NAME] = "name";
     rez[DNAME] = "displayName";
+    rez[SUFFIX] = "suffix";
     rez[GOAL] = "goal";
     rez[VALUE] = "value";
     rez[FILTER] = "filter";

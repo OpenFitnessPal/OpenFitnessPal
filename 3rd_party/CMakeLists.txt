@@ -7,8 +7,8 @@ set(CMAKE_POLICY_DEFAULT_CMP0074 NEW)
 # OFP
 FetchContent_Declare(
         OFPLib
-        GIT_REPOSITORY https://github.com/crueter/OFPLib.git
-        GIT_TAG        24fac6b15fec351a10433523f3135ca153110c23
+        GIT_REPOSITORY https://git.swurl.xyz/OpenFitnessPal/lib.git/
+        GIT_TAG        dcff82d1490b8662b6137d0a979df35079234db4
         OVERRIDE_FIND_PACKAGE
 )
 FetchContent_MakeAvailable(OFPLib)

@@ -23,6 +23,8 @@ public:
     Q_INVOKABLE QVariantMap load() const;
     Q_INVOKABLE QVariant get(const QString &field) const;
 
+    Q_INVOKABLE void rm(const QString &field) const;
+
     Q_INVOKABLE SettingsError mvDataDir(const QString &newPath);
     Q_INVOKABLE SettingsError mvCacheDir(const QString &newPath);
 

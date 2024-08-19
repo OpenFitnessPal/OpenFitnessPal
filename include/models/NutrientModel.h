@@ -12,6 +12,7 @@
 typedef struct Nutrient {
     QString displayName;
     QString name;
+    QString suffix;
 } Nutrient;
 
 class NutrientModel : public QAbstractListModel
@@ -24,6 +25,7 @@ public:
     {
         NAME = Qt::UserRole+1,
         DNAME,
+        SUFFIX,
         GOAL,
         VALUE,
         FILTER,
@@ -36,7 +38,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
 
     Q_INVOKABLE void add(const Nutrient &n);
-    Q_INVOKABLE void add(QString name = "", QString displayName = "");
+    Q_INVOKABLE void add(QString name = "", QString displayName = "", QString suffix = "");
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
     Q_INVOKABLE void remove(QString name);

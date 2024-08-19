@@ -25,6 +25,9 @@ Rectangle {
     property alias results: results
     property alias filters: filters
 
+    // ScrollView {
+    //     anchors.fill: parent
+
     RemoveButton {
         id: remove
 
@@ -121,7 +124,9 @@ Rectangle {
             boundsMovement: Flickable.StopAtBounds
             boundsBehavior: Flickable.StopAtBounds
             Layout.fillHeight: true
+            Layout.minimumHeight: 60 * filters.count
             Layout.fillWidth: true
         }
     }
+    // }
 }

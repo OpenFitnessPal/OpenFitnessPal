@@ -48,13 +48,13 @@ Rectangle {
 
         DoubleSpinBox {
             id: threshold
-            value: 10
+            value: filter * 100.0
             stepSize: 10
+            suffix: model.suffix
 
             font: Constants.mediumFont
 
             Layout.fillWidth: true
-            // Layout.fillHeight: true
         }
     }
 }

@@ -3,6 +3,7 @@
 
 #include "FoodItem.h"
 #include "OFPManager.h"
+#include "SettingsManager.h"
 #include <QAbstractListModel>
 #include <QQmlEngine>
 
@@ -73,6 +74,8 @@ private:
     bool m_offlineSearch;
 
     OFPManager *m_manager;
+
+    SettingsManager m_settings;
 };
 
 #endif // FOODSERVINGMODEL_H

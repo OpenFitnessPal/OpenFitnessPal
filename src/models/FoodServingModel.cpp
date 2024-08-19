@@ -156,14 +156,33 @@ void FoodServingModel::search(const QString &query)
 
     if (!m_offlineSearch) {
         emit m_manager->cancelAll();
-        m_manager->search(query);
+
+        SearchOptions options;
+
+        options.generics = m_settings.get("generics").toBool();
+        QVariant results = m_settings.get("results");
+        if (results.isValid()) options.results = results.toInt();
+
+        QVariantMap settings = m_settings.load();
+        QMapIterator iter(settings);
+
+        while (iter.hasNext()) {
+            iter.next();
+
+            QString key = iter.key();
+            if (key.startsWith("avoid_")) {
+                options.avoid.insert(iter.key(), iter.value().toDouble());
+            }
+        }
+
+        m_manager->search(query, options);
         connect(m_manager, &OFPManager::searchComplete, this, [this](const QList<FoodItem> &foods) {
             for (const FoodItem &food : foods) {
                 add(food, food.defaultServing(), 1);
             }
 
             emit searchComplete();
-        });
+        }, Qt::SingleShotConnection);
     } else {
         for (const FoodItem &item : CacheManager::search(query)) {
             add(item, item.defaultServing(), 1);

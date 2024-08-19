@@ -79,6 +79,12 @@ QVariant SettingsManager::get(const QString &field) const
     return value;
 }
 
+void SettingsManager::rm(const QString &field) const
+{
+    QFile file(settingsDir.absoluteFilePath(field));
+    file.remove();
+}
+
 SettingsManager::SettingsError SettingsManager::mvDataDir(const QString &newPath)
 {
     DataManager::DataError err = DataManager::mv(newPath);
