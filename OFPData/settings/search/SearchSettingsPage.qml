@@ -1,16 +1,103 @@
-import QtQuick 2.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
 
 import OFPNative
+import OFPData
 
 SearchSettingsPageForm {
+    id: impl
     signal goBack
+
+    function addFilter() {
+
+    }
 
     NutrientModel {
         id: nm
     }
 
+    Dialog {
+        id: list
+        width: impl.width
+        height: impl.height
+
+        property alias view: view
+
+        NutrientModel {
+            id: nm2
+        }
+
+        RemoveButton {
+            id: back
+
+            anchors.left: parent.left
+            anchors.top: parent.top
+
+            anchors.leftMargin: 8
+            anchors.topMargin: 8
+
+            onClicked: list.close()
+        }
+
+        ListView {
+            id: view
+            clip: true
+
+            anchors {
+                top: back.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+
+                topMargin: 8
+                leftMargin: 8
+                rightMargin: 8
+                bottomMargin: 8
+            }
+
+            model: nm2
+            delegate: Rectangle {
+                clip: true
+                color: Constants.sub1Color
+                height: 50
+                width: parent.width
+
+                border.width: 2
+                border.color: "#ffffff"
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        nm.add(model.name, model.displayName, model.suffix)
+                        list.close()
+                    }
+
+                    Text {
+                        text: model.displayName
+                        anchors.fill: parent
+
+                        anchors.leftMargin: 15
+
+                        verticalAlignment: Text.AlignVCenter
+
+                        font: Constants.largeFont
+                        color: "#ffffff"
+                    }
+                }
+            }
+        }
+
+        function openUp() {
+            nm2.loadUnfilteredData()
+            open()
+        }
+    }
+
+
     remove.onClicked: goBack()
-    add.onClicked: nm.add("sat", "Saturated Fat", "g")
+    add.onClicked: list.openUp()
 
     filters.height: 60 * filters.count
     filters.model: nm
