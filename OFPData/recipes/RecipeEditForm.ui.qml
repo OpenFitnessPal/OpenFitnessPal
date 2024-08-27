@@ -29,6 +29,9 @@ Rectangle {
     property alias fat: fat
     property alias protein: protein
     property alias listView: listView
+    property alias scroll: scroll
+    property alias text1: text1
+    property alias text3: text3
 
     Button {
         id: back
@@ -65,156 +68,167 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    TextField {
-        id: recipeName
-        color: "#ffffff"
-        text: qsTr("")
-        placeholderText: "Recipe"
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: title.bottom
-        anchors.leftMargin: 40
-        anchors.rightMargin: 40
-        anchors.topMargin: 20
-        font: Constants.boldSubtitleFont
-        wrapMode: Text.WrapAnywhere
-    }
+    ScrollView {
+        id: scroll
+        anchors {
+            top: back.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
 
-    Text {
-        id: text1
-        color: "#ffffff"
-        text: qsTr("Servings")
-        anchors.left: recipeName.left
-        anchors.top: recipeName.bottom
-        anchors.leftMargin: 20
-        anchors.topMargin: 30
-        font: Constants.subSubtitleFont
-    }
+        TextField {
+            id: recipeName
+            color: "#ffffff"
+            text: qsTr("")
+            placeholderText: "Recipe"
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.leftMargin: 40
+            anchors.rightMargin: 40
+            anchors.topMargin: 20
+            font: Constants.boldSubtitleFont
+            wrapMode: Text.WrapAnywhere
+        }
 
-    DoubleSpinBox {
-        id: servings
-        anchors.left: title.left
-        anchors.right: parent.right
-        anchors.top: text1.top
-        anchors.bottom: text1.bottom
-        anchors.leftMargin: 0
-        anchors.rightMargin: 15
-        anchors.topMargin: -6
-        anchors.bottomMargin: -6
-        to: 1000 * 100
-    }
+        Text {
+            id: text1
+            color: "#ffffff"
+            text: qsTr("Servings")
+            anchors.left: recipeName.left
+            anchors.top: recipeName.bottom
+            anchors.leftMargin: 20
+            anchors.topMargin: 30
+            font: Constants.subSubtitleFont
+        }
 
-    Text {
-        id: text3
-        color: "#ffffff"
-        text: qsTr("Calories")
-        anchors.left: parent.left
-        anchors.top: text1.bottom
-        anchors.leftMargin: 15
-        anchors.topMargin: 50
-        font: Constants.mediumSubtitleFont
-    }
+        DoubleSpinBox {
+            id: servings
+            anchors.left: text1.right
+            anchors.right: parent.right
+            anchors.top: text1.top
+            anchors.bottom: text1.bottom
+            anchors.leftMargin: 30
+            anchors.rightMargin: 15
+            anchors.topMargin: -6
+            anchors.bottomMargin: -6
+            to: 1000 * 100
+        }
 
-    Text {
-        id: calories
-        y: 303
-        color: "#fdfdfd"
-        text: qsTr("0kcal")
-        anchors.top: text3.bottom
-        anchors.topMargin: 25
-        font: Constants.mediumFont
-        anchors.horizontalCenter: text3.horizontalCenter
-    }
+        Text {
+            id: text3
+            color: "#ffffff"
+            text: qsTr("Calories")
+            anchors.left: parent.left
+            anchors.top: text1.bottom
+            anchors.leftMargin: 15
+            anchors.topMargin: 50
+            font: Constants.mediumSubtitleFont
+        }
 
-    Text {
-        id: text4
-        color: "#ffffff"
-        text: qsTr("Carbs")
-        anchors.left: text3.right
-        anchors.top: text3.top
-        anchors.leftMargin: 40
-        anchors.topMargin: 0
-        font: Constants.mediumSubtitleFont
-    }
+        Text {
+            id: calories
+            y: 303
+            color: "#fdfdfd"
+            text: qsTr("0kcal")
+            anchors.top: text3.bottom
+            anchors.topMargin: 25
+            font: Constants.mediumFont
+            anchors.horizontalCenter: text3.horizontalCenter
+        }
 
-    Text {
-        id: carbs
-        y: 303
-        color: "#fdfdfd"
-        text: qsTr("0g")
-        anchors.top: text4.bottom
-        anchors.topMargin: 25
-        font: Constants.mediumFont
-        anchors.horizontalCenterOffset: 0
-        anchors.horizontalCenter: text4.horizontalCenter
-    }
+        Text {
+            id: text4
+            color: "#ffffff"
+            text: qsTr("Carbs")
+            anchors.left: text3.right
+            anchors.top: text3.top
+            anchors.leftMargin: 40
+            anchors.topMargin: 0
+            font: Constants.mediumSubtitleFont
+        }
 
-    Text {
-        id: text5
-        color: "#ffffff"
-        text: qsTr("Fat")
-        anchors.left: text4.right
-        anchors.top: text3.top
-        anchors.leftMargin: 40
-        anchors.topMargin: 0
-        font: Constants.mediumSubtitleFont
-    }
+        Text {
+            id: carbs
+            y: 303
+            color: "#fdfdfd"
+            text: qsTr("0g")
+            anchors.top: text4.bottom
+            anchors.topMargin: 25
+            font: Constants.mediumFont
+            anchors.horizontalCenterOffset: 0
+            anchors.horizontalCenter: text4.horizontalCenter
+        }
 
-    Text {
-        id: fat
-        y: 303
-        color: "#fdfdfd"
-        text: qsTr("0g")
-        anchors.top: text5.bottom
-        anchors.topMargin: 25
-        font: Constants.mediumFont
-        anchors.horizontalCenterOffset: 0
-        anchors.horizontalCenter: text5.horizontalCenter
-    }
+        Text {
+            id: text5
+            color: "#ffffff"
+            text: qsTr("Fat")
+            anchors.left: text4.right
+            anchors.top: text3.top
+            anchors.leftMargin: 40
+            anchors.topMargin: 0
+            font: Constants.mediumSubtitleFont
+        }
 
-    Text {
-        id: text6
-        color: "#ffffff"
-        text: qsTr("Protein")
-        anchors.left: text5.right
-        anchors.top: text3.top
-        anchors.leftMargin: 40
-        anchors.topMargin: 0
-        font: Constants.mediumSubtitleFont
-    }
+        Text {
+            id: fat
+            y: 303
+            color: "#fdfdfd"
+            text: qsTr("0g")
+            anchors.top: text5.bottom
+            anchors.topMargin: 25
+            font: Constants.mediumFont
+            anchors.horizontalCenterOffset: 0
+            anchors.horizontalCenter: text5.horizontalCenter
+        }
 
-    Text {
-        id: protein
-        y: 303
-        color: "#fdfdfd"
-        text: qsTr("0g")
-        anchors.top: text6.bottom
-        anchors.topMargin: 25
-        font: Constants.mediumFont
-        anchors.horizontalCenterOffset: 0
-        anchors.horizontalCenter: text6.horizontalCenter
-    }
+        Text {
+            id: text6
+            color: "#ffffff"
+            text: qsTr("Protein")
+            anchors.left: text5.right
+            anchors.top: text3.top
+            anchors.leftMargin: 40
+            anchors.topMargin: 0
+            font: Constants.mediumSubtitleFont
+        }
 
-    ListView {
-        id: listView
-        clip: true
+        Text {
+            id: protein
+            y: 303
+            color: "#fdfdfd"
+            text: qsTr("0g")
+            anchors.top: text6.bottom
+            anchors.topMargin: 25
+            font: Constants.mediumFont
+            anchors.horizontalCenterOffset: 0
+            anchors.horizontalCenter: text6.horizontalCenter
+        }
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: add.bottom
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 8
-        anchors.rightMargin: 8
-        anchors.topMargin: 8
-        anchors.bottomMargin: 8
-    }
+        ListView {
+            id: listView
+            clip: true
 
-    AddButton {
-        id: add
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: add.bottom
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 8
+            anchors.rightMargin: 8
+            anchors.topMargin: 8
+            anchors.bottomMargin: 8
+            interactive: false
+        }
 
-        anchors.right: parent.right
-        anchors.top: protein.bottom
-        anchors.rightMargin: 8
-        anchors.topMargin: 8
+        AddButton {
+            id: add
+
+            anchors.right: parent.right
+            anchors.top: protein.bottom
+            anchors.rightMargin: 8
+            anchors.topMargin: 8
+        }
     }
 }
