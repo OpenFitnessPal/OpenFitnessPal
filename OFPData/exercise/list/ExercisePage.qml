@@ -29,8 +29,9 @@ ExercisePageForm {
         clip: true
 
         onDeleteMe: {
-                    exercises.removeRow(exID)
-                }
+            exercises.removeRow(exID)
+            exercises.saveData(currentDate)
+        }
 
         onChanged: {
             model.sets = esm.sets()

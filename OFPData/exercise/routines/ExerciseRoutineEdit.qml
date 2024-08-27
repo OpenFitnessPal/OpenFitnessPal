@@ -34,7 +34,7 @@ ExerciseRoutineEditForm {
         onDeleteMe: {
             elm.removeRow(exID)
             routine.exercises = elm.exercises()
-            impl.changed(routine)
+            impl.changed()
         }
 
         onChanged: {
