@@ -26,6 +26,8 @@ RecipeEditForm {
         servings.value = recipe.servings * 100
 
         fsm.add(recipe.foods)
+
+        resetScrollHeight()
     }
 
     add.onClicked: {
@@ -87,5 +89,12 @@ RecipeEditForm {
 
         recipe.foods = fsm.foods
         resetNutrients()
+        resetScrollHeight()
+    }
+
+    function resetScrollHeight() {
+        scroll.contentHeight = (20 + recipeName.height) + (30 + text1.height) +
+                              (50 + text3.height) + (25 + calories.height) +
+                              (8 + add.height) + (16 + (listView.count * 100))
     }
 }
