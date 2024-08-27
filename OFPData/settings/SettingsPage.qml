@@ -2,7 +2,8 @@ import QtQuick
 
 SettingsPageForm {
     id: impl
-    signal mealNamesChanged
+
+    signal goToSearchSettings
 
     signal reloadCache
     signal reloadData
@@ -10,10 +11,17 @@ SettingsPageForm {
     dataDir.onReloadData: impl.reloadData()
     cacheDir.onReloadData: impl.reloadCache()
 
-    meal1.onMealNamesChanged: impl.mealNamesChanged()
-    meal2.onMealNamesChanged: impl.mealNamesChanged()
-    meal3.onMealNamesChanged: impl.mealNamesChanged()
-    meal4.onMealNamesChanged: impl.mealNamesChanged()
-    meal5.onMealNamesChanged: impl.mealNamesChanged()
+    repeater.delegate: MealNameSetting {
+        required property int index
+        required property string modelData
 
+        mealNumber: index + 1
+        defaultName: modelData
+
+        onMealNamesChanged: rectangle.mealNamesChanged()
+    }
+
+    searchSettings.onClicked: {
+        goToSearchSettings()
+    }
 }

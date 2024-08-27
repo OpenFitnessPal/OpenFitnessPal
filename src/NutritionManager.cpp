@@ -6,7 +6,7 @@ NutritionManager::NutritionManager(QObject *parent)
     : QObject{parent}
 {}
 
-NutrientUnion NutritionManager::getDailyNutrients(QDate date)
+NutrientUnion NutritionManager::getDailyNutrients(QDate date) const
 {
     QList<FoodServing> meal1 = DataManager::loadFoods(1, date);
     QList<FoodServing> meal2 = DataManager::loadFoods(2, date);

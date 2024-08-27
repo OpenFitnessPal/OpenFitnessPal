@@ -48,6 +48,8 @@ set(CODE_ELEMENTS
     models/ExerciseSetsModel
     models/ExerciseRoutinesModel
 
+    models/NutrientModel
+
     items/Exercise
     items/ExerciseSet
 )

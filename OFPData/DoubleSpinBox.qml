@@ -11,6 +11,8 @@ SpinBox {
     to: 1000 * 100.0
     stepSize: 100
 
+    property string suffix: ""
+
     property int decimals: 2
     property real realValue: value / 100.0
 
@@ -26,10 +28,10 @@ SpinBox {
             x = String(x).split("E")[0];
         }
 
-        return x;
+        return x + suffix;
     }
 
     valueFromText: function(text, locale) {
-        return Number.fromLocaleString(locale, text) * 100.0
+        return Number.fromLocaleString(locale, text.replace(suffix, "")) * 100.0
     }
 }
