@@ -22,11 +22,11 @@ jobs:
             qt_version: '6.7.2'
             qt_arch: gcc_64
 
-          # - os: ubuntu-24.04
-          #   qt_host: linux
-          #   qt_target: android
-          #   qt_arch: android_arm64_v8a
-          #   qt_version: '6.7.2'
+          - os: ubuntu-24.04
+            qt_host: linux
+            qt_target: android
+            qt_arch: android_arm64_v8a
+            qt_version: '6.7.2'
 
           - os: windows-2022
             qt_host: windows
@@ -89,16 +89,16 @@ jobs:
         aqtversion: ==3.1.*
         modules: qtvirtualkeyboard qtshadertools
 
-    # - name: Install Qt (Android)
-    #   if: matrix.qt_target == 'android'
-    #   uses: jurplel/install-qt-action@v3.3.0
-    #   with:
-    #     cache: on
-    #     version: ${{ matrix.qt_version }}
-    #     target: ${{ matrix.qt_target }}
-    #     aqtversion: ==3.1.*
-    #     arch: ${{ matrix.qt_arch }}
-    #     modules: qtvirtualkeyboard qtshadertools
+    - name: Install Qt (Android)
+      if: matrix.qt_target == 'android'
+      uses: jurplel/install-qt-action@v3.3.0
+      with:
+        cache: on
+        version: ${{ matrix.qt_version }}
+        target: ${{ matrix.qt_target }}
+        aqtversion: ==3.1.*
+        arch: ${{ matrix.qt_arch }}
+        modules: qtvirtualkeyboard qtshadertools
 
     - name: Install Build Dependencies (macOS)
       if: runner.os == 'macOS'
@@ -138,23 +138,23 @@ jobs:
         cd ${{ env.INSTALL_DIR }}
         tar --owner root --group root -czf ../OpenFitnessPal.tar.gz *
 
-    # - name: Sign APK (Android)
-    #   if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
-    #   uses: r0adkll/sign-android-release@v1
-    #   id: sign_apk
-    #   with:
-    #     # The directory to find your release to sign
-    #     releaseDirectory: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/release
-    #     # The key used to sign your release in base64 encoded format
-    #     signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-    #     # The key alias
-    #     alias: ${{ secrets.ALIAS }}
-    #     # The password to the keystore
-    #     keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-    #     # wee woo
-    #     keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
-    #   env:
-    #     BUILD_TOOLS_VERSION: "34.0.0"
+    - name: Sign APK (Android)
+      if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
+      uses: r0adkll/sign-android-release@v1
+      id: sign_apk
+      with:
+        # The directory to find your release to sign
+        releaseDirectory: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/release
+        # The key used to sign your release in base64 encoded format
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        # The key alias
+        alias: ${{ secrets.ALIAS }}
+        # The password to the keystore
+        keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+        # wee woo
+        keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
+      env:
+        BUILD_TOOLS_VERSION: "35.0.0"
 
     - name: Package AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
@@ -232,19 +232,19 @@ jobs:
       # UPLOAD BUILDS
       ##
 
-    # - name: Upload Release APK (Linux)
-    #   if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
-    #     path: ${{steps.sign_apk.outputs.signedReleaseFile}}
+    - name: Upload Release APK (Linux)
+      if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Release'
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
+        path: ${{steps.sign_apk.outputs.signedReleaseFile}}
 
-    # - name: Upload Debug APK (Linux)
-    #   if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Debug'
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
-    #     path: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/debug/android-build-debug.apk
+    - name: Upload Debug APK (Linux)
+      if: runner.os == 'Linux' && matrix.qt_target == 'android' && inputs.build_type == 'Debug'
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenFitnessPal-Android-APK-${{ env.VERSION }}-${{ inputs.build_type }}
+        path: ${{ env.BUILD_DIR }}/android-build/build/outputs/apk/debug/android-build-debug.apk
 
     - name: Upload portable tarball (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
