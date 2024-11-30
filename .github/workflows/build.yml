@@ -19,23 +19,23 @@ jobs:
 
           - os: ubuntu-20.04
             qt_host: linux
-            qt_version: '6.7.2'
+            qt_version: '6.8.0'
             qt_arch: gcc_64
 
           - os: ubuntu-24.04
             qt_host: linux
             qt_target: android
             qt_arch: android_arm64_v8a
-            qt_version: '6.7.2'
+            qt_version: '6.8.0'
 
-          - os: windows-2022
+          - os: windows-latest
             qt_host: windows
-            qt_version: '6.7.2'
-            qt_arch: win64_msvc2019_64
+            qt_version: '6.8.0'
+            qt_arch: win64_msvc2022_64
 
-          - os: macOS-12
+          - os: macos-latest
             qt_host: mac
-            qt_version: '6.7.2'
+            qt_version: '6.8.0'
             qt_arch: clang_64
 
     runs-on: ${{ matrix.os }}
@@ -82,21 +82,20 @@ jobs:
         nsis-version: 3.08
 
     - name: Install Qt ${{ matrix.qt_version }}
-      uses: jurplel/install-qt-action@v3.3.0
+      if: matrix.qt_target != 'android'
+      uses: jurplel/install-qt-action@v4.1.1
       with:
         cache: on
         version: ${{ matrix.qt_version }}
-        aqtversion: ==3.1.*
         modules: qtvirtualkeyboard qtshadertools
 
-    - name: Install Qt (Android)
+    - name: Install Qt ${{ matrix.qt_version }} (Android)
       if: matrix.qt_target == 'android'
-      uses: jurplel/install-qt-action@v3.3.0
+      uses: jurplel/install-qt-action@v4.1.1
       with:
         cache: on
         version: ${{ matrix.qt_version }}
         target: ${{ matrix.qt_target }}
-        aqtversion: ==3.1.*
         arch: ${{ matrix.qt_arch }}
         modules: qtvirtualkeyboard qtshadertools
 
@@ -154,7 +153,7 @@ jobs:
         # wee woo
         keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
       env:
-        BUILD_TOOLS_VERSION: "35.0.0"
+        BUILD_TOOLS_VERSION: "34.0.0"
 
     - name: Package AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
@@ -204,20 +203,20 @@ jobs:
       shell: cmd
       run: |
         mkdir ${{ env.INSTALL_DIR }}
-        set PATH=%PATH%;"${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2019_64\bin"
+        set PATH=%PATH%;"${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\bin"
 
         windeployqt ${{ env.BUILD_DIR }}\OpenFitnessPal.exe --dir ${{ env.INSTALL_DIR }} --qmldir %QML2_IMPORT_PATH%
 
-        cp -r ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2019_64\qml ${{ env.INSTALL_DIR }}
+        cp -r ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\qml ${{ env.INSTALL_DIR }}
         cp ${{ env.BUILD_DIR }}\OpenFitnessPal.exe ${{ env.INSTALL_DIR }}
         cp ${{ env.BUILD_DIR }}\_deps\ofplib-build\ofp.dll ${{ env.INSTALL_DIR }}
 
         if "${{ inputs.build_type }}" == "Debug" (
           cp C:\Windows\System32\ucrtbased.dll ${{ env.INSTALL_DIR }}
-          cp ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2019_64\bin\Qt6QmlCored.dll ${{ env.INSTALL_DIR }}
+          cp ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\bin\Qt6QmlCored.dll ${{ env.INSTALL_DIR }}
         ) else (
           cp C:\Windows\System32\ucrtbase.dll ${{ env.INSTALL_DIR }}
-          cp ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2019_64\bin\Qt6QmlCore.dll ${{ env.INSTALL_DIR }}
+          cp ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\bin\Qt6QmlCore.dll ${{ env.INSTALL_DIR }}
         )
 
     - name: Package (Windows, Installer)
