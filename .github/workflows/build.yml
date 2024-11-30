@@ -82,7 +82,6 @@ jobs:
         nsis-version: 3.08
 
     - name: Install Qt ${{ matrix.qt_version }}
-      if: matrix.qt_target != 'android'
       uses: jurplel/install-qt-action@v4.1.1
       with:
         cache: on
