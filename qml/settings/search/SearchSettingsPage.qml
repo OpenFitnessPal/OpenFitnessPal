@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Dialogs
 
-import OpenFitnessPal
-import OpenFitnessPal
+import OpenFitnessPalContent
+import OpenFitnessPalContent
 
 SearchSettingsPageForm {
     id: impl

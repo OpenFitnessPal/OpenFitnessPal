@@ -21,7 +21,7 @@ OutFile "../@OFP_APP_NAME@-Setup.exe"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
-!define MUI_FINISHPAGE_RUN "$InstDir\@OFP_EXEC_NAME@.exe"
+!define MUI_FINISHPAGE_RUN "$InstDir\@OFP_APP_NAME@.exe"
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -59,11 +59,11 @@ Section "@OFP_APP_NAME@"
 
   SectionIn RO
 
-  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @OFP_EXEC_NAME@.exe /F'
+  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @OFP_APP_NAME@.exe /F'
 
   SetOutPath $INSTDIR
 
-  File "@OFP_EXEC_NAME@.exe"
+  File "@OFP_APP_NAME@.exe"
   File *.dll
   File /r "iconengines"
   File /r "imageformats"
@@ -81,7 +81,7 @@ Section "@OFP_APP_NAME@"
   ${If} ${Errors}
     !define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\@OFP_APP_NAME@"
     WriteRegStr HKCU "${UNINST_KEY}" "DisplayName" "@OFP_APP_NAME@"
-    WriteRegStr HKCU "${UNINST_KEY}" "DisplayIcon" "$INSTDIR\@OFP_EXEC_NAME@.exe"
+    WriteRegStr HKCU "${UNINST_KEY}" "DisplayIcon" "$INSTDIR\@OFP_APP_NAME@.exe"
     WriteRegStr HKCU "${UNINST_KEY}" "UninstallString" '"$INSTDIR\uninstall.exe"'
     WriteRegStr HKCU "${UNINST_KEY}" "QuietUninstallString" '"$INSTDIR\uninstall.exe" /S'
     WriteRegStr HKCU "${UNINST_KEY}" "InstallLocation" "$INSTDIR"
@@ -102,13 +102,13 @@ SectionEnd
 
 Section "Start Menu Shortcut" SM_SHORTCUTS
 
-  CreateShortcut "$SMPROGRAMS\@OFP_APP_NAME@.lnk" "$INSTDIR\@OFP_EXEC_NAME@.exe" "" "$INSTDIR\@OFP_EXEC_NAME@.exe" 0
+  CreateShortcut "$SMPROGRAMS\@OFP_APP_NAME@.lnk" "$INSTDIR\@OFP_APP_NAME@.exe" "" "$INSTDIR\@OFP_APP_NAME@.exe" 0
 
 SectionEnd
 
 Section /o "Desktop Shortcut" DESKTOP_SHORTCUTS
 
-  CreateShortcut "$DESKTOP\@OFP_APP_NAME@.lnk" "$INSTDIR\@OFP_EXEC_NAME@.exe" "" "$INSTDIR\@OFP_EXEC_NAME@.exe" 0
+  CreateShortcut "$DESKTOP\@OFP_APP_NAME@.lnk" "$INSTDIR\@OFP_APP_NAME@.exe" "" "$INSTDIR\@OFP_APP_NAME@.exe" 0
 
 SectionEnd
 
@@ -118,12 +118,12 @@ SectionEnd
 
 Section "Uninstall"
 
-  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @OFP_EXEC_NAME@.exe /F'
+  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @OFP_APP_NAME@.exe /F'
 
   DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\@OFP_APP_NAME@"
   DeleteRegKey HKCU SOFTWARE\@OFP_APP_NAME@
 
-  Delete $INSTDIR\@OFP_EXEC_NAME@.exe
+  Delete $INSTDIR\@OFP_APP_NAME@.exe
   Delete $INSTDIR\qt.conf
   Delete $INSTDIR\*.dll
 
@@ -151,7 +151,7 @@ Function .onInit
 ${GetParameters} $R0
 ${GetOptions} $R0 "/NoShortcuts" $R1
 ${IfNot} ${Errors}
-${OrIf} ${FileExists} "$InstDir\@OFP_EXEC_NAME@.exe"
+${OrIf} ${FileExists} "$InstDir\@OFP_APP_NAME@.exe"
   !insertmacro UnselectSection ${SM_SHORTCUTS}
   !insertmacro UnselectSection ${DESKTOP_SHORTCUTS}
 ${EndIf}

@@ -9,7 +9,7 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 6.2
 import QtQuick.Controls 6.2
 
-import OpenFitnessPal
+import OpenFitnessPalContent
 
 import QtQuick.Layouts
 

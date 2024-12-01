@@ -74,6 +74,8 @@ qt_add_executable(${OFP_EXEC_NAME}
     ${CMAKE_BINARY_DIR}/buildconfig/BuildConfig.cpp
 )
 
+set_target_properties(${OFP_EXEC_NAME} PROPERTIES OUTPUT_NAME ${OFP_APP_NAME})
+
 if (ANDROID)
     include(FetchContent)
     FetchContent_Declare(
@@ -220,7 +222,7 @@ endforeach()
 add_subdirectory(buildconfig)
 
 qt_add_qml_module(${OFP_EXEC_NAME}
-    URI OpenFitnessPal
+    URI OpenFitnessPalContent
     VERSION 1.0
     QML_FILES ${QML_FILES}
 

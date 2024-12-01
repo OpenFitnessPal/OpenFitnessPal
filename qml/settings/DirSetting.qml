@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Dialogs
 
-import OpenFitnessPal
+import OpenFitnessPalContent
 
 DirSettingForm {
     signal reloadData

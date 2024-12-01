@@ -1,7 +1,7 @@
 import QtQuick 2.15
 
-import OpenFitnessPal
-import OpenFitnessPal
+import OpenFitnessPalContent
+import OpenFitnessPalContent
 
 ExerciseRoutineEditForm {
     id: impl

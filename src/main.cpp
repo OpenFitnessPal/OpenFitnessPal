@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
 
-    engine.loadFromModule("OpenFitnessPal", "App");
+    engine.loadFromModule("OpenFitnessPalContent", "App");
 
     return app.exec();
 }

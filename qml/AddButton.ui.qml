@@ -1,7 +1,7 @@
 import QtQuick 6.2
 import QtQuick.Controls 6.2
 
-import OpenFitnessPal
+import OpenFitnessPalContent
 
 import QtQuick.Layouts
 

@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls
 
-import OpenFitnessPal
+import OpenFitnessPalContent
 
 MealLogForm {
     signal nutritionUpdated

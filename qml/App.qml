@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Dialogs
 
-import OpenFitnessPal
+import OpenFitnessPalContent
 
 Window {
     id: window
