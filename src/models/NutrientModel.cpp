@@ -28,7 +28,7 @@ NutrientModel::NutrientModel(QObject *parent)
     m_nutrients.append(Nutrient{"Vitamin D", "vitaminD", "%"});
 }
 
-// TODO: Implement this in GoalsPage
+// TODO: ement this in GoalsPage
 // will need to have a calculator for macros & submacros
 
 QDate NutrientModel::date() const

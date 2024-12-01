@@ -1,34 +1,74 @@
+cmake_minimum_required(VERSION 3.16)
 
-cmake_minimum_required(VERSION 3.21.1)
+set(OFP_APP_NAME OpenFitnessPal)
+set(OFP_EXEC_NAME OFP)
+set(OFP_ORG_NAME OpenFitnessPal)
+set(OFP_GIT_REPO https://github.com/${OFP_ORG_NAME}/${OFP_APP_NAME})
 
-option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
-option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
+project(OpenFitnessPal VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTORCC ON)
 
-set(OFP_ORG_NAME "OpenFitnessPal")
-set(OFP_APP_NAME "OFPApp")
-set(OFP_EXEC_NAME "OpenFitnessPal")
-set(OFP_GIT_REPO "https://github.com/crueter/QMLTest.git")
+find_package(Qt6 6.7 REQUIRED COMPONENTS Quick Multimedia)
+add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
 
-project(${OFP_APP_NAME} VERSION 0.1 LANGUAGES CXX)
+qt_standard_project_setup(REQUIRES 6.7)
 
-add_subdirectory(3rd_party)
+if(WIN32)
+    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_APP_NAME}.rc)
+    set(OFP_BUILD_PLATFORM "win32")
+elseif(ANDROID)
+    set(OFP_BUILD_PLATFORM "android")
+elseif(APPLE)
+    set(OFP_BUILD_PLATFORM "mac64")
+else()
+    set(OFP_BUILD_PLATFORM "lin64")
+endif()
+
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+
+# Git
+include(GetGitRevisionDescription)
+git_get_exact_tag(OFP_GIT_TAG)
+get_git_head_revision(OFP_GIT_REFSPEC OFP_GIT_COMMIT)
+
+message(STATUS "Git commit: ${OFP_GIT_COMMIT}")
+message(STATUS "Git tag: ${OFP_GIT_TAG}")
+message(STATUS "Git refspec: ${OFP_GIT_REFSPEC}")
+
+string(REPLACE "-beta" "." OFP_GIT_TAG_NUMERO ${OFP_GIT_TAG})
+
+string(REPLACE "." " " OFP_SPLIT_VERSION ${OFP_GIT_TAG_NUMERO})
+
+separate_arguments(OFP_SPLIT_VERSION)
+
+list(GET OFP_SPLIT_VERSION 0 OFP_VERSION_MAJOR)
+list(GET OFP_SPLIT_VERSION 1 OFP_VERSION_MINOR)
+list(GET OFP_SPLIT_VERSION 2 OFP_VERSION_HOTFIX)
+
+project(OpenFitnessPal VERSION ${OFP_GIT_TAG_NUMERO} LANGUAGES CXX)
+
+# Build Date
+string(TIMESTAMP TODAY "%Y-%m-%d")
+set(OFP_BUILD_TIMESTAMP "${TODAY}")
+
+add_subdirectory("program_info")
 find_package(OFPLib)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(QRC_FILES icons.qrc)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
-set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
-    CACHE STRING "Import paths for Qt Creator's code model"
-    FORCE
+qt_add_executable(${OFP_EXEC_NAME}
+    src/main.cpp
+    ${QRC_FILES}
 )
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Qml Quick)
+set_source_files_properties(qml/Constants.qml
+    PROPERTIES
+    QT_QML_SINGLETON_TYPE true
+)
 
-set(CODE_ELEMENTS
+set(ELEMENTS
     data/DataManager
     data/CacheManager
     data/SettingsManager
@@ -54,133 +94,152 @@ set(CODE_ELEMENTS
     items/ExerciseSet
 )
 
-foreach(ELEMENT ${CODE_ELEMENTS})
+set(QML_ELEMENTS
+    App
+    DateSelect
+    RemoveButton.ui
+    Constants
+    AddButton.ui
+    DoubleSpinBox
+
+    goals/IntGoalForm.ui
+    goals/IntGoal
+    goals/MacroGoals
+    goals/GoalsPageForm.ui
+    goals/SuffixedSpinBox
+    goals/GoalsPage
+    goals/MacroGoalsForm.ui
+    goals/WeightGoal
+    goals/GoalSpinBox
+
+    exercise/ExerciseRootPage
+    exercise/ExerciseRootPageForm.ui
+
+    exercise/routines/RoutinesPage
+    exercise/routines/ExerciseRoutineEdit
+    exercise/routines/ExerciseRoutineImpl
+    exercise/routines/ExerciseRoutineEditForm.ui
+    exercise/routines/RoutinesPageForm.ui
+    exercise/routines/ExerciseRoutineForm.ui
+
+    exercise/list/ExercisePage
+    exercise/list/ExerciseSetImpl
+    exercise/list/ExerciseSetForm.ui
+    exercise/list/ExerciseForm.ui
+    exercise/list/ExercisePageForm.ui
+    exercise/list/ExerciseImpl
+
+    food/FoodServingInfoForm.ui
+    food/FoodSearchForm.ui
+    food/JournalPageForm.ui
+    food/FoodServingEditForm.ui
+    food/JournalPage
+    food/FoodServingInfo
+    food/FoodServingEdit
+    food/MealLogForm.ui
+    food/FoodPageForm.ui
+    food/FoodSearch
+    food/FoodPage
+    food/MealLog
+
+    food/nutritionInfo/NutritionInfoHeaderForm.ui
+    food/nutritionInfo/NutritionInfoHeader
+    food/nutritionInfo/CaloriePreview
+    food/nutritionInfo/NutritionInfo
+    food/nutritionInfo/CaloriePreviewForm.ui
+    food/nutritionInfo/NutritionInfoForm.ui
+    food/nutritionInfo/NutritionGoalForm.ui
+    food/nutritionInfo/NutritionGoal
+
+    recipes/RecipeEditForm.ui
+    recipes/RecipeAddForm.ui
+    recipes/RecipeAdd
+    recipes/RecipesPageForm.ui
+    recipes/RecipeInfo
+    recipes/RecipesPage
+    recipes/RecipeInfoForm.ui
+    recipes/RecipeEdit
+
+    settings/SettingsPageRoot
+    settings/DirSettingForm.ui
+    settings/DirSetting
+    settings/search/SearchSettingsPageForm.ui
+    settings/search/NutrientFilterForm.ui
+    settings/search/NutrientFilter
+    settings/search/SearchSettingsPage
+    settings/SettingsPage
+    settings/SettingsPageRootForm.ui
+    settings/MealNameSettingForm.ui
+    settings/SettingsPageForm.ui
+    settings/MealNameSetting
+)
+
+foreach(ELEMENT ${ELEMENTS})
     set(HEADERS ${HEADERS} include/${ELEMENT}.h)
     set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
 endforeach()
 
-if(WIN32)
-    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_EXEC_NAME}.rc)
-    set(OFP_BUILD_PLATFORM "win32")
-elseif(NOT ANDROID)
-    set(MANIFEST_FILE android/AndroidManifest.xml)
-    set(OFP_BUILD_PLATFORM "android")
-else()
-    set(OFP_BUILD_PLATFORM "lin64")
-endif()
-
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/)
-
-# Git
-include(GetGitRevisionDescription)
-git_get_exact_tag(OFP_GIT_TAG)
-get_git_head_revision(OFP_GIT_REFSPEC OFP_GIT_COMMIT)
-
-message(STATUS "Git commit: ${OFP_GIT_COMMIT}")
-message(STATUS "Git tag: ${OFP_GIT_TAG}")
-message(STATUS "Git refspec: ${OFP_GIT_REFSPEC}")
-
-string(REPLACE "-beta" "." OFP_GIT_TAG_NUMERO ${OFP_GIT_TAG})
-
-string(REPLACE "." " " OFP_SPLIT_VERSION ${OFP_GIT_TAG_NUMERO})
-
-separate_arguments(OFP_SPLIT_VERSION)
-
-list(GET OFP_SPLIT_VERSION 0 OFP_VERSION_MAJOR)
-list(GET OFP_SPLIT_VERSION 1 OFP_VERSION_MINOR)
-list(GET OFP_SPLIT_VERSION 2 OFP_VERSION_HOTFIX)
-
-project(${OFP_APP_NAME} VERSION ${OFP_GIT_TAG_NUMERO} LANGUAGES CXX)
-
-# Build Date
-string(TIMESTAMP TODAY "%Y-%m-%d")
-set(OFP_BUILD_TIMESTAMP "${TODAY}")
+foreach(QML ${QML_ELEMENTS})
+    set(QML_FILES ${QML_FILES} qml/${QML}.qml)
+endforeach()
 
 add_subdirectory(buildconfig)
 
-set(PROJECT_SRC ${HEADERS} ${SOURCES}
-    ${RCS_FILE}
-    ${MANIFEST_FILE}
-
-    ${OFPLib_SOURCE_DIR}/include/OFPManager.h
-    ${OFPLib_SOURCE_DIR}/include/FoodItem.h
-    ${OFPLib_SOURCE_DIR}/include/ServingSize.h
-    ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
-
-    ${CMAKE_BINARY_DIR}/buildconfig/BuildConfig.cpp
-)
-
-qt_add_executable(${CMAKE_PROJECT_NAME} ${PROJECT_SRC})
-qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
-    PREFIX "/"
-    FILES
-    qtquickcontrols2.conf)
-
-qt_add_qml_module(${OFP_APP_NAME}
-    URI OFPNative
+qt_add_qml_module(${OFP_EXEC_NAME}
+    URI OpenFitnessPal
     VERSION 1.0
-    SOURCES
-    ${PROJECT_SRC}
+    QML_FILES ${QML_FILES}
+
+    SOURCES ${SOURCES} ${HEADERS}
 )
 
-set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${OFP_EXEC_NAME})
+# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
+# If you are developing for iOS or macOS you should consider setting an
+# explicit, fixed bundle identifier manually though.
+set_target_properties(${OFP_EXEC_NAME} PROPERTIES
+    #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.${OFP_EXEC_NAME}
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+)
 
-add_subdirectory(program_info/)
+target_link_libraries(${OFP_EXEC_NAME}
+    PRIVATE Qt6::Quick
+    Qt6::Multimedia
+    BuildConfig
+    OFPLib
+)
 
-set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+target_include_directories(${OFP_EXEC_NAME} PRIVATE include/)
+target_include_directories(${OFP_EXEC_NAME} PRIVATE include/items)
+target_include_directories(${OFP_EXEC_NAME} PRIVATE include/data)
+target_include_directories(${OFP_EXEC_NAME} PRIVATE include/models)
+target_include_directories(${OFP_EXEC_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(${OFP_EXEC_NAME} PRIVATE ${OFPLib_SOURCE_DIR}/include)
+
+include(GNUInstallDirs)
+install(TARGETS ${OFP_EXEC_NAME}
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+set_target_properties(${OFP_EXEC_NAME} PROPERTIES
     MACOSX_BUNDLE TRUE
 )
 
 if(UNIX AND APPLE)
     # Mac bundle settings
-    set(MACOSX_BUNDLE_BUNDLE_NAME "${OFP_EXEC_NAME}")
-    set(MACOSX_BUNDLE_INFO_STRING "${OFP_EXEC_NAME}: A free, open-source fitness tracker.")
-    set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.${OFP_ORG_NAME}.${OFP_EXEC_NAME}")
+    set(MACOSX_BUNDLE_BUNDLE_NAME "${OFP_APP_NAME}")
+    set(MACOSX_BUNDLE_INFO_STRING "${OFP_APP_NAME}: A high-performance, reliable OFP for FRC use.")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.${OFP_ORG_NAME}.${OFP_APP_NAME}")
     set(MACOSX_BUNDLE_BUNDLE_VERSION "${OFP_GIT_TAG_NUMERO}")
     set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${OFP_GIT_TAG_NUMERO}")
     set(MACOSX_BUNDLE_LONG_VERSION_STRING "${OFP_GIT_TAG_NUMERO}")
-    set(MACOSX_BUNDLE_ICON_FILE ${OFP_EXEC_NAME}.icns)
-    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024 ${OFP_ORG_NAME}")
+    set(MACOSX_BUNDLE_ICON_FILE ${OFP_APP_NAME}.icns)
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2023-2024 ${OFP_ORG_NAME}")
 
     # install as bundle
     set(INSTALL_BUNDLE "full")
 endif()
-
-if (ANDROID)
-    include(FetchContent)
-    FetchContent_Declare(
-        android_openssl
-        DOWNLOAD_EXTRACT_TIMESTAMP true
-        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip
-    )
-    FetchContent_MakeAvailable(android_openssl)
-    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
-endif()
-
-if (ANDROID)
-    add_android_openssl_libraries(${OFP_APP_NAME})
-endif()
-
-target_include_directories(${OFP_APP_NAME} PRIVATE "include/")
-target_include_directories(${OFP_APP_NAME} PRIVATE "include/items")
-target_include_directories(${OFP_APP_NAME} PRIVATE "include/data")
-target_include_directories(${OFP_APP_NAME} PRIVATE "include/models")
-target_include_directories(${OFP_APP_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-include_directories(${OFPLib_SOURCE_DIR}/include)
-
-include(qds)
-
-if (BUILD_QDS_COMPONENTS)
-    include(qmlcomponents OPTIONAL)
-endif()
-
-if (LINK_INSIGHT)
-    include(insight OPTIONAL)
-endif ()
-
-include(GNUInstallDirs)
-install(TARGETS ${CMAKE_PROJECT_NAME}
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
