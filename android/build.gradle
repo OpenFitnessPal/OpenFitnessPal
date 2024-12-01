@@ -42,6 +42,8 @@ android {
     // Extract native libraries from the APK
     packagingOptions.jniLibs.useLegacyPackaging true
 
+    namespace = "org.OpenFitnessPal.OpenFitnessPal"
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'

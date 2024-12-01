@@ -65,6 +65,13 @@ qt_add_executable(${OFP_EXEC_NAME}
     ${QRC_FILES}
     ${RCS_FILE}
     ${MANIFEST_FILE}
+
+    ${OFPLib_SOURCE_DIR}/include/OFPManager.h
+    ${OFPLib_SOURCE_DIR}/include/FoodItem.h
+    ${OFPLib_SOURCE_DIR}/include/ServingSize.h
+    ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
+
+    ${CMAKE_BINARY_DIR}/buildconfig/BuildConfig.cpp
 )
 
 if (ANDROID)
@@ -258,13 +265,13 @@ set_target_properties(${OFP_EXEC_NAME} PROPERTIES
 if(UNIX AND APPLE)
     # Mac bundle settings
     set(MACOSX_BUNDLE_BUNDLE_NAME "${OFP_APP_NAME}")
-    set(MACOSX_BUNDLE_INFO_STRING "${OFP_APP_NAME}: A high-performance, reliable OFP for FRC use.")
+    set(MACOSX_BUNDLE_INFO_STRING "${OFP_APP_NAME}: A free, open-source fitness tracker.")
     set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.${OFP_ORG_NAME}.${OFP_APP_NAME}")
     set(MACOSX_BUNDLE_BUNDLE_VERSION "${OFP_GIT_TAG_NUMERO}")
     set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${OFP_GIT_TAG_NUMERO}")
     set(MACOSX_BUNDLE_LONG_VERSION_STRING "${OFP_GIT_TAG_NUMERO}")
     set(MACOSX_BUNDLE_ICON_FILE ${OFP_APP_NAME}.icns)
-    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2023-2024 ${OFP_ORG_NAME}")
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024 ${OFP_ORG_NAME}")
 
     # install as bundle
     set(INSTALL_BUNDLE "full")

@@ -17,7 +17,7 @@ jobs:
       matrix:
         include:
 
-          - os: ubuntu-20.04
+          - os: ubuntu-24.04
             qt_host: linux
             qt_version: '6.8.0'
             qt_arch: gcc_64
@@ -189,8 +189,10 @@ jobs:
 
         cd ${{ env.BUILD_DIR }}
         ls $QML_SOURCES_PATHS
-        macdeployqt OpenFitnessPal.app -qmldir=$QML_SOURCES_PATHS -qmlimport=$QML_SOURCES_PATHS
+        macdeployqt OFP.app -qmldir=$QML_SOURCES_PATHS -qmlimport=$QML_SOURCES_PATHS
         ls
+
+        mv OFP.app OpenFitnessPal.app
 
         sudo codesign --sign - --deep --force --entitlements ../program_info/App.entitlements --options runtime OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
         chmod a+x OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
