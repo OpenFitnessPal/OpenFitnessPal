@@ -6,7 +6,7 @@ const Config BuildConfig;
 Config::Config()
 {
     // Name and copyright
-    APP_NAME = "@OFP_EXEC_NAME@";
+    APP_NAME = "@OFP_APP_NAME@";
     ORG_NAME = "@OFP_ORG_NAME@";
     GIT_REPO = "@OFP_GIT_REPO@";
 

@@ -3,8 +3,8 @@
 #endif
 #include <windows.h>
 
-IDI_ICON1               ICON    DISCARDABLE     "@OFP_EXEC_NAME@.ico"
-10255 RT_MANIFEST "@OFP_EXEC_NAME@.manifest"
+IDI_ICON1               ICON    DISCARDABLE     "@OFP_APP_NAME@.ico"
+10255 RT_MANIFEST "@OFP_APP_NAME@.manifest"
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION     @OFP_GIT_TAG_NUMERO@
@@ -16,9 +16,9 @@ BEGIN
                 BLOCK "000004b0"
                 BEGIN
                         VALUE "CompanyName", "@OFP_ORG_NAME@"
-                        VALUE "FileDescription", "@OFP_EXEC_NAME@"
+                        VALUE "FileDescription", "@OFP_APP_NAME@"
                         VALUE "FileVersion", "@OFP_GIT_TAG@"
-                        VALUE "ProductName", "@OFP_EXEC_NAME@"
+                        VALUE "ProductName", "@OFP_APP_NAME@"
                         VALUE "ProductVersion", "@OFP_GIT_TAG@"
                 END
         END

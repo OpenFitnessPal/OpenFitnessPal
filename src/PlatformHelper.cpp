@@ -12,6 +12,7 @@ bool PlatformHelper::isWindows()
     return BuildConfig.BUILD_PLATFORM == "win32";
 }
 
+
 QString PlatformHelper::defaultDataDir()
 {
     return QStandardPaths::writableLocation(QStandardPaths::CacheLocation);

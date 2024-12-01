@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath 'com.android.tools.build:gradle:8.4.2'
     }
 }
 
@@ -41,6 +41,8 @@ android {
 
     // Extract native libraries from the APK
     packagingOptions.jniLibs.useLegacyPackaging true
+
+    namespace = "org.OpenFitnessPal.OpenFitnessPal"
 
     sourceSets {
         main {

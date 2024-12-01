@@ -10,7 +10,7 @@ void GoalManager::set(const QString &key, const QVariant &value) const
     DataManager::saveInfo(key, value);
 }
 
-QVariant GoalManager::get(const QString &key) const
+QVariant GoalManager::get(const QString &key, const QVariant &defaultValue) const
 {
-    return DataManager::getInfo(key);
+    return DataManager::getInfo(key, defaultValue);
 }
