@@ -1,7 +1,7 @@
 import QtQuick 2.15
 
 MacroGoalsForm {
-    height: 420
+    height: 460
 
     property bool startup: true
 
@@ -27,9 +27,10 @@ MacroGoalsForm {
 
     function checkMacrosValid() {
         if (startup) {
-            carbs.value = goalManager.get("carbs")
-            fat.value = goalManager.get("fat")
-            protein.value = goalManager.get("protein")
+            carbs.value = goalManager.get("carbs", 35)
+            fat.value = goalManager.get("fat", 35)
+            protein.value = goalManager.get("protein", 30)
+            startup = false
         }
 
         let valid = (carbs.value + protein.value + fat.value) == 100

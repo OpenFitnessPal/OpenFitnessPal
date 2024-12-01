@@ -6,8 +6,22 @@ import OpenFitnessPal
 
 Window {
     id: window
+
+    // the height may change depending on the platform
+    property int initialHeight: Constants.height
+
     width: Constants.width
     height: Constants.height
+
+    function yuh() {
+        console.log(Qt.inputMethod.keyboardRectangle.height)
+        height = initialHeight - Qt.inputMethod.keyboardRectangle.height / 2
+    }
+
+    Component.onCompleted: {
+        Qt.inputMethod.keyboardRectangleChanged.connect(yuh)
+        initialHeight = height
+    }
 
     visible: true
 

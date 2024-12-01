@@ -44,7 +44,7 @@ Rectangle {
         }
 
         Component.onCompleted: {
-            value = goalManager.get("goal")
+            value = goalManager.get("goal", 0)
             index = value
 
             valueChanged.connect(sendIndex)

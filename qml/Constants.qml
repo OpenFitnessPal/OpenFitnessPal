@@ -90,4 +90,5 @@ QtObject {
     readonly property color baseColor: "#000000"
     readonly property color sub1Color: "#141414"
     readonly property color sub2Color: "#282828"
+    readonly property color sub3Color: "#424242"
 }

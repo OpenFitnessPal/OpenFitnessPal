@@ -39,7 +39,7 @@ public:
 
     static DataError saveInfo(QString field, QVariant data);
     static QVariantMap loadInfo();
-    static QVariant getInfo(const QString &field);
+    static QVariant getInfo(const QString &field, const QVariant &defaultValue);
 
     static DataError mv(const QString &newPath);
     static void newPath (const QString &newPath);

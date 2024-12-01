@@ -12,8 +12,8 @@ public:
     explicit GoalManager(QObject *parent = nullptr);
 
     Q_INVOKABLE void set(const QString &key, const QVariant &value) const;
-
-    Q_INVOKABLE QVariant get(const QString &key) const;
+    
+    Q_INVOKABLE QVariant get(const QString &key, const QVariant &defaultValue) const;
 signals:
 };
 

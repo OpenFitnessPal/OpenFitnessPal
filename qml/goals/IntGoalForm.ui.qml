@@ -27,6 +27,7 @@ Rectangle {
 
     property int max: 100
     property int value
+    property int defaultValue: 0
 
     property alias spinBox: spinBox
 

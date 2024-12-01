@@ -7,7 +7,7 @@ ExerciseForm {
 
     width: parent.width
 
-    signal changed()
+    signal changed
 
     property alias esm: esm
 
@@ -46,8 +46,7 @@ ExerciseForm {
             exercise.changed()
         }
 
-        onChanged: (reps, weight, id) =>
-                   {
+        onChanged: (reps, weight, id) => {
                        model.reps = reps
                        model.weight = weight
 
@@ -55,8 +54,8 @@ ExerciseForm {
                    }
 
         Component.onCompleted: {
-            repsEdit.value = model.reps
-            weightEdit.value = model.weight
+            repsEdit.text = model.reps
+            weightEdit.text = model.weight
 
             weightEdit.valueChanged.connect(changeData)
             repsEdit.valueChanged.connect(changeData)

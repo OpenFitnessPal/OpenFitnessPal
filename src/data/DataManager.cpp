@@ -377,9 +377,9 @@ QVariantMap DataManager::loadInfo()
 
 }
 
-QVariant DataManager::getInfo(const QString &field)
+QVariant DataManager::getInfo(const QString &field, const QVariant &defaultValue)
 {
-    QVariant value{};
+    QVariant value = defaultValue;
     QDir dir(dataDir);
     dir.cd("person");
 

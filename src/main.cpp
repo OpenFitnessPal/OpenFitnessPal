@@ -18,8 +18,14 @@
 int main(int argc, char *argv[])
 {
 #ifdef Q_OS_ANDROID
-    qputenv("QT_SCALE_FACTOR", QByteArray::number(2));
+    qputenv("QT_SCALE_FACTOR", QByteArray::number(1));
 #endif
+
+    qputenv("QML_COMPAT_RESOLVE_URLS_ON_ASSIGNMENT", "1");
+    qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "1");
+    qputenv("QT_ENABLE_HIGHDPI_SCALING", "1");
+    qputenv("QT_LOGGING_RULES", "qt.qml.connections=false");
+    qputenv("QT_QUICK_CONTROLS_CONF", ":/qtquickcontrols2.conf");
 
     QGuiApplication app(argc, argv);
     app.setApplicationDisplayName(BuildConfig.APP_NAME);

@@ -72,7 +72,7 @@ QVariant NutrientModel::data(const QModelIndex &index, int role) const
     } else if (role == NMRoleTypes::SUFFIX) {
         return suffix;
     } else if (role == NMRoleTypes::GOAL) {
-        return m_goals.get(name);
+        return m_goals.get(name, 0);
     } else if (role == NMRoleTypes::VALUE) {
         // this is kinda cancer
         NutrientUnion n = m_nutrition.getDailyNutrients(m_date);

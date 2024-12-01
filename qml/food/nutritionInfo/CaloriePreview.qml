@@ -1,9 +1,8 @@
-
 import QtQuick 2.15
 
 CaloriePreviewForm {
     function reloadData(currentDate) {
-        let goalValue = goalManager.get("calories")
+        let goalValue = goalManager.get("calories", 2500)
         let foodValue = nutritionManager.getDailyNutrients(currentDate).calories
         let remainingValue = goalValue - foodValue
 

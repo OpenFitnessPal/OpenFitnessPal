@@ -29,7 +29,7 @@ Rectangle {
         id: swipe
         clip: true
         anchors.fill: parent
-        anchors.bottomMargin: 40
+        anchors.bottomMargin: 50
         interactive: false
         currentIndex: 0
 

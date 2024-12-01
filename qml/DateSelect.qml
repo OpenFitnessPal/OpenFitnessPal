@@ -45,7 +45,7 @@ Rectangle {
         font.pointSize: 26
 
         onClicked: {
-            dateText.currentDate.setDate(dateText.currentDate.getDate() - 1);
+            dateText.currentDate.setDate(dateText.currentDate.getDate() - 1)
             dateChanged(dateText.currentDate)
         }
     }
@@ -61,10 +61,8 @@ Rectangle {
         font.pointSize: 26
 
         onClicked: {
-            dateText.currentDate.setDate(dateText.currentDate.getDate() + 1);
+            dateText.currentDate.setDate(dateText.currentDate.getDate() + 1)
             dateChanged(dateText.currentDate)
         }
     }
 }
-
-

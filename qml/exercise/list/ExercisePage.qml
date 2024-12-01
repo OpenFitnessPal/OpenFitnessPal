@@ -25,7 +25,7 @@ ExercisePageForm {
 
     listView.delegate: ExerciseImpl {
         id: exercise
-        height: 85 + 60 * listView.count
+        height: 85 + 70 * listView.count
         clip: true
 
         onDeleteMe: {

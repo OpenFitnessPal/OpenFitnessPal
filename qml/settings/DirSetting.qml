@@ -66,8 +66,8 @@ DirSettingForm {
     function updateDirFromDialog() {
         let selectedDir = dirSelect.selectedFolder.toString()
 
-        let path = selectedDir.replace(/^(file:\/{2})/,"");
-        let cleanPath = decodeURIComponent(path);
+        let path = selectedDir.replace(/^(file:\/{2})/, "")
+        let cleanPath = decodeURIComponent(path)
 
         confirmSwitch(cleanPath)
     }
@@ -92,21 +92,22 @@ DirSettingForm {
     dir.onEditingFinished: updateDirFromText()
 
     Component.onCompleted: {
-        let settingName = isCache ? "cacheDir" : "dataDir";
+        let settingName = isCache ? "cacheDir" : "dataDir"
 
         let setting = settings.get(settingName)
         if (typeof setting == "undefined") {
-            setting = isCache ? platform.defaultCacheDir() : platform.defaultDataDir();
+            setting = isCache ? platform.defaultCacheDir(
+                                    ) : platform.defaultDataDir()
 
             var path
 
             if (platform.isWindows()) {
-                path = setting.replace(/^(file:\/{3})/,"");
+                path = setting.replace(/^(file:\/{3})/, "")
             } else {
-                path = setting.replace(/^(file:\/{2})/,"");
+                path = setting.replace(/^(file:\/{2})/, "")
             }
 
-            let cleanPath = decodeURIComponent(path);
+            let cleanPath = decodeURIComponent(path)
 
             setting = cleanPath
 

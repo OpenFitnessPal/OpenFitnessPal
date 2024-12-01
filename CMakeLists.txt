@@ -19,7 +19,9 @@ if(WIN32)
     set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_APP_NAME}.rc)
     set(OFP_BUILD_PLATFORM "win32")
 elseif(ANDROID)
-    set(OFP_BUILD_PLATFORM "android")
+    set(ANDROID_GUI ON)
+    set(MANIFEST_FILE android/AndroidManifest.xml)
+    set(OFP_BUILD_PLATFORM "an64")
 elseif(APPLE)
     set(OFP_BUILD_PLATFORM "mac64")
 else()
@@ -61,7 +63,31 @@ set(QRC_FILES icons.qrc)
 qt_add_executable(${OFP_EXEC_NAME}
     src/main.cpp
     ${QRC_FILES}
+    ${RCS_FILE}
+    ${MANIFEST_FILE}
 )
+
+if (ANDROID)
+    include(FetchContent)
+    FetchContent_Declare(
+        android_openssl
+        DOWNLOAD_EXTRACT_TIMESTAMP true
+        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip)
+
+    FetchContent_MakeAvailable(android_openssl)
+    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
+
+    add_android_openssl_libraries(${OFP_EXEC_NAME})
+
+    set_target_properties(${OFP_EXEC_NAME} PROPERTIES
+        QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
+        COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS} MOBILE")
+endif()
+
+qt_add_resources(${OFP_EXEC_NAME} "configuration"
+    PREFIX "/"
+    FILES
+    qtquickcontrols2.conf)
 
 set_source_files_properties(qml/Constants.qml
     PROPERTIES
@@ -101,6 +127,7 @@ set(QML_ELEMENTS
     Constants
     AddButton.ui
     DoubleSpinBox
+    LabeledTextField
 
     goals/IntGoalForm.ui
     goals/IntGoal

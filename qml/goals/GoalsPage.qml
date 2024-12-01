@@ -17,43 +17,47 @@ GoalsPageForm {
         messageDialog.accepted.disconnect(confirmedRecalc)
 
         let weightMultiplier = 0.
-        let carbsPercentage = 30.
+        let carbsPercentage = 40.
         let fatPercentage = 35.
-        let proteinPercentage = 35.
+        let proteinPercentage = 25.
 
         let weightLbs = weight.value
 
         switch (goal.index) {
             // fast weight loss
         case 0:
-            weightMultiplier = 12.
-            carbsPercentage = 25.
-            fatPercentage = 30.
-            proteinPercentage = 45.
+            weightMultiplier = 14.
+            carbsPercentage = 35.
+            fatPercentage = 32.
+            proteinPercentage = 33.
             break
             // slow weight loss
         case 1:
-            weightMultiplier = 14.
-            fatPercentage = 30.
-            proteinPercentage = 40.
+            weightMultiplier = 16.
+            carbsPercentage = 36
+            fatPercentage = 35.
+            proteinPercentage = 29.
             break
             // maintain
         case 2:
-            weightMultiplier = 15.
+            weightMultiplier = 18.
+            carbsPercentage = 38.
+            fatPercentage = 37.
+            proteinPercentage = 25.
             break
             // slow weight gain
         case 3:
-            weightMultiplier = 16.
-            carbsPercentage = 35.
-            fatPercentage = 30.
-            proteinPercentage = 35.
+            weightMultiplier = 20.
+            carbsPercentage = 39.
+            fatPercentage = 38.
+            proteinPercentage = 23.
             break
             // fast weight gain
         case 4:
-            weightMultiplier = 18.
-            carbsPercentage = 35.
-            fatPercentage = 35.
-            proteinPercentage = 30.
+            weightMultiplier = 22.
+            carbsPercentage = 40.
+            fatPercentage = 40.
+            proteinPercentage = 20.
             break
         default:
             break

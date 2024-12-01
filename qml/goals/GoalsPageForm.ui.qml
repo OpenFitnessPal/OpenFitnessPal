@@ -40,6 +40,8 @@ Rectangle {
     ScrollView {
         id: scroll
 
+        contentWidth: availableWidth
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: text1.bottom
@@ -48,7 +50,7 @@ Rectangle {
         anchors.leftMargin: 0
         anchors.rightMargin: 0
         anchors.topMargin: 8
-        anchors.bottomMargin: 40
+        anchors.bottomMargin: 50
 
         ColumnLayout {
             anchors.left: parent.left
@@ -66,10 +68,10 @@ Rectangle {
 
                 isRootItem: true
 
-                name: "Current Weight"
+                name: "Current Weight (lbs)"
                 Layout.fillWidth: true
                 internalName: "weight"
-                suffix: "lbs"
+                suffix: ""
 
                 max: 10000
             }
@@ -120,6 +122,7 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "calcium"
                 suffix: "%"
+                defaultValue: 100
 
                 max: 10000
             }
@@ -134,6 +137,7 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "iron"
                 suffix: "%"
+                defaultValue: 100
 
                 max: 10000
             }
@@ -148,6 +152,7 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "vitaminA"
                 suffix: "%"
+                defaultValue: 100
 
                 max: 10000
             }
@@ -162,6 +167,7 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "vitaminC"
                 suffix: "%"
+                defaultValue: 100
 
                 max: 10000
             }
@@ -176,6 +182,7 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "vitaminD"
                 suffix: "%"
+                defaultValue: 100
 
                 max: 10000
             }
@@ -190,6 +197,7 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "sodium"
                 suffix: "mg"
+                defaultValue: 6000
 
                 max: 100000
             }
@@ -204,6 +212,7 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "potassium"
                 suffix: "mg"
+                defaultValue: 4000
 
                 max: 100000
             }
@@ -218,6 +227,7 @@ Rectangle {
                 Layout.fillWidth: true
                 internalName: "cholesterol"
                 suffix: "mg"
+                defaultValue: 600
 
                 max: 100000
             }

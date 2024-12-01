@@ -24,7 +24,7 @@ IntGoalForm {
     }
 
     Component.onCompleted: {
-        let val = goalManager.get(internalName)
+        let val = goalManager.get(internalName, defaultValue)
         if (typeof val !== 'undefined') {
             impl.value = val
             spinBox.value = impl.value

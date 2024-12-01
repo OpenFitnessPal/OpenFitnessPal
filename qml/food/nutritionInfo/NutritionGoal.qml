@@ -2,12 +2,13 @@ import QtQuick 2.15
 
 NutritionGoalForm {
     width: parent.width
-    function reloadData(newValue) {
-        let goalValue = goalManager.get(internalName)
+    function reloadData(newValue, defaultValue) {
+        let goalValue = goalManager.get(internalName, defaultValue)
 
+        // TODO: properly sort things for the submacros
         if (isPercent) {
             let div = isFat ? 9. : 4.
-            let calories = goalManager.get("calories")
+            let calories = goalManager.get("calories", 2500)
 
             goalValue = goalValue / 100. * calories / div
         }
