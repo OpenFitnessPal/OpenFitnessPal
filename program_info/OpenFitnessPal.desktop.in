@@ -4,4 +4,4 @@ Name=@OFP_APP_NAME@
 Comment=A fitness-tracking application, track your foods & exercises.
 Icon=@OFP_APP_NAME@
 Categories=Utility
-Exec=@OFP_EXEC_NAME@
+Exec=@OFP_APP_NAME@
