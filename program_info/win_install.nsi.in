@@ -7,7 +7,7 @@ Unicode true
 Name "@OFP_APP_NAME@"
 InstallDir "$LOCALAPPDATA\Programs\@OFP_APP_NAME@"
 InstallDirRegKey HKCU "Software\@OFP_APP_NAME@" "InstallDir"
-RequestAPPutionLevel user
+RequestExecutionLevel user
 OutFile "../@OFP_APP_NAME@-Setup.exe"
 
 !define MUI_ICON "../program_info/@OFP_APP_NAME@.ico"
@@ -48,7 +48,7 @@ VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "@OFP_GIT_TAG@"
 Section "Visual Studio Runtime"
   SetOutPath "$INSTDIR"
   File "..\vc_redist.x64.exe"
-  APPWait "$INSTDIR\vc_redist.x64.exe"
+  ExecWait "$INSTDIR\vc_redist.x64.exe"
   Delete "$INSTDIR\vc_redist.x64.exe"
 SectionEnd
 
@@ -59,7 +59,7 @@ Section "@OFP_APP_NAME@"
 
   SectionIn RO
 
-  nsAPP::APP /TIMEOUT=2000 'TaskKill /IM @OFP_EXEC_NAME@.exe /F'
+  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @OFP_EXEC_NAME@.exe /F'
 
   SetOutPath $INSTDIR
 
@@ -118,7 +118,7 @@ SectionEnd
 
 Section "Uninstall"
 
-  nsAPP::APP /TIMEOUT=2000 'TaskKill /IM @OFP_EXEC_NAME@.exe /F'
+  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @OFP_EXEC_NAME@.exe /F'
 
   DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\@OFP_APP_NAME@"
   DeleteRegKey HKCU SOFTWARE\@OFP_APP_NAME@

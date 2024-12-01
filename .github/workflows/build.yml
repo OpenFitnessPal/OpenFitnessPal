@@ -17,7 +17,7 @@ jobs:
       matrix:
         include:
 
-          - os: ubuntu-24.04
+          - os: ubuntu-20.04
             qt_host: linux
             qt_version: '6.8.0'
             qt_arch: gcc_64
