@@ -10,7 +10,7 @@ project(OpenFitnessPal VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Quick Multimedia)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Quick)
 add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
 
 qt_standard_project_setup(REQUIRES 6.7)
@@ -233,7 +233,6 @@ set_target_properties(${OFP_EXEC_NAME} PROPERTIES
 
 target_link_libraries(${OFP_EXEC_NAME}
     PRIVATE Qt6::Quick
-    Qt6::Multimedia
     BuildConfig
     OFPLib
 )
