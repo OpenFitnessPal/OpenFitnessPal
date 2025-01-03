@@ -47,7 +47,7 @@ VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "@Pal_GIT_TAG@"
 
 Section "Visual Studio Runtime"
   SetOutPath "$INSTDIR"
-  File "..\vc_redist.x64.exe"
+  File ".\vc_redist.x64.exe"
   ExecWait "$INSTDIR\vc_redist.x64.exe"
   Delete "$INSTDIR\vc_redist.x64.exe"
 SectionEnd

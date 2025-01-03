@@ -135,6 +135,7 @@ target_link_libraries(${Pal_EXEC_NAME}
     PRIVATE Qt6::Quick
     Qt6::QuickControls2
     Qt6::Network
+    OFPLib
     BuildConfig
 )
 
