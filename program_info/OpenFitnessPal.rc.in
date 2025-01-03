@@ -3,11 +3,11 @@
 #endif
 #include <windows.h>
 
-IDI_ICON1               ICON    DISCARDABLE     "@OFP_APP_NAME@.ico"
-10255 RT_MANIFEST "@OFP_APP_NAME@.manifest"
+IDI_ICON1               ICON    DISCARDABLE     "@Pal_APP_NAME@.ico"
+10255 RT_MANIFEST "@Pal_APP_NAME@.manifest"
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION     @OFP_GIT_TAG_NUMERO@
+FILEVERSION     @Pal_GIT_TAG_NUMERO@
 FILEOS          VOS_NT_WINDOWS32
 FILETYPE        VFT_APP
 BEGIN
@@ -15,11 +15,11 @@ BEGIN
         BEGIN
                 BLOCK "000004b0"
                 BEGIN
-                        VALUE "CompanyName", "@OFP_ORG_NAME@"
-                        VALUE "FileDescription", "@OFP_APP_NAME@"
-                        VALUE "FileVersion", "@OFP_GIT_TAG@"
-                        VALUE "ProductName", "@OFP_APP_NAME@"
-                        VALUE "ProductVersion", "@OFP_GIT_TAG@"
+                        VALUE "CompanyName", "@Pal_ORG_NAME@"
+                        VALUE "FileDescription", "@Pal_APP_NAME@"
+                        VALUE "FileVersion", "@Pal_GIT_TAG@"
+                        VALUE "ProductName", "@Pal_APP_NAME@"
+                        VALUE "ProductVersion", "@Pal_GIT_TAG@"
                 END
         END
         BLOCK "VarFileInfo"

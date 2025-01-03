@@ -39,10 +39,10 @@ android {
     buildToolsVersion androidBuildToolsVersion
     ndkVersion androidNdkVersion
 
+    namespace 'org.OpenFitnessPal.OpenFitnessPal'
+
     // Extract native libraries from the APK
     packagingOptions.jniLibs.useLegacyPackaging true
-
-    namespace = "org.OpenFitnessPal.OpenFitnessPal"
 
     sourceSets {
         main {

@@ -1,213 +1,94 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(OFP_APP_NAME OpenFitnessPal)
-set(OFP_EXEC_NAME OFP)
-set(OFP_ORG_NAME OpenFitnessPal)
-set(OFP_GIT_REPO https://github.com/${OFP_ORG_NAME}/${OFP_APP_NAME})
+set(Pal_APP_NAME OpenFitnessPal)
+set(Pal_EXEC_NAME OFP)
+set(Pal_ORG_NAME ${Pal_APP_NAME})
+set(Pal_GIT_REPO https://github.com/${Pal_ORG_NAME}/${Pal_App_NAME})
 
-project(OpenFitnessPal VERSION 0.1 LANGUAGES CXX)
+project(${Pal_APP_NAME} VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Quick)
-add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
 if(WIN32)
-    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${OFP_APP_NAME}.rc)
-    set(OFP_BUILD_PLATFORM "win32")
-elseif(ANDROID)
+    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${Pal_APP_NAME}.rc)
+endif()
+
+if(ANDROID)
     set(ANDROID_GUI ON)
-    set(MANIFEST_FILE android/AndroidManifest.xml)
-    set(OFP_BUILD_PLATFORM "an64")
-elseif(APPLE)
-    set(OFP_BUILD_PLATFORM "mac64")
-else()
-    set(OFP_BUILD_PLATFORM "lin64")
+    set(MANIFEST_FILE ${CMAKE_CURRENT_SOURCE_DIR}/android/AndroidManifest.xml)
 endif()
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 # Git
 include(GetGitRevisionDescription)
-git_get_exact_tag(OFP_GIT_TAG)
-get_git_head_revision(OFP_GIT_REFSPEC OFP_GIT_COMMIT)
+git_get_exact_tag(Pal_GIT_TAG)
+get_git_head_revision(Pal_GIT_REFSPEC Pal_GIT_COMMIT)
 
-message(STATUS "Git commit: ${OFP_GIT_COMMIT}")
-message(STATUS "Git tag: ${OFP_GIT_TAG}")
-message(STATUS "Git refspec: ${OFP_GIT_REFSPEC}")
+message(STATUS "Git commit: ${Pal_GIT_COMMIT}")
+message(STATUS "Git tag: ${Pal_GIT_TAG}")
+message(STATUS "Git refspec: ${Pal_GIT_REFSPEC}")
 
-string(REPLACE "-beta" "." OFP_GIT_TAG_NUMERO ${OFP_GIT_TAG})
+string(REPLACE "-beta" "." Pal_GIT_TAG_NUMERO ${Pal_GIT_TAG})
+string(REPLACE "-rc" "." Pal_GIT_TAG_NUMERO ${Pal_GIT_TAG_NUMERO})
 
-string(REPLACE "." " " OFP_SPLIT_VERSION ${OFP_GIT_TAG_NUMERO})
+string(REPLACE "." " " Pal_SPLIT_VERSION ${Pal_GIT_TAG_NUMERO})
 
-separate_arguments(OFP_SPLIT_VERSION)
+separate_arguments(Pal_SPLIT_VERSION)
 
-list(GET OFP_SPLIT_VERSION 0 OFP_VERSION_MAJOR)
-list(GET OFP_SPLIT_VERSION 1 OFP_VERSION_MINOR)
-list(GET OFP_SPLIT_VERSION 2 OFP_VERSION_HOTFIX)
+list(GET Pal_SPLIT_VERSION 0 Pal_VERSION_MAJOR)
+list(GET Pal_SPLIT_VERSION 1 Pal_VERSION_MINOR)
+list(GET Pal_SPLIT_VERSION 2 Pal_VERSION_HOTFIX)
 
-project(OpenFitnessPal VERSION ${OFP_GIT_TAG_NUMERO} LANGUAGES CXX)
+project(${Pal_APP_NAME} VERSION ${Pal_GIT_TAG_NUMERO} LANGUAGES CXX)
 
 # Build Date
 string(TIMESTAMP TODAY "%Y-%m-%d")
-set(OFP_BUILD_TIMESTAMP "${TODAY}")
+set(Pal_BUILD_TIMESTAMP "${TODAY}")
 
 add_subdirectory("program_info")
-find_package(OFPLib)
 
-set(QRC_FILES icons.qrc)
-
-qt_add_executable(${OFP_EXEC_NAME}
-    src/main.cpp
-    ${QRC_FILES}
-    ${RCS_FILE}
-    ${MANIFEST_FILE}
-
-    ${OFPLib_SOURCE_DIR}/include/OFPManager.h
-    ${OFPLib_SOURCE_DIR}/include/FoodItem.h
-    ${OFPLib_SOURCE_DIR}/include/ServingSize.h
-    ${OFPLib_SOURCE_DIR}/include/NutrientUnion.h
-
-    ${CMAKE_BINARY_DIR}/buildconfig/BuildConfig.cpp
+set(QRC_FILES
+    icons.qrc
 )
 
-set_target_properties(${OFP_EXEC_NAME} PROPERTIES OUTPUT_NAME ${OFP_APP_NAME})
+qt_add_executable(${Pal_EXEC_NAME}
+    main.cpp
+    ${MANIFEST_FILE}
+    ${QRC_FILES}
+    ${RCS_FILE}
+)
 
-if (ANDROID)
-    include(FetchContent)
-    FetchContent_Declare(
-        android_openssl
-        DOWNLOAD_EXTRACT_TIMESTAMP true
-        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip)
-
-    FetchContent_MakeAvailable(android_openssl)
-    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
-
-    add_android_openssl_libraries(${OFP_EXEC_NAME})
-
-    set_target_properties(${OFP_EXEC_NAME} PROPERTIES
-        QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
-        COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS} MOBILE")
-endif()
-
-qt_add_resources(${OFP_EXEC_NAME} "configuration"
-    PREFIX "/"
-    FILES
-    qtquickcontrols2.conf)
-
-set_source_files_properties(qml/Constants.qml
+set_source_files_properties(Constants.qml
     PROPERTIES
     QT_QML_SINGLETON_TYPE true
 )
 
-set(ELEMENTS
-    data/DataManager
-    data/CacheManager
-    data/SettingsManager
+set(QML_ELEMENTS
+    Main
+    Constants
 
-    Recipe
-    ExerciseRoutine
+    screen/MainScreen
 
-    GoalManager
-    NutritionManager
-    PlatformHelper
+    dialogs/AnimatedDialog
 
-    models/FoodServingModel
-    models/FoodServingComboBoxModel
-    models/RecipeListModel
+    dialogs/date/DatePicker
+    dialogs/date/MonthSpinBox
 
-    models/ExerciseListModel
-    models/ExerciseSetsModel
-    models/ExerciseRoutinesModel
+    items/LabeledSpinBox
 
-    models/NutrientModel
+    items/DateSelector
 
-    items/Exercise
-    items/ExerciseSet
+    items/NavButton
 )
 
-set(QML_ELEMENTS
-    App
-    DateSelect
-    RemoveButton.ui
-    Constants
-    AddButton.ui
-    DoubleSpinBox
-    LabeledTextField
-
-    goals/IntGoalForm.ui
-    goals/IntGoal
-    goals/MacroGoals
-    goals/GoalsPageForm.ui
-    goals/SuffixedSpinBox
-    goals/GoalsPage
-    goals/MacroGoalsForm.ui
-    goals/WeightGoal
-    goals/GoalSpinBox
-
-    exercise/ExerciseRootPage
-    exercise/ExerciseRootPageForm.ui
-
-    exercise/routines/RoutinesPage
-    exercise/routines/ExerciseRoutineEdit
-    exercise/routines/ExerciseRoutineImpl
-    exercise/routines/ExerciseRoutineEditForm.ui
-    exercise/routines/RoutinesPageForm.ui
-    exercise/routines/ExerciseRoutineForm.ui
-
-    exercise/list/ExercisePage
-    exercise/list/ExerciseSetImpl
-    exercise/list/ExerciseSetForm.ui
-    exercise/list/ExerciseForm.ui
-    exercise/list/ExercisePageForm.ui
-    exercise/list/ExerciseImpl
-
-    food/FoodServingInfoForm.ui
-    food/FoodSearchForm.ui
-    food/JournalPageForm.ui
-    food/FoodServingEditForm.ui
-    food/JournalPage
-    food/FoodServingInfo
-    food/FoodServingEdit
-    food/MealLogForm.ui
-    food/FoodPageForm.ui
-    food/FoodSearch
-    food/FoodPage
-    food/MealLog
-
-    food/nutritionInfo/NutritionInfoHeaderForm.ui
-    food/nutritionInfo/NutritionInfoHeader
-    food/nutritionInfo/CaloriePreview
-    food/nutritionInfo/NutritionInfo
-    food/nutritionInfo/CaloriePreviewForm.ui
-    food/nutritionInfo/NutritionInfoForm.ui
-    food/nutritionInfo/NutritionGoalForm.ui
-    food/nutritionInfo/NutritionGoal
-
-    recipes/RecipeEditForm.ui
-    recipes/RecipeAddForm.ui
-    recipes/RecipeAdd
-    recipes/RecipesPageForm.ui
-    recipes/RecipeInfo
-    recipes/RecipesPage
-    recipes/RecipeInfoForm.ui
-    recipes/RecipeEdit
-
-    settings/SettingsPageRoot
-    settings/DirSettingForm.ui
-    settings/DirSetting
-    settings/search/SearchSettingsPageForm.ui
-    settings/search/NutrientFilterForm.ui
-    settings/search/NutrientFilter
-    settings/search/SearchSettingsPage
-    settings/SettingsPage
-    settings/SettingsPageRootForm.ui
-    settings/MealNameSettingForm.ui
-    settings/SettingsPageForm.ui
-    settings/MealNameSetting
+set(ELEMENTS
 )
 
 foreach(ELEMENT ${ELEMENTS})
@@ -216,13 +97,21 @@ foreach(ELEMENT ${ELEMENTS})
 endforeach()
 
 foreach(QML ${QML_ELEMENTS})
-    set(QML_FILES ${QML_FILES} qml/${QML}.qml)
+    set(QML_FILES ${QML_FILES} ${QML}.qml)
 endforeach()
+
+set(HEADERS
+    ${HEADERS}
+)
+
+set(SOURCES
+    ${SOURCES}
+)
 
 add_subdirectory(buildconfig)
 
-qt_add_qml_module(${OFP_EXEC_NAME}
-    URI OpenFitnessPalContent
+qt_add_qml_module(${Pal_EXEC_NAME}
+    URI ${Pal_APP_NAME}
     VERSION 1.0
     QML_FILES ${QML_FILES}
 
@@ -232,48 +121,66 @@ qt_add_qml_module(${OFP_EXEC_NAME}
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-set_target_properties(${OFP_EXEC_NAME} PROPERTIES
-    #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.${OFP_EXEC_NAME}
+set_target_properties(${Pal_EXEC_NAME} PROPERTIES
+    #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.${Pal_EXEC_NAME}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(${OFP_EXEC_NAME}
+target_link_libraries(${Pal_EXEC_NAME}
     PRIVATE Qt6::Quick
+    Qt6::QuickControls2
+    Qt6::Network
     BuildConfig
-    OFPLib
 )
 
-target_include_directories(${OFP_EXEC_NAME} PRIVATE include/)
-target_include_directories(${OFP_EXEC_NAME} PRIVATE include/items)
-target_include_directories(${OFP_EXEC_NAME} PRIVATE include/data)
-target_include_directories(${OFP_EXEC_NAME} PRIVATE include/models)
-target_include_directories(${OFP_EXEC_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-target_include_directories(${OFP_EXEC_NAME} PRIVATE ${OFPLib_SOURCE_DIR}/include)
+target_include_directories(${Pal_EXEC_NAME} PRIVATE include/)
+target_include_directories(${Pal_EXEC_NAME} PRIVATE tba/)
+
+if(NOT EMSCRIPTEN)
+    add_compile_definitions(TBA_AUTH_KEY="${TBA_AUTH_KEY}")
+endif()
 
 include(GNUInstallDirs)
-install(TARGETS ${OFP_EXEC_NAME}
+install(TARGETS ${Pal_EXEC_NAME}
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-set_target_properties(${OFP_EXEC_NAME} PROPERTIES
+set_target_properties(${Pal_EXEC_NAME} PROPERTIES
     MACOSX_BUNDLE TRUE
 )
 
+if (ANDROID)
+    set_target_properties(${Pal_EXEC_NAME} PROPERTIES
+        QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
+        COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS} MOBILE")
+
+    include(FetchContent)
+    FetchContent_Declare(
+        android_openssl
+        DOWNLOAD_EXTRACT_TIMESTAMP true
+        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip)
+
+    FetchContent_MakeAvailable(android_openssl)
+    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
+
+    add_android_openssl_libraries(${Pal_EXEC_NAME})
+endif()
+
 if(UNIX AND APPLE)
     # Mac bundle settings
-    set(MACOSX_BUNDLE_BUNDLE_NAME "${OFP_APP_NAME}")
-    set(MACOSX_BUNDLE_INFO_STRING "${OFP_APP_NAME}: A free, open-source fitness tracker.")
-    set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.${OFP_ORG_NAME}.${OFP_APP_NAME}")
-    set(MACOSX_BUNDLE_BUNDLE_VERSION "${OFP_GIT_TAG_NUMERO}")
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${OFP_GIT_TAG_NUMERO}")
-    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${OFP_GIT_TAG_NUMERO}")
-    set(MACOSX_BUNDLE_ICON_FILE ${OFP_APP_NAME}.icns)
-    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024 ${OFP_ORG_NAME}")
+    set(MACOSX_BUNDLE_BUNDLE_NAME "${Pal_APP_NAME}")
+    set(MACOSX_BUNDLE_INFO_STRING "${Pal_APP_NAME}: An offline, QR-Based scouter for FRC use.")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.${Pal_ORG_NAME}.${Pal_APP_NAME}")
+    set(MACOSX_BUNDLE_BUNDLE_VERSION "${Pal_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${Pal_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${Pal_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_ICON_FILE ${Pal_APP_NAME}.icns)
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024 ${Pal_ORG_NAME}")
 
     # install as bundle
     set(INSTALL_BUNDLE "full")

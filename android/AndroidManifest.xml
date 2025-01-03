@@ -11,70 +11,7 @@
             </intent-filter>
             <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
             <meta-data android:name="android.app.arguments" android:value="-- %%INSERT_APP_ARGUMENTS%% --"/>
-            <meta-data android:name="android.app.extract_android_style" android:value="none"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
-            <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
-            <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
-        </activity>
-
-<activity android:name=".Activities.InputsActivity" android:windowSoftInputMode="adjustPan" android:label="OpenFitnessPal" android:screenOrientation="portrait" android:theme="@style/splashScreenTheme">
+            <meta-data android:name="android.app.extract_android_style" android:value="minimal"/>
             <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splashscreen"/>
             <meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/splashscreen_port"/>
             <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
@@ -118,5 +55,6 @@
         </provider>
     </application>
 <uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

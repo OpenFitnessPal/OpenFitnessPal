@@ -1,8 +1,6 @@
 <RCC>
-    <qresource prefix="/icons">
-        <file alias="plus">icons/plus.svg</file>
-        <file alias="trash">icons/trash.svg</file>
-        <file alias="forward">icons/forward.svg</file>
-        <file alias="back">icons/back.svg</file>
+    <qresource prefix="/">
+        <file alias="Forward">icons/forward.svg</file>
+        <file alias="Back">icons/back.svg</file>
     </qresource>
 </RCC>
