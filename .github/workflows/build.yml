@@ -86,7 +86,7 @@ jobs:
       with:
         cache: on
         version: ${{ matrix.qt_version }}
-        modules: qtmultimedia
+        modules: qtmultimedia qtsensors
 
     - name: Install Qt ${{ matrix.qt_version }} (Android)
       if: matrix.qt_target == 'android'
@@ -96,7 +96,7 @@ jobs:
         version: ${{ matrix.qt_version }}
         target: ${{ matrix.qt_target }}
         arch: ${{ matrix.qt_arch }}
-        modules: qtmultimedia
+        modules: qtmultimedia qtsensors
 
     - name: Install Build Dependencies (macOS)
       if: runner.os == 'macOS'

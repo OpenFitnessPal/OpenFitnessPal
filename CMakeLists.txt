@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Multimedia)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Multimedia Sensors)
 add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
 
 qt_standard_project_setup(REQUIRES 6.7)
@@ -136,6 +136,7 @@ target_link_libraries(${Pal_EXEC_NAME}
     Qt6::QuickControls2
     Qt6::Network
     Qt6::Multimedia
+    Qt6::Sensors
     OFPLib
     BuildConfig
 )
