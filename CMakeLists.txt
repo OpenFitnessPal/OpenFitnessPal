@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network)
+add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
