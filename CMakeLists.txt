@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 set(Pal_APP_NAME OpenFitnessPal)
-set(Pal_EXEC_NAME OFP)
+set(Pal_EXEC_NAME OpenFitnessPal)
 set(Pal_ORG_NAME ${Pal_APP_NAME})
 set(Pal_GIT_REPO https://github.com/${Pal_ORG_NAME}/${Pal_App_NAME})
 
@@ -113,6 +113,7 @@ add_subdirectory(buildconfig)
 
 qt_add_qml_module(${Pal_EXEC_NAME}
     URI ${Pal_APP_NAME}
+    OUTPUT_DIRECTORY ${Pal_APP_NAME}_qml
     VERSION 1.0
     QML_FILES ${QML_FILES}
 

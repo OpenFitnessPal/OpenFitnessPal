@@ -2,19 +2,19 @@
 
 # ICO
 
-inkscape -w 16 -h 16 -o QFRCPal_16.png QFRCPal.svg
-inkscape -w 24 -h 24 -o QFRCPal_24.png QFRCPal.svg
-inkscape -w 32 -h 32 -o QFRCPal_32.png QFRCPal.svg
-inkscape -w 48 -h 48 -o QFRCPal_48.png QFRCPal.svg
-inkscape -w 64 -h 64 -o QFRCPal_64.png QFRCPal.svg
-inkscape -w 128 -h 128 -o QFRCPal_128.png QFRCPal.svg
+inkscape -w 16 -h 16 -o OpenFitnessPal_16.png OpenFitnessPal.svg
+inkscape -w 24 -h 24 -o OpenFitnessPal_24.png OpenFitnessPal.svg
+inkscape -w 32 -h 32 -o OpenFitnessPal_32.png OpenFitnessPal.svg
+inkscape -w 48 -h 48 -o OpenFitnessPal_48.png OpenFitnessPal.svg
+inkscape -w 64 -h 64 -o OpenFitnessPal_64.png OpenFitnessPal.svg
+inkscape -w 128 -h 128 -o OpenFitnessPal_128.png OpenFitnessPal.svg
 
-convert QFRCPal_128.png QFRCPal_64.png QFRCPal_48.png QFRCPal_32.png QFRCPal_24.png QFRCPal_16.png QFRCPal.ico
+convert OpenFitnessPal_128.png OpenFitnessPal_64.png OpenFitnessPal_48.png OpenFitnessPal_32.png OpenFitnessPal_24.png OpenFitnessPal_16.png OpenFitnessPal.ico
 
-rm -f QFRCPal_*.png
+rm -f OpenFitnessPal_*.png
 
-inkscape -w 1024 -h 1024 -o QFRCPal_1024.png QFRCPal.svg
+inkscape -w 1024 -h 1024 -o OpenFitnessPal_1024.png OpenFitnessPal.svg
 
-png2icns QFRCPal.icns QFRCPal_1024.png
+png2icns OpenFitnessPal.icns OpenFitnessPal_1024.png
 
-rm -f QFRCPal_*.png
+rm -f OpenFitnessPal_*.png
