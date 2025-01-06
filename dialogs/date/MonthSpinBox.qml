@@ -1,6 +1,6 @@
 import QtQuick
 
-import OpenFitnessPal
+import OFPItems
 
 LabeledSpinBox {
     id: spinBox

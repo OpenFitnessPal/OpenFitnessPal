@@ -4,7 +4,7 @@ import QtQuick.Layouts 2.15
 
 import QtMultimedia
 
-import OpenFitnessPal
+import OFPItems
 
 SpinBox {
     id: spin

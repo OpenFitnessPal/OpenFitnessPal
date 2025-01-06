@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import OpenFitnessPal
+import OFPItems
 
 AnimatedDialog {
     id: datePicker

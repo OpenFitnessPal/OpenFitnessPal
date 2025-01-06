@@ -1,15 +1,17 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts 6.6
-import QtSensors
 
-import OpenFitnessPal
+import OFPItems
 
 Rectangle {
     id: screen
-    width: parent.width
-    height: parent.height
+
     color: Constants.bg
+
+    function back() {
+        return swipe.back()
+    }
 
     DateSelector {
         id: dateSelect
@@ -33,6 +35,35 @@ Rectangle {
 
         onAccepted: {
             dateSelect.currentDate = currentDate
+        }
+    }
+
+    SwipeView {
+        id: swipe
+
+        function back() {
+            // if false, there was no operation to be done
+            if (!currentItem.back()) {
+                // TODO: make it go to previous page
+                // if no previous page, exit
+                console.log("UNIMPLEMENTED")
+
+                // return false to NOT accept the close event, true to accept
+                return true
+            }
+
+            return false
+        }
+
+        anchors {
+            top: dateSelect.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+
+        SettingsPage {
+            id: settings
         }
     }
 }

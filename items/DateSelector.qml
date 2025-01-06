@@ -2,7 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import OpenFitnessPal
+import OFPItems
+import Util
 
 RowLayout {
     signal pickDate

@@ -10,6 +10,10 @@ QtObject {
 
     readonly property color bg: "#111111"
     readonly property color dialog: "#222222"
+
+    readonly property color button: "#333333"
+    readonly property color buttonHighlighted: "#777777"
+
     readonly property color text: "#EEEEEE"
 
     property double scalar: 1.0

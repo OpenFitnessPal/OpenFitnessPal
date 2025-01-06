@@ -71,6 +71,45 @@ set_source_files_properties(Constants.qml
     QT_QML_SINGLETON_TYPE true
 )
 
+set(ELEMENTS
+)
+
+foreach(ELEMENT ${ELEMENTS})
+    set(HEADERS ${HEADERS} include/${ELEMENT}.h)
+    set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
+endforeach()
+
+set(HEADERS
+    ${HEADERS}
+)
+
+set(SOURCES
+    ${SOURCES}
+)
+
+qt_add_qml_module(OFPNative
+    URI OFPNative
+    OUTPUT_DIRECTORY OFPNative
+    VERSION 1.0
+    SOURCES ${SOURCES} ${HEADERS}
+)
+
+add_subdirectory(buildconfig)
+
+function(add_module elements name)
+    foreach(QML ${elements})
+        set(QML_FILES ${QML_FILES} ${QML}.qml)
+    endforeach()
+
+    qt_add_qml_module(${name}
+        URI ${name}
+        OUTPUT_DIRECTORY ${name}
+        VERSION 1.0
+        QML_FILES ${QML_FILES}
+    )
+
+endfunction()
+
 set(QML_ELEMENTS
     Main
     Constants
@@ -83,42 +122,30 @@ set(QML_ELEMENTS
     dialogs/date/MonthSpinBox
 
     items/LabeledSpinBox
-
     items/DateSelector
 
-    items/NavButton
+    pages/settings/SettingsPage
+    pages/settings/InitialPage
+    pages/settings/SettingsIcon
+    pages/settings/SettingsButton
+    pages/settings/BaseSettingsTab
+
+    pages/settings/meals/MealsTab
+
+    pages/settings/goals/GoalsTab
+
+    pages/settings/search/SearchTab
 )
 
-set(ELEMENTS
+add_module("${QML_ELEMENTS}" OFPItems)
+
+### Util
+set(UTIL_ELEMENTS
+    util/NavButton
+    util/BetterStackView
 )
 
-foreach(ELEMENT ${ELEMENTS})
-    set(HEADERS ${HEADERS} include/${ELEMENT}.h)
-    set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
-endforeach()
-
-foreach(QML ${QML_ELEMENTS})
-    set(QML_FILES ${QML_FILES} ${QML}.qml)
-endforeach()
-
-set(HEADERS
-    ${HEADERS}
-)
-
-set(SOURCES
-    ${SOURCES}
-)
-
-add_subdirectory(buildconfig)
-
-qt_add_qml_module(${Pal_EXEC_NAME}
-    URI ${Pal_APP_NAME}
-    OUTPUT_DIRECTORY ${Pal_APP_NAME}_qml
-    VERSION 1.0
-    QML_FILES ${QML_FILES}
-
-    SOURCES ${SOURCES} ${HEADERS}
-)
+add_module("${UTIL_ELEMENTS}" Util)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

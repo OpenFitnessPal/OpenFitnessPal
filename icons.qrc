@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file alias="Forward">icons/forward.svg</file>
         <file alias="Back">icons/back.svg</file>
+        <file alias="Meals">icons/meals.svg</file>
+        <file alias="Search">icons/search.svg</file>
+        <file alias="Goals">icons/goals.svg</file>
     </qresource>
 </RCC>

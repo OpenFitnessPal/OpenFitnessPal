@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
 
-    engine.loadFromModule("OpenFitnessPal", "Main");
+    engine.loadFromModule("OFPItems", "Main");
 
     return app.exec();
 }
