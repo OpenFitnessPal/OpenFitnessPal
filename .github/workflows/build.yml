@@ -159,7 +159,6 @@ jobs:
       shell: bash
       run: |
         sudo apt-get install libxcb-cursor-dev libxcb-cursor0
-        sudo cmake --install ${{ env.BUILD_DIR }}/_deps/ofplib-build --prefix=/usr
 
         mkdir -p ${{ env.INSTALL_APPIMAGE_DIR }}/usr/{lib,qml/QtCore,bin}
 
@@ -208,7 +207,6 @@ jobs:
 
         cp -r ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\qml ${{ env.INSTALL_DIR }}
         cp ${{ env.BUILD_DIR }}\OpenFitnessPal.exe ${{ env.INSTALL_DIR }}
-        cp ${{ env.BUILD_DIR }}\_deps\ofplib-build\ofp.dll ${{ env.INSTALL_DIR }}
 
         if "${{ inputs.build_type }}" == "Debug" (
           cp C:\Windows\System32\ucrtbased.dll ${{ env.INSTALL_DIR }}

@@ -12,7 +12,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Multimedia Sensors)
-add_subdirectory(3rd_party EXCLUDE_FROM_ALL)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
@@ -60,23 +59,50 @@ set(QRC_FILES
 )
 
 qt_add_executable(${Pal_EXEC_NAME}
-    main.cpp
+    src/main.cpp
     ${MANIFEST_FILE}
     ${QRC_FILES}
     ${RCS_FILE}
+
+    ${CMAKE_BINARY_DIR}/buildconfig/BuildConfig.cpp
 )
 
-set_source_files_properties(Constants.qml
+set_source_files_properties(qml/Constants.qml
     PROPERTIES
     QT_QML_SINGLETON_TYPE true
 )
 
 set(ELEMENTS
+    data/CacheManager
+    data/ExerciseManager
+    data/RecipeManager
+    data/FoodManager
+    data/RoutineManager
+    data/GoalManager
+    data/WeightManager
+    data/SearchSettingsManager
+    data/MealNamesManager
+)
+
+set(LIB_ELEMENTS
+    FoodItem
+    ServingSize
+    OFPManager
+    NutrientUnion
+    ExerciseRoutine
+    Exercise
+    ExerciseSet
+    Recipe
 )
 
 foreach(ELEMENT ${ELEMENTS})
     set(HEADERS ${HEADERS} include/${ELEMENT}.h)
     set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
+endforeach()
+
+foreach(ELEMENT ${LIB_ELEMENTS})
+    set(HEADERS ${HEADERS} lib/include/${ELEMENT}.h)
+    set(SOURCES ${SOURCES} lib/src/${ELEMENT}.cpp)
 endforeach()
 
 set(HEADERS
@@ -98,7 +124,7 @@ add_subdirectory(buildconfig)
 
 function(add_module elements name)
     foreach(QML ${elements})
-        set(QML_FILES ${QML_FILES} ${QML}.qml)
+        set(QML_FILES ${QML_FILES} qml/${QML}.qml)
     endforeach()
 
     qt_add_qml_module(${name}
@@ -110,6 +136,7 @@ function(add_module elements name)
 
 endfunction()
 
+### Main
 set(QML_ELEMENTS
     Main
     Constants
@@ -164,16 +191,12 @@ target_link_libraries(${Pal_EXEC_NAME}
     Qt6::Network
     Qt6::Multimedia
     Qt6::Sensors
-    OFPLib
     BuildConfig
 )
 
-target_include_directories(${Pal_EXEC_NAME} PRIVATE include/)
-target_include_directories(${Pal_EXEC_NAME} PRIVATE tba/)
-
-if(NOT EMSCRIPTEN)
-    add_compile_definitions(TBA_AUTH_KEY="${TBA_AUTH_KEY}")
-endif()
+include_directories(lib/include/)
+include_directories(include/)
+include_directories(include/data)
 
 include(GNUInstallDirs)
 install(TARGETS ${Pal_EXEC_NAME}

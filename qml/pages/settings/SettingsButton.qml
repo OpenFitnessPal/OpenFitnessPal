@@ -5,6 +5,8 @@ import QtQuick.Layouts
 import OFPItems
 
 Rectangle {
+    id: settingsButton
+
     signal clicked
 
     required property string name
@@ -34,6 +36,8 @@ Rectangle {
                 
                 buttonHeight: 100
                 buttonWidth: 100
+
+                onClicked: settingsButton.clicked()
             }
             
             Text {
