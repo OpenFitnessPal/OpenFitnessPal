@@ -11,5 +11,6 @@
         <file alias="More">icons/more.svg</file>
         <file alias="Food">icons/food.svg</file>
         <file alias="Exercise">icons/exercise.svg</file>
+        <file alias="OpenFitnessPal">program_info/OpenFitnessPal.svg</file>
     </qresource>
 </RCC>

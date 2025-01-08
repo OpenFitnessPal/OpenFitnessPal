@@ -8,6 +8,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include <QIcon>
 #include <QQuickStyle>
 
 int main(int argc, char *argv[])
@@ -17,6 +18,8 @@ int main(int argc, char *argv[])
     app.setOrganizationName(BuildConfig.ORG_NAME);
     app.setApplicationName(BuildConfig.APP_NAME);
     app.setApplicationVersion(BuildConfig.versionString());
+
+    app.setWindowIcon(QIcon(":/OpenFitnessPal"));
 
     QQuickStyle::setStyle("Universal");
 
