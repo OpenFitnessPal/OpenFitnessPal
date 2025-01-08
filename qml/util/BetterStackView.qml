@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
+// StackView that implements proper transitions
 StackView {
     id: stackView
 

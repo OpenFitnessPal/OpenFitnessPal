@@ -4,7 +4,7 @@ import QtQuick.Layouts 2.15
 
 import QtMultimedia
 
-import OFPItems
+import OpenFitnessPal
 
 SpinBox {
     id: spin
@@ -16,7 +16,7 @@ SpinBox {
     /** the target to bind the property to */
     required property var bindTarget
 
-    font.pixelSize: 18
+    font.pixelSize: 18 * Constants.scalar
 
     from: 0
     to: 1E9
@@ -45,8 +45,8 @@ SpinBox {
     up.indicator: Rectangle {
         x: spin.mirrored ? 0 : parent.width - width
         height: parent.height
-        implicitWidth: 40
-        implicitHeight: 40
+        implicitWidth: 40 * Constants.scalar
+        implicitHeight: 40 * Constants.scalar
         color: Constants.bg
         border.color: Constants.text
 
@@ -64,8 +64,8 @@ SpinBox {
     down.indicator: Rectangle {
         x: spin.mirrored ? parent.width - width : 0
         height: parent.height
-        implicitWidth: 40
-        implicitHeight: 40
+        implicitWidth: 40 * Constants.scalar
+        implicitHeight: 40 * Constants.scalar
         color: Constants.bg
         border.color: Constants.text
 
@@ -93,7 +93,7 @@ SpinBox {
         text: label
         color: Constants.text
 
-        font.pixelSize: 15
+        font.pixelSize: 15 * Constants.scalar
 
         anchors {
             left: spin.left

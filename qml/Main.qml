@@ -4,7 +4,7 @@ import QtQuick.Dialogs
 
 import QtQuick.Controls.Universal
 
-import OFPItems
+import OpenFitnessPal
 
 Window {
     id: window
@@ -21,7 +21,17 @@ Window {
     }
 
     Component.onCompleted: {
-        Constants.scalar = Math.max(width / Constants.width, height / Constants.height)
+        Constants.scalar = Math.min(width / Constants.width, height / Constants.height)
+        Constants.isVertical = width < height
+    }
+
+    onWidthChanged: {
+        Constants.scalar = Math.min(width / Constants.width, height / Constants.height)
+        Constants.isVertical = width < height
+    }
+
+    onHeightChanged: {
+        Constants.scalar = Math.min(width / Constants.width, height / Constants.height)
         Constants.isVertical = width < height
     }
 

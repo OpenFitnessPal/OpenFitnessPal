@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
-import OFPItems
+import OpenFitnessPal
 
 Dialog {
     id: dia
@@ -41,7 +41,7 @@ Dialog {
 
         Text {
             anchors.fill: parent
-            font.pixelSize: 25
+            font.pixelSize: 25 * Constants.scalar
 
             text: title
             color: Constants.text
@@ -91,7 +91,7 @@ Dialog {
         }
 
         background: Rectangle {
-            implicitHeight: 40
+            implicitHeight: 40 * Constants.scalar
             x: 1; y: 1
             width: parent.width - 2
             height: parent.height - 2

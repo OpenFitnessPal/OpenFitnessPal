@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import OFPItems
+import OpenFitnessPal
 
 AnimatedDialog {
     id: datePicker
@@ -67,13 +67,20 @@ AnimatedDialog {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            month: currentDate.getUTCMonth()
-            year: currentDate.getUTCFullYear()
+            month: currentDate.getMonth()
+            year: currentDate.getFullYear()
 
-            onMonthChanged: currentDate.setUTCMonth(month)
-            onYearChanged: currentDate.setUTCFullYear(year)
+            onMonthChanged: currentDate.setMonth(month)
+            onYearChanged: currentDate.setFullYear(year)
 
-            property date currentDate: new Date()
+            property date currentDate
+
+            Component.onCompleted: {
+                let newDate = new Date()
+                // slightly hacky way to ensure the timezone is correct
+                newDate.setUTCMinutes(newDate.getMinutes())
+                currentDate = newDate
+            }
 
             delegate: Text {
                 horizontalAlignment: Text.AlignHCenter
@@ -87,15 +94,17 @@ AnimatedDialog {
                 Rectangle {
                     anchors.fill: parent
                     color: "lightblue"
-                    visible: days.currentDate.getUTCDate() === model.day && days.currentDate.getUTCMonth() === model.month
+                    visible: days.currentDate.getDate() === model.day && days.currentDate.getMonth() === model.month
                     z: -2
                 }
             }
 
             onClicked: (date) => {
-                           console.log(date)
-                           month = date.getUTCMonth()
-                           year = date.getUTCFullYear()
+                           let newDate = date;
+                           newDate.setUTCMinutes(newDate.getUTCMinutes() + newDate.getTimezoneOffset())
+
+                           month = date.getMonth()
+                           year = date.getFullYear()
 
                            currentDate = date;
                        }

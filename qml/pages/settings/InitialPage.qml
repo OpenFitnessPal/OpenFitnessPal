@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import OFPItems
+import OpenFitnessPal
 
 Rectangle {
     signal meals
@@ -14,7 +14,7 @@ Rectangle {
     color: Constants.bg
 
     ColumnLayout {
-        spacing: 15
+        spacing: 15 * Constants.scalar
         anchors.fill: parent
 
         SettingsButton {

@@ -48,7 +48,7 @@ bool CacheManager::cache(const FoodItem &item)
 
     QFile file(m_dir.absoluteFilePath(item.id() + ".json"));
     if (file.exists()) {
-        if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+        if (!file.open(QIODevice::ReadWrite)) {
             return false;
         }
 

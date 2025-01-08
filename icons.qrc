@@ -5,5 +5,11 @@
         <file alias="Meals">icons/meals.svg</file>
         <file alias="Search">icons/search.svg</file>
         <file alias="Goals">icons/goals.svg</file>
+        <file alias="Reorder">icons/reorder.svg</file>
+        <file alias="Delete">icons/delete.svg</file>
+        <file alias="Overview">icons/overview.svg</file>
+        <file alias="More">icons/more.svg</file>
+        <file alias="Food">icons/food.svg</file>
+        <file alias="Exercise">icons/exercise.svg</file>
     </qresource>
 </RCC>

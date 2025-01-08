@@ -2,8 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts 6.6
 
-import Util
-import OFPItems
+import OpenFitnessPal
 
 Rectangle {
     id: settings
@@ -30,8 +29,6 @@ Rectangle {
             right: parent.right
 
             topMargin: 10
-
-            bottomMargin: 300 * Constants.scalar
         }
 
         InitialPage {

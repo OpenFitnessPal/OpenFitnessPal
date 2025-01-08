@@ -1,5 +1,7 @@
 #include "data/MealNamesManager.h"
 
+#include <QDirIterator>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QStandardPaths>
@@ -20,49 +22,55 @@ void MealNamesManager::setMealNames(const QStringList &newMealNames)
 MealNamesManager::MealNamesManager(QObject *parent)
     : QObject(parent)
 {
-    QDir m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 
     resetDate();
 }
 
-/*
- * TODO: Finish up
- * For this and all other day-based stuff (this, weight, goals, NOT exercise or food), need to figure out a way to always properly get the last-set data.
- * To do that:
- * - Disable future date setting in the GUI
- * - In the read functions, if the json doesn't exist, search for the nearest date.
- *   Copy the nearest date's json over to the new date and continue.
- * - If there's no nearest date at all, set everything to the default.
- */
 bool MealNamesManager::save()
 {
     QDir dir(m_dir);
     mkDate(dir);
 
-    QFile f(dir.absoluteFilePath("meals.json"));
-    QJsonObject obj;
+    QFile f(dir.absoluteFilePath("mealNames.json"));
+    QJsonArray arr = QJsonArray::fromStringList(m_mealNames);
 
-    if (!f.open(QIODevice::ReadOnly)) {
-        return false;
-    }
-
-    obj = QJsonDocument::fromJson(f.readAll()).object();
-    f.close();
+    fixDateIfNotExists(f, dir, true);
 
     if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         return false;
     }
 
-    // obj.insert(field, data.toJsonValue());
-
-    f.write(QJsonDocument(obj).toJson());
+    f.write(QJsonDocument(arr).toJson());
     f.close();
 
     return true;
 }
 
-QStringList MealNamesManager::load() const
+QStringList MealNamesManager::load()
 {
+    QDir dir(m_dir);
+    mkDate(dir);
+
+    QFile f(dir.absoluteFilePath("mealNames.json"));
+
+    fixDateIfNotExists(f, dir, false);
+
+    if (!f.open(QIODevice::ReadOnly)) {
+        return m_mealNames;
+    }
+
+    m_mealNames.clear();
+
+    QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+    QJsonArray arr = doc.array();
+    for (QJsonValueConstRef ref : arr) {
+        m_mealNames.emplaceBack(ref.toString(""));
+    }
+
+    f.close();
+
+    return m_mealNames;
 
 }
 
@@ -92,5 +100,58 @@ bool MealNamesManager::mkDate(QDir &dir) const {
     }
 
     dir.cd(dateString);
+
     return true;
+}
+
+void MealNamesManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
+{
+    if (!f.exists() || (!modify && !dir.exists("mealNamesModified"))) {
+        QDir rootDir(m_dir);
+
+        QDate closestDate = QDate(1, 1, 1);
+
+        QDirIterator iter(rootDir);
+        while (iter.hasNext()) {
+            iter.next();
+            QString dirName = iter.fileName();
+            QDate date = QDate::fromString(dirName, "MM-dd-yyyy");
+
+            if (date.isNull() || date == m_date) continue;
+
+            int distance = date.daysTo(m_date);
+
+            if (distance < closestDate.daysTo(m_date)) {
+                closestDate = date;
+            }
+        }
+
+        if (closestDate != QDate(1, 1, 1)) {
+            QString original = m_dir.absoluteFilePath(closestDate.toString("MM-dd-yyyy") + "/mealNames.json");
+
+            // Remove the original in case it exists and is unmodified
+            QFile::remove(dir.absoluteFilePath("mealNames.json"));
+            QFile::copy(original, dir.absoluteFilePath("mealNames.json"));
+        } else {
+            if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+                return;
+            }
+
+            m_mealNames.clear();
+            m_mealNames.append("Breakfast");
+            m_mealNames.append("Lunch");
+            m_mealNames.append("Dinner");
+            m_mealNames.append("Preworkout");
+            m_mealNames.append("Postworkout");
+
+            f.write(QJsonDocument(QJsonArray::fromStringList(m_mealNames)).toJson());
+            f.close();
+        }
+    } else if (modify) {
+        QFile modified(dir.absoluteFilePath("mealNamesModified"));
+        if (!modified.exists()) {
+            modified.open(QIODevice::WriteOnly);
+            modified.close();
+        }
+    }
 }

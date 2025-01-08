@@ -2,13 +2,24 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import OFPItems
-import Util
+import OpenFitnessPal
 
 RowLayout {
     signal pickDate
 
-    property date currentDate: new Date()
+    property date currentDate
+
+    Component.onCompleted: {
+        let newDate = new Date()
+        // slightly hacky way to ensure the timezone is correct
+        newDate.setUTCMinutes(newDate.getUTCMinutes() - newDate.getTimezoneOffset())
+
+        currentDate = newDate
+    }
+
+    onCurrentDateChanged: {
+        mealNamesModel.date = currentDate
+    }
 
     NavButton {
         Layout.preferredWidth: 40 * Constants.scalar

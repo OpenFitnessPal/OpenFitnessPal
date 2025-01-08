@@ -1,14 +1,9 @@
 import QtQuick
 
-import OFPItems
+import OpenFitnessPal
 
 LabeledSpinBox {
     id: spinBox
-    // /** what property to bind to */
-    // required property string bindedProperty
-
-    // /** the target to bind the property to */
-    // required property var bindTarget
 
     font.pixelSize: 18 * Constants.scalar
 

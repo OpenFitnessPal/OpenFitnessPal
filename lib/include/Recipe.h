@@ -13,7 +13,6 @@ class Recipe
     Q_PROPERTY(QList<FoodServing> foods READ foods WRITE setFoods FINAL)
     Q_PROPERTY(double servings READ servings WRITE setServings FINAL)
     Q_PROPERTY(QString name READ name WRITE setName FINAL)
-    QML_ELEMENT
 public:
     Recipe();
 

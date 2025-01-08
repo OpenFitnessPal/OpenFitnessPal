@@ -1,21 +1,19 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick.Layouts 6.6
 
 import OpenFitnessPal
 
-BaseSettingsTab {
-    id: goals
-
-    title: "Goals"
+Rectangle {
+    id: overview
 
     color: Constants.bg
 
     Text {
         color: Constants.text
+        font.pixelSize: 25 * Constants.scalar
 
-        text: "goals"
-
+        text: "Overview Page"
         anchors.centerIn: parent
     }
 }

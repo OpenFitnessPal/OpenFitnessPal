@@ -1,17 +1,17 @@
 import QtQuick
 
-import OFPItems
-import Util
+import OpenFitnessPal
 
 Rectangle {
     required property string title
+
+    property alias nav: nav
 
     color: Constants.bg
 
     Shortcut {
         sequence: Qt.Key_Back
         onActivated: {
-            console.log("Back")
             stack.pop()
         }
     }
@@ -31,7 +31,7 @@ Rectangle {
             left: parent.left
 
             topMargin: 10
-            leftMargin: 30
+            leftMargin: 30 * Constants.scalar
         }
     }
 

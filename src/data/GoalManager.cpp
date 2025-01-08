@@ -1,5 +1,6 @@
 #include "data/GoalManager.h"
 
+#include <QDirIterator>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QStandardPaths>
@@ -7,7 +8,7 @@
 GoalManager::GoalManager(QObject *parent)
     : QObject{parent}
 {
-    QDir m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 
     resetDate();
 }
@@ -38,6 +39,8 @@ bool GoalManager::set(const QString &field, const QVariant &data)
     QFile f(dir.absoluteFilePath("goals.json"));
     QJsonObject obj;
 
+    fixDateIfNotExists(f, dir, true);
+
     if (!f.open(QIODevice::ReadOnly)) {
         return false;
     }
@@ -58,7 +61,7 @@ bool GoalManager::set(const QString &field, const QVariant &data)
 }
 
 
-QVariant GoalManager::get(const QString &field, const QVariant &defaultValue) const
+QVariant GoalManager::get(const QString &field, const QVariant &defaultValue)
 {
     QDir dir(m_dir);
 
@@ -66,6 +69,8 @@ QVariant GoalManager::get(const QString &field, const QVariant &defaultValue) co
 
     QFile f(dir.absoluteFilePath("goals.json"));
     QJsonObject obj;
+
+    fixDateIfNotExists(f, dir, false);
 
     if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return defaultValue;
@@ -76,6 +81,53 @@ QVariant GoalManager::get(const QString &field, const QVariant &defaultValue) co
 
     return obj.contains(field) ? obj.value(field) : defaultValue;
 }
+
+void GoalManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
+{
+    if (!f.exists() || (!modify && !dir.exists("goalsModified"))) {
+        QDir rootDir(m_dir);
+
+        QDate closestDate = QDate(1, 1, 1);
+
+        QDirIterator iter(rootDir);
+        while (iter.hasNext()) {
+            iter.next();
+            QString dirName = iter.fileName();
+            QDate date = QDate::fromString(dirName, "MM-dd-yyyy");
+
+            if (date.isNull() || date == m_date) continue;
+
+            int distance = date.daysTo(m_date);
+
+            if (distance < closestDate.daysTo(m_date)) {
+                closestDate = date;
+            }
+        }
+
+        if (closestDate != QDate(1, 1, 1)) {
+            QString original = m_dir.absoluteFilePath(closestDate.toString("MM-dd-yyyy") + "/goals.json");
+
+            // Remove the original in case it exists and is unmodified
+            QFile::remove(dir.absoluteFilePath("goals.json"));
+            QFile::copy(original, dir.absoluteFilePath("goals.json"));
+        } else {
+            if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+                return;
+            }
+
+            // f.write(QJsonDocument(QJsonArray::fromStringList(m_mealNames)).toJson());
+            // TODO: write the default goals.json
+            f.close();
+        }
+    } else if (modify) {
+        QFile modified(dir.absoluteFilePath("goalsModified"));
+        if (!modified.exists()) {
+            modified.open(QIODevice::WriteOnly);
+            modified.close();
+        }
+    }
+}
+
 
 bool GoalManager::mkDate(QDir &dir) const {
     QString dateString = m_date.toString("MM-dd-yyyy");

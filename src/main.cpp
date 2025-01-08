@@ -1,6 +1,10 @@
+#include "MealNamesModel.h"
+#include "CacheManager.h"
+
 #include <BuildConfig.h>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 #include <QQuickStyle>
 
@@ -22,7 +26,12 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
 
-    engine.loadFromModule("OFPItems", "Main");
+    MealNamesModel *mealNames = new MealNamesModel(&app);
+    engine.rootContext()->setContextProperty("mealNamesModel", mealNames);
+
+    CacheManager *cache = new CacheManager(&app);
+
+    engine.loadFromModule("OpenFitnessPal", "Main");
 
     return app.exec();
 }

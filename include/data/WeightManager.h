@@ -17,7 +17,7 @@ public:
     WeightManager(QObject *parent = nullptr);
 
     Q_INVOKABLE bool set(const QVariant &weight);
-    Q_INVOKABLE QVariant get() const;
+    Q_INVOKABLE QVariant get();
 
     QDate date() const;
     void setDate(const QDate &newDate);
@@ -29,6 +29,7 @@ signals:
 private:
     bool mkDate(QDir &dir) const;
     Q_PROPERTY(QDate date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
+    void fixDateIfNotExists(QFile &f, QDir &dir, bool modify);
 };
 
 #endif // WEIGHTMANAGER_H

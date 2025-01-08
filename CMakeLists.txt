@@ -63,8 +63,6 @@ qt_add_executable(${Pal_EXEC_NAME}
     ${MANIFEST_FILE}
     ${QRC_FILES}
     ${RCS_FILE}
-
-    ${CMAKE_BINARY_DIR}/buildconfig/BuildConfig.cpp
 )
 
 set_source_files_properties(qml/Constants.qml
@@ -75,6 +73,7 @@ set_source_files_properties(qml/Constants.qml
 set(ELEMENTS
     data/CacheManager
     data/ExerciseManager
+    data/CardioManager
     data/RecipeManager
     data/FoodManager
     data/RoutineManager
@@ -82,6 +81,9 @@ set(ELEMENTS
     data/WeightManager
     data/SearchSettingsManager
     data/MealNamesManager
+    data/HealthMarkerManager
+
+    models/MealNamesModel
 )
 
 set(LIB_ELEMENTS
@@ -93,6 +95,7 @@ set(LIB_ELEMENTS
     Exercise
     ExerciseSet
     Recipe
+    Cardio
 )
 
 foreach(ELEMENT ${ELEMENTS})
@@ -113,28 +116,7 @@ set(SOURCES
     ${SOURCES}
 )
 
-qt_add_qml_module(OFPNative
-    URI OFPNative
-    OUTPUT_DIRECTORY OFPNative
-    VERSION 1.0
-    SOURCES ${SOURCES} ${HEADERS}
-)
-
 add_subdirectory(buildconfig)
-
-function(add_module elements name)
-    foreach(QML ${elements})
-        set(QML_FILES ${QML_FILES} qml/${QML}.qml)
-    endforeach()
-
-    qt_add_qml_module(${name}
-        URI ${name}
-        OUTPUT_DIRECTORY ${name}
-        VERSION 1.0
-        QML_FILES ${QML_FILES}
-    )
-
-endfunction()
 
 ### Main
 set(QML_ELEMENTS
@@ -151,6 +133,7 @@ set(QML_ELEMENTS
     items/LabeledSpinBox
     items/DateSelector
 
+    # Settings
     pages/settings/SettingsPage
     pages/settings/InitialPage
     pages/settings/SettingsIcon
@@ -158,21 +141,41 @@ set(QML_ELEMENTS
     pages/settings/BaseSettingsTab
 
     pages/settings/meals/MealsTab
+    pages/settings/meals/MealNames
+    pages/settings/meals/MealNameView
 
     pages/settings/goals/GoalsTab
 
     pages/settings/search/SearchTab
-)
 
-add_module("${QML_ELEMENTS}" OFPItems)
+    # Overview
+    pages/overview/OverviewPage
 
-### Util
-set(UTIL_ELEMENTS
+    # Exercises
+    pages/exercise/ExercisePage
+
+    # Food
+    pages/food/FoodPage
+
+    # Util
     util/NavButton
+    util/IconButton
+    util/IconTabButton
     util/BetterStackView
 )
 
-add_module("${UTIL_ELEMENTS}" Util)
+foreach(QML ${QML_ELEMENTS})
+    set(QML_FILES ${QML_FILES} qml/${QML}.qml)
+endforeach()
+
+qt_add_qml_module(${Pal_EXEC_NAME}
+    URI ${Pal_EXEC_NAME}
+    OUTPUT_DIRECTORY ${Pal_EXEC_NAME}_qml
+    VERSION 1.0
+    QML_FILES ${QML_FILES}
+
+    SOURCES ${SOURCES} ${HEADERS}
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -197,6 +200,7 @@ target_link_libraries(${Pal_EXEC_NAME}
 include_directories(lib/include/)
 include_directories(include/)
 include_directories(include/data)
+include_directories(include/models)
 
 include(GNUInstallDirs)
 install(TARGETS ${Pal_EXEC_NAME}

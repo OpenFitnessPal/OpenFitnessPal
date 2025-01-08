@@ -12,6 +12,7 @@ class Exercise : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QList<ExerciseSet> sets READ sets WRITE setSets NOTIFY setsChanged)
 
+    // TODO: figure out why this doesn't work
     QML_VALUE_TYPE(exercise)
 
 public:

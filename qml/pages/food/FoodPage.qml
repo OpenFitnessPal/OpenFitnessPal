@@ -1,19 +1,19 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick.Layouts 6.6
 
 import OpenFitnessPal
 
-BaseSettingsTab {
-    id: search
+Rectangle {
+    id: food
 
-    title: "Search Settings"
+    color: Constants.bg
 
     Text {
         color: Constants.text
+        font.pixelSize: 25 * Constants.scalar
 
-        text: "Search"
-
+        text: "Food Page"
         anchors.centerIn: parent
     }
 }
