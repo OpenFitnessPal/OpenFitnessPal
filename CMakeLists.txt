@@ -130,8 +130,13 @@ set(QML_ELEMENTS
     dialogs/date/DatePicker
     dialogs/date/MonthSpinBox
 
+    # items
+    items/LabeledCheckbox
+    items/GoalComboBox
     items/LabeledSpinBox
     items/DateSelector
+    items/SectionHeader
+    items/BetterButton
 
     # Settings
     pages/settings/SettingsPage
@@ -140,12 +145,19 @@ set(QML_ELEMENTS
     pages/settings/SettingsButton
     pages/settings/BaseSettingsTab
 
+    ## Meals
     pages/settings/meals/MealsTab
     pages/settings/meals/MealNames
     pages/settings/meals/MealNameView
 
+    ## Goals
     pages/settings/goals/GoalsTab
+    pages/settings/goals/GoalSpinBox
+    pages/settings/goals/MacroGoal
+    pages/settings/goals/MacrosPage
+    pages/settings/goals/MicrosPage
 
+    ## Search
     pages/settings/search/SearchTab
 
     # Overview
@@ -176,6 +188,9 @@ qt_add_qml_module(${Pal_EXEC_NAME}
 
     SOURCES ${SOURCES} ${HEADERS}
 )
+
+set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+message(STATUS ${QML_IMPORT_PATH})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

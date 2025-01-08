@@ -36,7 +36,7 @@ Rectangle {
     }
 
     Text {
-        font.pixelSize: 25 * Constants.scalar
+        font.pixelSize: Math.round(25 * Constants.scalar)
         color: Constants.text
 
         text: title

@@ -41,7 +41,7 @@ Dialog {
 
         Text {
             anchors.fill: parent
-            font.pixelSize: 25 * Constants.scalar
+            font.pixelSize: Math.round(25 * Constants.scalar)
 
             text: title
             color: Constants.text

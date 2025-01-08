@@ -15,7 +15,11 @@ Rectangle {
 
     ColumnLayout {
         spacing: 15 * Constants.scalar
-        anchors.fill: parent
+        anchors {
+            top: parent.top
+            right: parent.right
+            left: parent.left
+        }
 
         SettingsButton {
             id: meals

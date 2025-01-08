@@ -4,7 +4,7 @@ import QtQuick.Layouts 2.15
 
 import QtMultimedia
 
-import QFRCDashboard
+import OpenFitnessPal
 
 CheckBox {
     required property string label
@@ -15,14 +15,10 @@ CheckBox {
     /** the target to bind the property to */
     required property var bindTarget
 
-    id: textField
-    font.pixelSize: 18
+    font.pixelSize: 18 * Constants.scalar
 
-    function open() {
-        checked = bindTarget[bindedProperty]
-    }
-
-    function accept() {
+    checked: bindTarget[bindedProperty]
+    onCheckedChanged: {
         bindTarget[bindedProperty] = checked
     }
 

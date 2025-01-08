@@ -31,7 +31,7 @@ void GoalManager::resetDate()
     setDate(QDate::currentDate());
 }
 
-bool GoalManager::set(const QString &field, const QVariant &data)
+bool GoalManager::set(const QString &field, const int data)
 {
     QDir dir(m_dir);
     mkDate(dir);
@@ -41,7 +41,8 @@ bool GoalManager::set(const QString &field, const QVariant &data)
 
     fixDateIfNotExists(f, dir, true);
 
-    if (!f.open(QIODevice::ReadOnly)) {
+    // ReadWrite so that the file is created if it doesn't exist.
+    if (!f.open(QIODevice::ReadWrite)) {
         return false;
     }
 
@@ -52,7 +53,7 @@ bool GoalManager::set(const QString &field, const QVariant &data)
         return false;
     }
 
-    obj.insert(field, data.toJsonValue());
+    obj.insert(field, data);
 
     f.write(QJsonDocument(obj).toJson());
     f.close();
@@ -61,7 +62,7 @@ bool GoalManager::set(const QString &field, const QVariant &data)
 }
 
 
-QVariant GoalManager::get(const QString &field, const QVariant &defaultValue)
+int GoalManager::get(const QString &field, const int defaultValue)
 {
     QDir dir(m_dir);
 
@@ -79,7 +80,15 @@ QVariant GoalManager::get(const QString &field, const QVariant &defaultValue)
     obj = QJsonDocument::fromJson(f.readAll()).object();
     f.close();
 
-    return obj.contains(field) ? obj.value(field) : defaultValue;
+    return obj.contains(field) ? obj.value(field).toInt(defaultValue) : defaultValue;
+}
+
+int GoalManager::getMacroGrams(const QString &key, const int defaultValue, const int caloriesPerGram)
+{
+    int macroPercent = get(key, defaultValue);
+    int calories = get("calories", 3000);
+
+    return (macroPercent / 100.0) * (calories / caloriesPerGram);
 }
 
 void GoalManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
@@ -115,8 +124,6 @@ void GoalManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
                 return;
             }
 
-            // f.write(QJsonDocument(QJsonArray::fromStringList(m_mealNames)).toJson());
-            // TODO: write the default goals.json
             f.close();
         }
     } else if (modify) {

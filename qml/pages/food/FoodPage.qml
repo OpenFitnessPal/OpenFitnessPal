@@ -11,7 +11,7 @@ Rectangle {
 
     Text {
         color: Constants.text
-        font.pixelSize: 25 * Constants.scalar
+        font.pixelSize: Math.round(25 * Constants.scalar)
 
         text: "Food Page"
         anchors.centerIn: parent

@@ -5,22 +5,9 @@ import OpenFitnessPal
 LabeledSpinBox {
     id: spinBox
 
-    font.pixelSize: 18 * Constants.scalar
+    font.pixelSize: Math.round(18 * Constants.scalar)
 
-    property var items: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ]
+    property var items: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
     from: 0
     to: items.length - 1
@@ -29,7 +16,7 @@ LabeledSpinBox {
 
     label: "Month"
 
-    textFromValue: function(value) {
-        return items[value];
+    textFromValue: function (value) {
+        return items[value]
     }
 }

@@ -35,7 +35,7 @@ AnimatedDialog {
                 bindTarget: days
                 bindedProperty: "year"
 
-                font.pixelSize: 20 * Constants.scalar
+                font.pixelSize: Math.round(20 * Constants.scalar)
 
                 label: "Year"
 

@@ -15,8 +15,10 @@ class GoalManager : public QObject
 public:
     GoalManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE bool set(const QString &field, const QVariant &data);
-    Q_INVOKABLE QVariant get(const QString &key, const QVariant &defaultValue);
+    Q_INVOKABLE bool set(const QString &field, const int data);
+    Q_INVOKABLE int get(const QString &key, const int defaultValue);
+
+    Q_INVOKABLE int getMacroGrams(const QString &key, const int defaultValue, const int caloriesPerGram = 4);
 
     QDate date() const;
     void setDate(const QDate &newDate);

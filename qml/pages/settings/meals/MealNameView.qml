@@ -82,7 +82,7 @@ Rectangle {
             Layout.fillWidth: true
             text: model.name
 
-            font.pixelSize: 30 * Constants.scalar
+            font.pixelSize: Math.round(30 * Constants.scalar)
         }
     }
 }

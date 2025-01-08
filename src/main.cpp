@@ -1,5 +1,7 @@
+#include "GoalManager.h"
 #include "MealNamesModel.h"
-#include "CacheManager.h"
+#include "SearchSettingsManager.h"
+#include "WeightManager.h"
 
 #include <BuildConfig.h>
 #include <QGuiApplication>
@@ -29,7 +31,14 @@ int main(int argc, char *argv[])
     MealNamesModel *mealNames = new MealNamesModel(&app);
     engine.rootContext()->setContextProperty("mealNamesModel", mealNames);
 
-    CacheManager *cache = new CacheManager(&app);
+    SearchSettingsManager *searchSettings = new SearchSettingsManager(&app);
+    engine.rootContext()->setContextProperty("searchSettings", searchSettings);
+
+    GoalManager *goals = new GoalManager(&app);
+    engine.rootContext()->setContextProperty("goalManager", goals);
+
+    WeightManager *weight = new WeightManager(&app);
+    engine.rootContext()->setContextProperty("weightManager", weight);
 
     engine.loadFromModule("OpenFitnessPal", "Main");
 

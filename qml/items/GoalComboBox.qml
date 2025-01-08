@@ -3,33 +3,27 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Shapes 2.15
 
-import QFRCDashboard
+import OpenFitnessPal
 
 ComboBox {
     required property string label
 
     /** what property to bind to */
-    required property string bindedProperty
+    required property string key
 
-    /** the target to bind the property to */
-    required property var bindTarget
+    required property int defaultValue
 
     /** choices for the combobox */
     required property var choices
 
     id: combo
     model: choices
-    font.pixelSize: 15
+    font.pixelSize: 15 * Constants.scalar
 
-    height: 50
+    implicitHeight: 40 * Constants.scalar
 
-    function open() {
-        currentIndex = indexOfValue(bindTarget[bindedProperty])
-    }
-
-    function accept() {
-        bindTarget[bindedProperty] = currentText
-    }
+    currentIndex: goalManager.get(key, defaultValue)
+    onCurrentIndexChanged: goalManager.set(key, currentIndex)
 
     delegate: ItemDelegate {
         id: delegate
@@ -37,8 +31,8 @@ ComboBox {
         width: combo.width
         contentItem: Text {
             text: modelData
-            color: Constants.palette.text
-            font.pixelSize: 15
+            color: Constants.text
+            font.pixelSize: 15 * Constants.scalar
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
         }
@@ -48,16 +42,16 @@ ComboBox {
     Text {
         id: floatingLabel
         text: label
-        color: Constants.palette.text
+        color: Constants.text
 
-        font.pixelSize: 15
+        font.pixelSize: 15 * Constants.scalar
 
         anchors {
             left: parent.left
             bottom: parent.top
 
             bottomMargin: -2
-            leftMargin: 10
+            leftMargin: 10 * Constants.scalar
         }
     }
 }

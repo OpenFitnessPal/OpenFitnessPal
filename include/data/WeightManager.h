@@ -13,11 +13,13 @@ class WeightManager : public QObject
     QDate m_date;
     QDir m_dir;
 
+    Q_PROPERTY(QDate date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
+    Q_PROPERTY(int weight READ get WRITE set NOTIFY weightChanged FINAL)
 public:
     WeightManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE bool set(const QVariant &weight);
-    Q_INVOKABLE QVariant get();
+    Q_INVOKABLE bool set(const int weight);
+    Q_INVOKABLE int get();
 
     QDate date() const;
     void setDate(const QDate &newDate);
@@ -25,10 +27,10 @@ public:
 
 signals:
     void dateChanged();
+    void weightChanged();
 
 private:
     bool mkDate(QDir &dir) const;
-    Q_PROPERTY(QDate date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
     void fixDateIfNotExists(QFile &f, QDir &dir, bool modify);
 };
 

@@ -42,6 +42,22 @@ Rectangle {
         GoalsTab {
             visible: false
             id: goals
+
+            onMacros: {
+                macros.recalc()
+                stack.push(macros)
+            }
+            onMicros: stack.push(micros)
+        }
+
+        MacrosPage {
+            visible: false
+            id: macros
+        }
+
+        MicrosPage {
+            visible: false
+            id: micros
         }
 
         SearchTab {

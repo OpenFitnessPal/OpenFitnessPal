@@ -11,22 +11,23 @@ SpinBox {
     required property string label
 
     /** what property to bind to */
-    required property string bindedProperty
+    required property string key
 
-    /** the target to bind the property to */
-    required property var bindTarget
+    required property int defaultValue
 
     font.pixelSize: Math.round(18 * Constants.scalar)
 
     from: 0
     to: 1E9
 
-    value: bindTarget[bindedProperty]
+    editable: true
+
+    value: goalManager.get(key, defaultValue)
     onValueChanged: {
-        bindTarget[bindedProperty] = value
+        goalManager.set(key, value)
     }
 
-    contentItem: TextInput {
+    contentItem: TextField {
         text: parent.textFromValue(parent.value, parent.locale)
 
         font: parent.font
@@ -40,7 +41,11 @@ SpinBox {
         inputMethodHints: Qt.ImhFormattedNumbersOnly
 
         onEditingFinished: {
-            spin.value = parseInt(text)
+            spin.value = parent.valueFromText(text, parent.locale)
+        }
+
+        background: Rectangle {
+            color: Constants.bg
         }
     }
 

@@ -28,7 +28,7 @@ TabButton {
         }
 
         Label {
-            font.pixelSize: 12 * Constants.scalar
+            font.pixelSize: Math.round(12 * Constants.scalar)
             text: button.text
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter

@@ -6,16 +6,16 @@ Config BuildConfig;
 Config::Config()
 {
     // Name and copyright
-    APP_NAME = "@Scouter_APP_NAME@";
-    ORG_NAME = "@Scouter_ORG_NAME@";
-    GIT_REPO = "@Scouter_GIT_REPO@";
+    APP_NAME = "@Pal_APP_NAME@";
+    ORG_NAME = "@Pal_ORG_NAME@";
+    GIT_REPO = "@Pal_GIT_REPO@";
 
-    BUILD_PLATFORM = "@Scouter_BUILD_PLATFORM@";
-    BUILD_DATE = "@Scouter_BUILD_TIMESTAMP@";
+    BUILD_PLATFORM = "@Pal_BUILD_PLATFORM@";
+    BUILD_DATE = "@Pal_BUILD_TIMESTAMP@";
 
-    GIT_COMMIT = "@Scouter_GIT_COMMIT@";
-    GIT_TAG = "@Scouter_GIT_TAG@";
-    GIT_REFSPEC = "@Scouter_GIT_REFSPEC@";
+    GIT_COMMIT = "@Pal_GIT_COMMIT@";
+    GIT_TAG = "@Pal_GIT_TAG@";
+    GIT_REFSPEC = "@Pal_GIT_REFSPEC@";
 
     // Assume that builds outside of Git repos are "stable"
     if (GIT_REFSPEC == QStringLiteral("GITDIR-NOTFOUND")

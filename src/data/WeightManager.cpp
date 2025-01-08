@@ -31,7 +31,7 @@ void WeightManager::resetDate()
     setDate(QDate::currentDate());
 }
 
-bool WeightManager::set(const QVariant &weight)
+bool WeightManager::set(const int weight)
 {
     QDir dir(m_dir);
     mkDate(dir);
@@ -44,14 +44,14 @@ bool WeightManager::set(const QVariant &weight)
         return false;
     }
 
-    f.write(weight.toByteArray());
+    f.write(QByteArray::number(weight));
     f.close();
 
     return true;
 }
 
 
-QVariant WeightManager::get()
+int WeightManager::get()
 {
     QDir dir(m_dir);
 
@@ -64,7 +64,7 @@ QVariant WeightManager::get()
         return 135;
     }
 
-    QVariant weight = f.readAll().toDouble();
+    int weight = f.readAll().toInt();
 
     f.close();
 

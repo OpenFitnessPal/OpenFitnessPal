@@ -38,7 +38,7 @@ RowLayout {
             anchors.fill: parent
 
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 32 * Constants.scalar
+            font.pixelSize: Math.round(32 * Constants.scalar)
 
             color: Constants.text
 
