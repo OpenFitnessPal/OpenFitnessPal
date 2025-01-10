@@ -28,7 +28,7 @@ Rectangle {
             left: parent.left
             right: parent.right
 
-            topMargin: 10
+            topMargin: 10 * Constants.scalar
         }
 
         InitialPage {

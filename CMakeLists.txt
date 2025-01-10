@@ -84,6 +84,8 @@ set(ELEMENTS
     data/HealthMarkerManager
 
     models/MealNamesModel
+    models/ExerciseSetsModel
+    models/ExerciseModel
 )
 
 set(LIB_ELEMENTS
@@ -132,6 +134,7 @@ set(QML_ELEMENTS
 
     # items
     items/LabeledCheckbox
+    items/LabeledTextField
     items/GoalComboBox
     items/LabeledSpinBox
     items/DateSelector

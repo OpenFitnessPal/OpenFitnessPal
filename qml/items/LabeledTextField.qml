@@ -4,7 +4,7 @@ import QtQuick.Layouts 2.15
 
 import QtMultimedia
 
-import QFRCDashboard
+import OpenFitnessPal
 
 TextField {
     required property string label
@@ -16,39 +16,34 @@ TextField {
     required property var bindTarget
 
     id: textField
-    font.pixelSize: 18
+    font.pixelSize: 18 * Constants.scalar
 
-    color: Constants.palette.text
+    color: Constants.text
 
-    function open() {
-        text = bindTarget[bindedProperty]
-    }
-
-    function accept() {
-        bindTarget[bindedProperty] = text
-    }
+    text: bindTarget[bindedProperty]
+    onEditingFinished: bindTarget[bindedProperty] = text
 
     background: Rectangle {
-        color: Constants.palette.bg
+        color: Constants.bg
         width: parent.width
-        border.color: Constants.palette.text
-        border.width: 2
-        radius: 5
+        border.color: Constants.text
+        border.width: 2 * Constants.scalar
+        radius: 5 * Constants.scalar
     }
 
     Text {
         id: floatingLabel
         text: label
-        color: Constants.palette.text
+        color: Constants.text
 
-        font.pixelSize: 15
+        font.pixelSize: 15 * Constants.scalar
 
         anchors {
             left: textField.left
             bottom: textField.top
 
-            bottomMargin: -2
-            leftMargin: 10
+            bottomMargin: -2 * Constants.scalar
+            leftMargin: 10 * Constants.scalar
         }
     }
 }

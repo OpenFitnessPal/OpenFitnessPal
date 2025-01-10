@@ -26,7 +26,7 @@ SpinBox {
         bindTarget[bindedProperty] = value
     }
 
-    contentItem: TextInput {
+    contentItem: TextField {
         text: parent.textFromValue(parent.value, parent.locale)
 
         font: parent.font
@@ -41,6 +41,10 @@ SpinBox {
 
         onEditingFinished: {
             spin.value = parseInt(text)
+        }
+
+        background: Rectangle {
+            color: Constants.bg
         }
     }
 

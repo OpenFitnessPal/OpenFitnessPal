@@ -1,4 +1,5 @@
 pragma Singleton
+
 import QtQuick
 import QtQuick.Controls.Universal
 
@@ -10,6 +11,7 @@ QtObject {
 
     readonly property color bg: "#111111"
     readonly property color dialog: "#222222"
+    readonly property color sub: "#222222"
 
     readonly property color button: "#333333"
     readonly property color buttonHighlighted: "#777777"
