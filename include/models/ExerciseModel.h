@@ -18,7 +18,7 @@ public:
         IDX
     };
 
-    explicit ExerciseModel(QObject *parent = nullptr);
+    explicit ExerciseModel(QObject *parent = nullptr, bool saveable = true);
 
     // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -28,6 +28,8 @@ public:
 
     // Add data:
     Q_INVOKABLE void add(const Exercise &e, ExerciseSetsModel *sets, bool doSave = true);
+    Q_INVOKABLE void add(const QList<Exercise> &e);
+    Q_INVOKABLE void add(const Exercise &e, bool doSave = true);
     Q_INVOKABLE void add(QString name, bool doSave = true);
     Q_INVOKABLE bool remove(int row);
 
@@ -38,8 +40,14 @@ public:
     QDate date() const;
     void setDate(const QDate &newDate);
 
+    ExerciseModel *fromJson(const QJsonArray &arr, QObject *parent);
+    QJsonArray toJson() const;
+
+    Q_INVOKABLE QList<Exercise> data() const;
 signals:
     void dateChanged();
+
+    void needsSave();
 
 protected:
     QHash<int, QByteArray> roleNames() const override;
@@ -49,6 +57,8 @@ private:
     QList<ExerciseSetsModel *> m_sets;
 
     ExerciseManager *m_manager;
+
+    bool m_saveable;
 
     QDate m_date;
     Q_PROPERTY(QDate date READ date WRITE setDate NOTIFY dateChanged FINAL)

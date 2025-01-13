@@ -1,6 +1,9 @@
 #include "ExerciseModel.h"
 
-ExerciseModel::ExerciseModel(QObject *parent)
+#include <QJsonArray>
+#include <QJsonObject>
+
+ExerciseModel::ExerciseModel(QObject *parent, bool saveable)
     : QAbstractListModel(parent)
 {
     m_date = QDate::currentDate();
@@ -61,6 +64,23 @@ void ExerciseModel::add(const Exercise &e, ExerciseSetsModel *sets, bool doSave)
     if (doSave) save();
 }
 
+void ExerciseModel::add(const QList<Exercise> &e)
+{
+    for (const Exercise &ex : e) {
+        add(ex, true);
+    }
+}
+
+void ExerciseModel::add(const Exercise &e, bool doSave)
+{
+    ExerciseSetsModel *model = new ExerciseSetsModel(this);
+    for (const ExerciseSet &s : e.sets()) {
+        model->add(s, false);
+    }
+
+    add(e, model, doSave);
+}
+
 void ExerciseModel::add(QString name, bool doSave)
 {
     Exercise ex(this);
@@ -94,7 +114,11 @@ void ExerciseModel::save()
         m_data[i].setSets(m_sets[i]->data());
     }
 
-    m_manager->save(m_data);
+    if (!m_saveable) {
+        emit needsSave();
+    } else {
+        m_manager->save(m_data);
+    }
 }
 
 void ExerciseModel::load()
@@ -103,13 +127,38 @@ void ExerciseModel::load()
     QList<Exercise> exercises = m_manager->load();
 
     for (const Exercise &e : exercises) {
-        ExerciseSetsModel *sets = new ExerciseSetsModel();
-        for (const ExerciseSet &s : e.sets()) {
-            sets->add(s, false);
-        }
-
-        add(e, sets, false);
+        add(e, false);
     }
+}
+
+ExerciseModel *ExerciseModel::fromJson(const QJsonArray &arr, QObject *parent)
+{
+    ExerciseModel *model = new ExerciseModel(parent, false);
+    for (QJsonValueConstRef ref : arr) {
+        QJsonObject obj = ref.toObject();
+        Exercise ex = Exercise::fromJson(obj);
+        ExerciseSetsModel *sets = ExerciseSetsModel::fromJson(obj.value("sets").toArray(), model);
+
+        model->add(ex, sets, false);
+    }
+
+    return model;
+}
+
+QJsonArray ExerciseModel::toJson() const
+{
+    QJsonArray arr;
+    for (const Exercise &ex : m_data) {
+        QJsonObject obj = ex.toJson();
+        arr.append(obj);
+    }
+
+    return arr;
+}
+
+QList<Exercise> ExerciseModel::data() const
+{
+    return m_data;
 }
 
 QDate ExerciseModel::date() const

@@ -86,6 +86,7 @@ set(ELEMENTS
     models/MealNamesModel
     models/ExerciseSetsModel
     models/ExerciseModel
+    models/ExerciseRoutineModel
 )
 
 set(LIB_ELEMENTS
@@ -167,7 +168,16 @@ set(QML_ELEMENTS
     pages/overview/OverviewPage
 
     # Exercises
+    pages/exercise/ExerciseTab
     pages/exercise/ExercisePage
+    pages/exercise/ExerciseIndexPage
+    pages/exercise/Exercise
+    pages/exercise/ExerciseSet
+    pages/exercise/ExerciseList
+
+    pages/exercise/routines/RoutinesTab
+    pages/exercise/routines/RoutinePreview
+    pages/exercise/routines/RoutineEdit
 
     # Food
     pages/food/FoodPage

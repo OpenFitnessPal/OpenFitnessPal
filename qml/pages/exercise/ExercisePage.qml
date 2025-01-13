@@ -1,157 +1,70 @@
 import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
 
 import OpenFitnessPal
 
 Rectangle {
-    // TODO: stack view w/ cardio, exercise, routines
-    signal routines
-
-    id: exercisePage
+    id: settings
 
     color: Constants.bg
 
-    Component.onCompleted: em.load()
+    function back() {
+        if (stack.depth > 1) {
+            stack.pop()
+            return true
+        }
 
-    ExerciseModel {
-        id: em
+        return false
     }
 
-    RowLayout {
-        id: buttons
-        uniformCellSizes: true
-        spacing: 20
+    BetterStackView {
+        id: stack
+        initialItem: indexPage
 
         anchors {
             top: parent.top
-            left: parent.left
-            right: parent.right
-
-            margins: 8 * Constants.scalar
-        }
-
-        Button {
-            Layout.fillWidth: true
-            font.pixelSize: 20 * Constants.scalar
-
-            text: "Add Exercise"
-            onClicked: em.add("Exercise")
-        }
-
-        // TODO: Should this be a separate option on the initial page?
-        Button {
-            Layout.fillWidth: true
-            font.pixelSize: 20 * Constants.scalar
-
-            text: "Routines"
-            onClicked: routines()
-        }
-    }
-
-    ListView {
-        id: listView
-
-        clip: true
-
-        anchors {
-            top: buttons.bottom
             bottom: parent.bottom
             left: parent.left
             right: parent.right
 
-            topMargin: 25 * Constants.scalar
+            topMargin: 10 * Constants.scalar
         }
 
-        spacing: 20 * Constants.scalar
-        topMargin: 15 * Constants.scalar
+        ExerciseIndexPage {
+            id: indexPage
 
-        boundsBehavior: Flickable.StopAtBounds
+            onExercises: stack.push(exercisesTab)
+            onRoutines: stack.push(routines)
+        }
 
-        model: em
+        // TODO: TODO:
+        // May want to add a view/edit mode for exercises.
+        ExerciseTab {
+            id: exercisesTab
 
-        delegate: ColumnLayout {
-            required property var model
-            required property var sets
+            visible: false
+        }
 
-            spacing: 25 * Constants.scalar
+        RoutinesTab {
+            id: routines
+            visible: false
 
-            width: listView.width
+            onEditRoutine: routine => {
+                               routineEdit.bindedRoutine = routine
+                               stack.push(routineEdit)
+                           }
+        }
 
-            // TODO: own components
-            RowLayout {
-                id: name
+        RoutineEdit {
+            id: routineEdit
+            visible: false
 
-                NavButton {
-                    label: "Delete"
-                    onClicked: em.remove(model.idx)
-                }
+            onLog: exercises => {
+                       exercisesTab.add(exercises)
 
-                LabeledTextField {
-                    Layout.fillWidth: true
-                    font.pixelSize: 25 * Constants.scalar
-
-                    label: "Exercise Name"
-
-                    bindTarget: model
-                    bindedProperty: "name"
-                }
-
-                NavButton {
-                    label: "Add"
-                    onClicked: sets.add()
-                }
-            }
-
-            Rectangle {
-                id: setRect
-                color: Constants.sub
-                Layout.fillWidth: true
-                Layout.preferredHeight: 75 * Constants.scalar * setsView.count
-                                        - 25 * Constants.scalar
-
-                Layout.leftMargin: 25 * Constants.scalar
-
-                ListView {
-                    id: setsView
-                    anchors.fill: parent
-                    interactive: false
-
-                    spacing: 25 * Constants.scalar
-
-                    model: sets
-
-                    delegate: RowLayout {
-                        width: parent.width
-                        implicitHeight: 60 * Constants.scalar
-
-                        NavButton {
-                            label: "Delete"
-                            onClicked: sets.remove(idx)
-                        }
-
-                        LabeledSpinBox {
-                            editable: true
-                            label: "Reps"
-
-                            bindTarget: model
-                            bindedProperty: "reps"
-
-                            Layout.fillWidth: true
-                        }
-
-                        LabeledSpinBox {
-                            editable: true
-                            label: "Weight"
-
-                            bindTarget: model
-                            bindedProperty: "weight"
-
-                            Layout.fillWidth: true
-                        }
-                    }
-                }
-            }
+                       stack.pop()
+                       stack.pop()
+                       stack.push(exercisesTab)
+                   }
         }
     }
 }

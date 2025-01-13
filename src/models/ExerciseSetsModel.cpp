@@ -89,11 +89,7 @@ ExerciseSetsModel *ExerciseSetsModel::fromJson(const QJsonArray &arr, QObject *p
 {
     ExerciseSetsModel *model = new ExerciseSetsModel(parent);
     for (QJsonValueConstRef ref : arr) {
-        ExerciseSet set;
-
-        QJsonObject obj = ref.toObject();
-        set.setReps(obj.value("reps").toInt());
-        set.setWeight(obj.value("weight").toInt());
+        ExerciseSet set = ExerciseSet::fromJson(ref.toObject());
 
         model->add(set, false);
     }
@@ -105,9 +101,7 @@ QJsonArray ExerciseSetsModel::toJson() const
 {
     QJsonArray arr;
     for (const ExerciseSet &set : m_data) {
-        QJsonObject obj;
-        obj.insert("reps", set.reps());
-        obj.insert("weight", set.weight());
+        QJsonObject obj = set.toJson();
         arr.append(obj);
     }
 

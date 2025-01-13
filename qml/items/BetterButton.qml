@@ -33,13 +33,13 @@ Rectangle {
                 color: Constants.text
                 text: name
 
-                Layout.leftMargin: 20
+                Layout.leftMargin: 20 * Constants.scalar
             }
 
             Image {
                 source: "qrc:/Forward"
-                Layout.preferredHeight: 35
-                Layout.preferredWidth: 35
+                Layout.preferredHeight: 35 * Constants.scalar
+                Layout.preferredWidth: 35 * Constants.scalar
 
                 Layout.alignment: Qt.AlignRight
             }

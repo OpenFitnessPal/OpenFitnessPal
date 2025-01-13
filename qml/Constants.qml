@@ -8,6 +8,7 @@ QtObject {
     readonly property int height: 840
 
     property color accent: "red"
+    property color accentPressed: "#ff5252"
 
     readonly property color bg: "#111111"
     readonly property color dialog: "#222222"
