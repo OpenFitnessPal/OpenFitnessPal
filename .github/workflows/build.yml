@@ -19,6 +19,7 @@ jobs:
 
           - os: ubuntu-20.04
             qt_host: linux
+            qt_target: desktop
             qt_version: '6.8.0'
             qt_arch: gcc_64
 
@@ -31,6 +32,7 @@ jobs:
 
           - os: windows-latest
             qt_host: windows
+            qt_target: desktop
             qt_version: '6.8.0'
             qt_arch: win64_msvc2022_64
 
@@ -72,12 +74,6 @@ jobs:
       if: runner.os == 'Windows'
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Check Variables (macOS)
-      if: runner.os == 'macOS'
-      shell: bash
-      run: |
-        xcode-select -print-path
-
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
 
@@ -114,6 +110,16 @@ jobs:
         arch: ${{ matrix.qt_arch }}
         modules: qtmultimedia qtsensors
 
+    - name: Check Variables (iOS)
+      if: matrix.qt_target == 'ios'
+      shell: bash
+      run: |
+        declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.QT_HOST_ARCH }}
+
+        ls ${{ env.QTPATH }}/
+        ls $QT_HOST_PATH
+        xcode-select -print-path
+
     - name: Install Build Dependencies (macOS)
       if: runner.os == 'macOS'
       run: |
@@ -129,12 +135,12 @@ jobs:
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
 
     - name: Configure (Linux)
-      if: runner.os == 'Linux'
+      if: runner.os == 'Linux_'
       run: |
         cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=${{ env.QTPATH }}/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake -G "Ninja"
 
-    - name: Configure (Windows)
-      if: runner.os == 'Windows' || matrix.qt_arch == 'clang_64'
+    - name: Configure (Desktop)
+      if: matrix.qt_target == 'desktop'
       run: |
         cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
 
