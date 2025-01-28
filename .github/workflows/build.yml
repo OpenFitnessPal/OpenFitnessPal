@@ -40,12 +40,12 @@ jobs:
             qt_host: mac
             qt_target: desktop
             qt_version: '6.8.0'
-            qt_arch: clang_64
+            qt_arch: macos
 
           - os: macos-latest
             qt_host: mac
             qt_target: ios
-            qt_host_arch: clang_64
+            qt_host_arch: macos
             qt_version: '6.8.0'
             qt_arch: ios
 
@@ -114,9 +114,9 @@ jobs:
       if: matrix.qt_target == 'ios'
       shell: bash
       run: |
-        declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.QT_HOST_ARCH }}
+        declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_host_arch }}
 
-        ls ${{ env.QTPATH }}/
+        ls ${{ env.QTPATH }}
         ls $QT_HOST_PATH
         xcode-select -print-path
 
@@ -134,11 +134,6 @@ jobs:
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage"
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
 
-    - name: Configure (Linux)
-      if: runner.os == 'Linux_'
-      run: |
-        cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=${{ env.QTPATH }}/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake -G "Ninja"
-
     - name: Configure (Desktop)
       if: matrix.qt_target == 'desktop'
       run: |
@@ -147,7 +142,7 @@ jobs:
     - name: Configure (Android, iOS)
       if: matrix.qt_target == 'ios' || matrix.qt_target == 'android'
       run: |
-        declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.QT_HOST_ARCH }}
+        declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_host_arch }}
 
         $QTPATH/${{ matrix.qt_arch }}/bin/qt-cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -G "Ninja" -DQT_HOST_PATH=$QT_HOST_PATH
 
@@ -209,8 +204,9 @@ jobs:
     - name: Package (macOS)
       if: runner.os == 'macOS'
       run: |
-        export PATH="$PATH;${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/*/bin"
-        export QML_SOURCES_PATHS="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/macos/qml"
+        declare HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_host }}
+        export PATH="$PATH;$HOST_PATH/bin"
+        export QML_SOURCES_PATHS="$HOST_PATH/qml"
 
         ls
 
