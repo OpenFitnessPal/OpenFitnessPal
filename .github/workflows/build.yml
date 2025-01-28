@@ -216,7 +216,17 @@ jobs:
 
         cd ${{ env.BUILD_DIR }}
 
+        ls
+
+        echo
+
+        ls ..
+
+        echo
+
         ls OpenFitnessPal.app
+
+        echo
 
         macdeployqt OpenFitnessPal.app -qmldir=$QML_SOURCES_PATHS -qmlimport=$QML_SOURCES_PATHS
         cp ../program_info/OpenFitnessPal.icns OpenFitnessPal.app/Contents/Resources
