@@ -128,7 +128,7 @@ jobs:
 
     - name: Prepare AppImage (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
-        run: |
+      run: |
         sudo apt-get install libstdc++-10-dev gcc-10 ninja-build openjdk-17-jdk
         wget "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage"
