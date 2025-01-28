@@ -25,6 +25,7 @@ jobs:
           - os: ubuntu-24.04
             qt_host: linux
             qt_target: android
+            qt_host_arch: gcc_64
             qt_arch: android_arm64_v8a
             qt_version: '6.8.0'
 
@@ -42,6 +43,7 @@ jobs:
           - os: macos-latest
             qt_host: mac
             qt_target: ios
+            qt_host_arch: clang_64
             qt_version: '6.8.0'
             qt_arch: ios
 
@@ -137,9 +139,11 @@ jobs:
         cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
 
     - name: Configure (Android, iOS)
-      if: matrix.qt_target == 'ios'
+      if: matrix.qt_target == 'ios' || matrix.qt_target == 'android'
       run: |
-        $QTPATH/${{ matrix.qt_arch }}/bin/qt-cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -G "Ninja"
+        declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.QT_HOST_ARCH }}
+
+        $QTPATH/${{ matrix.qt_arch }}/bin/qt-cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -G "Ninja" -DQT_HOST_PATH=$QT_HOST_PATH
 
     - name: Build
       run: |
