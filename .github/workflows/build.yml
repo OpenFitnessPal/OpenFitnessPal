@@ -18,12 +18,14 @@ jobs:
         include:
 
           - os: ubuntu-20.04
+            name: Linux
             qt_host: linux
             qt_target: desktop
             qt_version: '6.8.0'
             qt_arch: gcc_64
 
           - os: ubuntu-24.04
+            name: Android
             qt_host: linux
             qt_target: android
             qt_host_arch: gcc_64
@@ -31,18 +33,21 @@ jobs:
             qt_version: '6.8.0'
 
           - os: windows-latest
+            name: Windows
             qt_host: windows
             qt_target: desktop
             qt_version: '6.8.0'
             qt_arch: win64_msvc2022_64
 
           - os: macos-latest
+            name: macOS
             qt_host: mac
             qt_target: desktop
             qt_version: '6.8.0'
             qt_arch: macos
 
           - os: macos-latest
+            name: iOS
             qt_host: mac
             qt_target: ios
             qt_host_arch: macos
@@ -50,6 +55,7 @@ jobs:
             qt_arch: ios
 
     runs-on: ${{ matrix.os }}
+    name: ${{ matrix.name }}
 
     steps:
     - uses: actions/checkout@v4
@@ -208,9 +214,10 @@ jobs:
         export PATH="$PATH;$HOST_PATH/bin"
         export QML_SOURCES_PATHS="$HOST_PATH/qml"
 
+        cd ${{ env.BUILD_DIR }}
+
         ls OpenFitnessPal.app
 
-        cd ${{ env.BUILD_DIR }}
         macdeployqt OpenFitnessPal.app -qmldir=$QML_SOURCES_PATHS -qmlimport=$QML_SOURCES_PATHS
         cp ../program_info/OpenFitnessPal.icns OpenFitnessPal.app/Contents/Resources
 
