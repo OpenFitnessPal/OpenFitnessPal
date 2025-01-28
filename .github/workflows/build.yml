@@ -204,7 +204,7 @@ jobs:
     - name: Package (macOS)
       if: runner.os == 'macOS'
       run: |
-        declare HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_host }}
+        declare HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_arch }}
         export PATH="$PATH;$HOST_PATH/bin"
         export QML_SOURCES_PATHS="$HOST_PATH/qml"
 
