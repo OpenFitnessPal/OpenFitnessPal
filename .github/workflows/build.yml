@@ -35,8 +35,15 @@ jobs:
 
           - os: macos-latest
             qt_host: mac
+            qt_target: desktop
             qt_version: '6.8.0'
             qt_arch: clang_64
+
+          - os: macos-latest
+            qt_host: mac
+            qt_target: ios
+            qt_version: '6.8.0'
+            qt_arch: ios
 
     runs-on: ${{ matrix.os }}
 
@@ -57,10 +64,17 @@ jobs:
         echo "INSTALL_DIR=${{ github.workspace }}/install" >> $GITHUB_ENV
         echo "INSTALL_APPIMAGE_DIR=${{ github.workspace }}/install-appdir" >> $GITHUB_ENV
         echo "DATE=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_ENV
+        echo "QTPATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}" >> $GITHUB_ENV
 
     - name: Install MSVC (Windows)
       if: runner.os == 'Windows'
       uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Check Variables (macOS)
+      if: runner.os == 'macOS'
+      shell: bash
+      run: |
+        xcode-select -print-path
 
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
@@ -88,8 +102,8 @@ jobs:
         version: ${{ matrix.qt_version }}
         modules: qtmultimedia qtsensors
 
-    - name: Install Qt ${{ matrix.qt_version }} (Android)
-      if: matrix.qt_target == 'android'
+    - name: Install Qt ${{ matrix.qt_version }} (Android, iOS)
+      if: matrix.qt_target == 'android' || matrix.qt_target == 'ios'
       uses: jurplel/install-qt-action@v4.1.1
       with:
         cache: on
@@ -115,18 +129,22 @@ jobs:
     - name: Configure (Linux)
       if: runner.os == 'Linux'
       run: |
-        declare QTPATH="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}"
-
-        cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=$QTPATH/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=$QTPATH/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -G "Ninja"
+        cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=${{ env.QTPATH }}/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=${{ env.QTPATH }}/${{ matrix.qt_arch }}/lib/cmake -G "Ninja"
 
     - name: Configure (Windows)
-      if: runner.os == 'Windows' || runner.os == 'macOS'
+      if: runner.os == 'Windows' || matrix.qt_arch == 'clang_64'
       run: |
         cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
+
+    - name: Configure (Android, iOS)
+      if: matrix.qt_target == 'ios'
+      run: |
+        $QTPATH/${{ matrix.qt_arch }}/bin/qt-cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -G "Ninja"
 
     - name: Build
       run: |
         cmake --build ${{ env.BUILD_DIR }} --config ${{ inputs.build_type }} --parallel $(nproc)
+        ls ${{ env.BUILD_DIR }}
 
     - name: Package (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
