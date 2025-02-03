@@ -11,8 +11,6 @@ class ExerciseSet : public QObject
     Q_PROPERTY(int reps READ reps WRITE setReps FINAL)
     Q_PROPERTY(int weight READ weight WRITE setWeight FINAL)
 
-    QML_VALUE_TYPE(exerciseSet)
-
 public:
     ExerciseSet(QObject *parent = nullptr);
     ExerciseSet(const ExerciseSet &other);

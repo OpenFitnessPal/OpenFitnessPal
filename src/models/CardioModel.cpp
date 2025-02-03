@@ -159,6 +159,7 @@ void CardioModel::setDate(const QDate &newDate)
 {
     if (m_date == newDate)
         return;
+
     m_manager->setDate(newDate);
     m_date = newDate;
 

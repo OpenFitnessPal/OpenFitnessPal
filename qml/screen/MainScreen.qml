@@ -13,6 +13,8 @@ Rectangle {
         return swipe.back()
     }
 
+    property date currentDate: new Date()
+
     DateSelector {
         id: dateSelect
 
@@ -28,6 +30,8 @@ Rectangle {
             picker.currentDate = currentDate
             picker.open()
         }
+
+        onCurrentDateChanged: parent.currentDate = currentDate
     }
 
     DatePicker {
@@ -46,10 +50,6 @@ Rectangle {
         function back() {
             // if false, there was no operation to be done
             if (!currentItem.back()) {
-                // TODO: make it go to previous page
-                // if no previous page, exit
-                console.log("UNIMPLEMENTED")
-
                 // return false to NOT accept the close event, true to accept
                 return true
             }
@@ -66,18 +66,26 @@ Rectangle {
 
         OverviewPage {
             id: overview
+
+            currentDate: screen.currentDate
         }
 
         ExercisePage {
             id: exercise
+
+            currentDate: screen.currentDate
         }
 
         FoodPage {
             id: food
+
+            currentDate: screen.currentDate
         }
 
         SettingsPage {
             id: settings
+
+            currentDate: screen.currentDate
         }
     }
 

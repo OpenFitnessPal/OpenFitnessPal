@@ -10,7 +10,10 @@ BaseSettingsTab {
 
     title: "Edit Routine"
 
-    property var bindedRoutine
+    property var bindedRoutine: ({
+                                     "name": "",
+                                     "notes": ""
+                                 })
 
     NavButton {
         width: 40 * Constants.scalar

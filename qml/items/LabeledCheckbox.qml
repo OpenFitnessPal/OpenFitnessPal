@@ -17,7 +17,7 @@ CheckBox {
 
     font.pixelSize: 18 * Constants.scalar
 
-    checked: bindTarget[bindedProperty]
+    Component.onCompleted: checked = bindTarget[bindedProperty]
     onCheckedChanged: {
         bindTarget[bindedProperty] = checked
     }

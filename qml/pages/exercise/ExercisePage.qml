@@ -3,6 +3,8 @@ import QtQuick
 import OpenFitnessPal
 
 Rectangle {
+    property date currentDate
+
     id: settings
 
     color: Constants.bg
@@ -37,10 +39,10 @@ Rectangle {
             onCardio: stack.push(cardioTab)
         }
 
-        // TODO: TODO:
-        // May want to add a view/edit mode for exercises.
         ExerciseTab {
             id: exercisesTab
+
+            currentDate: settings.currentDate
 
             visible: false
         }
@@ -59,6 +61,8 @@ Rectangle {
             id: cardioTab
 
             visible: false
+
+            currentDate: settings.currentDate
 
             onEditCardio: cardio => {
                               cardioEdit.bindedCardio = cardio

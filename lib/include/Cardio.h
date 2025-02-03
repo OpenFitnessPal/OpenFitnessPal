@@ -7,8 +7,6 @@
 class Cardio : public QObject
 {
     Q_OBJECT
-
-    QML_VALUE_TYPE(cardio)
 public:
     explicit Cardio(QObject *parent = nullptr);
     Cardio(const Cardio &other);

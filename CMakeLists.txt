@@ -87,6 +87,7 @@ set(ELEMENTS
     models/ExerciseSetsModel
     models/ExerciseModel
     models/ExerciseRoutineModel
+    models/CardioModel
 )
 
 set(LIB_ELEMENTS
@@ -130,8 +131,10 @@ set(QML_ELEMENTS
 
     dialogs/AnimatedDialog
 
+    # Date Picker
     dialogs/date/DatePicker
     dialogs/date/MonthSpinBox
+    dialogs/date/YearSpinBox
 
     # items
     items/LabeledCheckbox
@@ -180,13 +183,16 @@ set(QML_ELEMENTS
     pages/exercise/ExerciseSet
     pages/exercise/ExerciseList
 
-    # Routines
+    ## Routines
     pages/exercise/routines/RoutinesTab
     pages/exercise/routines/RoutinePreview
     pages/exercise/routines/RoutineEdit
 
-    # Cardio
+    ## Cardio
     pages/exercise/cardio/CardioTab
+    pages/exercise/cardio/CardioPreview
+    pages/exercise/cardio/CardioPresetDialog
+    pages/exercise/cardio/CardioEdit
 
     # Food
     pages/food/FoodPage
@@ -209,10 +215,6 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
-    QML_FILES qml/pages/exercise/cardio/CardioPreview.qml
-    QML_FILES qml/pages/exercise/cardio/CardioPresetDialog.qml
-    SOURCES include/models/CardioModel.h src/models/CardioModel.cpp
-    QML_FILES qml/pages/exercise/cardio/CardioEdit.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

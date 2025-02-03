@@ -10,9 +10,8 @@ RowLayout {
     required property var bindTarget
     required property string bindedProperty
 
-    property var items: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
     onValueChanged: bindTarget[bindedProperty] = value
+
     NavButton {
         background: Item {}
 
@@ -22,7 +21,7 @@ RowLayout {
 
         label: "Back"
         onClicked: {
-            if (value > 0) {
+            if (value > 1970) {
                 value--
             }
         }
@@ -33,10 +32,10 @@ RowLayout {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
 
-        font.pixelSize: 18 * Constants.scalar
+        font.pixelSize: 20 * Constants.scalar
         color: Constants.text
 
-        text: items[value]
+        text: value
     }
 
     NavButton {
@@ -48,9 +47,7 @@ RowLayout {
 
         label: "Forward"
         onClicked: {
-            if (value < 11) {
-                value++
-            }
+            value++
         }
     }
 }

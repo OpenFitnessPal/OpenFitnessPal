@@ -12,7 +12,7 @@ AnimatedDialog {
     title: "Select Date"
 
     width: 420 * Constants.scalar
-    height: 420 * Constants.scalar
+    height: 500 * Constants.scalar
 
     standardButtons: Dialog.Ok | Dialog.Cancel
 
@@ -20,29 +20,16 @@ AnimatedDialog {
         anchors.fill: parent
         anchors.topMargin: 5
 
-        RowLayout {
+        YearSpinBox {
             Layout.fillWidth: true
-            uniformCellSizes: true
+            bindTarget: days
+            bindedProperty: "year"
+        }
 
-            MonthSpinBox {
-                Layout.fillWidth: true
-                bindTarget: days
-                bindedProperty: "month"
-            }
-
-            LabeledSpinBox {
-                Layout.fillWidth: true
-                bindTarget: days
-                bindedProperty: "year"
-
-                font.pixelSize: Math.round(20 * Constants.scalar)
-
-                label: "Year"
-
-                textFromValue: function(value) {
-                    return value;
-                }
-            }
+        MonthSpinBox {
+            Layout.fillWidth: true
+            bindTarget: days
+            bindedProperty: "month"
         }
 
         DayOfWeekRow {
@@ -59,7 +46,6 @@ AnimatedDialog {
 
                 required property string shortName
             }
-
         }
 
         MonthGrid {
@@ -68,8 +54,8 @@ AnimatedDialog {
             Layout.fillHeight: true
 
             month: currentDate.getMonth()
-            year: currentDate.getFullYear()
 
+            // year: currentDate.getFullYear()
             onMonthChanged: currentDate.setMonth(month)
             onYearChanged: currentDate.setFullYear(year)
 
@@ -94,19 +80,22 @@ AnimatedDialog {
                 Rectangle {
                     anchors.fill: parent
                     color: "lightblue"
-                    visible: days.currentDate.getDate() === model.day && days.currentDate.getMonth() === model.month
+                    visible: days.currentDate.getDate() === model.day
+                             && days.currentDate.getMonth() === model.month
                     z: -2
                 }
             }
 
-            onClicked: (date) => {
-                           let newDate = date;
-                           newDate.setUTCMinutes(newDate.getUTCMinutes() + newDate.getTimezoneOffset())
+            onClicked: date => {
+                           let newDate = date
+                           newDate.setUTCMinutes(
+                               newDate.getUTCMinutes(
+                                   ) + newDate.getTimezoneOffset())
 
                            month = date.getMonth()
                            year = date.getFullYear()
 
-                           currentDate = date;
+                           currentDate = date
                        }
         }
     }

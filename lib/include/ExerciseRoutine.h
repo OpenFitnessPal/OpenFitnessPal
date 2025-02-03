@@ -12,8 +12,6 @@ class ExerciseRoutine
     Q_PROPERTY(QList<Exercise> exercises READ exercises WRITE setExercises FINAL)
     Q_PROPERTY(QString name READ name WRITE setName FINAL)
     Q_PROPERTY(QString notes READ notes WRITE setNotes FINAL)
-
-    QML_VALUE_TYPE(exerciseRoutine)
 public:
     ExerciseRoutine();
     ExerciseRoutine(const ExerciseRoutine &other);

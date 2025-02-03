@@ -10,6 +10,12 @@ BaseSettingsTab {
 
     title: "Edit Cardio"
 
+    property var bindedCardio: ({
+                                    "name": "",
+                                    "cals": 0,
+                                    "time": 0
+                                })
+
     UnlabeledTextField {
         id: name
 

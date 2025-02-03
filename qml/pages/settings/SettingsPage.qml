@@ -5,6 +5,8 @@ import QtQuick.Layouts 6.6
 import OpenFitnessPal
 
 Rectangle {
+    property date currentDate
+
     id: settings
 
     color: Constants.bg
@@ -42,6 +44,8 @@ Rectangle {
         GoalsTab {
             visible: false
             id: goals
+
+            currentDate: settings.currentDate
 
             onMacros: {
                 macros.recalc()
