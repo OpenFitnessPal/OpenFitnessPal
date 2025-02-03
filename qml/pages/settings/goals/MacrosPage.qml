@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 
 import OpenFitnessPal
@@ -24,6 +25,40 @@ BaseSettingsTab {
         protein.recalc()
     }
 
+    MacroPresetDialog {
+        id: macroPresets
+
+        onResetGoal: (c, f, p) => {
+                         if (c !== 0) {
+                             carbs.value = c
+                             fat.value = f
+                             protein.value = p
+                         }
+                     }
+    }
+
+    Button {
+        id: button
+        font.pixelSize: 25 * Constants.scalar
+
+        anchors {
+            left: parent.left
+            right: parent.right
+
+            top: nav.bottom
+
+            margins: 8 * Constants.scalar
+        }
+
+        text: "Macro Presets"
+        onClicked: macroPresets.open()
+
+        background: Rectangle {
+            color: button.pressed ? Constants.accentPressed : Constants.accent
+            radius: 5 * Constants.scalar
+        }
+    }
+
     RowLayout {
         id: editor
         uniformCellSizes: true
@@ -31,10 +66,11 @@ BaseSettingsTab {
         spacing: 80 * Constants.scalar
 
         anchors {
-            top: nav.bottom
+            top: button.bottom
+            bottom: notice.top
             horizontalCenter: parent.horizontalCenter
 
-            topMargin: 25 * Constants.scalar
+            topMargin: 10 * Constants.scalar
         }
 
         MacroGoal {
@@ -70,10 +106,12 @@ BaseSettingsTab {
     }
 
     Rectangle {
+        id: notice
         color: Constants.button
 
+        implicitHeight: 75 * Constants.scalar
+
         anchors {
-            top: editor.bottom
             bottom: parent.bottom
             left: parent.left
             right: parent.right

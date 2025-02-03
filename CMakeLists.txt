@@ -164,6 +164,7 @@ set(QML_ELEMENTS
     pages/settings/goals/MacroGoal
     pages/settings/goals/MacrosPage
     pages/settings/goals/MicrosPage
+    pages/settings/goals/MacroPresetDialog
 
     pages/settings/goals/LabeledNumberField
     pages/settings/goals/GoalField
