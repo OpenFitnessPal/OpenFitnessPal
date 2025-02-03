@@ -8,7 +8,7 @@ ColumnLayout {
     required property var model
     required property var sets
 
-    spacing: 25 * Constants.scalar
+    spacing: 10 * Constants.scalar
 
     RowLayout {
         id: name
@@ -18,11 +18,12 @@ ColumnLayout {
             onClicked: em.remove(model.idx)
         }
 
-        LabeledTextField {
+        UnlabeledTextField {
             Layout.fillWidth: true
-            font.pixelSize: 25 * Constants.scalar
+            font.pixelSize: 20 * Constants.scalar
+            font.bold: true
 
-            label: "Exercise Name"
+            background: Item {}
 
             bindTarget: model
             bindedProperty: "name"
@@ -36,7 +37,7 @@ ColumnLayout {
 
     ListView {
         Layout.fillWidth: true
-        Layout.preferredHeight: 75 * Constants.scalar * setsView.count - 25 * Constants.scalar
+        Layout.preferredHeight: 46 * Constants.scalar * setsView.count
 
         Layout.leftMargin: 25 * Constants.scalar
 
@@ -44,12 +45,10 @@ ColumnLayout {
 
         interactive: false
 
-        spacing: 25 * Constants.scalar
+        spacing: 5 * Constants.scalar
 
         model: sets
 
-        delegate: ExerciseSet {
-            width: setsView.width
-        }
+        delegate: ExerciseSet {}
     }
 }

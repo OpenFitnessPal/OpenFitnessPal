@@ -27,9 +27,11 @@ BaseSettingsTab {
             bindedProperty: "preferGenerics"
         }
 
-        LabeledSpinBox {
+        LabeledNumberField {
             Layout.fillWidth: true
+
             label: "Results"
+            suffix: ""
 
             bindTarget: searchSettings
             bindedProperty: "results"

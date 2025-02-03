@@ -17,10 +17,13 @@ Item {
             left: parent.left
             right: parent.right
 
+            leftMargin: 10 * Constants.scalar
+            rightMargin: 10 * Constants.scalar
+
             topMargin: 5 * Constants.scalar
         }
 
-        spacing: 20 * Constants.scalar
+        spacing: 10 * Constants.scalar
 
         boundsBehavior: Flickable.StopAtBounds
 

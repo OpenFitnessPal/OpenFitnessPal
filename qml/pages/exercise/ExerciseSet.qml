@@ -5,30 +5,38 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 RowLayout {
-    implicitHeight: 60 * Constants.scalar
-    
+    implicitHeight: 40 * Constants.scalar
+    spacing: 10 * Constants.scalar
+
     NavButton {
         label: "Delete"
         onClicked: sets.remove(idx)
+
+        implicitWidth: 40 * Constants.scalar
+        implicitHeight: 40 * Constants.scalar
     }
-    
-    LabeledSpinBox {
-        editable: true
-        label: "Reps"
-        
-        bindTarget: model
-        bindedProperty: "reps"
-        
-        Layout.fillWidth: true
-    }
-    
-    LabeledSpinBox {
-        editable: true
-        label: "Weight"
-        
+
+    SmallNumberField {
+        implicitWidth: 100 * Constants.scalar
+        id: weightEdit
+
+        label: "lbs"
+
         bindTarget: model
         bindedProperty: "weight"
-        
-        Layout.fillWidth: true
+
+        attentive: false
+    }
+
+    SmallNumberField {
+        implicitWidth: 100 * Constants.scalar
+        id: repsEdit
+
+        label: "reps"
+
+        bindTarget: model
+        bindedProperty: "reps"
+
+        attentive: false
     }
 }

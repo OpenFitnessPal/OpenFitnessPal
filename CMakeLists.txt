@@ -141,6 +141,8 @@ set(QML_ELEMENTS
     items/DateSelector
     items/SectionHeader
     items/BetterButton
+    items/UnlabeledTextField
+    items/SmallNumberField
 
     # Settings
     pages/settings/SettingsPage
@@ -156,10 +158,13 @@ set(QML_ELEMENTS
 
     ## Goals
     pages/settings/goals/GoalsTab
-    pages/settings/goals/GoalSpinBox
     pages/settings/goals/MacroGoal
     pages/settings/goals/MacrosPage
     pages/settings/goals/MicrosPage
+
+    pages/settings/goals/LabeledNumberField
+    pages/settings/goals/GoalField
+    pages/settings/goals/WeightGoalDialog
 
     ## Search
     pages/settings/search/SearchTab
@@ -175,9 +180,13 @@ set(QML_ELEMENTS
     pages/exercise/ExerciseSet
     pages/exercise/ExerciseList
 
+    # Routines
     pages/exercise/routines/RoutinesTab
     pages/exercise/routines/RoutinePreview
     pages/exercise/routines/RoutineEdit
+
+    # Cardio
+    pages/exercise/cardio/CardioTab
 
     # Food
     pages/food/FoodPage

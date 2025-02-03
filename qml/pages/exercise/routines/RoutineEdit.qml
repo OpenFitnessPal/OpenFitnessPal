@@ -32,15 +32,16 @@ BaseSettingsTab {
         }
     }
 
-    LabeledTextField {
+    UnlabeledTextField {
         id: name
 
         bindTarget: bindedRoutine
         bindedProperty: "name"
 
-        label: "Name"
+        font.pixelSize: 22 * Constants.scalar
+        font.bold: true
 
-        font.pixelSize: 20 * Constants.scalar
+        background: Item {}
 
         anchors {
             top: nav.bottom
@@ -51,22 +52,25 @@ BaseSettingsTab {
         }
     }
 
-    LabeledTextField {
+    UnlabeledTextField {
         id: notes
-
-        label: "Notes"
 
         bindTarget: bindedRoutine
         bindedProperty: "notes"
 
         font.pixelSize: 16 * Constants.scalar
+        color: "gray"
+
+        background: Item {}
 
         anchors {
             top: name.bottom
             left: parent.left
             right: parent.right
 
-            topMargin: 20 * Constants.scalar
+            leftMargin: 20 * Constants.scalar
+
+            topMargin: 10 * Constants.scalar
         }
     }
 

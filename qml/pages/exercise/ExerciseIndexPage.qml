@@ -7,6 +7,7 @@ import OpenFitnessPal
 Rectangle {
     signal routines
     signal exercises
+    signal cardio
 
     id: initial
 
@@ -28,6 +29,11 @@ Rectangle {
         SettingsButton {
             name: "Exercise"
             onClicked: initial.exercises()
+        }
+
+        SettingsButton {
+            name: "Cardio"
+            onClicked: initial.cardio()
         }
     }
 }

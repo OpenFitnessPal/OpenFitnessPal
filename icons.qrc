@@ -15,5 +15,6 @@
         <file alias="Add">icons/add.svg</file>
         <file alias="Routines">icons/routines.svg</file>
         <file alias="MoreVertical">icons/moreVert.svg</file>
+        <file alias="Cardio">icons/cardio.svg</file>
     </qresource>
 </RCC>

@@ -5,6 +5,7 @@
 
 ExerciseModel::ExerciseModel(QObject *parent, bool saveable)
     : QAbstractListModel(parent)
+    , m_saveable(saveable)
 {
     m_date = QDate::currentDate();
 

@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Universal
 import QtQuick.Layouts
 
 import OpenFitnessPal
@@ -59,8 +59,18 @@ ColumnLayout {
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-        handle.implicitHeight: 30 * Constants.scalar
-        handle.implicitWidth: 30 * Constants.scalar
+        handle: Rectangle {
+            implicitWidth: 30 * Constants.scalar
+            implicitHeight: 30 * Constants.scalar
+
+            x: slider.leftPadding + (slider.horizontal ? slider.visualPosition * (slider.availableWidth - width) : (slider.availableWidth - width) / 2)
+            y: slider.topPadding
+               + (slider.horizontal ? (slider.availableHeight - height) / 2 : slider.visualPosition
+                                      * (slider.availableHeight - height))
+
+            radius: 15 * Constants.scalar
+            color: slider.pressed ? slider.Universal.chromeHighColor : slider.enabled ? slider.hovered ? slider.Universal.chromeAltLowColor : slider.Universal.accent : slider.Universal.chromeDisabledHighColor
+        }
 
         id: slider
 

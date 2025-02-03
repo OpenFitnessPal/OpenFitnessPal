@@ -11,146 +11,152 @@ BaseSettingsTab {
 
     color: Constants.bg
 
-    ScrollView {
-        contentWidth: -1 //parent.width - 20
+    // ScrollView {
+    //     contentWidth: -1 //parent.width - 20
+    //     anchors {
+    //         top: nav.bottom
+    //         bottom: parent.bottom
+    //         right: parent.right
+    //         left: parent.left
+
+    //         topMargin: 25 * Constants.scalar
+    //     }
+
+    //     Component.onCompleted: contentHeight += 50 * Constants.scalar
+
+    //     onHeightChanged: contentHeight += 50 * Constants.scalar
+    ColumnLayout {
+        uniformCellSizes: true
+        spacing: 0
+
         anchors {
             top: nav.bottom
-            bottom: parent.bottom
             right: parent.right
             left: parent.left
 
             topMargin: 25 * Constants.scalar
         }
 
-        Component.onCompleted: contentHeight += 50 * Constants.scalar
+        GoalField {
+            Layout.fillWidth: true
+            label: "Saturated Fat"
+            key: "satFat"
+            defaultValue: 50
 
-        onHeightChanged: contentHeight += 50 * Constants.scalar
+            suffix: "g"
+        }
 
-        ColumnLayout {
-            uniformCellSizes: true
-            spacing: 25 * Constants.scalar
+        GoalField {
+            Layout.fillWidth: true
+            label: "Polyunsatured Fat"
+            key: "polyFat"
+            defaultValue: 0
 
-            anchors.fill: parent
-            anchors.topMargin: 25 * Constants.scalar
-            anchors.rightMargin: 20
+            suffix: "g"
+        }
 
-            // TODO: implement real suffixes
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Saturated Fat (g)"
-                key: "satFat"
-                defaultValue: 50
+        GoalField {
+            Layout.fillWidth: true
+            label: "Monounsaturated Fat"
+            key: "monoFat"
+            defaultValue: 50
 
-                stepSize: 5
-            }
+            suffix: "g"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Polyunsatured Fat (g)"
-                key: "polyFat"
-                defaultValue: 0
+        GoalField {
+            Layout.fillWidth: true
+            label: "Trans Fat"
+            key: "transFat"
+            defaultValue: 0
 
-                stepSize: 5
-            }
+            suffix: "g"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Monounsaturated Fat (g)"
-                key: "monoFat"
-                defaultValue: 50
+        GoalField {
+            Layout.fillWidth: true
+            label: "Cholesterol"
+            key: "cholesterol"
+            defaultValue: 600
 
-                stepSize: 5
-            }
+            suffix: "mg"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Trans Fat (g)"
-                key: "transFat"
-                defaultValue: 0
+        GoalField {
+            Layout.fillWidth: true
+            label: "Sodium"
+            key: "sodium"
+            defaultValue: 6000
 
-                stepSize: 5
-            }
+            to: 99999
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Cholesterol (mg)"
-                key: "cholesterol"
-                defaultValue: 600
+            suffix: "mg"
+        }
 
-                stepSize: 10
-            }
+        GoalField {
+            Layout.fillWidth: true
+            label: "Potassium"
+            key: "potassium"
+            defaultValue: 4000
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Sodium (mg)"
-                key: "sodium"
-                defaultValue: 6000
+            to: 99999
 
-                stepSize: 100
-            }
+            suffix: "mg"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Potassium (mg)"
-                key: "potassium"
-                defaultValue: 4000
+        GoalField {
+            Layout.fillWidth: true
+            label: "Fiber"
+            key: "fiber"
+            defaultValue: 20
 
-                stepSize: 100
-            }
+            suffix: "g"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Fiber (g)"
-                key: "fiber"
-                defaultValue: 20
+        GoalField {
+            Layout.fillWidth: true
+            label: "Sugar"
+            key: "sugar"
+            defaultValue: 100
 
-                stepSize: 5
-            }
+            suffix: "g"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Sugar (g)"
-                key: "sugar"
-                defaultValue: 100
+        GoalField {
+            Layout.fillWidth: true
+            label: "Vitamin A"
+            key: "vitaminA"
+            defaultValue: 100
 
-                stepSize: 5
-            }
+            suffix: "% DV"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Vitamin A (% DV)"
-                key: "vitaminA"
-                defaultValue: 100
+        GoalField {
+            Layout.fillWidth: true
+            label: "Vitamin C"
+            key: "vitaminC"
+            defaultValue: 100
 
-                stepSize: 10
-            }
+            suffix: "% DV"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Vitamin C (% DV)"
-                key: "vitaminC"
-                defaultValue: 100
+        GoalField {
+            Layout.fillWidth: true
+            label: "Calcium"
+            key: "calcium"
+            defaultValue: 100
 
-                stepSize: 10
-            }
+            suffix: "% DV"
+        }
 
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Calcium (% DV)"
-                key: "calcium"
-                defaultValue: 100
+        GoalField {
+            Layout.fillWidth: true
+            label: "Iron"
+            key: "iron"
+            defaultValue: 100
 
-                stepSize: 10
-            }
-
-            GoalSpinBox {
-                Layout.fillWidth: true
-                label: "Iron (% DV)"
-                key: "iron"
-                defaultValue: 100
-
-                stepSize: 10
-            }
+            suffix: "% DV"
         }
     }
+    // }
 }

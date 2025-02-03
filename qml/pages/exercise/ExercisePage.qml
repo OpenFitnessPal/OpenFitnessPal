@@ -34,6 +34,7 @@ Rectangle {
 
             onExercises: stack.push(exercisesTab)
             onRoutines: stack.push(routines)
+            onCardio: stack.push(cardioTab)
         }
 
         // TODO: TODO:
@@ -52,6 +53,12 @@ Rectangle {
                                routineEdit.bindedRoutine = routine
                                stack.push(routineEdit)
                            }
+        }
+
+        CardioTab {
+            id: cardioTab
+
+            visible: false
         }
 
         RoutineEdit {

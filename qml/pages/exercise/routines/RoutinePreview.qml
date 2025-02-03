@@ -20,24 +20,35 @@ MouseArea {
         RowLayout {
             anchors.fill: parent
             anchors.margins: 8 * Constants.scalar
+            spacing: 0
 
             IconButton {
                 label: "Delete"
                 onClicked: deleteRequested()
+
+                Layout.maximumWidth: 40 * Constants.scalar
             }
 
             ColumnLayout {
                 Layout.fillWidth: true
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+
                 Text {
+                    Layout.fillWidth: true
                     font.pixelSize: 25 * Constants.scalar
                     color: Constants.text
                     text: model.name
+
+                    elide: Text.ElideRight
                 }
 
                 Text {
+                    Layout.fillWidth: true
                     font.pixelSize: 18 * Constants.scalar
                     color: "#A0A0A0"
                     text: model.notes
+
+                    elide: Text.ElideRight
                 }
             }
 

@@ -6,6 +6,12 @@ import OpenFitnessPal
 Dialog {
     id: dia
 
+    height: Math.min(
+                window.height, Math.max(
+                    implicitBackgroundHeight + topInset
+                    + bottomInset, contentHeight + topPadding + bottomPadding
+                    + (implicitHeaderHeight > 0 ? implicitHeaderHeight + spacing : 0) + (implicitFooterHeight > 0 ? implicitFooterHeight + spacing : 0)) + 50 * Constants.scalar)
+
     property int radius: 12
     property bool colorful: true
 
@@ -62,10 +68,13 @@ Dialog {
     footer: DialogButtonBox {
         id: control
 
-        implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                                (control.count === 1 ? implicitContentWidth * 2 : implicitContentWidth) + leftPadding + rightPadding)
-        implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                                 implicitContentHeight + topPadding + bottomPadding)
+        implicitWidth: Math.max(
+                           implicitBackgroundWidth + leftInset + rightInset,
+                           (control.count === 1 ? implicitContentWidth * 2 : implicitContentWidth)
+                           + leftPadding + rightPadding)
+        implicitHeight: Math.max(
+                            implicitBackgroundHeight + topInset + bottomInset,
+                            implicitContentHeight + topPadding + bottomPadding)
         contentWidth: (contentItem as ListView)?.contentWidth
 
         spacing: 6
@@ -92,7 +101,8 @@ Dialog {
 
         background: Rectangle {
             implicitHeight: 40 * Constants.scalar
-            x: 1; y: 1
+            x: 1
+            y: 1
             width: parent.width - 2
             height: parent.height - 2
 

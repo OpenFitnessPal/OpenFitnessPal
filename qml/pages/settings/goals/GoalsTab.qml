@@ -14,107 +14,153 @@ BaseSettingsTab {
 
     color: Constants.bg
 
+    WeightGoalDialog {
+        id: goalDialog
+
+        onResetGoal: (idx, result) => {
+                         goalManager.set("goal", idx)
+                         calories.value = weight.value * (16 + idx * 2)
+                         goal.text = result
+                     }
+    }
+
     ColumnLayout {
-        uniformCellSizes: true
-        spacing: 20 * Constants.scalar
+        spacing: 15 * Constants.scalar
 
         anchors {
             top: nav.bottom
             left: parent.left
             right: parent.right
 
-            margins: 8 * Constants.scalar
             topMargin: 25 * Constants.scalar
         }
 
-        LabeledSpinBox {
-            id: weight
+        ColumnLayout {
             Layout.fillWidth: true
-            label: "Weight (lbs)"
+            spacing: 0
 
-            editable: true
+            LabeledNumberField {
+                id: weight
 
-            bindedProperty: "weight"
-            bindTarget: weightManager
-        }
+                Layout.fillWidth: true
 
-        GoalComboBox {
-            Layout.fillWidth: true
-            label: "Weight Goal"
+                label: "Current Weight"
+                suffix: "lbs"
 
-            key: "goal"
-            defaultValue: 2
+                bindTarget: weightManager
+                bindedProperty: "weight"
+            }
 
-            choices: ["Fast Weight Loss", "Slow Weight Loss", "Maintain Weight", "Slow Weight Gain", "Fast Weight Gain"]
+            GoalField {
+                id: calories
 
-            onActivated: index => {
-                             let weightMultiplier = 16 + index * 2
+                Layout.fillWidth: true
 
-                             // Fast Loss: 16
-                             // Slow Loss: 18
-                             // Maintain : 20
-                             // Slow Gain: 22
-                             // Fast Gain: 24
-                             calories.value = weight.value * weightMultiplier
-                         }
-        }
+                suffix: "kcal"
+                label: "Calorie Target"
 
-        GoalSpinBox {
-            id: calories
-            Layout.fillWidth: true
-            label: "Calories"
+                key: "calories"
+                defaultValue: 3000
+            }
 
-            editable: true
-            stepSize: 100
+            Rectangle {
+                id: goal
 
-            key: "calories"
-            defaultValue: 3000
+                color: Constants.sub
+
+                implicitHeight: 45 * Constants.scalar
+                Layout.fillWidth: true
+
+                property list<string> goals: ["Fast Weight Loss", "Slow Weight Loss", "Maintain Weight", "Slow Weight Gain", "Fast Weight Gain"]
+
+                property string text: this.goals[goalManager.get("goal", 2)]
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: goalDialog.open()
+
+                    RowLayout {
+                        anchors {
+                            fill: parent
+
+                            rightMargin: 10 * Constants.scalar
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            Layout.leftMargin: 15 * Constants.scalar
+
+                            color: Constants.text
+
+                            text: "Weight Goal"
+
+                            font.pixelSize: 16 * Constants.scalar
+                        }
+
+                        Text {
+                            color: Constants.text
+
+                            text: goal.text
+
+                            font.pixelSize: 16 * Constants.scalar
+                        }
+                    }
+                }
+            }
         }
 
         SectionHeader {
+            Layout.leftMargin: 15 * Constants.scalar
             Layout.fillWidth: true
             label: "Nutrition"
         }
 
-        BetterButton {
+        ColumnLayout {
             Layout.fillWidth: true
-            name: "Macronutrient Goals"
+            spacing: 5 * Constants.scalar
 
-            onClicked: macros()
-        }
+            BetterButton {
+                Layout.fillWidth: true
+                name: "Macronutrient Goals"
 
-        BetterButton {
-            Layout.fillWidth: true
-            name: "Additional Nutrient Goals"
+                onClicked: macros()
+            }
 
-            onClicked: micros()
+            BetterButton {
+                Layout.fillWidth: true
+                name: "Additional Nutrient Goals"
+
+                onClicked: micros()
+            }
         }
 
         SectionHeader {
+            Layout.leftMargin: 15 * Constants.scalar
             Layout.fillWidth: true
-            label: "Exercise"
+            label: "Weekly Goals"
         }
 
-        GoalSpinBox {
+        ColumnLayout {
             Layout.fillWidth: true
-            label: "Workouts per Week"
+            spacing: 0
 
-            editable: true
+            GoalField {
+                Layout.fillWidth: true
+                label: "Workouts"
+                suffix: "/ week"
 
-            key: "workouts"
-            defaultValue: 5
-        }
+                key: "workouts"
+                defaultValue: 5
+            }
 
-        GoalSpinBox {
-            Layout.fillWidth: true
-            label: "Minutes per Workout"
+            GoalField {
+                Layout.fillWidth: true
+                label: "Time per Workout"
+                suffix: "min"
 
-            editable: true
-
-            key: "minutes"
-            defaultValue: 120
-
-            stepSize: 10
+                key: "minutes"
+                defaultValue: 120
+            }
         }
     }
 }
