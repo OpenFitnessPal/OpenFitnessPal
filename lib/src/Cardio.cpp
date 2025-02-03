@@ -11,7 +11,7 @@ Cardio::Cardio(const Cardio &other)
 {
     setCalories(other.calories());
     setMinutes(other.minutes());
-    setNotes(other.notes());
+    setName(other.name());
 }
 
 Cardio Cardio::operator=(const Cardio &other)
@@ -19,7 +19,7 @@ Cardio Cardio::operator=(const Cardio &other)
     setParent(other.parent());
     setCalories(other.calories());
     setMinutes(other.minutes());
-    setNotes(other.notes());
+    setName(other.name());
 
     return *this;
 }
@@ -50,17 +50,17 @@ void Cardio::setMinutes(double newMinutes)
     emit minutesChanged();
 }
 
-QString Cardio::notes() const
+QString Cardio::name() const
 {
-    return m_notes;
+    return m_name;
 }
 
-void Cardio::setNotes(const QString &newNotes)
+void Cardio::setName(const QString &newname)
 {
-    if (m_notes == newNotes)
+    if (m_name == newname)
         return;
-    m_notes = newNotes;
-    emit notesChanged();
+    m_name = newname;
+    emit nameChanged();
 }
 
 QJsonObject Cardio::toJson() const
@@ -68,7 +68,7 @@ QJsonObject Cardio::toJson() const
     QJsonObject obj;
     obj.insert("calories", m_calories);
     obj.insert("minutes", m_minutes);
-    obj.insert("notes", m_notes);
+    obj.insert("name", m_name);
     return obj;
 }
 
@@ -77,12 +77,12 @@ Cardio Cardio::fromJson(const QJsonObject &obj)
     Cardio c;
     c.setCalories(obj.value("calories").toInt());
     c.setMinutes(obj.value("minutes").toDouble());
-    c.setNotes(obj.value("notes").toString());
+    c.setName(obj.value("name").toString());
     return c;
 }
 
 bool operator==(const Cardio &a, const Cardio &b) {
     return a.calories() == b.calories() &&
            a.minutes() == b.minutes() &&
-           a.notes() == b.notes();
+           a.name() == b.name();
 }

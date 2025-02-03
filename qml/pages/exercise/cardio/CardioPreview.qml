@@ -46,18 +46,10 @@ MouseArea {
                     Layout.fillWidth: true
                     font.pixelSize: 18 * Constants.scalar
                     color: "#A0A0A0"
-                    text: model.notes
+                    text: model.time + " min, " + model.cals + " kcal"
 
                     elide: Text.ElideRight
                 }
-            }
-
-            Image {
-                source: "qrc:/Forward"
-                Layout.preferredWidth: 35 * Constants.scalar
-                Layout.preferredHeight: 35 * Constants.scalar
-
-                Layout.alignment: Qt.AlignRight
             }
         }
     }

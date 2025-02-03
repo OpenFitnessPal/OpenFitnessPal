@@ -5,6 +5,8 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 ColumnLayout {
+    signal remove(int idx)
+
     required property var model
     required property var sets
 
@@ -15,7 +17,7 @@ ColumnLayout {
 
         NavButton {
             label: "Delete"
-            onClicked: em.remove(model.idx)
+            onClicked: remove(model.idx)
         }
 
         UnlabeledTextField {

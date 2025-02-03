@@ -21,8 +21,8 @@ public:
     double minutes() const;
     void setMinutes(double newMinutes);
 
-    QString notes() const;
-    void setNotes(const QString &newNotes);
+    QString name() const;
+    void setName(const QString &newName);
 
     QJsonObject toJson() const;
     static Cardio fromJson(const QJsonObject &obj);
@@ -32,16 +32,16 @@ signals:
 
     void minutesChanged();
 
-    void notesChanged();
+    void nameChanged();
 
 private:
     double m_minutes;
     int m_calories;
-    QString m_notes;
+    QString m_name;
 
     Q_PROPERTY(int calories READ calories WRITE setCalories NOTIFY caloriesChanged FINAL)
     Q_PROPERTY(double minutes READ minutes WRITE setMinutes NOTIFY minutesChanged FINAL)
-    Q_PROPERTY(QString notes READ notes WRITE setNotes NOTIFY notesChanged FINAL)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
 };
 
 bool operator==(const Cardio &a, const Cardio &b);

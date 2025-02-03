@@ -4,6 +4,7 @@ import QtQuick.Controls
 import OpenFitnessPal
 
 Item {
+    id: el
     required property var model
 
     ListView {
@@ -31,6 +32,8 @@ Item {
 
         delegate: Exercise {
             width: listView.width
+
+            onRemove: idx => el.model.remove(idx)
         }
     }
 

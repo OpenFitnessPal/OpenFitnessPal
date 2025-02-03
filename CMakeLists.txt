@@ -209,6 +209,10 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
+    QML_FILES qml/pages/exercise/cardio/CardioPreview.qml
+    QML_FILES qml/pages/exercise/cardio/CardioPresetDialog.qml
+    SOURCES include/models/CardioModel.h src/models/CardioModel.cpp
+    QML_FILES qml/pages/exercise/cardio/CardioEdit.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

@@ -59,6 +59,11 @@ Rectangle {
             id: cardioTab
 
             visible: false
+
+            onEditCardio: cardio => {
+                              cardioEdit.bindedCardio = cardio
+                              stack.push(cardioEdit)
+                          }
         }
 
         RoutineEdit {
@@ -72,6 +77,13 @@ Rectangle {
                        stack.pop()
                        stack.push(exercisesTab)
                    }
+        }
+
+        CardioEdit {
+            id: cardioEdit
+            visible: false
+
+            onFinished: stack.pop()
         }
     }
 }
