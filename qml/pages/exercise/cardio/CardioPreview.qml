@@ -8,13 +8,13 @@ MouseArea {
     signal deleteRequested
 
     hoverEnabled: true
-    onHoveredChanged: rct.color = containsMouse ? Constants.buttonHighlighted : Constants.button
 
     implicitHeight: 75 * Constants.scalar
 
     Rectangle {
         id: rct
-        color: Constants.button
+        color: containsMouse
+               && !del.mousedOver ? Constants.buttonHighlighted : Constants.sub
         anchors.fill: parent
 
         RowLayout {
@@ -22,7 +22,8 @@ MouseArea {
             anchors.margins: 8 * Constants.scalar
             spacing: 10 * Constants.scalar
 
-            IconButton {
+            NavButton {
+                id: del
                 label: "Delete"
                 onClicked: deleteRequested()
 

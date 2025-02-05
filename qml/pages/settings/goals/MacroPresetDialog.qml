@@ -31,7 +31,7 @@ AnimatedDialog {
         ListElement {
             name: "Keto"
             carbs: 5
-            fat: 70
+            fat: 75
             protein: 20
         }
 

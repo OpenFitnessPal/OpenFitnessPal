@@ -14,7 +14,7 @@ void SearchSettingsManager::setPreferGenerics(bool newPreferGenerics)
 
 void SearchSettingsManager::resetPreferGenerics()
 {
-    setPreferGenerics({}); // TODO: Adapt to use your actual default value
+    setPreferGenerics(true);
 }
 
 int SearchSettingsManager::results() const

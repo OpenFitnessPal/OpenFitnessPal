@@ -14,21 +14,28 @@ class FoodManager : public QObject
 
     QDate m_date;
     QDir m_dir;
+    int m_meal;
 public:
     FoodManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE bool save(int meal, const QList<FoodServing> &foods);
-    Q_INVOKABLE QList<FoodServing> load(int meal);
+    Q_INVOKABLE bool save(const QList<FoodServing> &foods);
+    Q_INVOKABLE QList<FoodServing> load();
 
     QDate date() const;
     void setDate(const QDate &newDate);
     void resetDate();
 
+    int meal() const;
+    void setMeal(int newMeal);
+
 signals:
     void dateChanged();
+    void mealChanged();
+
 private:
     Q_PROPERTY(QDate date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
     bool mkDate(QDir &dir);
+    Q_PROPERTY(int meal READ meal WRITE setMeal NOTIFY mealChanged FINAL REQUIRED)
 };
 
 #endif // FOODMANAGER_H

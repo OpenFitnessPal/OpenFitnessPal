@@ -88,6 +88,8 @@ set(ELEMENTS
     models/ExerciseModel
     models/ExerciseRoutineModel
     models/CardioModel
+    models/FoodModel
+    models/ServingSizeModel
 )
 
 set(LIB_ELEMENTS
@@ -138,14 +140,15 @@ set(QML_ELEMENTS
 
     # items
     items/LabeledCheckbox
-    items/LabeledTextField
     items/GoalComboBox
-    items/LabeledSpinBox
     items/DateSelector
     items/SectionHeader
     items/BetterButton
+
     items/UnlabeledTextField
+
     items/SmallNumberField
+    items/LabeledNumberField
 
     # Settings
     pages/settings/SettingsPage
@@ -166,7 +169,6 @@ set(QML_ELEMENTS
     pages/settings/goals/MicrosPage
     pages/settings/goals/MacroPresetDialog
 
-    pages/settings/goals/LabeledNumberField
     pages/settings/goals/GoalField
     pages/settings/goals/WeightGoalDialog
 
@@ -197,6 +199,14 @@ set(QML_ELEMENTS
 
     # Food
     pages/food/FoodPage
+    pages/food/MealLog
+    pages/food/FoodPreview
+    pages/food/FoodTab
+    pages/food/FoodEdit
+
+    ## Search
+    pages/food/search/FoodSearch
+    pages/food/search/FoodSearchPage
 
     # Util
     util/NavButton
@@ -216,6 +226,7 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
+    QML_FILES qml/pages/food/ServingSizeDialog.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

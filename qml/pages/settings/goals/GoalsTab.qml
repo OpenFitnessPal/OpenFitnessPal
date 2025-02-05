@@ -71,16 +71,18 @@ BaseSettingsTab {
             }
 
             Rectangle {
+                signal clicked
+
+                property list<string> goals: ["Fast Weight Loss", "Slow Weight Loss", "Maintain Weight", "Slow Weight Gain", "Fast Weight Gain"]
+                property string text: this.goals[goalManager.get("goal", 2)]
+
+                Layout.fillWidth: true
+
                 id: goal
 
                 color: Constants.sub
 
                 implicitHeight: 45 * Constants.scalar
-                Layout.fillWidth: true
-
-                property list<string> goals: ["Fast Weight Loss", "Slow Weight Loss", "Maintain Weight", "Slow Weight Gain", "Fast Weight Gain"]
-
-                property string text: this.goals[goalManager.get("goal", 2)]
 
                 MouseArea {
                     anchors.fill: parent
@@ -105,7 +107,7 @@ BaseSettingsTab {
                         }
 
                         Text {
-                            color: Constants.text
+                            color: Constants.accent
 
                             text: goal.text
 

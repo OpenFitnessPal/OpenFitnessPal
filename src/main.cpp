@@ -8,6 +8,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include <CacheManager.h>
 #include <QIcon>
 #include <QQuickStyle>
 
@@ -30,6 +31,8 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
+
+    CacheManager::init();
 
     MealNamesModel *mealNames = new MealNamesModel(&app);
     engine.rootContext()->setContextProperty("mealNamesModel", mealNames);

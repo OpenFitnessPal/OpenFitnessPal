@@ -9,13 +9,13 @@ MouseArea {
 
     hoverEnabled: true
 
-    implicitHeight: 75 * Constants.scalar
+    // implicitHeight: 65 * Constants.scalar
+    property bool canBeDeleted: true
 
     Rectangle {
         id: rct
         color: containsMouse
                && !del.mousedOver ? Constants.buttonHighlighted : Constants.sub
-
         anchors.fill: parent
 
         RowLayout {
@@ -28,6 +28,8 @@ MouseArea {
                 label: "Delete"
                 onClicked: deleteRequested()
 
+                visible: canBeDeleted
+
                 Layout.maximumWidth: 40 * Constants.scalar
             }
 
@@ -37,30 +39,47 @@ MouseArea {
 
                 Text {
                     Layout.fillWidth: true
-                    font.pixelSize: 25 * Constants.scalar
+
+                    font.pixelSize: 18 * Constants.scalar
                     color: Constants.text
-                    text: model.name
+                    text: name
 
                     elide: Text.ElideRight
                 }
 
                 Text {
                     Layout.fillWidth: true
-                    font.pixelSize: 18 * Constants.scalar
+
+                    font.pixelSize: 14 * Constants.scalar
                     color: "#A0A0A0"
-                    text: model.notes
+                    text: item.brand + ", " + model.size.unit(units)
 
                     elide: Text.ElideRight
                 }
             }
 
-            Image {
-                source: "qrc:/Forward"
-                Layout.preferredWidth: 35 * Constants.scalar
-                Layout.preferredHeight: 35 * Constants.scalar
+            Text {
+                font.pixelSize: 14 * Constants.scalar
+                color: "#A0A0A0"
+                text: Math.round(
+                          item.nutrients.calories * model.size.multiplier(
+                              units) * 10) / 10. + "kcal"
 
-                Layout.alignment: Qt.AlignRight
+                elide: Text.ElideRight
             }
+        }
+    }
+
+    Rectangle {
+        color: "gray"
+
+        height: 1
+
+        anchors {
+            bottom: parent.bottom
+
+            left: parent.left
+            right: parent.right
         }
     }
 }

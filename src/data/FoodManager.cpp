@@ -29,7 +29,20 @@ void FoodManager::resetDate()
     setDate(QDate::currentDate());
 }
 
-bool FoodManager::save(int meal, const QList<FoodServing> &foods)
+int FoodManager::meal() const
+{
+    return m_meal;
+}
+
+void FoodManager::setMeal(int newMeal)
+{
+    if (m_meal == newMeal)
+        return;
+    m_meal = newMeal;
+    emit mealChanged();
+}
+
+bool FoodManager::save(const QList<FoodServing> &foods)
 {
     QDir dir(m_dir);
     mkDate(dir);
@@ -37,7 +50,7 @@ bool FoodManager::save(int meal, const QList<FoodServing> &foods)
     dir.mkpath("meals");
     dir.cd("meals");
 
-    QFile file(dir.absoluteFilePath(QString::number(meal) + ".json"));
+    QFile file(dir.absoluteFilePath(QString::number(m_meal) + ".json"));
 
     QJsonArray array;
 
@@ -58,7 +71,7 @@ bool FoodManager::save(int meal, const QList<FoodServing> &foods)
     return true;
 }
 
-QList<FoodServing> FoodManager::load(int meal)
+QList<FoodServing> FoodManager::load()
 {
     QList<FoodServing> servings{};
     QDir dir(m_dir);
@@ -66,7 +79,7 @@ QList<FoodServing> FoodManager::load(int meal)
 
     dir.cd("meals");
 
-    QFile f(dir.absoluteFilePath(QString::number(meal) + ".json"));
+    QFile f(dir.absoluteFilePath(QString::number(m_meal) + ".json"));
 
     if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return servings;

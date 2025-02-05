@@ -7,16 +7,16 @@
 class CacheManager : public QObject
 {
 public:
-    CacheManager(QObject *parent = nullptr);
-    void load();
+    static void init();
+    static void load();
 
-    Q_INVOKABLE bool cache(const FoodItem &item);
-    Q_INVOKABLE QList<FoodItem> search(const QString &pattern) const;
+    static bool cache(const FoodItem &item);
+    static QList<FoodItem> search(const QString &pattern);
 
 private:
-    QList<FoodItem> m_cachedFoods;
+    static QList<FoodItem> cachedFoods;
 
-    QDir m_dir;
+    static QDir dir;
 };
 
 #endif // CACHEMANAGER_H
