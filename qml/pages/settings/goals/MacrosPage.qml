@@ -81,6 +81,7 @@ BaseSettingsTab {
 
             key: "carbs"
             defaultValue: 35
+            handleColor: "lightblue"
         }
 
         MacroGoal {
@@ -92,6 +93,8 @@ BaseSettingsTab {
             key: "fat"
             caloriesPerGram: 9
             defaultValue: 35
+
+            handleColor: "#9500ff"
         }
 
         MacroGoal {
@@ -102,6 +105,7 @@ BaseSettingsTab {
 
             key: "protein"
             defaultValue: 30
+            handleColor: "yellow"
         }
     }
 

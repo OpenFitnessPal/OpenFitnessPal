@@ -6,6 +6,7 @@ import OpenFitnessPal
 
 Rectangle {
     property date currentDate
+    property alias exerciseCalories: foodTab.exerciseCalories
 
     function back() {
         if (stack.depth > 1) {
@@ -39,7 +40,6 @@ Rectangle {
 
             onSearch: mealNumber => {
                           foodSearch.mealNumber = mealNumber
-                          console.log(mealNumber, foodSearch.mealNumber)
                           stack.push(foodSearch)
                       }
 
@@ -47,6 +47,8 @@ Rectangle {
                         foodEdit.serving = serving
                         stack.push(foodEdit)
                     }
+
+            onNutritionView: stack.push(nutritionView)
         }
 
         FoodSearch {
@@ -61,6 +63,14 @@ Rectangle {
 
         FoodEdit {
             id: foodEdit
+            visible: false
+        }
+
+        NutritionView {
+            id: nutritionView
+
+            nutrients: foodTab.nutrients
+
             visible: false
         }
     }

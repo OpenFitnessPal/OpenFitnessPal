@@ -11,6 +11,8 @@ BaseSettingsTab {
 
     title: "Cardio"
 
+    property alias calories: cm.calories
+
     signal editCardio(var cardio)
 
     CardioModel {

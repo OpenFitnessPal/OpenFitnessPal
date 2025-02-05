@@ -5,6 +5,8 @@ import OpenFitnessPal
 Rectangle {
     property date currentDate
 
+    property alias calories: cardioTab.calories
+
     id: settings
 
     color: Constants.bg

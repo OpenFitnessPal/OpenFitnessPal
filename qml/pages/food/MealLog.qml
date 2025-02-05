@@ -19,6 +19,9 @@ Rectangle {
     property int mealNumber: 1
     property string mealName
 
+    property alias calories: fm.calories
+    property alias nutrients: fm.nutrients
+
     function addFood(serving) {
         fm.add(serving)
         fm.cache(serving.item)
@@ -104,8 +107,6 @@ Rectangle {
                 onDeleteRequested: fm.remove(idx)
 
                 onClicked: mealLog.edit(model)
-
-                onYChanged: console.log(model.name, y)
             }
         }
     }

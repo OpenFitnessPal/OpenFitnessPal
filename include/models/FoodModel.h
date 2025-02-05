@@ -72,6 +72,12 @@ public:
     QDate date() const;
     void setDate(const QDate &newDate);
 
+    double calories() const;
+    void resetCalories();
+
+    NutrientUnion nutrients() const;
+    void resetNutrients();
+
 signals:
     void mealChanged();
     void searchComplete();
@@ -84,6 +90,10 @@ signals:
 
     void dataChanged();
 
+    void caloriesChanged();
+
+    void nutrientsChanged();
+
 protected:
     QHash<int, QByteArray> roleNames() const override;
 private:
@@ -93,10 +103,15 @@ private:
     bool m_offlineSearch;
     QDate m_date;
 
+    double m_calories;
+    NutrientUnion m_nutrients;
+
     OFPManager *m_ofp;
     FoodManager *m_food;
 
     SearchSettingsManager *m_settings;
+    Q_PROPERTY(double calories READ calories NOTIFY caloriesChanged FINAL)
+    Q_PROPERTY(NutrientUnion nutrients READ nutrients RESET resetNutrients NOTIFY nutrientsChanged FINAL)
 };
 
 #endif // FOODMODEL_H

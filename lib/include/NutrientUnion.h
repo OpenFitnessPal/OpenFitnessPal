@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QObject>
+#include <QQmlEngine>
 
 typedef struct NutrientUnion
 {
@@ -30,6 +31,7 @@ typedef struct NutrientUnion
     Q_PROPERTY(double vitaminD MEMBER vitaminD)
 
     Q_PROPERTY(double calories READ calories)
+    QML_VALUE_TYPE(nutrientUnion)
 
 public:
     double fat = 0;
@@ -58,6 +60,8 @@ public:
     double calories() const;
 
     QString toString() const;
+
+    Q_INVOKABLE NutrientUnion add(const NutrientUnion &other);
 
 } NutrientUnion;
 

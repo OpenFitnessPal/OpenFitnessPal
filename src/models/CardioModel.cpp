@@ -56,6 +56,7 @@ bool CardioModel::setData(const QModelIndex &index, const QVariant &value, int r
         }
 
         save();
+        resetCalories();
         emit dataChanged(index, index, {role});
         return true;
     }
@@ -68,6 +69,8 @@ void CardioModel::add(const Cardio &e, bool doSave)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_data << e;
     endInsertRows();
+
+    resetCalories();
 
     if (doSave) save();
 }
@@ -96,6 +99,8 @@ bool CardioModel::remove(int row)
 
     save();
 
+    resetCalories();
+
     return true;
 }
 
@@ -103,6 +108,7 @@ void CardioModel::clear()
 {
     beginResetModel();
     m_data.clear();
+    resetCalories();
     endResetModel();
 }
 
@@ -176,4 +182,20 @@ QHash<int, QByteArray> CardioModel::roleNames() const
     rez[CALS] = "cals";
     rez[IDX] = "idx";
     return rez;
+}
+
+double CardioModel::calories() const
+{
+    return m_calories;
+}
+
+
+void CardioModel::resetCalories()
+{
+    double sum = 0;
+    for (const Cardio &c : m_data) {
+        sum += c.calories();
+    }
+    m_calories = sum;
+    emit caloriesChanged();
 }

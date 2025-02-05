@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Sensors)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Charts)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
@@ -90,6 +90,7 @@ set(ELEMENTS
     models/CardioModel
     models/FoodModel
     models/ServingSizeModel
+    models/NutrientModel
 )
 
 set(LIB_ELEMENTS
@@ -204,6 +205,13 @@ set(QML_ELEMENTS
     pages/food/FoodTab
     pages/food/FoodEdit
 
+    pages/food/ServingSizeDialog
+
+    ## Nutrition
+    pages/food/nutrition/NutritionPreview
+    pages/food/nutrition/NutritionView
+    pages/food/nutrition/NutrientView
+
     ## Search
     pages/food/search/FoodSearch
     pages/food/search/FoodSearchPage
@@ -226,7 +234,6 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
-    QML_FILES qml/pages/food/ServingSizeDialog.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
@@ -247,7 +254,7 @@ target_link_libraries(${Pal_EXEC_NAME}
     PRIVATE Qt6::Quick
     Qt6::QuickControls2
     Qt6::Network
-    Qt6::Sensors
+    Qt6::Charts
     BuildConfig
 )
 

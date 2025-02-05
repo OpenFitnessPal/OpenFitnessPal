@@ -26,6 +26,7 @@ public:
 
 signals:
     void dateChanged();
+    void goalChanged(const QString &goal, const int newGoal);
 
 private:
     bool mkDate(QDir &dir) const;

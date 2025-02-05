@@ -58,6 +58,8 @@ bool GoalManager::set(const QString &field, const int data)
     f.write(QJsonDocument(obj).toJson());
     f.close();
 
+    emit goalChanged(field, data);
+
     return true;
 }
 

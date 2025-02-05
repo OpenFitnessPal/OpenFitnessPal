@@ -61,6 +61,7 @@ void FoodModel::load()
     auto foods = m_food->load();
 
     m_data.append(foods);
+    resetCalories();
     endResetModel();
 }
 
@@ -80,6 +81,7 @@ void FoodModel::add(const FoodItem &item, const ServingSize &size, const double 
     m_data << s;
     endInsertRows();
 
+    resetCalories();
     emit dataChanged();
 }
 
@@ -120,6 +122,8 @@ bool FoodModel::removeRows(int row, int count, const QModelIndex &parent)
     endRemoveRows();
 
     emit dataChanged();
+
+    resetCalories();
 
     return true;
 }
@@ -166,6 +170,7 @@ bool FoodModel::setData(const QModelIndex &index, const QVariant &value, int rol
     default:
         return false;
     }
+    resetCalories();
 
     emit dataChanged();
 
@@ -216,6 +221,39 @@ QHash<int, QByteArray> FoodModel::roleNames() const
     return rez;
 }
 
+NutrientUnion FoodModel::nutrients() const
+{
+    return m_nutrients;
+}
+
+void FoodModel::resetNutrients()
+{
+    NutrientUnion sum{};
+    for (const FoodServing &s : std::as_const(m_data)) {
+        sum += s.nutrients();
+    }
+
+    m_nutrients = sum;
+    emit nutrientsChanged();
+}
+
+double FoodModel::calories() const
+{
+    return m_calories;
+}
+
+void FoodModel::resetCalories()
+{
+    double sum = 0;
+    for (const FoodServing &s : std::as_const(m_data)) {
+        sum += s.nutrients().calories();
+    }
+    m_calories = sum;
+
+    emit caloriesChanged();
+    resetNutrients();
+}
+
 QDate FoodModel::date() const
 {
     return m_date;
@@ -227,6 +265,7 @@ void FoodModel::setDate(const QDate &newDate)
         return;
     m_date = newDate;
     m_food->setDate(newDate);
+    load();
     emit dateChanged();
 }
 

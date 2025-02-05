@@ -79,6 +79,8 @@ Rectangle {
         FoodPage {
             id: food
 
+            exerciseCalories: exercise.calories
+
             currentDate: screen.currentDate
         }
 

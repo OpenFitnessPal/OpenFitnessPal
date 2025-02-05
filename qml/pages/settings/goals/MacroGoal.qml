@@ -13,6 +13,8 @@ ColumnLayout {
 
     property int value: goalManager.get(key, defaultValue)
 
+    property color handleColor: "red"
+
     onValueChanged: {
         recalc()
     }
@@ -49,7 +51,7 @@ ColumnLayout {
         text: slider.value + "%"
 
         font.pixelSize: 16 * Constants.scalar
-        color: Constants.text
+        color: handleColor
 
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
@@ -69,7 +71,7 @@ ColumnLayout {
                                       * (slider.availableHeight - height))
 
             radius: 15 * Constants.scalar
-            color: slider.pressed ? slider.Universal.chromeHighColor : slider.enabled ? slider.hovered ? slider.Universal.chromeAltLowColor : slider.Universal.accent : slider.Universal.chromeDisabledHighColor
+            color: handleColor
         }
 
         id: slider

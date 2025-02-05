@@ -9,8 +9,6 @@ BaseSettingsTab {
 
     property int mealNumber: 0
 
-    onMealNumberChanged: console.log(mealNumber)
-
     id: foodSearch
 
     title: "Search"

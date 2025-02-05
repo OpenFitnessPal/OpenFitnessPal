@@ -16,7 +16,7 @@ Rectangle {
     property alias value: number.text
 
     property int from: 0
-    property int to: 9999
+    property int to: 99999
 
     color: Constants.sub
 

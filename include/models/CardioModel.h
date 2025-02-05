@@ -44,8 +44,13 @@ public:
     QJsonArray toJson() const;
 
     Q_INVOKABLE QList<Cardio> data() const;
+    double calories() const;
+    void resetCalories();
+
 signals:
     void dateChanged();
+
+    void caloriesChanged();
 
 protected:
     QHash<int, QByteArray> roleNames() const override;
@@ -53,10 +58,12 @@ protected:
 private:
     QList<Cardio> m_data;
 
+    double m_calories;
     CardioManager *m_manager;
 
     QDate m_date;
     Q_PROPERTY(QDate date READ date WRITE setDate NOTIFY dateChanged FINAL)
+    Q_PROPERTY(double calories READ calories RESET resetCalories NOTIFY caloriesChanged FINAL)
 };
 
 #endif // CARDIOMODEL_H

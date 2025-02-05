@@ -1,5 +1,6 @@
 #include "GoalManager.h"
 #include "MealNamesModel.h"
+#include "NutrientModel.h"
 #include "SearchSettingsManager.h"
 #include "WeightManager.h"
 
@@ -45,6 +46,15 @@ int main(int argc, char *argv[])
 
     WeightManager *weight = new WeightManager(&app);
     engine.rootContext()->setContextProperty("weightManager", weight);
+
+    NutrientModel *micros = new NutrientModel(false, true, &app);
+    engine.rootContext()->setContextProperty("microsModel", micros);
+
+    NutrientModel *macros = new NutrientModel(true, false, &app);
+    engine.rootContext()->setContextProperty("macrosModel", macros);
+
+    NutrientModel *all = new NutrientModel(true, true, &app);
+    engine.rootContext()->setContextProperty("nutrientsModel", all);
 
     engine.loadFromModule("OpenFitnessPal", "Main");
 

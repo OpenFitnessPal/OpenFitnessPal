@@ -62,6 +62,11 @@ QString NutrientUnion::toString() const
     return QString("NutrientUnion(%1 kcal, %2 fat, %3 carbs, %4 protein)").arg(calories()).arg(fat).arg(carbs).arg(protein);
 }
 
+NutrientUnion NutrientUnion::add(const NutrientUnion &other)
+{
+    return *this + other;
+}
+
 NutrientUnion operator+(const NutrientUnion &a, const NutrientUnion &b)
 {
     NutrientUnion n;
