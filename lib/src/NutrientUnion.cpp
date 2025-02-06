@@ -22,8 +22,6 @@ NutrientUnion NutrientUnion::operator+=(const NutrientUnion &other)
     this->vitaminD += other.vitaminD;
 
     return *this;
-
-    // return operator+(*this, other);
 }
 
 NutrientUnion NutrientUnion::operator*=(const double multiplier)
@@ -48,8 +46,30 @@ NutrientUnion NutrientUnion::operator*=(const double multiplier)
     this->vitaminD *= multiplier;
 
     return *this;
+}
 
-    // return operator*(*this, multiplier);
+NutrientUnion NutrientUnion::operator/=(const double multiplier)
+{
+    this->calcium /= multiplier;
+    this->carbs /= multiplier;
+    this->fat /= multiplier;
+    this->satFat /= multiplier;
+    this->monoFat /= multiplier;
+    this->polyFat /= multiplier;
+    this->transFat /= multiplier;
+    this->fiber /= multiplier;
+    this->sugar /= multiplier;
+    this->addedSugar /= multiplier;
+    this->protein /= multiplier;
+    this->cholesterol /= multiplier;
+    this->iron /= multiplier;
+    this->sodium /= multiplier;
+    this->potassium /= multiplier;
+    this->vitaminA /= multiplier;
+    this->vitaminC /= multiplier;
+    this->vitaminD /= multiplier;
+
+    return *this;
 }
 
 double NutrientUnion::calories() const
@@ -117,3 +137,31 @@ NutrientUnion operator*(const NutrientUnion &a, const double &multiplier) {
 
     return n;
 }
+
+
+NutrientUnion operator/(const NutrientUnion &a, const double &multiplier)
+{
+    NutrientUnion n = a;
+
+    n.calcium /= multiplier;
+    n.carbs /= multiplier;
+    n.fat /= multiplier;
+    n.satFat /= multiplier;
+    n.monoFat /= multiplier;
+    n.polyFat /= multiplier;
+    n.transFat /= multiplier;
+    n.fiber /= multiplier;
+    n.sugar /= multiplier;
+    n.addedSugar /= multiplier;
+    n.protein /= multiplier;
+    n.cholesterol /= multiplier;
+    n.iron /= multiplier;
+    n.sodium /= multiplier;
+    n.potassium /= multiplier;
+    n.vitaminA /= multiplier;
+    n.vitaminC /= multiplier;
+    n.vitaminD /= multiplier;
+
+    return n;
+}
+

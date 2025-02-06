@@ -57,16 +57,17 @@ public:
 
     struct NutrientUnion operator+=(const struct NutrientUnion &other);
     struct NutrientUnion operator*=(const double multiplier);
+    struct NutrientUnion operator/=(const double multiplier);
     double calories() const;
 
     QString toString() const;
 
     Q_INVOKABLE NutrientUnion add(const NutrientUnion &other);
-
 } NutrientUnion;
 
 NutrientUnion operator+(const NutrientUnion &a, const NutrientUnion &b);
 NutrientUnion operator*(const NutrientUnion &n, const double &multiplier);
+NutrientUnion operator/(const NutrientUnion &n, const double &multiplier);
 
 Q_DECLARE_METATYPE(NutrientUnion)
 

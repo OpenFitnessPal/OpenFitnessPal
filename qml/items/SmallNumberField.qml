@@ -39,7 +39,8 @@ TextField {
 
     font.pixelSize: 18 * Constants.scalar
 
-    onEditingFinished: bindTarget[bindedProperty] = text
+    onTextEdited: bindTarget[bindedProperty] = text
+
     text: bindTarget[bindedProperty]
 
     Text {

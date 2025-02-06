@@ -11,7 +11,7 @@ Rectangle {
 
     color: Constants.button
 
-    implicitHeight: 80 * Constants.scalar
+    implicitHeight: 90 * Constants.scalar
 
     property double foodCalories
     property double exerciseCalories

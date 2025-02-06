@@ -14,6 +14,8 @@ Rectangle {
 
     color: Constants.bg
 
+    property date currentDate: new Date()
+
     property nutrientUnion blankNutrients
 
     property list<double> mealCalories
@@ -94,6 +96,8 @@ Rectangle {
 
             onCaloriesChanged: foodTab.mealCalories[model.idx] = calories
             onNutrientsChanged: foodTab.mealNutrients[model.idx] = nutrients
+
+            currentDate: foodTab.currentDate
         }
     }
 }

@@ -234,6 +234,8 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
+    SOURCES include/data/NutritionManager.h src/data/NutritionManager.cpp
+    QML_FILES qml/pages/food/nutrition/DaysBackDialog.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

@@ -53,23 +53,6 @@ QList<FoodServing> FoodModel::foods() const
     return m_data;
 }
 
-void FoodModel::load()
-{
-    beginResetModel();
-    m_data.clear();
-
-    auto foods = m_food->load();
-
-    m_data.append(foods);
-    resetCalories();
-    endResetModel();
-}
-
-void FoodModel::save()
-{
-    m_food->save(m_data);
-}
-
 void FoodModel::add(const FoodItem &item, const ServingSize &size, const double units)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -102,7 +85,6 @@ void FoodModel::add(const QList<FoodServing> &serving)
     }
 }
 
-
 void FoodModel::clear()
 {
     removeRows(0, m_data.count());
@@ -112,6 +94,7 @@ void FoodModel::remove(int index)
 {
     removeRows(index, 1, QModelIndex());
 }
+
 
 bool FoodModel::removeRows(int row, int count, const QModelIndex &parent)
 {
@@ -207,34 +190,78 @@ void FoodModel::search(const QString &query)
     }
 }
 
-QHash<int, QByteArray> FoodModel::roleNames() const
+void FoodModel::load()
 {
-    QHash<int,QByteArray> rez;
-    rez[ITEM] = "item";
-    rez[NAME] = "name";
-    rez[SIZE] = "size";
-    rez[SIZEIDX] = "sizeIdx";
-    rez[SERVING] = "serving";
-    rez[UNITS] = "units";
-    rez[MEAL] = "mealNumber";
-    rez[ID] = "idx";
-    return rez;
+    beginResetModel();
+    m_data.clear();
+
+    auto foods = m_food->load();
+
+    m_data.append(foods);
+    resetCalories();
+    endResetModel();
 }
 
-NutrientUnion FoodModel::nutrients() const
+void FoodModel::save()
 {
-    return m_nutrients;
+    m_food->save(m_data);
 }
 
-void FoodModel::resetNutrients()
+int FoodModel::meal() const
 {
-    NutrientUnion sum{};
-    for (const FoodServing &s : std::as_const(m_data)) {
-        sum += s.nutrients();
-    }
+    return m_meal;
+}
 
-    m_nutrients = sum;
-    emit nutrientsChanged();
+void FoodModel::setMeal(int newMeal)
+{
+    m_meal = newMeal;
+    m_food->setMeal(newMeal);
+    emit mealChanged();
+}
+
+bool FoodModel::offlineSearch() const
+{
+    return m_offlineSearch;
+}
+
+void FoodModel::setOfflineSearch(bool newOfflineSearch)
+{
+    if (m_offlineSearch == newOfflineSearch)
+        return;
+    m_offlineSearch = newOfflineSearch;
+    emit offlineSearchChanged();
+}
+
+SearchSettingsManager *FoodModel::settings() const
+{
+    return m_settings;
+}
+
+void FoodModel::setSettings(SearchSettingsManager *newSettings)
+{
+    if (m_settings == newSettings)
+        return;
+    m_settings = newSettings;
+    emit settingsChanged();
+}
+
+QDateTime FoodModel::date() const
+{
+    return m_date;
+}
+
+void FoodModel::setDate(const QDateTime &newDate)
+{
+    if (m_date == newDate)
+        return;
+    m_date = newDate;
+    m_food->setDate(newDate.date());
+
+    // if (m_meal == 1) qDebug() << "C++: FoodModel Date:" << newDate;
+    // if (m_meal == 1) qDebug() << "C++: FoodManager Date:" << m_food->date();
+
+    load();
+    emit dateChanged();
 }
 
 double FoodModel::calories() const
@@ -254,57 +281,32 @@ void FoodModel::resetCalories()
     resetNutrients();
 }
 
-QDate FoodModel::date() const
+NutrientUnion FoodModel::nutrients() const
 {
-    return m_date;
+    return m_nutrients;
 }
 
-void FoodModel::setDate(const QDate &newDate)
+void FoodModel::resetNutrients()
 {
-    if (m_date == newDate)
-        return;
-    m_date = newDate;
-    m_food->setDate(newDate);
-    load();
-    emit dateChanged();
+    NutrientUnion sum{};
+    for (const FoodServing &s : std::as_const(m_data)) {
+        sum += s.nutrients();
+    }
+
+    m_nutrients = sum;
+    emit nutrientsChanged();
 }
 
-SearchSettingsManager *FoodModel::settings() const
+QHash<int, QByteArray> FoodModel::roleNames() const
 {
-    return m_settings;
-}
-
-void FoodModel::setSettings(SearchSettingsManager *newSettings)
-{
-    if (m_settings == newSettings)
-        return;
-    m_settings = newSettings;
-    emit settingsChanged();
-}
-
-bool FoodModel::offlineSearch() const
-{
-    return m_offlineSearch;
-}
-
-void FoodModel::setOfflineSearch(bool newOfflineSearch)
-{
-    if (m_offlineSearch == newOfflineSearch)
-        return;
-    m_offlineSearch = newOfflineSearch;
-    emit offlineSearchChanged();
-}
-
-int FoodModel::meal() const
-{
-    return m_meal;
-}
-
-void FoodModel::setMeal(int newMeal)
-{
-    if (m_meal == newMeal)
-        return;
-    m_meal = newMeal;
-    m_food->setMeal(newMeal);
-    emit mealChanged();
+    QHash<int,QByteArray> rez;
+    rez[ITEM] = "item";
+    rez[NAME] = "name";
+    rez[SIZE] = "size";
+    rez[SIZEIDX] = "sizeIdx";
+    rez[SERVING] = "serving";
+    rez[UNITS] = "units";
+    rez[MEAL] = "mealNumber";
+    rez[ID] = "idx";
+    return rez;
 }

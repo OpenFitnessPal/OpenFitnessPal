@@ -14,9 +14,10 @@ Rectangle {
 
     height: 62 * Constants.scalar + (listView.count * (65 * Constants.scalar + listView.spacing))
 
-    property date currentDate
+    property date currentDate: new Date()
 
-    property int mealNumber: 1
+    property int mealNumber: 0
+
     property string mealName
 
     property alias calories: fm.calories
@@ -30,7 +31,7 @@ Rectangle {
     FoodModel {
         id: fm
         meal: mealNumber
-        date: currentDate
+        date: mealLog.currentDate
 
         onDataChanged: save()
         Component.onCompleted: load()

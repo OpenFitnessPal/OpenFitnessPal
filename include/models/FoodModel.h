@@ -17,7 +17,8 @@ class FoodModel : public QAbstractListModel
     Q_PROPERTY(QList<FoodServing> foods READ foods)
 
     Q_PROPERTY(SearchSettingsManager *settings READ settings WRITE setSettings NOTIFY settingsChanged FINAL)
-    Q_PROPERTY(QDate date READ date WRITE setDate NOTIFY dateChanged FINAL)
+    Q_PROPERTY(QDateTime date READ date WRITE setDate NOTIFY dateChanged FINAL)
+
 public:
 
     enum FSMRoleTypes
@@ -69,8 +70,8 @@ public:
     SearchSettingsManager *settings() const;
     void setSettings(SearchSettingsManager *newSettings);
 
-    QDate date() const;
-    void setDate(const QDate &newDate);
+    QDateTime date() const;
+    void setDate(const QDateTime &newDate);
 
     double calories() const;
     void resetCalories();
@@ -101,7 +102,7 @@ private:
 
     int m_meal;
     bool m_offlineSearch;
-    QDate m_date;
+    QDateTime m_date;
 
     double m_calories;
     NutrientUnion m_nutrients;

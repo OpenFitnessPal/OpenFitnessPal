@@ -7,12 +7,13 @@ import OpenFitnessPal
 RowLayout {
     signal pickDate
 
-    property date currentDate
+    property date currentDate: new Date()
 
     Component.onCompleted: {
         let newDate = new Date()
         // slightly hacky way to ensure the timezone is correct
-        newDate.setUTCMinutes(newDate.getUTCMinutes() - newDate.getTimezoneOffset())
+        newDate.setUTCMinutes(newDate.getUTCMinutes(
+                                  ) - newDate.getTimezoneOffset())
 
         currentDate = newDate
     }
@@ -42,7 +43,9 @@ RowLayout {
 
             color: Constants.text
 
-            text: (currentDate.getUTCMonth() + 1) + "/" + currentDate.getUTCDate() + "/" + currentDate.getUTCFullYear()
+            text: (currentDate.getUTCMonth(
+                       ) + 1) + "/" + currentDate.getUTCDate(
+                      ) + "/" + currentDate.getUTCFullYear()
         }
 
         onClicked: pickDate()

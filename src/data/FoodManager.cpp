@@ -36,8 +36,6 @@ int FoodManager::meal() const
 
 void FoodManager::setMeal(int newMeal)
 {
-    if (m_meal == newMeal)
-        return;
     m_meal = newMeal;
     emit mealChanged();
 }

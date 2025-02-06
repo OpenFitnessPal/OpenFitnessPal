@@ -32,7 +32,14 @@ ColumnLayout {
             horizontalAlignment: Text.AlignHCenter
 
             id: total
-            text: Math.round(nutritionView.nutrients[model.data])
+            text: {
+                let data = nutritionView.nutrients[model.data]
+                if (isNaN(data))
+                    data = 0
+
+                return Math.round(data)
+            }
+
             color: "gray"
 
             font.pixelSize: 14 * Constants.scalar
