@@ -8,6 +8,8 @@ ColumnLayout {
     uniformCellSizes: true
     property bool isMacro: ["carbs", "fat", "protein"].includes(model.data)
 
+    property nutrientUnion nutrients
+
     RowLayout {
         uniformCellSizes: true
 
@@ -33,7 +35,7 @@ ColumnLayout {
 
             id: total
             text: {
-                let data = nutritionView.nutrients[model.data]
+                let data = nutrients[model.data]
                 if (isNaN(data))
                     data = 0
 

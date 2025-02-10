@@ -82,6 +82,7 @@ set(ELEMENTS
     data/SearchSettingsManager
     data/MealNamesManager
     data/HealthMarkerManager
+    data/NutritionManager
 
     models/MealNamesModel
     models/ExerciseSetsModel
@@ -212,6 +213,10 @@ set(QML_ELEMENTS
     pages/food/nutrition/NutritionView
     pages/food/nutrition/NutrientView
 
+    pages/food/nutrition/DaysBackDialog
+    pages/food/nutrition/NutritionHeader
+    pages/food/nutrition/NutritionPage
+
     ## Search
     pages/food/search/FoodSearch
     pages/food/search/FoodSearchPage
@@ -234,8 +239,6 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
-    SOURCES include/data/NutritionManager.h src/data/NutritionManager.cpp
-    QML_FILES qml/pages/food/nutrition/DaysBackDialog.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

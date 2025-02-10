@@ -68,7 +68,7 @@ Rectangle {
             visible: false
         }
 
-        NutritionView {
+        NutritionPage {
             id: nutritionView
 
             currentDate: foodTab.currentDate
