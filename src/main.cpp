@@ -5,7 +5,7 @@
 #include "WeightManager.h"
 
 #include <BuildConfig.h>
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
@@ -16,7 +16,7 @@
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     app.setOrganizationName(BuildConfig.ORG_NAME);
     app.setApplicationName(BuildConfig.APP_NAME);

@@ -64,8 +64,8 @@ void FoodModel::add(const FoodItem &item, const ServingSize &size, const double 
     m_data << s;
     endInsertRows();
 
-    resetCalories();
     emit dataChanged();
+    resetCalories();
 }
 
 void FoodModel::add(const FoodItem &item)
@@ -153,9 +153,9 @@ bool FoodModel::setData(const QModelIndex &index, const QVariant &value, int rol
     default:
         return false;
     }
-    resetCalories();
 
     emit dataChanged();
+    resetCalories();
 
     return true;
 }

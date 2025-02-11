@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Charts)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Charts Widgets)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
@@ -210,12 +210,18 @@ set(QML_ELEMENTS
 
     ## Nutrition
     pages/food/nutrition/NutritionPreview
-    pages/food/nutrition/NutritionView
-    pages/food/nutrition/NutrientView
-
     pages/food/nutrition/DaysBackDialog
-    pages/food/nutrition/NutritionHeader
     pages/food/nutrition/NutritionPage
+
+    ### Nutrients
+    pages/food/nutrition/nutrients/NutritionView
+    pages/food/nutrition/nutrients/NutritionHeader
+    pages/food/nutrition/nutrients/NutrientView
+
+    ### Macros
+    pages/food/nutrition/macros/MacroView
+    pages/food/nutrition/macros/MacroDisplay
+    pages/food/nutrition/macros/MacroHeader
 
     ## Search
     pages/food/search/FoodSearch
@@ -260,6 +266,7 @@ target_link_libraries(${Pal_EXEC_NAME}
     Qt6::QuickControls2
     Qt6::Network
     Qt6::Charts
+    Qt6::Widgets
     BuildConfig
 )
 

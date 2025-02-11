@@ -31,7 +31,7 @@ BaseSettingsTab {
 
         onSelect: (selection, label) => {
                       viewLabel.text = label
-                      nutritionView.daysBack = selection
+                      nutritionPage.daysBack = selection
                   }
     }
 
@@ -124,8 +124,15 @@ BaseSettingsTab {
         currentIndex: tabBar.currentIndex
 
         NutritionView {
+            id: nutritionView
+
             nutrients: nutritionPage.nutrients
-            onNutrientsChanged: console.log(nutrients)
+        }
+
+        MacroView {
+            id: macroView
+
+            nutrients: nutritionPage.nutrients
         }
     }
 }
