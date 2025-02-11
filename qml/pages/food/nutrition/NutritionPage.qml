@@ -125,6 +125,7 @@ BaseSettingsTab {
 
         NutritionView {
             nutrients: nutritionPage.nutrients
+            onNutrientsChanged: console.log(nutrients)
         }
     }
 }

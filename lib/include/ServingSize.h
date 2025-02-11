@@ -15,11 +15,11 @@ class ServingSize
     Q_PROPERTY(double defaultValue READ defaultValue WRITE setDefaultValue)
 
 private:
-    double m_baseMultiplier;
+    double m_baseMultiplier = 0.0;
 
-    QString m_unit;
+    QString m_unit = "";
 
-    double m_defaultValue;
+    double m_defaultValue = 0.0;
 public:
     ServingSize(double baseMultiplier = 0, QString unit = "", double defaultValue = 0);
     ServingSize(const ServingSize &other);

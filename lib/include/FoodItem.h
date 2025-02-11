@@ -20,8 +20,8 @@ class FoodItem
 
     QML_VALUE_TYPE(foodItem)
 private:
-    QString m_brand;
-    QString m_name;
+    QString m_brand = "Generic";
+    QString m_name = "";
 
     QString m_id;
 

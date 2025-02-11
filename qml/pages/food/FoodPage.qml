@@ -48,9 +48,9 @@ Rectangle {
                         stack.push(foodEdit)
                     }
 
-            onNutritionView: stack.push(nutritionView)
+            onNutritionView: stack.push(nutrition)
 
-            onNutrientsChanged: nutritionView.updateNutrients()
+            onMealNutrientsChanged: nutrition.updateNutrients()
         }
 
         FoodSearch {
@@ -69,7 +69,7 @@ Rectangle {
         }
 
         NutritionPage {
-            id: nutritionView
+            id: nutrition
 
             currentDate: foodTab.currentDate
 

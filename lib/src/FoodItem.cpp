@@ -236,6 +236,8 @@ NutrientUnion FoodServing::nutrients() const
 
 ServingSize FoodServing::size() const
 {
+    if (item.servingSizes().empty()) return ServingSize{};
+
     return item.servingSizes().at(sizeIdx);
 }
 

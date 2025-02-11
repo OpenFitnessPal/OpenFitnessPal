@@ -12,6 +12,7 @@
 #include <CacheManager.h>
 #include <QIcon>
 #include <QQuickStyle>
+#include <QSurfaceFormat>
 
 int main(int argc, char *argv[])
 {

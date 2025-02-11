@@ -16,22 +16,19 @@ Window {
     Universal.theme: Universal.Dark
     Universal.accent: "Crimson"
 
-    onClosing: (close) => {
-        close.accepted = screen.back()
-    }
+    onClosing: close => {
+                   close.accepted = screen.back()
+               }
 
     Component.onCompleted: {
-        Constants.scalar = Math.min(width / Constants.width, height / Constants.height)
+        Constants.scalar = Math.min(width / Constants.width,
+                                    height / Constants.height)
         Constants.isVertical = width < height
     }
 
     onWidthChanged: {
-        Constants.scalar = Math.min(width / Constants.width, height / Constants.height)
-        Constants.isVertical = width < height
-    }
-
-    onHeightChanged: {
-        Constants.scalar = Math.min(width / Constants.width, height / Constants.height)
+        Constants.scalar = Math.min(width / Constants.width,
+                                    height / Constants.height)
         Constants.isVertical = width < height
     }
 
@@ -40,5 +37,11 @@ Window {
 
         width: window.width
         height: window.height
+
+        Behavior on height {
+            NumberAnimation {
+                duration: 200
+            }
+        }
     }
 }
