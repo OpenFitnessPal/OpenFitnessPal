@@ -7,9 +7,13 @@ import QtCharts
 import OpenFitnessPal
 
 Item {
+    id: macroView
+
     property nutrientUnion nutrients
+    property list<nutrientUnion> dailyNutrients
 
     property int daysBack: 1
+    property int currentDayOfWeek: 0
 
     property double carbs: Math.round(nutrients.carbs)
     property double fat: Math.round(nutrients.fat)
@@ -30,6 +34,8 @@ Item {
     // labels for the macro display
     property list<string> labels: ["Carbs", "Fat", "Protein"]
     property list<color> colors: ["lightblue", "#9500ff", "yellow"]
+
+    onDailyNutrientsChanged: bar.updateNutrients()
 
     ScrollView {
         id: scroll
@@ -65,7 +71,9 @@ Item {
                 implicitHeight: Math.min(scroll.width, scroll.height / 2)
                 implicitWidth: height
 
+                // Pie Chart, for day view
                 PieSeries {
+                    visible: daysBack == 1
                     id: pie
 
                     PieSlice {
@@ -91,9 +99,21 @@ Item {
                         color: "gray"
                     }
                 }
+
+                // Bar chart, for week view
+                MacroBarChart {
+                    id: bar
+
+                    dailyNutrients: macroView.dailyNutrients
+                    colors: macroView.colors
+                    daysBack: macroView.daysBack
+                    currentDayOfWeek: macroView.currentDayOfWeek
+                }
             }
 
-            MacroHeader {}
+            MacroHeader {
+                useAverage: macroView.daysBack > 1
+            }
 
             Repeater {
                 model: macrosModel
@@ -104,9 +124,11 @@ Item {
                 }
             }
 
-            // TODO: show calories
+            CalorieDisplay {
+                id: calorieDisplay
 
-            // TODO: IF daysback > 1, show a bar chart
+                calories: macroView.calories
+            }
         }
     }
 }

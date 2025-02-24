@@ -8,6 +8,8 @@ BaseSettingsTab {
     signal updateNutrients
 
     property nutrientUnion nutrients
+    property list<nutrientUnion> dailyNutrients
+
     property date currentDate
 
     id: nutritionPage
@@ -23,8 +25,11 @@ BaseSettingsTab {
 
     property int daysBack: 1
 
-    onUpdateNutrients: nutrients = nm.load(daysBack)
-    onDaysBackChanged: nutrients = nm.load(daysBack)
+    onUpdateNutrients: {
+        nutrients = nm.load(daysBack)
+        dailyNutrients = nm.list(daysBack)
+    }
+    onDaysBackChanged: updateNutrients()
 
     DaysBackDialog {
         id: backDialog
@@ -133,6 +138,9 @@ BaseSettingsTab {
             id: macroView
 
             nutrients: nutritionPage.nutrients
+            dailyNutrients: nutritionPage.dailyNutrients
+            daysBack: nutritionPage.daysBack
+            currentDayOfWeek: currentDate.getUTCDay()
         }
     }
 }

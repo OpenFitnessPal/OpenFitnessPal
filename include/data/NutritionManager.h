@@ -19,6 +19,7 @@ public:
     NutritionManager(QObject *parent = nullptr);
 
     Q_INVOKABLE NutrientUnion load(int daysBack);
+    Q_INVOKABLE QList<NutrientUnion> list(int daysBack);
 
     QDate date() const;
     void setDate(const QDate &newDate);

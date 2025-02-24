@@ -75,6 +75,56 @@ NutrientUnion NutritionManager::load(int daysBack)
     return total / totalDays;
 }
 
+// TODO: Combine these
+QList<NutrientUnion> NutritionManager::list(int daysBack)
+{
+    int totalDays = 0;
+    QList<NutrientUnion> days;
+    for (int i = 0; i < daysBack; ++i) {
+        NutrientUnion today;
+        int numMeals = 0;
+
+        QDir dir(m_dir);
+
+        if (!mkDate(i, dir)) goto cont;
+
+        if (!dir.cd("meals")) goto cont;
+
+        {
+            QDirIterator iter(dir);
+
+            while (iter.hasNext()) {
+                QFile f = iter.next();
+                QString baseName = iter.fileInfo().baseName();
+
+                if (baseName == "") continue;
+
+                ++numMeals;
+
+                f.open(QIODevice::ReadOnly | QIODevice::Text);
+
+                QByteArray data = f.readAll();
+                QJsonDocument doc = QJsonDocument::fromJson(data);
+
+                QJsonArray array = doc.array();
+
+                for (QJsonValueRef ref : array) {
+                    QJsonObject obj = ref.toObject();
+                    FoodServing s = FoodServing::fromJson(obj);
+                    today += s.nutrients();
+                }
+
+                f.close();
+            }
+        }
+
+    cont:
+        days << today;
+    }
+
+    return days;
+}
+
 bool NutritionManager::mkDate(int daysBack, QDir &dir) {
     QDate newDate = m_date.addDays(-daysBack);
     QString dateString = newDate.toString("MM-dd-yyyy");

@@ -223,6 +223,9 @@ set(QML_ELEMENTS
     pages/food/nutrition/macros/MacroDisplay
     pages/food/nutrition/macros/MacroHeader
 
+    pages/food/nutrition/macros/CalorieDisplay
+    pages/food/nutrition/macros/MacroBarChart
+
     ## Search
     pages/food/search/FoodSearch
     pages/food/search/FoodSearchPage

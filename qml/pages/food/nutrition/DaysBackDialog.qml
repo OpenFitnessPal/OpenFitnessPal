@@ -23,7 +23,8 @@ AnimatedDialog {
         anchors.fill: parent
         Repeater {
             id: rep
-            model: ["Today", "Past Week", "Past Month"]
+            // TODO: Figure out how I want to do month
+            model: ["Today", "Past Week"] // "Past Month"]
 
             RadioButton {
                 implicitHeight: 30 * Constants.scalar
