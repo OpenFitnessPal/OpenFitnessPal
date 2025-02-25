@@ -23,7 +23,7 @@ BaseSettingsTab {
         date: currentDate
     }
 
-    property int daysBack: 1
+    property alias daysBack: select.daysBack
 
     onUpdateNutrients: {
         nutrients = nm.load(daysBack)
@@ -31,19 +31,8 @@ BaseSettingsTab {
     }
     onDaysBackChanged: updateNutrients()
 
-    DaysBackDialog {
-        id: backDialog
-
-        onSelect: (selection, label) => {
-                      viewLabel.text = label
-                      nutritionPage.daysBack = selection
-                  }
-    }
-
-    Rectangle {
-        id: combo
-
-        color: Constants.sub
+    DaysBackButton {
+        id: select
 
         anchors {
             top: nav.bottom
@@ -51,35 +40,6 @@ BaseSettingsTab {
             right: parent.right
 
             topMargin: 5 * Constants.scalar
-        }
-
-        implicitHeight: 35 * Constants.scalar
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: backDialog.open()
-
-            RowLayout {
-                anchors {
-                    fill: parent
-
-                    rightMargin: 10 * Constants.scalar
-                }
-
-                Text {
-                    id: viewLabel
-
-                    Layout.fillWidth: true
-
-                    color: Constants.text
-
-                    text: "Today"
-
-                    font.pixelSize: 14 * Constants.scalar
-
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
         }
     }
 
@@ -90,7 +50,7 @@ BaseSettingsTab {
 
         position: TabBar.Header
         anchors {
-            top: combo.bottom
+            top: select.bottom
             left: parent.left
             right: parent.right
 

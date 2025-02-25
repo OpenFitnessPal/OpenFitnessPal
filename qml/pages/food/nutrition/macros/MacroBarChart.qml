@@ -59,7 +59,7 @@ StackedBarSeries {
 
     axisY: ValueAxis {
         min: 0
-        max: calorieDisplay.calorieGoal
+        max: goalManager.calories
 
         color: Constants.text
         labelsColor: Constants.text

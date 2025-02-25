@@ -48,7 +48,6 @@ Rectangle {
             currentDate: settings.currentDate
 
             onMacros: {
-                macros.recalc()
                 stack.push(macros)
             }
             onMicros: stack.push(micros)

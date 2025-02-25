@@ -155,10 +155,10 @@ BaseSettingsTab {
 
             GoalField {
                 Layout.fillWidth: true
-                label: "Workouts"
+                label: "Cardio Workouts"
                 suffix: "/ week"
 
-                key: "workouts"
+                key: "cardio"
                 defaultValue: 5
             }
 
@@ -168,7 +168,16 @@ BaseSettingsTab {
                 suffix: "min"
 
                 key: "minutes"
-                defaultValue: 120
+                defaultValue: 60
+            }
+
+            GoalField {
+                Layout.fillWidth: true
+                label: "Exercises"
+                suffix: "/ week"
+
+                key: "workouts"
+                defaultValue: 5
             }
         }
     }

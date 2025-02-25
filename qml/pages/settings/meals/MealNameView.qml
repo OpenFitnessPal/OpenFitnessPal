@@ -25,7 +25,7 @@ Rectangle {
         MouseArea {
             id: mouseArea
 
-            Layout.preferredWidth: 40 * Constants.scalar
+            Layout.preferredWidth: 30 * Constants.scalar
             Layout.preferredHeight: 40 * Constants.scalar
 
             drag.axis: Drag.YAxis
@@ -35,47 +35,48 @@ Rectangle {
                 swipe.interactive = false
             }
 
-            onReleased: (mouse) => {
+            onReleased: mouse => {
                             listView.interactive = true
                             swipe.interactive = true
                             let from = model.idx
 
-                            let fixedPos = mapToItem(listView.contentItem, mouse.x, mouse.y)
+                            let fixedPos = mapToItem(listView.contentItem,
+                                                     mouse.x, mouse.y)
                             let to = listView.indexAt(fixedPos.x, fixedPos.y)
 
-                            for (let i = 0; i < listView.count; ++i) {
+                            for (var i = 0; i < listView.count; ++i) {
                                 listView.itemAtIndex(i).selected = false
                             }
 
-                            if (to === -1) return;
+                            if (to === -1)
+                            return
 
                             if (from !== to) {
-                                mealNamesModel.move(from, to);
+                                mealNamesModel.move(from, to)
                             }
                         }
 
-            onMouseYChanged: (mouse) => {
-                let fixedPos = mapToItem(listView.contentItem, mouse.x, mouse.y)
-                let to = listView.indexAt(fixedPos.x, fixedPos.y)
+            onMouseYChanged: mouse => {
+                                 let fixedPos = mapToItem(listView.contentItem,
+                                                          mouse.x, mouse.y)
+                                 let to = listView.indexAt(fixedPos.x,
+                                                           fixedPos.y)
 
-                if (to !== -1) {
-                    for (let i = 0; i < listView.count; ++i) {
-                        listView.itemAtIndex(i).selected = (i === to)
-                    }
-                }
-            }
+                                 if (to !== -1) {
+                                     for (var i = 0; i < listView.count; ++i) {
+                                         listView.itemAtIndex(
+                                             i).selected = (i === to)
+                                     }
+                                 }
+                             }
 
             Image {
-                anchors.centerIn: parent
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    right: parent.right
+                }
                 source: "qrc:/Reorder"
             }
-        }
-
-        IconButton {
-            id: remove
-
-            label: "Delete"
-            onClicked: mealNamesModel.remove(model.idx);
         }
 
         TextField {

@@ -52,20 +52,18 @@ ColumnLayout {
             horizontalAlignment: Text.AlignHCenter
 
             id: goal
-            text: isMacro ? goalManager.getMacroGrams(
-                                model.data, model.defaultValue,
-                                (model.data === "fat" ? 9 : 4)) : goalManager.get(
+            text: isMacro ? goalManager[model.data + "Grams"] : goalManager.get(
                                 model.data, model.defaultValue)
             color: "gray"
 
             Component.onCompleted: goalManager.goalChanged.connect(
                                        (key, data) => {
+                                           if (isMacro) {
+                                               return
+                                           }
+
                                            if (key === model.data) {
-                                               text = isMacro ? goalManager.getMacroGrams(
-                                                                    model.data,
-                                                                    model.defaultValue,
-                                                                    (model.data
-                                                                     === "fat" ? 9 : 4)) : data
+                                               text = data
                                            }
                                        })
 

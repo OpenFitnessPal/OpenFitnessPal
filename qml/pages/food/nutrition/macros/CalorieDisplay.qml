@@ -9,7 +9,7 @@ import OpenFitnessPal
 RowLayout {
     required property double calories
 
-    property double calorieGoal: parseInt(goal.text)
+    property int goal: goalManager.calories
 
     Layout.fillWidth: true
 
@@ -52,8 +52,7 @@ RowLayout {
 
         id: percent
 
-        text: isNaN(calories) ? "0%" : Math.round(calories / parseInt(
-                                                      goal.text) * 100.0) + "%"
+        text: isNaN(calories) ? "0%" : Math.round(calories / goal * 100.0) + "%"
 
         color: "gray"
 
@@ -61,17 +60,11 @@ RowLayout {
     }
 
     Text {
-        id: goal
         Layout.fillWidth: true
         horizontalAlignment: Text.AlignHCenter
 
-        text: goalManager.get("calories", 3000) + "cal"
+        text: goal + "cal"
 
-        Component.onCompleted: goalManager.goalChanged.connect((key, data) => {
-                                                                   if (key === "calories") {
-                                                                       text = data + "cal"
-                                                                   }
-                                                               })
         color: Constants.accent
 
         font.pixelSize: 14 * Constants.scalar

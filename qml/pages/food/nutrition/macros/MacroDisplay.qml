@@ -13,6 +13,13 @@ RowLayout {
     required property int value
     required property int percent
 
+    property int realValue: {
+        if (isNaN(value))
+            return 0
+
+        return Math.round(value)
+    }
+
     Layout.fillWidth: true
 
     uniformCellSizes: true
@@ -38,13 +45,7 @@ RowLayout {
         horizontalAlignment: Text.AlignHCenter
 
         id: total
-        text: {
-            let data = value
-            if (isNaN(data))
-                data = 0
-
-            return Math.round(data) + "g"
-        }
+        text: realValue + "%"
 
         color: "gray"
 
@@ -73,13 +74,8 @@ RowLayout {
         Layout.fillWidth: true
         horizontalAlignment: Text.AlignHCenter
 
-        text: goalManager.get(model.data, model.defaultValue) + "%"
+        text: goalManager.carbs + "%"
 
-        Component.onCompleted: goalManager.goalChanged.connect((key, data) => {
-                                                                   if (key === model.data) {
-                                                                       text = data + "%"
-                                                                   }
-                                                               })
         color: Constants.accent
 
         font.pixelSize: 14 * Constants.scalar

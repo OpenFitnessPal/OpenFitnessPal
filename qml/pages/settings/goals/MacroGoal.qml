@@ -7,26 +7,15 @@ import OpenFitnessPal
 ColumnLayout {
     required property string label
     required property string key
-    required property int defaultValue
 
-    property int caloriesPerGram: 4
+    property alias value: slider.value
 
-    property int value: goalManager.get(key, defaultValue)
+    property int calories: goalManager.calories
 
     property color handleColor: "red"
 
-    onValueChanged: {
-        recalc()
-    }
-
-    function recalc() {
-        let calories = goalManager.get("calories", 3000)
-        gramPreview.text = Math.round(
-                    (value / 100.0) * (calories / caloriesPerGram)) + "g"
-    }
-
     function accept() {
-        goalManager.set(key, value)
+        goalManager[key] = value
     }
 
     Text {
@@ -43,12 +32,14 @@ ColumnLayout {
         font.pixelSize: 16 * Constants.scalar
         color: Constants.text
 
+        text: goalManager.getMacroGrams(value, label === "Fat" ? 9 : 4) + "g"
+
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }
 
     Text {
-        text: slider.value + "%"
+        text: value + "%"
 
         font.pixelSize: 16 * Constants.scalar
         color: handleColor
@@ -80,9 +71,7 @@ ColumnLayout {
 
         from: 0
         to: 100
-        value: parent.value
-
-        onValueChanged: parent.value = value
+        value: goalManager[key]
 
         stepSize: 5
 

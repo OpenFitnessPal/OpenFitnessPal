@@ -5,6 +5,86 @@
 #include <QJsonObject>
 #include <QStandardPaths>
 
+int GoalManager::calories()
+{
+    if (m_calories == -1) m_calories = get("calories", 3000);
+
+    return m_calories;
+}
+
+void GoalManager::setCalories(int newCalories)
+{
+    set("calories", newCalories);
+    m_calories = newCalories;
+
+    emit caloriesChanged();
+    emit carbsGramsChanged();
+    emit fatGramsChanged();
+    emit proteinGramsChanged();
+}
+
+int GoalManager::carbs()
+{
+    if (m_carbs == -1) m_carbs = get("carbs", 35);
+    return m_carbs;
+}
+
+void GoalManager::setCarbs(int newCarbs)
+{
+    set("carbs", newCarbs);
+    m_carbs = newCarbs;
+
+    emit carbsChanged();
+    emit carbsGramsChanged();
+}
+
+int GoalManager::fat()
+{
+    if (m_fat == -1) m_fat = get("fat", 35);
+
+    return m_fat;
+}
+
+void GoalManager::setFat(int newFat)
+{
+    set("fat", newFat);
+    m_fat = newFat;
+
+    emit fatChanged();
+    emit fatGramsChanged();
+}
+
+int GoalManager::protein()
+{
+    if (m_protein == -1) m_protein = get("protein", 30);
+
+    return m_protein;
+}
+
+void GoalManager::setProtein(int newProtein)
+{
+    set("protein", newProtein);
+    m_protein = newProtein;
+
+    emit proteinChanged();
+    emit proteinGramsChanged();
+}
+
+int GoalManager::carbsGrams()
+{
+    return getMacroGrams(carbs());
+}
+
+int GoalManager::fatGrams()
+{
+    return getMacroGrams(fat(), 9);
+}
+
+int GoalManager::proteinGrams()
+{
+    return getMacroGrams(protein());
+}
+
 GoalManager::GoalManager(QObject *parent)
     : QObject{parent}
 {
@@ -85,12 +165,9 @@ int GoalManager::get(const QString &field, const int defaultValue)
     return obj.contains(field) ? obj.value(field).toInt(defaultValue) : defaultValue;
 }
 
-int GoalManager::getMacroGrams(const QString &key, const int defaultValue, const int caloriesPerGram)
+int GoalManager::getMacroGrams(const int value, const int caloriesPerGram)
 {
-    int macroPercent = get(key, defaultValue);
-    int calories = get("calories", 3000);
-
-    return (macroPercent / 100.0) * (calories / caloriesPerGram);
+    return (value / 100.0) * (calories() / caloriesPerGram);
 }
 
 void GoalManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)

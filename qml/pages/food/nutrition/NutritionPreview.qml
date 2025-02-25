@@ -15,16 +15,11 @@ Rectangle {
 
     property double foodCalories
     property double exerciseCalories
-    property double calorieGoal: goalManager.get("calories", 3000)
+    property double calorieGoal: goalManager.calories
 
     property double remaining: calorieGoal - foodCalories + exerciseCalories
 
     readonly property list<string> labels: ["Goal", "", "Food", "", "Exercise", ""]
-
-    Component.onCompleted: goalManager.goalChanged.connect((key, data) => {
-                                                               if (key === "calories")
-                                                               calorieGoal = data
-                                                           })
 
     MouseArea {
         anchors.fill: parent

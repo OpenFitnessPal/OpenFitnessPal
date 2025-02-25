@@ -248,6 +248,7 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
+    QML_FILES qml/pages/food/nutrition/DaysBackButton.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

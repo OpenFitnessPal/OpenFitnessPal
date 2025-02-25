@@ -13,11 +13,22 @@ Rectangle {
 
     color: Constants.bg
 
-    Text {
-        color: Constants.text
-        font.pixelSize: Math.round(25 * Constants.scalar)
+    ScrollView {
+        width: parent.width
+        height: parent.height - 8 * Constants.scalar
 
-        text: "Overview Page"
-        anchors.centerIn: parent
+        y: 8 * Constants.scalar
+
+        contentWidth: parent.width - effectiveScrollBarWidth
+
+        id: scroll
+
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+        ColumnLayout {
+            anchors {
+                fill: parent
+            }
+        }
     }
 }

@@ -19,12 +19,6 @@ BaseSettingsTab {
         }
     }
 
-    function recalc() {
-        carbs.recalc()
-        fat.recalc()
-        protein.recalc()
-    }
-
     MacroPresetDialog {
         id: macroPresets
 
@@ -80,7 +74,6 @@ BaseSettingsTab {
             label: "Carbs"
 
             key: "carbs"
-            defaultValue: 35
             handleColor: "lightblue"
         }
 
@@ -91,8 +84,6 @@ BaseSettingsTab {
             label: "Fat"
 
             key: "fat"
-            caloriesPerGram: 9
-            defaultValue: 35
 
             handleColor: "#9500ff"
         }
@@ -104,7 +95,6 @@ BaseSettingsTab {
             label: "Protein"
 
             key: "protein"
-            defaultValue: 30
             handleColor: "yellow"
         }
     }
