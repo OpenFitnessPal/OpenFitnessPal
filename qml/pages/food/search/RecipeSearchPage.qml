@@ -9,14 +9,10 @@ ListView {
     id: listView
 
     function search(text) {
-        rm.search(text)
+        recipeSearchModel.search(text)
     }
 
-    RecipeModel {
-        id: rm
-    }
-
-    model: rm
+    model: recipeSearchModel
     spacing: 5 * Constants.scalar
 
     boundsBehavior: Flickable.StopAtBounds

@@ -4,7 +4,7 @@ import QtQuick.Layouts
 
 import OpenFitnessPal
 
-BaseSettingsTab {
+BaseTab {
     id: micros
 
     title: "Additional Goals"

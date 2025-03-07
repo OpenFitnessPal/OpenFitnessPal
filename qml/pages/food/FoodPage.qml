@@ -9,6 +9,8 @@ Rectangle {
 
     function back() {
         if (stack.depth > 1) {
+            nutrition.navClicked()
+
             stack.pop()
             return true
         }

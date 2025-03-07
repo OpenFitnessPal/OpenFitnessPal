@@ -7,8 +7,6 @@ import OpenFitnessPal
 MouseArea {
     signal edit(var recipe)
 
-    required property var model
-
     signal deleteRequested
 
     hoverEnabled: true
@@ -48,7 +46,7 @@ MouseArea {
 
                     font.pixelSize: 18 * Constants.scalar
                     color: Constants.text
-                    text: model.name
+                    text: name
 
                     elide: Text.ElideRight
                 }
@@ -58,7 +56,7 @@ MouseArea {
 
                     font.pixelSize: 14 * Constants.scalar
                     color: "#A0A0A0"
-                    text: model.servings + " serving" + (model.servings > 1 ? "s" : "")
+                    text: servings + " serving" + (servings > 1 ? "s" : "")
 
                     elide: Text.ElideRight
                 }
@@ -67,7 +65,7 @@ MouseArea {
             Text {
                 font.pixelSize: 14 * Constants.scalar
                 color: "#A0A0A0"
-                text: Math.round(model.nutrients.calories * 10) / 10. + "kcal"
+                text: Math.round(nutrients.calories * 10) / 10. + "kcal"
 
                 elide: Text.ElideRight
             }

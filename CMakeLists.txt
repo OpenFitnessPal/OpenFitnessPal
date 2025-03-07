@@ -149,18 +149,20 @@ set(QML_ELEMENTS
     items/DateSelector
     items/SectionHeader
     items/BetterButton
+    items/BaseTab
 
     items/UnlabeledTextField
 
     items/SmallNumberField
     items/LabeledNumberField
 
+    items/FoodMacroGraph
+
     # Settings
     pages/settings/SettingsPage
     pages/settings/InitialPage
     pages/settings/SettingsIcon
     pages/settings/SettingsButton
-    pages/settings/BaseSettingsTab
 
     ## Meals
     pages/settings/meals/MealsTab

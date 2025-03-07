@@ -8,9 +8,10 @@ ListView {
     property bool editable: true
     id: listView
 
-    model: rm
+    required property var recipes
+    model: recipes
 
-    Component.onCompleted: rm.load()
+    Component.onCompleted: recipes.load()
 
     clip: true
     boundsBehavior: Flickable.StopAtBounds
@@ -21,7 +22,7 @@ ListView {
 
         canBeDeleted: listView.editable
 
-        onDeleteRequested: rm.remove(model.idx)
+        onDeleteRequested: recipes.remove(model.idx)
         onEdit: recipe => recipeTab.edit(recipe)
     }
 }

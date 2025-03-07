@@ -3,6 +3,8 @@
 #include "MealNamesModel.h"
 #include "NutrientModel.h"
 #include "NutritionManager.h"
+#include "RecipeManager.h"
+#include "RecipeModel.h"
 #include "SearchSettingsManager.h"
 #include "WeightManager.h"
 
@@ -38,6 +40,7 @@ int main(int argc, char *argv[])
 
     CacheManager::init();
 
+    // I kind of hate how many of these we have but idc
     MealNamesModel *mealNames = new MealNamesModel(&app);
     engine.rootContext()->setContextProperty("mealNamesModel", mealNames);
 
@@ -64,6 +67,17 @@ int main(int argc, char *argv[])
 
     DateManager *date = new DateManager(&app);
     engine.rootContext()->setContextProperty("dateManager", date);
+
+    /**
+     * RECIPES
+     */
+    RecipeManager *recipeManager = new RecipeManager(&app);
+
+    RecipeModel *recipeEditModel = new RecipeModel(recipeManager, &app);
+    RecipeModel *recipeSearchModel = new RecipeModel(recipeManager, &app);
+
+    engine.rootContext()->setContextProperty("recipeSearchModel", recipeSearchModel);
+    engine.rootContext()->setContextProperty("recipeEditModel", recipeEditModel);
 
     QObject::connect(date, &DateManager::dateChanged, nutrition, [nutrition, weight, date] () {
         nutrition->setDate(date->date());

@@ -2,10 +2,10 @@
 
 #include <CacheManager.h>
 
-RecipeModel::RecipeModel(QObject *parent)
+RecipeModel::RecipeModel(RecipeManager *manager, QObject *parent)
     : QAbstractListModel{parent}
 {
-    m_manager = new RecipeManager(this);
+    m_manager = manager;
 }
 
 
@@ -105,8 +105,6 @@ void RecipeModel::search(const QString &query)
 {
     clear();
 
-    // TODO: Make a global RecipeManager
-    m_manager->load();
     add(m_manager->search(query));
 }
 
@@ -139,16 +137,16 @@ bool RecipeModel::setData(const QModelIndex &index, const QVariant &value, int r
 
     switch (role) {
     case RLMRoleTypes::FOODS:
-        emit dataChanged(index, index, {role, RLMRoleTypes::NUTRIENTS});
         m_data[index.row()].setFoods(value.value<QList<FoodServing>>());
+        emit dataChanged(index, index, {role, RLMRoleTypes::NUTRIENTS});
         break;
     case RLMRoleTypes::NAME:
-        emit dataChanged(index, index, {role});
         m_data[index.row()].setName(value.toString());
+        emit dataChanged(index, index, {role});
         break;
     case RLMRoleTypes::UNITS:
-        emit dataChanged(index, index, {role});
         m_data[index.row()].setServings(value.toDouble());
+        emit dataChanged(index, index, {role});
         break;
     case RLMRoleTypes::RECIPE:
         m_data[index.row()] = value.value<Recipe>();

@@ -4,12 +4,14 @@ import QtQuick.Layouts
 
 import OpenFitnessPal
 
-BaseSettingsTab {
+BaseTab {
     id: nutritionPage
 
     title: "Nutrition"
 
     property bool weekView: select.daysBack > 1
+
+    onNavClicked: tabBar.currentIndex = 0
 
     DaysBackButton {
         id: select

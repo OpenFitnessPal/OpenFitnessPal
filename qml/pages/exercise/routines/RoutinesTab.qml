@@ -4,7 +4,7 @@ import QtQuick.Layouts
 
 import OpenFitnessPal
 
-BaseSettingsTab {
+BaseTab {
     signal editRoutine(var routine)
 
     id: exercisePage

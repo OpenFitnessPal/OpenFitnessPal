@@ -9,7 +9,6 @@
 class RecipeModel : public QAbstractListModel
 {
     Q_OBJECT
-    QML_ELEMENT
     Q_PROPERTY(int meal READ meal WRITE setMeal NOTIFY mealChanged FINAL)
 public:
 
@@ -23,7 +22,7 @@ public:
         NUTRIENTS
     };
 
-    RecipeModel(QObject *parent = nullptr);
+    RecipeModel(RecipeManager *manager, QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;

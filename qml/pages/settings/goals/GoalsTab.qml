@@ -4,7 +4,7 @@ import QtQuick.Layouts
 
 import OpenFitnessPal
 
-BaseSettingsTab {
+BaseTab {
     signal macros
     signal micros
 

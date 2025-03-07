@@ -3,7 +3,7 @@ import QtQuick.Controls
 
 import OpenFitnessPal
 
-BaseSettingsTab {
+BaseTab {
     signal finished
 
     id: cardioEdit

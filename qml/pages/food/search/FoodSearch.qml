@@ -4,7 +4,7 @@ import QtQuick.Layouts
 
 import OpenFitnessPal
 
-BaseSettingsTab {
+BaseTab {
     signal add(int mealNumber, var serving)
 
     property int mealNumber: 0

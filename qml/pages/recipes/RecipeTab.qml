@@ -7,19 +7,13 @@ import OpenFitnessPal
 Rectangle {
     signal edit(var recipe)
 
-    function reload() {
-        rm.load()
-    }
-
     color: Constants.bg
     id: recipeTab
 
-    RecipeModel {
-        id: rm
-    }
-
     RecipeView {
         id: listView
+
+        recipes: recipeEditModel
 
         anchors {
             top: parent.top

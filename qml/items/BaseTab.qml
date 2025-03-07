@@ -3,7 +3,7 @@ import QtQuick
 import OpenFitnessPal
 
 Rectangle {
-    signal goingBack
+    signal navClicked
 
     required property string title
 
@@ -14,6 +14,7 @@ Rectangle {
     Shortcut {
         sequence: Qt.Key_Back
         onActivated: {
+            navClicked()
             stack.pop()
         }
     }
@@ -25,7 +26,7 @@ Rectangle {
 
         label: "Back"
         onClicked: {
-            goingBack()
+            navClicked();
             stack.pop()
         }
 

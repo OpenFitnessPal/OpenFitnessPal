@@ -5,7 +5,14 @@ import QtQuick.Layouts 6.6
 import OpenFitnessPal
 
 Rectangle {
-    function back() {}
+    function back() {
+        if (stack.depth > 1) {
+            stack.pop()
+            return true
+        }
+
+        return false
+    }
 
     id: overview
 
@@ -41,8 +48,6 @@ Rectangle {
                     }
 
             onSearch: stack.push(foodSearch)
-
-            onGoingBack: recipeTab.reload()
         }
 
         RecipeTab {
