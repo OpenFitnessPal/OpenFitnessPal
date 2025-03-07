@@ -130,6 +130,11 @@ BaseSettingsTab {
                 offlineSearch: true
                 onAdd: serving => foodSearch.add(mealNumber, serving)
             }
+
+            RecipeSearchPage {
+                id: recipes
+                onAdd: serving => foodSearch.add(mealNumber, serving)
+            }
         }
     }
 

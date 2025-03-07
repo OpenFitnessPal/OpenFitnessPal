@@ -10,10 +10,10 @@ class GoalManager : public QObject
     Q_OBJECT
     QML_ELEMENT
 
-    QDate m_date;
+    QDateTime m_date;
     QDir m_dir;
 
-    Q_PROPERTY(QDate date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
+    Q_PROPERTY(QDateTime date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
 
 
     // Helpers for frequently-used values
@@ -41,8 +41,8 @@ public:
 
     Q_INVOKABLE int getMacroGrams(const int value, const int caloriesPerGram = 4);
 
-    QDate date() const;
-    void setDate(const QDate &newDate);
+    QDateTime date() const;
+    void setDate(const QDateTime &newDate);
     void resetDate();
 
     int calories();

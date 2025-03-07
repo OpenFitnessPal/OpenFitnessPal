@@ -2,7 +2,7 @@
 #define EXERCISEMANAGER_H
 
 #include <QObject>
-#include <QDate>
+#include <QDateTime>
 
 #include <Exercise.h>
 #include <QDir>
@@ -11,7 +11,7 @@ class ExerciseManager : public QObject
 {
     Q_OBJECT
 
-    QDate m_date;
+    QDateTime m_date;
     QDir m_dir;
 public:
     ExerciseManager(QObject *parent);
@@ -19,13 +19,13 @@ public:
     Q_INVOKABLE QList<Exercise> load();
     Q_INVOKABLE bool save(const QList<Exercise> &exercises);
 
-    QDate date() const;
-    void setDate(const QDate &newDate);
+    QDateTime date() const;
+    void setDate(const QDateTime &newDate);
     void resetDate();
 signals:
     void dateChanged();
 private:
-    Q_PROPERTY(QDate date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
+    Q_PROPERTY(QDateTime date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
     bool mkDate(QDir &dir);
 };
 

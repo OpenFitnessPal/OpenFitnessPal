@@ -64,7 +64,7 @@ FoodServing Recipe::asFood(double units)
     return food;
 }
 
-NutrientUnion Recipe::nutrients(double units)
+NutrientUnion Recipe::nutrients(double units) const
 {
     NutrientUnion n;
     for (const FoodServing &serving : m_foods) {

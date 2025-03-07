@@ -3,6 +3,8 @@ import QtQuick
 import OpenFitnessPal
 
 Rectangle {
+    signal goingBack
+
     required property string title
 
     property alias nav: nav
@@ -22,7 +24,10 @@ Rectangle {
         height: 40 * Constants.scalar
 
         label: "Back"
-        onClicked: stack.pop()
+        onClicked: {
+            goingBack()
+            stack.pop()
+        }
 
         background: Item {}
 

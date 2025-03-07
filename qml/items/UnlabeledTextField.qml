@@ -16,7 +16,7 @@ TextField {
 
     color: Constants.text
 
-    text: bindTarget[bindedProperty]
+    text: bindTarget !== null ? bindTarget[bindedProperty] : ""
     onEditingFinished: bindTarget[bindedProperty] = text
 
     renderType: TextInput.NativeRendering

@@ -5,7 +5,6 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 Rectangle {
-    property alias currentDate: foodTab.currentDate
     property alias exerciseCalories: foodTab.exerciseCalories
 
     function back() {
@@ -49,8 +48,6 @@ Rectangle {
                     }
 
             onNutritionView: stack.push(nutrition)
-
-            onMealNutrientsChanged: nutrition.updateNutrients()
         }
 
         FoodSearch {
@@ -70,8 +67,6 @@ Rectangle {
 
         NutritionPage {
             id: nutrition
-
-            currentDate: foodTab.currentDate
 
             visible: false
         }

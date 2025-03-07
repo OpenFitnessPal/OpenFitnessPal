@@ -93,12 +93,12 @@ GoalManager::GoalManager(QObject *parent)
     resetDate();
 }
 
-QDate GoalManager::date() const
+QDateTime GoalManager::date() const
 {
     return m_date;
 }
 
-void GoalManager::setDate(const QDate &newDate)
+void GoalManager::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;
@@ -108,7 +108,7 @@ void GoalManager::setDate(const QDate &newDate)
 
 void GoalManager::resetDate()
 {
-    setDate(QDate::currentDate());
+    setDate(QDateTime::currentDateTime());
 }
 
 bool GoalManager::set(const QString &field, const int data)
@@ -175,13 +175,13 @@ void GoalManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
     if (!f.exists() || (!modify && !dir.exists("goalsModified"))) {
         QDir rootDir(m_dir);
 
-        QDate closestDate = QDate(1, 1, 1);
+        QDateTime closestDate = QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0));
 
         QDirIterator iter(rootDir);
         while (iter.hasNext()) {
             iter.next();
             QString dirName = iter.fileName();
-            QDate date = QDate::fromString(dirName, "MM-dd-yyyy");
+            QDateTime date = QDateTime::fromString(dirName, "MM-dd-yyyy");
 
             if (date.isNull() || date == m_date) continue;
 
@@ -192,7 +192,7 @@ void GoalManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
             }
         }
 
-        if (closestDate != QDate(1, 1, 1)) {
+        if (closestDate != QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0))) {
             QString original = m_dir.absoluteFilePath(closestDate.toString("MM-dd-yyyy") + "/goals.json");
 
             // Remove the original in case it exists and is unmodified

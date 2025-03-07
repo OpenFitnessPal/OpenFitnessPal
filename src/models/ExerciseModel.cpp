@@ -7,7 +7,7 @@ ExerciseModel::ExerciseModel(QObject *parent, bool saveable)
     : QAbstractListModel(parent)
     , m_saveable(saveable)
 {
-    m_date = QDate::currentDate();
+    m_date = QDateTime::currentDateTime();
 
     m_manager = new ExerciseManager(this);
 }
@@ -162,12 +162,12 @@ QList<Exercise> ExerciseModel::data() const
     return m_data;
 }
 
-QDate ExerciseModel::date() const
+QDateTime ExerciseModel::date() const
 {
     return m_date;
 }
 
-void ExerciseModel::setDate(const QDate &newDate)
+void ExerciseModel::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;

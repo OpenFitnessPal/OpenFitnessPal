@@ -32,8 +32,8 @@ public:
 
     Q_INVOKABLE void load();
 
-    QDate date() const;
-    void setDate(const QDate &newDate);
+    QDateTime date() const;
+    void setDate(const QDateTime &newDate);
 
 signals:
     void dateChanged();
@@ -43,10 +43,10 @@ protected:
 
 private:
     QStringList m_data;
-    QDate m_date;
+    QDateTime m_date;
 
     MealNamesManager *m_manager;
-    Q_PROPERTY(QDate date READ date WRITE setDate NOTIFY dateChanged FINAL)
+    Q_PROPERTY(QDateTime date READ date WRITE setDate NOTIFY dateChanged FINAL)
 };
 
 #endif // MEALNAMESMODEL_H

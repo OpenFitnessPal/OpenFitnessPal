@@ -5,31 +5,11 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 BaseSettingsTab {
-    signal updateNutrients
-
-    property nutrientUnion nutrients
-    property list<nutrientUnion> dailyNutrients
-
-    property date currentDate
-
     id: nutritionPage
 
     title: "Nutrition"
 
-    // get week/month/etc nutrients
-    NutritionManager {
-        id: nm
-
-        date: currentDate
-    }
-
-    property alias daysBack: select.daysBack
-
-    onUpdateNutrients: {
-        nutrients = nm.load(daysBack)
-        dailyNutrients = nm.list(daysBack)
-    }
-    onDaysBackChanged: updateNutrients()
+    property bool weekView: select.daysBack > 1
 
     DaysBackButton {
         id: select
@@ -91,16 +71,13 @@ BaseSettingsTab {
         NutritionView {
             id: nutritionView
 
-            nutrients: nutritionPage.nutrients
+            weekView: nutritionPage.weekView
         }
 
         MacroView {
             id: macroView
 
-            nutrients: nutritionPage.nutrients
-            dailyNutrients: nutritionPage.dailyNutrients
-            daysBack: nutritionPage.daysBack
-            currentDayOfWeek: currentDate.getUTCDay()
+            weekView: nutritionPage.weekView
         }
     }
 }

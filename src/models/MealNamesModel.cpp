@@ -3,7 +3,7 @@
 MealNamesModel::MealNamesModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-    m_date = QDate::currentDate();
+    m_date = QDateTime::currentDateTime();
 
     m_manager = new MealNamesManager(this);
 }
@@ -110,12 +110,12 @@ QHash<int, QByteArray> MealNamesModel::roleNames() const
     return rez;
 }
 
-QDate MealNamesModel::date() const
+QDateTime MealNamesModel::date() const
 {
     return m_date;
 }
 
-void MealNamesModel::setDate(const QDate &newDate)
+void MealNamesModel::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;
@@ -123,8 +123,6 @@ void MealNamesModel::setDate(const QDate &newDate)
     emit dateChanged();
 
     clear();
-
-    m_manager->setDate(newDate);
 
     load();
 }

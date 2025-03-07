@@ -14,7 +14,7 @@ class FoodModel : public QAbstractListModel
     QML_ELEMENT
     Q_PROPERTY(int meal READ meal WRITE setMeal NOTIFY mealChanged FINAL)
     Q_PROPERTY(bool offlineSearch READ offlineSearch WRITE setOfflineSearch NOTIFY offlineSearchChanged FINAL)
-    Q_PROPERTY(QList<FoodServing> foods READ foods)
+    Q_PROPERTY(QList<FoodServing> foods READ foods WRITE setFoods NOTIFY foodsChanged)
 
     Q_PROPERTY(SearchSettingsManager *settings READ settings WRITE setSettings NOTIFY settingsChanged FINAL)
     Q_PROPERTY(QDateTime date READ date WRITE setDate NOTIFY dateChanged FINAL)
@@ -39,6 +39,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
 
     QList<FoodServing> foods() const;
+    void setFoods(const QList<FoodServing> &foods);
 
     Q_INVOKABLE void add(const FoodItem &item, const ServingSize &size, const double units = 1);
     Q_INVOKABLE void add(const FoodItem &item);
@@ -94,6 +95,8 @@ signals:
     void caloriesChanged();
 
     void nutrientsChanged();
+
+    void foodsChanged();
 
 protected:
     QHash<int, QByteArray> roleNames() const override;

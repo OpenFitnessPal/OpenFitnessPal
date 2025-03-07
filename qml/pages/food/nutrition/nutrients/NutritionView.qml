@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 Item {
-    property nutrientUnion nutrients
+    property bool weekView
 
     id: nutritionView
 
@@ -41,7 +41,7 @@ Item {
             clip: true
             width: listView.width
 
-            nutrients: nutritionView.nutrients
+            weekView: nutritionView.weekView
         }
     }
 }

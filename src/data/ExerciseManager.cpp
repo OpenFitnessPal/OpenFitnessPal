@@ -12,12 +12,12 @@ ExerciseManager::ExerciseManager(QObject *parent)
     m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 }
 
-QDate ExerciseManager::date() const
+QDateTime ExerciseManager::date() const
 {
     return m_date;
 }
 
-void ExerciseManager::setDate(const QDate &newDate)
+void ExerciseManager::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;
@@ -27,7 +27,7 @@ void ExerciseManager::setDate(const QDate &newDate)
 
 void ExerciseManager::resetDate()
 {
-    setDate(QDate::currentDate());
+    setDate(QDateTime::currentDateTime());
 }
 
 QList<Exercise> ExerciseManager::load()

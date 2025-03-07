@@ -6,6 +6,8 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 BaseSettingsTab {
+    signal dataChanged
+
     id: foodEdit
 
     property var serving: {
@@ -65,6 +67,7 @@ BaseSettingsTab {
 
         onSelect: selection => {
                       serving.size = selection
+                      dataChanged()
                   }
     }
 
@@ -90,6 +93,8 @@ BaseSettingsTab {
             background: Item {}
 
             Layout.fillWidth: true
+
+            onTextEdited: dataChanged()
         }
 
         LabeledNumberField {
@@ -100,6 +105,8 @@ BaseSettingsTab {
 
             bindTarget: serving
             bindedProperty: "units"
+
+            onValueChanged: dataChanged()
         }
 
         Rectangle {

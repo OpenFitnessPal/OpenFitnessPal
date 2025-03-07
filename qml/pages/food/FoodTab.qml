@@ -14,38 +14,6 @@ Rectangle {
 
     color: Constants.bg
 
-    property date currentDate: new Date()
-
-    property nutrientUnion blankNutrients
-
-    property list<double> mealCalories
-    property double calories: {
-        let sum = 0
-        for (var i = 0; i < mealCalories.length; ++i) {
-            sum += mealCalories[i]
-        }
-
-        return sum
-    }
-
-    property list<nutrientUnion> mealNutrients
-    property nutrientUnion nutrients: {
-        var sum
-        for (var i = 0; i < mealNutrients.length; ++i) {
-            if (i === 0) {
-                sum = mealNutrients[i]
-            } else {
-                sum = sum.add(mealNutrients[i])
-            }
-        }
-
-        if (typeof sum === "undefined") {
-            sum = blankNutrients
-        }
-
-        return sum
-    }
-
     property alias exerciseCalories: preview.exerciseCalories
 
     function add(mealNumber, serving) {
@@ -54,8 +22,6 @@ Rectangle {
 
     NutritionPreview {
         id: preview
-
-        foodCalories: parent.calories
 
         anchors {
             top: parent.top
@@ -93,11 +59,6 @@ Rectangle {
 
             onAdd: foodTab.search(mealNumber)
             onEdit: serving => foodTab.edit(serving)
-
-            onCaloriesChanged: foodTab.mealCalories[model.idx] = calories
-            onNutrientsChanged: foodTab.mealNutrients[model.idx] = nutrients
-
-            currentDate: foodTab.currentDate
         }
     }
 }

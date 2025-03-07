@@ -11,12 +11,12 @@ FoodManager::FoodManager(QObject *parent)
     m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 }
 
-QDate FoodManager::date() const
+QDateTime FoodManager::date() const
 {
     return m_date;
 }
 
-void FoodManager::setDate(const QDate &newDate)
+void FoodManager::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;
@@ -26,7 +26,7 @@ void FoodManager::setDate(const QDate &newDate)
 
 void FoodManager::resetDate()
 {
-    setDate(QDate::currentDate());
+    setDate(QDateTime::currentDateTime());
 }
 
 int FoodManager::meal() const

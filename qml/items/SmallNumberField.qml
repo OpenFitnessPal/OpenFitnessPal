@@ -31,8 +31,8 @@ TextField {
     rightPadding: txt.width + 2
     color: attentive ? Constants.accent : Constants.text
 
-    inputMethodHints: "ImhDigitsOnly"
-    validator: IntValidator {
+    inputMethodHints: Qt.ImhFormattedNumbersOnly
+    validator: DoubleValidator {
         bottom: from
         top: to
     }
@@ -41,7 +41,7 @@ TextField {
 
     onTextEdited: bindTarget[bindedProperty] = text
 
-    text: bindTarget[bindedProperty]
+    text: bindTarget !== null ? bindTarget[bindedProperty] : ""
 
     Text {
         id: txt

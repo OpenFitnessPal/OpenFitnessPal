@@ -12,12 +12,12 @@ CardioManager::CardioManager(QObject *parent)
     m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 }
 
-QDate CardioManager::date() const
+QDateTime CardioManager::date() const
 {
     return m_date;
 }
 
-void CardioManager::setDate(const QDate &newDate)
+void CardioManager::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;
@@ -27,7 +27,7 @@ void CardioManager::setDate(const QDate &newDate)
 
 void CardioManager::resetDate()
 {
-    setDate(QDate::currentDate());
+    setDate(QDateTime::currentDateTime());
 }
 
 QList<Cardio> CardioManager::load()

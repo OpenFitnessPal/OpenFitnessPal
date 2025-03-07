@@ -7,20 +7,7 @@ import OpenFitnessPal
 RowLayout {
     signal pickDate
 
-    property date currentDate: new Date()
-
-    Component.onCompleted: {
-        let newDate = new Date()
-        // slightly hacky way to ensure the timezone is correct
-        newDate.setUTCMinutes(newDate.getUTCMinutes(
-                                  ) - newDate.getTimezoneOffset())
-
-        currentDate = newDate
-    }
-
-    onCurrentDateChanged: {
-        mealNamesModel.date = currentDate
-    }
+    property date currentDate: dateManager.date
 
     NavButton {
         Layout.preferredWidth: 40 * Constants.scalar
@@ -28,7 +15,13 @@ RowLayout {
         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
 
         label: "Back"
-        onClicked: currentDate.setUTCDate(currentDate.getUTCDate() - 1)
+        onClicked: {
+            let newDate = currentDate
+
+            newDate.setUTCDate(currentDate.getUTCDate() - 1)
+
+            dateManager.date = newDate
+        }
     }
 
     MouseArea {
@@ -57,6 +50,12 @@ RowLayout {
         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
 
         label: "Forward"
-        onClicked: currentDate.setUTCDate(currentDate.getUTCDate() + 1)
+        onClicked: {
+            let newDate = currentDate
+
+            newDate.setUTCDate(currentDate.getUTCDate() + 1)
+
+            dateManager.date = newDate
+        }
     }
 }

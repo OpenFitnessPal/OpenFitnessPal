@@ -5,13 +5,6 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 BaseSettingsTab {
-    property date currentDate
-
-    onCurrentDateChanged: {
-        weightManager.date = currentDate
-        weight.value = weightManager.weight
-    }
-
     signal macros
     signal micros
 

@@ -13,11 +13,15 @@ Rectangle {
 
     implicitHeight: 90 * Constants.scalar
 
-    property double foodCalories
+    property double foodCalories: nutritionManager.today.calories
+    // TODO: also extract this
+    // will need for overview page
     property double exerciseCalories
     property double calorieGoal: goalManager.calories
 
-    property double remaining: calorieGoal - foodCalories + exerciseCalories
+    property double remaining: calorieGoal - (isNaN(
+                                                  foodCalories) ? 0 : foodCalories)
+                               + exerciseCalories
 
     readonly property list<string> labels: ["Goal", "", "Food", "", "Exercise", ""]
 
@@ -60,7 +64,8 @@ Rectangle {
         }
 
         Repeater {
-            model: [calorieGoal, "-", foodCalories, "+", exerciseCalories, "="]
+            model: [calorieGoal, "-", isNaN(
+                    foodCalories) ? 0 : foodCalories, "+", exerciseCalories, "="]
 
             ColumnLayout {
                 Layout.fillHeight: true

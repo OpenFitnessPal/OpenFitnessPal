@@ -92,6 +92,9 @@ set(ELEMENTS
     models/FoodModel
     models/ServingSizeModel
     models/NutrientModel
+    models/RecipeModel
+
+    DateManager
 )
 
 set(LIB_ELEMENTS
@@ -205,6 +208,7 @@ set(QML_ELEMENTS
     pages/food/FoodPreview
     pages/food/FoodTab
     pages/food/FoodEdit
+    pages/food/FoodView
 
     pages/food/ServingSizeDialog
 
@@ -226,9 +230,19 @@ set(QML_ELEMENTS
     pages/food/nutrition/macros/CalorieDisplay
     pages/food/nutrition/macros/MacroBarChart
 
+    pages/food/nutrition/DaysBackButton
+
     ## Search
     pages/food/search/FoodSearch
     pages/food/search/FoodSearchPage
+    pages/food/search/RecipeSearchPage
+
+    # Recipes
+    pages/recipes/RecipePage
+    pages/recipes/RecipePreview
+    pages/recipes/RecipeEdit
+    pages/recipes/RecipeTab
+    pages/recipes/RecipeView
 
     # Util
     util/NavButton
@@ -248,7 +262,6 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
-    QML_FILES qml/pages/food/nutrition/DaysBackButton.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

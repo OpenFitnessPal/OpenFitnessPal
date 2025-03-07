@@ -8,7 +8,8 @@ ColumnLayout {
     uniformCellSizes: true
     property bool isMacro: ["carbs", "fat", "protein"].includes(model.data)
 
-    property nutrientUnion nutrients
+    property bool weekView
+    property nutrientUnion nutrients: weekView ? nutritionManager.week : nutritionManager.today
 
     RowLayout {
         uniformCellSizes: true

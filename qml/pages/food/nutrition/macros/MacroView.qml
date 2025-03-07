@@ -9,11 +9,10 @@ import OpenFitnessPal
 Item {
     id: macroView
 
-    property nutrientUnion nutrients
-    property list<nutrientUnion> dailyNutrients
+    property bool weekView: false
 
-    property int daysBack: 1
-    property int currentDayOfWeek: 0
+    property nutrientUnion nutrients: weekView ? nutritionManager.week : nutritionManager.today
+    property list<nutrientUnion> dailyNutrients: nutritionManager.weekList
 
     property double carbs: Math.round(nutrients.carbs)
     property double fat: Math.round(nutrients.fat)
@@ -34,8 +33,6 @@ Item {
     // labels for the macro display
     property list<string> labels: ["Carbs", "Fat", "Protein"]
     property list<color> colors: ["lightblue", "#9500ff", "yellow"]
-
-    onDailyNutrientsChanged: bar.updateNutrients()
 
     ScrollView {
         id: scroll
@@ -73,7 +70,7 @@ Item {
 
                 // Pie Chart, for day view
                 PieSeries {
-                    visible: daysBack == 1
+                    visible: !weekView
                     id: pie
 
                     PieSlice {
@@ -104,15 +101,13 @@ Item {
                 MacroBarChart {
                     id: bar
 
-                    dailyNutrients: macroView.dailyNutrients
                     colors: macroView.colors
-                    daysBack: macroView.daysBack
-                    currentDayOfWeek: macroView.currentDayOfWeek
+                    weekView: macroView.weekView
                 }
             }
 
             MacroHeader {
-                useAverage: macroView.daysBack > 1
+                useAverage: weekView
             }
 
             Repeater {

@@ -15,6 +15,9 @@ Rectangle {
 
     property alias value: number.text
 
+    property alias from: number.from
+    property alias to: number.to
+
     color: Constants.sub
 
     implicitHeight: 45 * Constants.scalar

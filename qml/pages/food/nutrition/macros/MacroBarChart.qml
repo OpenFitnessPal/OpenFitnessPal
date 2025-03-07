@@ -7,18 +7,18 @@ import QtCharts
 import OpenFitnessPal
 
 StackedBarSeries {
-    property int daysBack: 1
+    property bool weekView: false
     property list<color> colors
-    property list<nutrientUnion> dailyNutrients
+    property list<nutrientUnion> weekList: nutritionManager.weekList
 
-    property int currentDayOfWeek: 0
+    property date currentDate: dateManager.date
 
     property list<string> days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
-    onCurrentDayOfWeekChanged: {
+    function updateCats() {
         let newCats = []
-        for (var i = days.length - 1; i > -1; --i) {
-            let newDay = currentDayOfWeek - i
+        for (var i = bar.days.length - 1; i > -1; --i) {
+            let newDay = currentDate.getDay() - i
             if (newDay < 0)
                 newDay += 7
             newCats.push(days[newDay])
@@ -28,23 +28,28 @@ StackedBarSeries {
         xAxis.categories = newCats
     }
 
-    function updateNutrients() {
-        let carbsList = []
-        let fatList = []
-        let proteinList = []
+    onCurrentDateChanged: updateCats()
+    Component.onCompleted: updateCats()
 
-        for (var i = dailyNutrients.length - 1; i > -1; --i) {
-            carbsList.push(dailyNutrients[i].carbs * 4.0)
-            fatList.push(dailyNutrients[i].fat * 9.0)
-            proteinList.push(dailyNutrients[i].protein * 4.0)
-        }
+    onWeekListChanged: () => {
+                           let carbsList = []
+                           let fatList = []
+                           let proteinList = []
 
-        carbsBar.values = carbsList
-        fatBar.values = fatList
-        proteinBar.values = proteinList
-    }
+                           for (var i = 0; i < weekList.length; ++i) {
+                               let n = weekList[i]
 
-    visible: daysBack > 1
+                               carbsList.push(n.carbs * 4.0)
+                               fatList.push(n.fat * 9.0)
+                               proteinList.push(n.protein * 4.0)
+                           }
+
+                           carbsBar.values = carbsList
+                           fatBar.values = fatList
+                           proteinBar.values = proteinList
+                       }
+
+    visible: weekView
 
     id: bar
 
@@ -54,7 +59,7 @@ StackedBarSeries {
         color: Constants.text
         labelsColor: Constants.text
 
-        visible: daysBack > 1
+        visible: weekView
     }
 
     axisY: ValueAxis {
@@ -65,7 +70,7 @@ StackedBarSeries {
         labelsColor: Constants.text
         gridLineColor: "transparent"
 
-        visible: daysBack > 1
+        visible: weekView
     }
 
     BarSet {

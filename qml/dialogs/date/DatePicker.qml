@@ -7,8 +7,6 @@ import OpenFitnessPal
 AnimatedDialog {
     id: datePicker
 
-    property alias currentDate: days.currentDate
-
     title: "Select Date"
 
     width: 420 * Constants.scalar
@@ -55,19 +53,25 @@ AnimatedDialog {
 
             month: currentDate.getMonth()
 
-            // year: currentDate.getFullYear()
-            onMonthChanged: currentDate.setMonth(month)
-            onYearChanged: currentDate.setFullYear(year)
+            property date currentDate: dateManager.date
 
-            property date currentDate
-
-            Component.onCompleted: {
-                let newDate = new Date()
-                // slightly hacky way to ensure the timezone is correct
-                newDate.setUTCMinutes(newDate.getMinutes())
-                currentDate = newDate
+            onMonthChanged: {
+                let newDate = currentDate
+                newDate.setMonth(month)
+                dateManager.date = newDate
+            }
+            onYearChanged: {
+                let newDate = currentDate
+                newDate.setFullYear(year)
+                dateManager.date = newDate
             }
 
+            // Component.onCompleted: {
+            //     let newDate = new Date()
+            //     // slightly hacky way to ensure the timezone is correct
+            //     newDate.setUTCMinutes(newDate.getMinutes())
+            //     dateManager.date = newDate
+            // }
             delegate: Text {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -80,22 +84,23 @@ AnimatedDialog {
                 Rectangle {
                     anchors.fill: parent
                     color: "lightblue"
-                    visible: days.currentDate.getDate() === model.day
-                             && days.currentDate.getMonth() === model.month
+                    visible: days.currentDate.getUTCDate() === model.day
+                             && days.currentDate.getUTCMonth() === model.month
                     z: -2
                 }
             }
 
             onClicked: date => {
                            let newDate = date
+
                            newDate.setUTCMinutes(
-                               newDate.getUTCMinutes(
+                               newDate.getMinutes(
                                    ) + newDate.getTimezoneOffset())
 
-                           month = date.getMonth()
-                           year = date.getFullYear()
+                           month = newDate.getMonth()
+                           year = newDate.getFullYear()
 
-                           currentDate = date
+                           dateManager.date = newDate
                        }
         }
     }

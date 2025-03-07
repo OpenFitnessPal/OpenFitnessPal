@@ -37,8 +37,8 @@ public:
     void save();
 
     Q_INVOKABLE void load();
-    QDate date() const;
-    void setDate(const QDate &newDate);
+    QDateTime date() const;
+    void setDate(const QDateTime &newDate);
 
     ExerciseModel *fromJson(const QJsonArray &arr, QObject *parent);
     QJsonArray toJson() const;
@@ -60,8 +60,8 @@ private:
 
     bool m_saveable;
 
-    QDate m_date;
-    Q_PROPERTY(QDate date READ date WRITE setDate NOTIFY dateChanged FINAL)
+    QDateTime m_date;
+    Q_PROPERTY(QDateTime date READ date WRITE setDate NOTIFY dateChanged FINAL)
 };
 
 #endif // EXERCISEMODEL_H

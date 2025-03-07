@@ -5,8 +5,6 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 BaseSettingsTab {
-    property date currentDate
-
     id: exercisePage
 
     title: "Exercises"
@@ -18,7 +16,7 @@ BaseSettingsTab {
     Component.onCompleted: em.load()
 
     ExerciseModel {
-        date: exercisePage.currentDate
+        date: dateManager.date
         id: em
     }
 

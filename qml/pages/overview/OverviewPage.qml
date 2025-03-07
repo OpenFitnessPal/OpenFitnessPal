@@ -5,8 +5,6 @@ import QtQuick.Layouts 6.6
 import OpenFitnessPal
 
 Rectangle {
-    property date currentDate
-
     function back() {}
 
     id: overview

@@ -53,6 +53,14 @@ QList<FoodServing> FoodModel::foods() const
     return m_data;
 }
 
+void FoodModel::setFoods(const QList<FoodServing> &foods)
+{
+    beginResetModel();
+    m_data = foods;
+    endResetModel();
+    emit foodsChanged();
+}
+
 void FoodModel::add(const FoodItem &item, const ServingSize &size, const double units)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -255,10 +263,7 @@ void FoodModel::setDate(const QDateTime &newDate)
     if (m_date == newDate)
         return;
     m_date = newDate;
-    m_food->setDate(newDate.date());
-
-    // if (m_meal == 1) qDebug() << "C++: FoodModel Date:" << newDate;
-    // if (m_meal == 1) qDebug() << "C++: FoodManager Date:" << m_food->date();
+    m_food->setDate(newDate);
 
     load();
     emit dateChanged();

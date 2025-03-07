@@ -10,10 +10,10 @@ class WeightManager : public QObject
     Q_OBJECT
     QML_ELEMENT
 
-    QDate m_date;
+    QDateTime m_date;
     QDir m_dir;
 
-    Q_PROPERTY(QDate date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
+    Q_PROPERTY(QDateTime date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
     Q_PROPERTY(int weight READ get WRITE set NOTIFY weightChanged FINAL)
 public:
     WeightManager(QObject *parent = nullptr);
@@ -21,8 +21,8 @@ public:
     Q_INVOKABLE bool set(const int weight);
     Q_INVOKABLE int get();
 
-    QDate date() const;
-    void setDate(const QDate &newDate);
+    QDateTime date() const;
+    void setDate(const QDateTime &newDate);
     void resetDate();
 
 signals:

@@ -45,7 +45,7 @@ RowLayout {
         horizontalAlignment: Text.AlignHCenter
 
         id: total
-        text: realValue + "%"
+        text: realValue + "g"
 
         color: "gray"
 

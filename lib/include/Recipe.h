@@ -13,6 +13,8 @@ class Recipe
     Q_PROPERTY(QList<FoodServing> foods READ foods WRITE setFoods FINAL)
     Q_PROPERTY(double servings READ servings WRITE setServings FINAL)
     Q_PROPERTY(QString name READ name WRITE setName FINAL)
+
+    QML_VALUE_TYPE(recipe)
 public:
     Recipe();
 
@@ -23,8 +25,8 @@ public:
 
     Q_INVOKABLE QList<FoodServing> asServings(double units);
     Q_INVOKABLE FoodServing asFood(double units);
-
-    Q_INVOKABLE NutrientUnion nutrients(double units = 1);
+    
+    Q_INVOKABLE NutrientUnion nutrients(double units = 1) const;
 
     QString name() const;
     void setName(const QString &newName);

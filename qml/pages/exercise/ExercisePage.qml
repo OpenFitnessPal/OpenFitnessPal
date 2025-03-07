@@ -3,8 +3,6 @@ import QtQuick
 import OpenFitnessPal
 
 Rectangle {
-    property date currentDate
-
     property alias calories: cardioTab.calories
 
     id: settings
@@ -44,8 +42,6 @@ Rectangle {
         ExerciseTab {
             id: exercisesTab
 
-            currentDate: settings.currentDate
-
             visible: false
         }
 
@@ -63,8 +59,6 @@ Rectangle {
             id: cardioTab
 
             visible: false
-
-            currentDate: settings.currentDate
 
             onEditCardio: cardio => {
                               cardioEdit.bindedCardio = cardio

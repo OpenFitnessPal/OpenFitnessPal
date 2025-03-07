@@ -13,8 +13,6 @@ Rectangle {
         return swipe.back()
     }
 
-    property date currentDate: new Date()
-
     DateSelector {
         id: dateSelect
 
@@ -27,19 +25,12 @@ Rectangle {
         }
 
         onPickDate: {
-            picker.currentDate = currentDate
             picker.open()
         }
-
-        onCurrentDateChanged: parent.currentDate = currentDate
     }
 
     DatePicker {
         id: picker
-
-        onAccepted: {
-            dateSelect.currentDate = currentDate
-        }
     }
 
     SwipeView {
@@ -66,28 +57,24 @@ Rectangle {
 
         OverviewPage {
             id: overview
-
-            currentDate: screen.currentDate
         }
 
         ExercisePage {
             id: exercise
-
-            currentDate: screen.currentDate
         }
 
         FoodPage {
             id: food
 
             exerciseCalories: exercise.calories
+        }
 
-            currentDate: screen.currentDate
+        RecipePage {
+            id: recipe
         }
 
         SettingsPage {
             id: settings
-
-            currentDate: screen.currentDate
         }
     }
 
@@ -103,7 +90,7 @@ Rectangle {
         }
 
         Repeater {
-            model: ["Overview", "Exercise", "Food", "More"]
+            model: ["Overview", "Exercise", "Food", "Recipes", "More"]
 
             IconTabButton {
                 text: modelData

@@ -13,22 +13,24 @@ WeightManager::WeightManager(QObject *parent)
     resetDate();
 }
 
-QDate WeightManager::date() const
+QDateTime WeightManager::date() const
 {
     return m_date;
 }
 
-void WeightManager::setDate(const QDate &newDate)
+void WeightManager::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;
     m_date = newDate;
     emit dateChanged();
+    emit weightChanged();
+
 }
 
 void WeightManager::resetDate()
 {
-    setDate(QDate::currentDate());
+    setDate(QDateTime::currentDateTime());
 }
 
 bool WeightManager::set(const int weight)
@@ -46,6 +48,8 @@ bool WeightManager::set(const int weight)
 
     f.write(QByteArray::number(weight));
     f.close();
+
+    emit weightChanged();
 
     return true;
 }
@@ -87,13 +91,13 @@ void WeightManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
     if (!f.exists() || (!modify && !dir.exists("weightModified"))) {
         QDir rootDir(m_dir);
 
-        QDate closestDate = QDate(1, 1, 1);
+        QDateTime closestDate = QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0));
 
         QDirIterator iter(rootDir);
         while (iter.hasNext()) {
             iter.next();
             QString dirName = iter.fileName();
-            QDate date = QDate::fromString(dirName, "MM-dd-yyyy");
+            QDateTime date = QDateTime::fromString(dirName, "MM-dd-yyyy");
 
             if (date.isNull() || date == m_date) continue;
 
@@ -104,7 +108,7 @@ void WeightManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
             }
         }
 
-        if (closestDate != QDate(1, 1, 1)) {
+        if (closestDate != QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0))) {
             QString original = m_dir.absoluteFilePath(closestDate.toString("MM-dd-yyyy") + "/weight");
 
             // Remove the original in case it exists and is unmodified

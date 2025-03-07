@@ -5,8 +5,6 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 BaseSettingsTab {
-    property date currentDate
-
     id: cardioPage
 
     title: "Cardio"
@@ -16,7 +14,7 @@ BaseSettingsTab {
     signal editCardio(var cardio)
 
     CardioModel {
-        date: cardioPage.currentDate
+        date: dateManager.date
 
         id: cm
     }

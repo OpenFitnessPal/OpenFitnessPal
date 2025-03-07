@@ -5,29 +5,60 @@
 #include <QJsonDocument>
 #include <QStandardPaths>
 
+NutrientUnion NutritionManager::today() const
+{
+    return m_today;
+}
+
+NutrientUnion NutritionManager::week() const
+{
+    return m_week;
+}
+
+QList<NutrientUnion> NutritionManager::weekList() const
+{
+    return m_weekList;
+}
+
+void NutritionManager::updateNutrients()
+{
+    m_today = load(1);
+    m_week = load(7);
+    m_weekList = list(7);
+
+    emit todayChanged();
+    emit weekChanged();
+    emit weekListChanged();
+}
+
 NutritionManager::NutritionManager(QObject *parent)
     : QObject(parent)
 {
-    resetDate();
     m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+
+    resetDate();
+    updateNutrients();
 }
 
-QDate NutritionManager::date() const
+QDateTime NutritionManager::date() const
 {
     return m_date;
 }
 
-void NutritionManager::setDate(const QDate &newDate)
+void NutritionManager::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;
     m_date = newDate;
+
+    updateNutrients();
+
     emit dateChanged();
 }
 
 void NutritionManager::resetDate()
 {
-    setDate(QDate::currentDate());
+    setDate(QDateTime::currentDateTime());
 }
 
 NutrientUnion NutritionManager::load(int daysBack)
@@ -80,7 +111,7 @@ QList<NutrientUnion> NutritionManager::list(int daysBack)
 {
     int totalDays = 0;
     QList<NutrientUnion> days;
-    for (int i = 0; i < daysBack; ++i) {
+    for (int i = daysBack - 1; i > -1; --i) {
         NutrientUnion today;
         int numMeals = 0;
 
@@ -126,7 +157,7 @@ QList<NutrientUnion> NutritionManager::list(int daysBack)
 }
 
 bool NutritionManager::mkDate(int daysBack, QDir &dir) {
-    QDate newDate = m_date.addDays(-daysBack);
+    QDateTime newDate = m_date.addDays(-daysBack);
     QString dateString = newDate.toString("MM-dd-yyyy");
 
     if (!dir.exists(dateString)) {

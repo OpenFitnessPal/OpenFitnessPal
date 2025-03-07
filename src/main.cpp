@@ -1,6 +1,8 @@
+#include "DateManager.h"
 #include "GoalManager.h"
 #include "MealNamesModel.h"
 #include "NutrientModel.h"
+#include "NutritionManager.h"
 #include "SearchSettingsManager.h"
 #include "WeightManager.h"
 
@@ -56,6 +58,17 @@ int main(int argc, char *argv[])
 
     NutrientModel *all = new NutrientModel(true, true, &app);
     engine.rootContext()->setContextProperty("nutrientsModel", all);
+
+    NutritionManager *nutrition = new NutritionManager(&app);
+    engine.rootContext()->setContextProperty("nutritionManager", nutrition);
+
+    DateManager *date = new DateManager(&app);
+    engine.rootContext()->setContextProperty("dateManager", date);
+
+    QObject::connect(date, &DateManager::dateChanged, nutrition, [nutrition, weight, date] () {
+        nutrition->setDate(date->date());
+        weight->setDate(date->date());
+    });
 
     engine.loadFromModule("OpenFitnessPal", "Main");
 

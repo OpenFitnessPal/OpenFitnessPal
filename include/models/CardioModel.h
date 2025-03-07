@@ -37,8 +37,8 @@ public:
     void save();
 
     Q_INVOKABLE void load();
-    QDate date() const;
-    void setDate(const QDate &newDate);
+    QDateTime date() const;
+    void setDate(const QDateTime &newDate);
 
     CardioModel *fromJson(const QJsonArray &arr, QObject *parent);
     QJsonArray toJson() const;
@@ -61,8 +61,8 @@ private:
     double m_calories;
     CardioManager *m_manager;
 
-    QDate m_date;
-    Q_PROPERTY(QDate date READ date WRITE setDate NOTIFY dateChanged FINAL)
+    QDateTime m_date;
+    Q_PROPERTY(QDateTime date READ date WRITE setDate NOTIFY dateChanged FINAL)
     Q_PROPERTY(double calories READ calories RESET resetCalories NOTIFY caloriesChanged FINAL)
 };
 

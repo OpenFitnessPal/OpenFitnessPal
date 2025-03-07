@@ -6,7 +6,7 @@
 CardioModel::CardioModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-    m_date = QDate::currentDate();
+    m_date = QDateTime::currentDateTime();
 
     m_manager = new CardioManager(this);
 }
@@ -156,12 +156,12 @@ QList<Cardio> CardioModel::data() const
     return m_data;
 }
 
-QDate CardioModel::date() const
+QDateTime CardioModel::date() const
 {
     return m_date;
 }
 
-void CardioModel::setDate(const QDate &newDate)
+void CardioModel::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;

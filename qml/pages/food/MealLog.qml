@@ -14,14 +14,9 @@ Rectangle {
 
     height: 62 * Constants.scalar + (listView.count * (65 * Constants.scalar + listView.spacing))
 
-    property date currentDate: new Date()
-
     property int mealNumber: 0
 
     property string mealName
-
-    property alias calories: fm.calories
-    property alias nutrients: fm.nutrients
 
     function addFood(serving) {
         fm.add(serving)
@@ -31,9 +26,12 @@ Rectangle {
     FoodModel {
         id: fm
         meal: mealNumber
-        date: mealLog.currentDate
+        date: dateManager.date
 
-        onDataChanged: save()
+        onDataChanged: {
+            save()
+            nutritionManager.updateNutrients()
+        }
         Component.onCompleted: load()
     }
 
@@ -79,36 +77,11 @@ Rectangle {
             Layout.fillWidth: true
         }
 
-        ListView {
+        FoodView {
             id: listView
+            foods: fm
 
-            model: fm
-            spacing: 5 * Constants.scalar
-
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            height: (count * (65 * Constants.scalar + spacing))
-            contentHeight: height
-
-            interactive: false
-            clip: false
-
-            function fixHeight() {
-                height = (count * (65 * Constants.scalar
-                                   + spacing)) // needs to be force-set for some reason
-            }
-
-            onHeightChanged: fixHeight()
-            onCountChanged: fixHeight()
-
-            delegate: FoodPreview {
-                width: listView.width
-                height: 65 * Constants.scalar
-                onDeleteRequested: fm.remove(idx)
-
-                onClicked: mealLog.edit(model)
-            }
+            onEdit: serving => mealLog.edit(serving)
         }
     }
 }
