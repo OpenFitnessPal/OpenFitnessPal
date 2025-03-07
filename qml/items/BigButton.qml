@@ -30,7 +30,7 @@ Rectangle {
         
         RowLayout {
             anchors.fill: parent
-            SettingsIcon {
+            BigIcon {
                 id: image
                 label: name
                 

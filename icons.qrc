@@ -17,5 +17,8 @@
         <file alias="MoreVertical">icons/moreVert.svg</file>
         <file alias="Cardio">icons/cardio.svg</file>
         <file alias="Recipes">icons/recipes.svg</file>
+        <file alias="Health">icons/health.svg</file>
+        <file alias="Markers">icons/markers.svg</file>
+        <file alias="Symptoms">icons/symptoms.svg</file>
     </qresource>
 </RCC>

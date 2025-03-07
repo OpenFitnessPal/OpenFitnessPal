@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 Rectangle {
-    id: settingsButton
+    id: bigButton
 
     signal clicked
 

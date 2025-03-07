@@ -63,6 +63,10 @@ Rectangle {
             id: exercise
         }
 
+        HealthPage {
+            id: health
+        }
+
         FoodPage {
             id: food
 
@@ -90,7 +94,7 @@ Rectangle {
         }
 
         Repeater {
-            model: ["Overview", "Exercise", "Food", "Recipes", "More"]
+            model: ["Overview", "Exercise", "Health", "Food", "Recipes", "More"]
 
             IconTabButton {
                 text: modelData

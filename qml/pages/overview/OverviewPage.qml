@@ -10,23 +10,4 @@ Rectangle {
     id: overview
 
     color: Constants.bg
-
-    ScrollView {
-        width: parent.width
-        height: parent.height - 8 * Constants.scalar
-
-        y: 8 * Constants.scalar
-
-        contentWidth: parent.width - effectiveScrollBarWidth
-
-        id: scroll
-
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-
-        ColumnLayout {
-            anchors {
-                fill: parent
-            }
-        }
-    }
 }

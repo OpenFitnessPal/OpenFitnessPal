@@ -21,19 +21,19 @@ Rectangle {
             left: parent.left
         }
 
-        SettingsButton {
+        BigButton {
             id: meals
             name: "Meals"
             onClicked: initial.meals()
         }
 
-        SettingsButton {
+        BigButton {
             id: search
             name: "Search"
             onClicked: initial.search()
         }
 
-        SettingsButton {
+        BigButton {
             id: goals
             name: "Goals"
             onClicked: initial.goals()

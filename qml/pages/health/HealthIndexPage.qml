@@ -5,9 +5,8 @@ import QtQuick.Layouts
 import OpenFitnessPal
 
 Rectangle {
-    signal routines
-    signal exercises
-    signal cardio
+    signal markers
+    signal symptoms
 
     id: initial
 
@@ -22,18 +21,13 @@ Rectangle {
         }
 
         BigButton {
-            name: "Routines"
-            onClicked: initial.routines()
+            name: "Markers"
+            onClicked: initial.markers()
         }
 
         BigButton {
-            name: "Exercise"
-            onClicked: initial.exercises()
-        }
-
-        BigButton {
-            name: "Cardio"
-            onClicked: initial.cardio()
+            name: "Symptoms"
+            onClicked: initial.symptoms()
         }
     }
 }

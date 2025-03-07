@@ -93,8 +93,10 @@ set(ELEMENTS
     models/ServingSizeModel
     models/NutrientModel
     models/RecipeModel
+    models/HealthMarkerModel
 
     DateManager
+    Time
 )
 
 set(LIB_ELEMENTS
@@ -150,6 +152,8 @@ set(QML_ELEMENTS
     items/SectionHeader
     items/BetterButton
     items/BaseTab
+    items/BigButton
+    items/BigIcon
 
     items/UnlabeledTextField
 
@@ -161,8 +165,6 @@ set(QML_ELEMENTS
     # Settings
     pages/settings/SettingsPage
     pages/settings/InitialPage
-    pages/settings/SettingsIcon
-    pages/settings/SettingsButton
 
     ## Meals
     pages/settings/meals/MealsTab
@@ -203,6 +205,13 @@ set(QML_ELEMENTS
     pages/exercise/cardio/CardioPreview
     pages/exercise/cardio/CardioPresetDialog
     pages/exercise/cardio/CardioEdit
+
+    # Health
+    pages/health/HealthPage
+    pages/health/HealthIndexPage
+
+    pages/health/MarkersTab
+    pages/health/SymptomsTab
 
     # Food
     pages/food/FoodPage
