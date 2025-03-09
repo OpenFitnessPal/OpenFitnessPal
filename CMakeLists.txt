@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Charts Widgets)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Core Quick QuickControls2 Network Charts Widgets)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
@@ -100,7 +100,6 @@ set(ELEMENTS
     models/SymptomLogModel
 
     DateManager
-    Time
 )
 
 set(LIB_ELEMENTS
