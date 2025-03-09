@@ -159,8 +159,10 @@ set(QML_ELEMENTS
     items/BigButton
     items/BigIcon
 
-    items/TimeField
+    items/TimeHMField
+    items/TimeMSField
     items/UnlabeledTextField
+    items/BloodPressureField
 
     items/SmallNumberField
     items/LabeledNumberField
@@ -215,10 +217,20 @@ set(QML_ELEMENTS
     pages/health/HealthPage
     pages/health/HealthIndexPage
 
-    pages/health/MarkersTab
+    ## Symptom Logs
     pages/health/SymptomsTab
-
     pages/health/SymptomLog
+
+    ## Markers
+    pages/health/markers/MarkersTab
+    pages/health/markers/MarkerChoiceDialog
+    pages/health/markers/MarkerLabel
+
+    pages/health/markers/HeartRateMarker
+    pages/health/markers/MileTimeMarker
+    pages/health/markers/SleepMarker
+    pages/health/markers/VO2MaxMarker
+    pages/health/markers/BloodPressureMarker
 
     # Food
     pages/food/FoodPage

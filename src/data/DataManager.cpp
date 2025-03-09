@@ -136,6 +136,9 @@ void DataManager::findNearest(QFile &f, QDir &dir, bool modify)
         while (iter.hasNext()) {
             iter.next();
             QString dirName = iter.fileName();
+
+            if (!rootDir.exists(dirName + "/" + m_filename)) continue;
+
             QDateTime date = QDateTime::fromString(dirName, "MM-dd-yyyy");
 
             if (date.isNull() || date == m_date) continue;
@@ -158,7 +161,6 @@ void DataManager::findNearest(QFile &f, QDir &dir, bool modify)
                 return;
             }
 
-            f.write("135");
             f.close();
         }
     } else if (modify) {

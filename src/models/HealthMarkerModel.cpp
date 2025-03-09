@@ -6,6 +6,8 @@ HealthMarkerModel::HealthMarkerModel(QObject *parent)
     : QAbstractListModel{parent}
 {
     m_manager = new HealthMarkerManager(this);
+
+    resetOptions();
 }
 
 int HealthMarkerModel::rowCount(const QModelIndex &parent) const
@@ -30,29 +32,35 @@ QVariant HealthMarkerModel::data(const QModelIndex &index, int role) const
         return h.value;
     case NAME:
         return h.name;
+    case IDX:
+        return index.row();
     }
 
     return QVariant();
 }
 
-void HealthMarkerModel::add(const QString &name)
+void HealthMarkerModel::add(const QString &name, bool doSave)
 {
-    auto markers = m_manager->markers();
-    markers.append(name);
-
-    m_manager->set(name, QVariant());
+    HealthMarker marker;
+    marker.name = name;
 
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_data << HealthMarker{name, QVariant()};
+    m_data << marker;
     endInsertRows();
+
+    if (doSave) save();
+
+    resetOptions();
 }
 
 void HealthMarkerModel::remove(int index)
 {
     beginRemoveRows(QModelIndex(), index, index);
-    m_manager->remove(m_data.at(index).name);
     m_data.remove(index);
+    save();
     endRemoveRows();
+
+    resetOptions();
 }
 
 bool HealthMarkerModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -66,15 +74,21 @@ bool HealthMarkerModel::setData(const QModelIndex &index, const QVariant &value,
     switch (role) {
     case VALUE:
         h.value = value;
-        m_manager->set(h.name, h.value);
         break;
     default:
         return false;
     }
 
     emit dataChanged(index, index, {role});
+    save();
+    resetOptions();
 
     return true;
+}
+
+void HealthMarkerModel::save()
+{
+    m_manager->save(m_data);
 }
 
 void HealthMarkerModel::load()
@@ -82,10 +96,10 @@ void HealthMarkerModel::load()
     beginResetModel();
     m_data.clear();
 
-    auto markers = m_manager->getCurrentMarkers();
-
-    m_data.append(markers);
+    m_data.append(m_manager->load());
     endResetModel();
+
+    resetOptions();
 }
 
 QDateTime HealthMarkerModel::date() const
@@ -101,7 +115,35 @@ void HealthMarkerModel::setDate(const QDateTime &newDate)
     m_manager->setDate(newDate);
 
     load();
+
     emit dateChanged();
+}
+
+void HealthMarkerModel::resetOptions()
+{
+    auto prev = m_options;
+    m_options.clear();
+    QStringList tmp;
+    tmp << "RHR"
+        << "Mile Time"
+        << "Sleep"
+        << "Blood Pressure"
+        << "VO2 Max";
+
+    QStringList usedList = used();
+
+    for (const QString &s : std::as_const(tmp)) {
+        if (!usedList.contains(s)) {
+            m_options.append(s);
+        }
+    }
+
+    if (prev != m_options) emit optionsChanged();
+}
+
+QList<QString> HealthMarkerModel::options() const
+{
+    return m_options;
 }
 
 QHash<int, QByteArray> HealthMarkerModel::roleNames() const
@@ -109,5 +151,17 @@ QHash<int, QByteArray> HealthMarkerModel::roleNames() const
     QHash<int,QByteArray> rez;
     rez[VALUE] = "value";
     rez[NAME] = "name";
+    rez[IDX] = "idx";
     return rez;
 }
+
+QStringList HealthMarkerModel::used()
+{
+    QStringList used;
+    for (const HealthMarker &h : std::as_const(m_data)) {
+        used << h.name;
+    }
+
+    return used;
+}
+

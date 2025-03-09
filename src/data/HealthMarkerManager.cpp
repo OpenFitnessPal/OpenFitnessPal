@@ -9,167 +9,52 @@ HealthMarkerManager::HealthMarkerManager(QObject *parent)
     : DataManager{parent}
 {
     // TOOD: this is custom
+    m_filename = "health.json";
+    m_useDate = true;
+    m_nearest = true;
+    m_modifiedFileName = "healthModified";
 }
 
-bool HealthMarkerManager::set(const QString &field, const QVariant &data)
+bool HealthMarkerManager::save(const QList<HealthMarker> &markers)
 {
-    QDir dir(m_dir);
-    mkDate(dir);
-
-    QFile f(dir.absoluteFilePath("health.json"));
-    QJsonObject obj;
-
-    if (!f.open(QIODevice::ReadOnly)) {
-        return createBlankJson(f).empty();
+    QJsonArray arr;
+    for (const HealthMarker &h : markers) {
+        arr.append(h.toJson());
     }
 
-    obj = QJsonDocument::fromJson(f.readAll()).object();
-    f.close();
-
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return false;
-    }
-
-    obj.insert(field, data.toJsonValue());
-
-    f.write(QJsonDocument(obj).toJson());
-    f.close();
-
-    emit dataChanged(field, data);
-
-    return true;
+    return write(arr);
 }
 
-QVariant HealthMarkerManager::get(const QString &field, const QVariant &defaultValue)
+QList<HealthMarker> HealthMarkerManager::load()
 {
-    QDir dir(m_dir);
-    mkDate(dir);
+    QJsonArray arr = readArray();
 
-    QFile f(dir.absoluteFilePath("health.json"));
-    QJsonObject obj;
+    m_markers.clear();
 
-    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        createBlankJson(f);
-        return defaultValue;
-    }
-
-    obj = QJsonDocument::fromJson(f.readAll()).object();
-    f.close();
-
-    return obj.contains(field) ? obj.value(field) : defaultValue;
-}
-
-bool HealthMarkerManager::remove(const QString &field)
-{
-    QDir dir(m_dir);
-    mkDate(dir);
-
-    QFile f(dir.absoluteFilePath("health.json"));
-    QJsonObject obj;
-
-    if (!f.open(QIODevice::ReadOnly)) {
-        return createBlankJson(f).empty();
-    }
-
-    obj = QJsonDocument::fromJson(f.readAll()).object();
-    f.close();
-
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return false;
-    }
-
-    obj.remove(field);
-
-    f.write(QJsonDocument(obj).toJson());
-    f.close();
-
-    return true;
-}
-
-QList<HealthMarker> HealthMarkerManager::getCurrentMarkers()
-{
-    QDir dir(m_dir);
-
-    QFile f(dir.absoluteFilePath("health.json"));
-    QJsonObject obj;
-
-    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        obj = createBlankJson(f);
-    } else {
-        obj = QJsonDocument::fromJson(f.readAll()).object();
-        f.close();
-    }
-
-    QList<HealthMarker> list;
-
-    for (const QString &key : obj.keys()) {
-        HealthMarker marker;
-        marker.name = key;
-        marker.value = obj.value(key);
-        list.append(marker);
-    }
-
-    return list;
-}
-
-
-QList<QVariant> HealthMarkerManager::markers()
-{
-    if (m_markers.empty()) {
-        QDir dir(m_dir);
-
-        QFile f(dir.absoluteFilePath("healthOptions.json"));
-        QJsonArray arr;
-
-        if (!f.open(QIODevice::ReadOnly)) {
-            return m_markers;
-        }
-
-        arr = QJsonDocument::fromJson(f.readAll()).array();
-        f.close();
-
-        m_markers = arr.toVariantList();
+    for (QJsonValueConstRef ref : std::as_const(arr)) {
+        HealthMarker marker = HealthMarker::fromJson(ref.toObject());
+        m_markers.append(marker);
+        emit dataChanged(marker.name, marker.value);
     }
 
     return m_markers;
 }
 
-void HealthMarkerManager::setMarkers(const QList<QVariant> &newMarkers)
+QJsonObject HealthMarker::toJson() const
 {
-    if (m_markers == newMarkers)
-        return;
-    m_markers = newMarkers;
-    emit markersChanged();
+    QJsonObject obj;
 
-    QDir dir(m_dir);
-
-    QFile f(dir.absoluteFilePath("healthOptions.json"));
-
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return;
-    }
-
-    QJsonArray arr = QJsonArray::fromVariantList(m_markers);
-
-    f.write(QJsonDocument(arr).toJson());
-    f.close();
-}
-
-QJsonObject HealthMarkerManager::createBlankJson(QFile &f) {
-    QJsonObject obj{};
-
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return obj;
-    }
-
-    QVariantList markers = this->markers();
-
-    for (const QVariant &v : std::as_const(markers)) {
-        obj.insert(v.toString(), QJsonValue());
-    }
-
-    f.write(QJsonDocument(obj).toJson());
-    f.close();
+    obj.insert("name", name);
+    obj.insert("value", value.toJsonValue());
 
     return obj;
+}
+
+HealthMarker HealthMarker::fromJson(const QJsonObject &obj)
+{
+    HealthMarker marker;
+    marker.name = obj.value("name").toString();
+    marker.value = obj.value("value");
+
+    return marker;
 }

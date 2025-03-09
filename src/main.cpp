@@ -1,5 +1,6 @@
 #include "DateManager.h"
 #include "GoalManager.h"
+#include "HealthMarkerModel.h"
 #include "MealNamesModel.h"
 #include "NutrientModel.h"
 #include "NutritionManager.h"
@@ -79,7 +80,15 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("recipeSearchModel", recipeSearchModel);
     engine.rootContext()->setContextProperty("recipeEditModel", recipeEditModel);
 
-    QObject::connect(date, &DateManager::dateChanged, nutrition, [nutrition, weight, date, goals] () {
+    /**
+     * Health Markers
+     */
+
+    HealthMarkerModel *healthMarkers = new HealthMarkerModel(&app);
+
+    engine.rootContext()->setContextProperty("healthMarkerModel", healthMarkers);
+
+    QObject::connect(date, &DateManager::dateChanged, nutrition, [nutrition, weight, date, goals, healthMarkers] () {
         nutrition->setDate(date->date());
         nutrition->updateNutrients();
 
@@ -88,6 +97,8 @@ int main(int argc, char *argv[])
 
         goals->setDate(date->date());
         goals->updateFields();
+
+        healthMarkers->setDate(date->date());
     });
 
     engine.loadFromModule("OpenFitnessPal", "Main");
