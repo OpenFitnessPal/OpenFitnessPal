@@ -84,7 +84,7 @@ void CardioModel::add(const QList<Cardio> &e)
 
 void CardioModel::add(QString name, bool doSave)
 {
-    Cardio ex(this);
+    Cardio ex;
     ex.setName(name);
     ex.setCalories(0);
     ex.setMinutes(0);
@@ -122,7 +122,7 @@ void CardioModel::load()
     clear();
     QList<Cardio> Cardios = m_manager->load();
 
-    for (const Cardio &e : Cardios) {
+    for (const Cardio &e : std::as_const(Cardios)) {
         add(e, false);
     }
 }
@@ -193,7 +193,7 @@ double CardioModel::calories() const
 void CardioModel::resetCalories()
 {
     double sum = 0;
-    for (const Cardio &c : m_data) {
+    for (const Cardio &c : std::as_const(m_data)) {
         sum += c.calories();
     }
     m_calories = sum;

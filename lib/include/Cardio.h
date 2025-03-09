@@ -4,11 +4,12 @@
 #include <QObject>
 #include <QQmlEngine>
 
-class Cardio : public QObject
+class Cardio
 {
-    Q_OBJECT
+    Q_GADGET
+    QML_VALUE_TYPE(cardio)
 public:
-    explicit Cardio(QObject *parent = nullptr);
+    explicit Cardio() = default;
     Cardio(const Cardio &other);
 
     Cardio operator=(const Cardio &other);
@@ -25,21 +26,14 @@ public:
     QJsonObject toJson() const;
     static Cardio fromJson(const QJsonObject &obj);
 
-signals:
-    void caloriesChanged();
-
-    void minutesChanged();
-
-    void nameChanged();
-
 private:
     double m_minutes;
     int m_calories;
     QString m_name;
 
-    Q_PROPERTY(int calories READ calories WRITE setCalories NOTIFY caloriesChanged FINAL)
-    Q_PROPERTY(double minutes READ minutes WRITE setMinutes NOTIFY minutesChanged FINAL)
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
+    Q_PROPERTY(int calories READ calories WRITE setCalories FINAL)
+    Q_PROPERTY(double minutes READ minutes WRITE setMinutes FINAL)
+    Q_PROPERTY(QString name READ name WRITE setName FINAL)
 };
 
 bool operator==(const Cardio &a, const Cardio &b);

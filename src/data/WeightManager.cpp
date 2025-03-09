@@ -17,7 +17,6 @@ WeightManager::WeightManager(QObject *parent)
 bool WeightManager::set(const int weight)
 {
     bool ok = write(QByteArray::number(weight));
-    qDebug() << "weight changed to" << weight << ok;
 
     emit weightChanged();
 
@@ -27,6 +26,5 @@ bool WeightManager::set(const int weight)
 
 int WeightManager::get()
 {
-    qDebug() << "weight read as" << read();
     return read().toInt();
 }

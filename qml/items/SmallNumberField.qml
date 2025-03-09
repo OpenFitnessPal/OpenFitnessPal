@@ -10,8 +10,8 @@ TextField {
     required property var bindTarget
     required property var bindedProperty
 
-    property int from: 0
-    property int to: 9999
+    property double from: 0
+    property double to: 9999
 
     property bool attentive: true
 
@@ -35,13 +35,13 @@ TextField {
     validator: DoubleValidator {
         bottom: from
         top: to
+        notation: "StandardNotation"
     }
 
     font.pixelSize: 18 * Constants.scalar
 
-    onTextEdited
-    : if (bindTarget !== null)
-                      bindTarget[bindedProperty] = text
+    onEditingFinished: if (bindTarget !== null)
+                           bindTarget[bindedProperty] = text
 
     text: bindTarget !== null ? bindTarget[bindedProperty] : ""
 

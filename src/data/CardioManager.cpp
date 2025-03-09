@@ -18,7 +18,7 @@ QList<Cardio> CardioManager::load()
 
     QJsonArray arr = readArray();
 
-    for (const QJsonValueRef ref : arr) {
+    for (QJsonValueConstRef ref : std::as_const(arr)) {
         exercises.append(Cardio::fromJson(ref.toObject()));
     }
 

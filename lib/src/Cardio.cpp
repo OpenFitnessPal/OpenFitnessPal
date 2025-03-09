@@ -2,12 +2,7 @@
 
 #include <QJsonObject>
 
-Cardio::Cardio(QObject *parent)
-    : QObject{parent}
-{}
-
 Cardio::Cardio(const Cardio &other)
-    : QObject(other.parent())
 {
     setCalories(other.calories());
     setMinutes(other.minutes());
@@ -16,7 +11,6 @@ Cardio::Cardio(const Cardio &other)
 
 Cardio Cardio::operator=(const Cardio &other)
 {
-    setParent(other.parent());
     setCalories(other.calories());
     setMinutes(other.minutes());
     setName(other.name());
@@ -34,7 +28,6 @@ void Cardio::setCalories(int newCalories)
     if (m_calories == newCalories)
         return;
     m_calories = newCalories;
-    emit caloriesChanged();
 }
 
 double Cardio::minutes() const
@@ -47,7 +40,6 @@ void Cardio::setMinutes(double newMinutes)
     if (qFuzzyCompare(m_minutes, newMinutes))
         return;
     m_minutes = newMinutes;
-    emit minutesChanged();
 }
 
 QString Cardio::name() const
@@ -60,7 +52,6 @@ void Cardio::setName(const QString &newname)
     if (m_name == newname)
         return;
     m_name = newname;
-    emit nameChanged();
 }
 
 QJsonObject Cardio::toJson() const

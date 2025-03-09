@@ -83,6 +83,7 @@ set(ELEMENTS
     data/MealNamesManager
     data/HealthMarkerManager
     data/NutritionManager
+    data/SymptomLogManager
 
     data/DataManager
 
@@ -96,6 +97,7 @@ set(ELEMENTS
     models/NutrientModel
     models/RecipeModel
     models/HealthMarkerModel
+    models/SymptomLogModel
 
     DateManager
     Time
@@ -111,6 +113,7 @@ set(LIB_ELEMENTS
     ExerciseSet
     Recipe
     Cardio
+    SymptomLog
 )
 
 foreach(ELEMENT ${ELEMENTS})
@@ -157,6 +160,7 @@ set(QML_ELEMENTS
     items/BigButton
     items/BigIcon
 
+    items/TimeField
     items/UnlabeledTextField
 
     items/SmallNumberField
@@ -214,6 +218,8 @@ set(QML_ELEMENTS
 
     pages/health/MarkersTab
     pages/health/SymptomsTab
+
+    pages/health/SymptomLog
 
     # Food
     pages/food/FoodPage

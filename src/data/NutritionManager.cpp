@@ -40,8 +40,6 @@ NutritionManager::NutritionManager(QObject *parent)
 
 NutrientUnion NutritionManager::load(int daysBack)
 {
-
-    qDebug() << "LOADING" << daysBack << m_date;
     int totalDays = 0;
     NutrientUnion total;
     for (int i = 0; i < daysBack; ++i) {
@@ -82,7 +80,6 @@ NutrientUnion NutritionManager::load(int daysBack)
         if (numMeals > 0) ++totalDays;
     }
 
-    qDebug() << "TOTAL:" << (total / totalDays).calories();
     return total / totalDays;
 }
 
