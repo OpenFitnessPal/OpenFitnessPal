@@ -1,17 +1,17 @@
 #ifndef RECIPEMANAGER_H
 #define RECIPEMANAGER_H
 
+#include "DataManager.h"
+
 #include <QDir>
 #include <QObject>
 #include <Recipe.h>
 #include <QQmlEngine>
 
-class RecipeManager : public QObject
+class RecipeManager : public DataManager
 {
     Q_OBJECT
     QML_ELEMENT
-
-    QString m_file;
 
     QList<Recipe> m_recipes;
 public:

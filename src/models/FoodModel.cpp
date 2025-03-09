@@ -262,6 +262,7 @@ void FoodModel::setDate(const QDateTime &newDate)
 {
     if (m_date == newDate)
         return;
+
     m_date = newDate;
     m_food->setDate(newDate);
 

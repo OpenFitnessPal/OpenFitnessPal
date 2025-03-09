@@ -1,16 +1,16 @@
 #ifndef ROUTINEMANAGER_H
 #define ROUTINEMANAGER_H
 
+#include "DataManager.h"
+
 #include <ExerciseRoutine.h>
 #include <QObject>
 #include <QQmlEngine>
 
-class RoutineManager : public QObject
+class RoutineManager : public DataManager
 {
     Q_OBJECT
     QML_ELEMENT
-
-    QString m_file;
 
     QList<ExerciseRoutine> m_routines;
 public:

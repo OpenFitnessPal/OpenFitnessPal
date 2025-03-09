@@ -36,9 +36,8 @@ RowLayout {
 
             color: Constants.text
 
-            text: (currentDate.getUTCMonth(
-                       ) + 1) + "/" + currentDate.getUTCDate(
-                      ) + "/" + currentDate.getUTCFullYear()
+            text: (currentDate.getMonth() + 1) + "/" + currentDate.getDate(
+                      ) + "/" + currentDate.getFullYear()
         }
 
         onClicked: pickDate()

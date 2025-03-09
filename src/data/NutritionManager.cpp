@@ -32,37 +32,16 @@ void NutritionManager::updateNutrients()
 }
 
 NutritionManager::NutritionManager(QObject *parent)
-    : QObject(parent)
+    : DataManager(parent)
 {
-    m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-
-    resetDate();
+    m_useDate = true;
     updateNutrients();
-}
-
-QDateTime NutritionManager::date() const
-{
-    return m_date;
-}
-
-void NutritionManager::setDate(const QDateTime &newDate)
-{
-    if (m_date == newDate)
-        return;
-    m_date = newDate;
-
-    updateNutrients();
-
-    emit dateChanged();
-}
-
-void NutritionManager::resetDate()
-{
-    setDate(QDateTime::currentDateTime());
 }
 
 NutrientUnion NutritionManager::load(int daysBack)
 {
+
+    qDebug() << "LOADING" << daysBack << m_date;
     int totalDays = 0;
     NutrientUnion total;
     for (int i = 0; i < daysBack; ++i) {
@@ -90,7 +69,7 @@ NutrientUnion NutritionManager::load(int daysBack)
 
             QJsonArray array = doc.array();
 
-            for (QJsonValueRef ref : array) {
+            for (QJsonValueConstRef ref : std::as_const(array)) {
                 QJsonObject obj = ref.toObject();
                 FoodServing s = FoodServing::fromJson(obj);
                 today += s.nutrients();
@@ -103,6 +82,7 @@ NutrientUnion NutritionManager::load(int daysBack)
         if (numMeals > 0) ++totalDays;
     }
 
+    qDebug() << "TOTAL:" << (total / totalDays).calories();
     return total / totalDays;
 }
 
@@ -139,7 +119,7 @@ QList<NutrientUnion> NutritionManager::list(int daysBack)
 
                 QJsonArray array = doc.array();
 
-                for (QJsonValueRef ref : array) {
+                for (QJsonValueRef ref : (array)) {
                     QJsonObject obj = ref.toObject();
                     FoodServing s = FoodServing::fromJson(obj);
                     today += s.nutrients();

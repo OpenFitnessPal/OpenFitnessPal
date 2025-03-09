@@ -1,17 +1,16 @@
 #ifndef MEALNAMESMANAGER_H
 #define MEALNAMESMANAGER_H
 
+#include "DataManager.h"
+
 #include <QDir>
 #include <QObject>
 #include <QQmlEngine>
 
-class MealNamesManager : public QObject
+class MealNamesManager : public DataManager
 {
     Q_OBJECT
     QML_ELEMENT
-
-    QDateTime m_date;
-    QDir m_dir;
 
     QStringList m_mealNames;
 public:
@@ -22,7 +21,6 @@ public:
 
     QStringList mealNames() const;
     void setMealNames(const QStringList &newMealNames);
-
 
 signals:
     void mealNamesChanged();

@@ -5,17 +5,14 @@
 #include <QStandardPaths>
 
 RecipeManager::RecipeManager(QObject *parent)
-    : QObject{parent}
+    : DataManager{parent}
 {
-    QDir dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-    dir.mkpath(".");
-    m_file = dir.absoluteFilePath("recipes.json");
+    m_filename = "recipes.json";
 }
 
 bool RecipeManager::save(const QList<Recipe> &recipes)
 {
     m_recipes = recipes;
-    QFile file(m_file);
 
     QJsonArray array;
 
@@ -23,40 +20,17 @@ bool RecipeManager::save(const QList<Recipe> &recipes)
         array.append(r.toJson());
     }
 
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return false;
-    }
-
-    QByteArray toWrite = QJsonDocument(array).toJson();
-
-    file.write(toWrite);
-
-    file.close();
-
-    return true;
+    return write(array);
 }
 
 QList<Recipe> RecipeManager::load()
 {
     QList<Recipe> recipes;
 
-    QFile f(m_file);
+    QJsonArray array = readArray();
 
-    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return recipes;
-    }
-
-    QByteArray data = f.readAll();
-
-    f.close();
-
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-
-    QJsonArray array = doc.array();
-
-    for (QJsonValueRef ref : array) {
-        QJsonObject obj = ref.toObject();
-        recipes.append(Recipe::fromJson(obj));
+    for (QJsonValueConstRef ref : std::as_const(array)) {
+        recipes.append(Recipe::fromJson(ref.toObject()));
     }
 
     m_recipes = recipes;
@@ -68,7 +42,7 @@ QList<Recipe> RecipeManager::search(const QString &query)
     QRegularExpression regex(".*" + query + ".*", QRegularExpression::PatternOption::CaseInsensitiveOption);
 
     QList<Recipe> recipes;
-    for (const Recipe &recipe : m_recipes) {
+    for (const Recipe &recipe : std::as_const(m_recipes)) {
         if (recipe.name().contains(regex)) {
             recipes.append(recipe);
         }

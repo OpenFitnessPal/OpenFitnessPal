@@ -6,48 +6,17 @@
 #include <QStandardPaths>
 
 CardioManager::CardioManager(QObject *parent)
-    : QObject{parent}
+    : DataManager{parent}
 {
-    resetDate();
-    m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-}
-
-QDateTime CardioManager::date() const
-{
-    return m_date;
-}
-
-void CardioManager::setDate(const QDateTime &newDate)
-{
-    if (m_date == newDate)
-        return;
-    m_date = newDate;
-    emit dateChanged();
-}
-
-void CardioManager::resetDate()
-{
-    setDate(QDateTime::currentDateTime());
+    m_filename = "cardio.json";
+    m_useDate = true;
 }
 
 QList<Cardio> CardioManager::load()
 {
     QList<Cardio> exercises{};
-    QDir dir(m_dir);
 
-    mkDate(dir);
-
-    QFile file(dir.absoluteFilePath("cardio.json"));
-
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return exercises;
-    }
-
-    QByteArray data = file.readAll();
-
-    file.close();
-
-    QJsonArray arr = QJsonDocument::fromJson(data).array();
+    QJsonArray arr = readArray();
 
     for (const QJsonValueRef ref : arr) {
         exercises.append(Cardio::fromJson(ref.toObject()));
@@ -58,34 +27,11 @@ QList<Cardio> CardioManager::load()
 
 bool CardioManager::save(const QList<Cardio> &exercises)
 {
-    QDir dir(m_dir);
-
-    mkDate(dir);
-
-    QFile file(dir.absoluteFilePath("cardio.json"));
-
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return false;
-    }
-
     QJsonArray arr;
 
     for (const Cardio & ex : exercises) {
         arr.append(ex.toJson());
     }
 
-    file.write(QJsonDocument(arr).toJson());
-
-    return true;
-}
-
-bool CardioManager::mkDate(QDir &dir) {
-    QString dateString = m_date.toString("MM-dd-yyyy");
-
-    if (!dir.mkpath(dateString)) {
-        return false;
-    }
-
-    dir.cd(dateString);
-    return true;
+    return write(arr);
 }

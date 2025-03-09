@@ -1,20 +1,16 @@
 #ifndef GOALMANAGER_H
 #define GOALMANAGER_H
 
+#include "DataManager.h"
+
 #include <QDir>
 #include <QObject>
 #include <QQmlEngine>
 
-class GoalManager : public QObject
+class GoalManager : public DataManager
 {
     Q_OBJECT
     QML_ELEMENT
-
-    QDateTime m_date;
-    QDir m_dir;
-
-    Q_PROPERTY(QDateTime date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
-
 
     // Helpers for frequently-used values
     Q_PROPERTY(int calories READ calories WRITE setCalories NOTIFY caloriesChanged FINAL)
@@ -33,6 +29,8 @@ class GoalManager : public QObject
     int m_fat = -1;
     int m_protein = -1;
 
+    QMap<QString, int> m_fields;
+
 public:
     GoalManager(QObject *parent = nullptr);
 
@@ -40,10 +38,6 @@ public:
     Q_INVOKABLE int get(const QString &key, const int defaultValue);
 
     Q_INVOKABLE int getMacroGrams(const int value, const int caloriesPerGram = 4);
-
-    QDateTime date() const;
-    void setDate(const QDateTime &newDate);
-    void resetDate();
 
     int calories();
     void setCalories(int newCalories);
@@ -60,8 +54,9 @@ public:
     int carbsGrams();
     int fatGrams();
     int proteinGrams();
+
+    void updateFields();
 signals:
-    void dateChanged();
     void goalChanged(const QString &goal, const int newGoal);
 
     void caloriesChanged();
@@ -73,10 +68,6 @@ signals:
     void carbsGramsChanged();
     void fatGramsChanged();
     void proteinGramsChanged();
-
-private:
-    bool mkDate(QDir &dir) const;
-    void fixDateIfNotExists(QFile &f, QDir &dir, bool modify);
 };
 
 #endif // GOALMANAGER_H

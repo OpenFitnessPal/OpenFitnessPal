@@ -85,82 +85,48 @@ int GoalManager::proteinGrams()
     return getMacroGrams(protein());
 }
 
+void GoalManager::updateFields()
+{
+    QMapIterator iter(m_fields);
+
+    while (iter.hasNext()) {
+        iter.next();
+
+        emit goalChanged(iter.key(), get(iter.key(), iter.value()));
+    }
+
+    emit carbsGramsChanged();
+    emit fatGramsChanged();
+    emit proteinGramsChanged();
+}
+
 GoalManager::GoalManager(QObject *parent)
-    : QObject{parent}
+    : DataManager{parent}
 {
-    m_dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-
-    resetDate();
-}
-
-QDateTime GoalManager::date() const
-{
-    return m_date;
-}
-
-void GoalManager::setDate(const QDateTime &newDate)
-{
-    if (m_date == newDate)
-        return;
-    m_date = newDate;
-    emit dateChanged();
-}
-
-void GoalManager::resetDate()
-{
-    setDate(QDateTime::currentDateTime());
+    m_filename = "goals.json";
+    m_useDate = true;
+    m_nearest = true;
+    m_modifiedFileName = "goalsModified";
 }
 
 bool GoalManager::set(const QString &field, const int data)
 {
-    QDir dir(m_dir);
-    mkDate(dir);
-
-    QFile f(dir.absoluteFilePath("goals.json"));
-    QJsonObject obj;
-
-    fixDateIfNotExists(f, dir, true);
-
-    // ReadWrite so that the file is created if it doesn't exist.
-    if (!f.open(QIODevice::ReadWrite)) {
-        return false;
-    }
-
-    obj = QJsonDocument::fromJson(f.readAll()).object();
-    f.close();
-
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return false;
-    }
-
+    QJsonObject obj = readObject();
     obj.insert(field, data);
 
-    f.write(QJsonDocument(obj).toJson());
-    f.close();
+    bool ok = write(obj);
 
     emit goalChanged(field, data);
 
-    return true;
+    return ok;
 }
 
 
 int GoalManager::get(const QString &field, const int defaultValue)
 {
-    QDir dir(m_dir);
+    if (!m_fields.contains(field)) m_fields.insert(field, defaultValue);
 
-    mkDate(dir);
-
-    QFile f(dir.absoluteFilePath("goals.json"));
-    QJsonObject obj;
-
-    fixDateIfNotExists(f, dir, false);
-
-    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return defaultValue;
-    }
-
-    obj = QJsonDocument::fromJson(f.readAll()).object();
-    f.close();
+    QJsonObject obj = readObject();
 
     return obj.contains(field) ? obj.value(field).toInt(defaultValue) : defaultValue;
 }
@@ -168,60 +134,4 @@ int GoalManager::get(const QString &field, const int defaultValue)
 int GoalManager::getMacroGrams(const int value, const int caloriesPerGram)
 {
     return (value / 100.0) * (calories() / caloriesPerGram);
-}
-
-void GoalManager::fixDateIfNotExists(QFile &f, QDir &dir, bool modify)
-{
-    if (!f.exists() || (!modify && !dir.exists("goalsModified"))) {
-        QDir rootDir(m_dir);
-
-        QDateTime closestDate = QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0));
-
-        QDirIterator iter(rootDir);
-        while (iter.hasNext()) {
-            iter.next();
-            QString dirName = iter.fileName();
-            QDateTime date = QDateTime::fromString(dirName, "MM-dd-yyyy");
-
-            if (date.isNull() || date == m_date) continue;
-
-            int distance = date.daysTo(m_date);
-
-            if (distance < closestDate.daysTo(m_date)) {
-                closestDate = date;
-            }
-        }
-
-        if (closestDate != QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0))) {
-            QString original = m_dir.absoluteFilePath(closestDate.toString("MM-dd-yyyy") + "/goals.json");
-
-            // Remove the original in case it exists and is unmodified
-            QFile::remove(dir.absoluteFilePath("goals.json"));
-            QFile::copy(original, dir.absoluteFilePath("goals.json"));
-        } else {
-            if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-                return;
-            }
-
-            f.close();
-        }
-    } else if (modify) {
-        QFile modified(dir.absoluteFilePath("goalsModified"));
-        if (!modified.exists()) {
-            modified.open(QIODevice::WriteOnly);
-            modified.close();
-        }
-    }
-}
-
-
-bool GoalManager::mkDate(QDir &dir) const {
-    QString dateString = m_date.toString("MM-dd-yyyy");
-
-    if (!dir.mkpath(dateString)) {
-        return false;
-    }
-
-    dir.cd(dateString);
-    return true;
 }

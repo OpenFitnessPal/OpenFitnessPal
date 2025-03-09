@@ -36,8 +36,6 @@ BaseTab {
 
             height: 80 * Constants.scalar
             text: model.name
-
-            Component.onCompleted: console.log(name, value, height, width)
         }
     }
 }

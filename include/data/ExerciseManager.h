@@ -1,32 +1,22 @@
 #ifndef EXERCISEMANAGER_H
 #define EXERCISEMANAGER_H
 
+#include "DataManager.h"
+
 #include <QObject>
 #include <QDateTime>
 
 #include <Exercise.h>
 #include <QDir>
 
-class ExerciseManager : public QObject
+class ExerciseManager : public DataManager
 {
     Q_OBJECT
-
-    QDateTime m_date;
-    QDir m_dir;
 public:
     ExerciseManager(QObject *parent);
 
     Q_INVOKABLE QList<Exercise> load();
     Q_INVOKABLE bool save(const QList<Exercise> &exercises);
-
-    QDateTime date() const;
-    void setDate(const QDateTime &newDate);
-    void resetDate();
-signals:
-    void dateChanged();
-private:
-    Q_PROPERTY(QDateTime date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
-    bool mkDate(QDir &dir);
 };
 
 #endif // EXERCISEMANAGER_H

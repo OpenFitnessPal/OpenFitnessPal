@@ -84,6 +84,8 @@ set(ELEMENTS
     data/HealthMarkerManager
     data/NutritionManager
 
+    data/DataManager
+
     models/MealNamesModel
     models/ExerciseSetsModel
     models/ExerciseModel

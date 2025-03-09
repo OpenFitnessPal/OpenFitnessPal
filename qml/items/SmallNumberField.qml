@@ -39,13 +39,17 @@ TextField {
 
     font.pixelSize: 18 * Constants.scalar
 
-    onTextEdited: bindTarget[bindedProperty] = text
+    onTextEdited
+    : if (bindTarget !== null)
+                      bindTarget[bindedProperty] = text
 
     text: bindTarget !== null ? bindTarget[bindedProperty] : ""
 
     Text {
         id: txt
         text: label
+
+        font.pixelSize: 14 * Constants.scalar
 
         anchors {
             verticalCenter: parent.verticalCenter

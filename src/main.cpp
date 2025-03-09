@@ -79,9 +79,15 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("recipeSearchModel", recipeSearchModel);
     engine.rootContext()->setContextProperty("recipeEditModel", recipeEditModel);
 
-    QObject::connect(date, &DateManager::dateChanged, nutrition, [nutrition, weight, date] () {
+    QObject::connect(date, &DateManager::dateChanged, nutrition, [nutrition, weight, date, goals] () {
         nutrition->setDate(date->date());
+        nutrition->updateNutrients();
+
         weight->setDate(date->date());
+        emit weight->weightChanged();
+
+        goals->setDate(date->date());
+        goals->updateFields();
     });
 
     engine.loadFromModule("OpenFitnessPal", "Main");

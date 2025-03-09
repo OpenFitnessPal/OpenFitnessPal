@@ -55,6 +55,15 @@ Rectangle {
             onTextChanged: goalManager.set(key, text)
             text: goalManager.get(key, defaultValue)
 
+            Connections {
+                target: goalManager
+
+                function onGoalChanged(key, data) {
+                    if (key === lnf.key)
+                        number.text = data
+                }
+            }
+
             background: Item {}
 
             font.pixelSize: 16 * Constants.scalar

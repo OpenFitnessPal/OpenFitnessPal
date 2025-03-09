@@ -7,17 +7,14 @@
 #include <QJsonDocument>
 
 RoutineManager::RoutineManager(QObject *parent)
-    : QObject{parent}
+    : DataManager{parent}
 {
-    QDir dir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-    dir.mkpath(".");
-    m_file = dir.absoluteFilePath("routines.json");
+    m_filename = "routines.json";
 }
 
 bool RoutineManager::save(const QList<ExerciseRoutine> &routines)
 {
     m_routines = routines;
-    QFile file(m_file);
 
     QJsonArray array;
 
@@ -25,39 +22,17 @@ bool RoutineManager::save(const QList<ExerciseRoutine> &routines)
         array.append(r.toJson());
     }
 
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return false;
-    }
-
-    QByteArray toWrite = QJsonDocument(array).toJson();
-
-    file.write(toWrite);
-
-    file.close();
-
-    return true;
+    return write(array);
 }
 
 QList<ExerciseRoutine> RoutineManager::load()
 {
     QList<ExerciseRoutine> routines;
 
-    QFile f(m_file);
+    QJsonArray array = readArray();
 
-    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return routines;
-    }
-
-    QByteArray data = f.readAll();
-    f.close();
-
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-
-    QJsonArray array = doc.array();
-
-    for (QJsonValueRef ref : array) {
-        QJsonObject obj = ref.toObject();
-        routines.append(ExerciseRoutine::fromJson(obj));
+    for (QJsonValueConstRef ref : std::as_const(array)) {
+        routines.append(ExerciseRoutine::fromJson(ref.toObject()));
     }
 
     m_routines = routines;
@@ -69,7 +44,7 @@ QList<ExerciseRoutine> RoutineManager::search(const QString &query)
     QRegularExpression regex(".*" + query + ".*", QRegularExpression::PatternOption::CaseInsensitiveOption);
 
     QList<ExerciseRoutine> routines;
-    for (const ExerciseRoutine &routine : m_routines) {
+    for (const ExerciseRoutine &routine : std::as_const(m_routines)) {
         if (routine.name().contains(regex)) {
             routines.append(routine);
         }

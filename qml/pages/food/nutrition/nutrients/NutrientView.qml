@@ -6,6 +6,8 @@ import OpenFitnessPal
 
 ColumnLayout {
     uniformCellSizes: true
+    required property var model
+
     property bool isMacro: ["carbs", "fat", "protein"].includes(model.data)
 
     property bool weekView
@@ -63,7 +65,8 @@ ColumnLayout {
                                                return
                                            }
 
-                                           if (key === model.data) {
+                                           if (typeof model !== 'undefined'
+                                               && key === model.data) {
                                                text = data
                                            }
                                        })
