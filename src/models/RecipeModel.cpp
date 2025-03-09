@@ -2,8 +2,9 @@
 
 #include <CacheManager.h>
 
-RecipeModel::RecipeModel(RecipeManager *manager, QObject *parent)
+RecipeModel::RecipeModel(RecipeManager *manager, bool editable, QObject *parent)
     : QAbstractListModel{parent}
+    , m_editable(editable)
 {
     m_manager = manager;
 }
@@ -69,7 +70,7 @@ void RecipeModel::add(const QList<FoodServing> &foods, const QString &name, cons
 
     endInsertRows();
 
-    if (doSave) {
+    if (doSave && m_editable) {
         m_manager->save(m_data);
     }
 }
@@ -116,7 +117,7 @@ bool RecipeModel::removeRows(int row, int count, const QModelIndex &parent)
     m_data.remove(row, count);
     endRemoveRows();
 
-    m_manager->save(m_data);
+    if (m_editable) m_manager->save(m_data);
 
     return true;
 }
@@ -155,7 +156,7 @@ bool RecipeModel::setData(const QModelIndex &index, const QVariant &value, int r
         return false;
     }
 
-    m_manager->save(m_data);
+    if (m_editable) m_manager->save(m_data);
 
     return true;
 }

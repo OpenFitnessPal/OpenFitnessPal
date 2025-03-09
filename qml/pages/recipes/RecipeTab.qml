@@ -37,7 +37,7 @@ Rectangle {
         }
 
         text: "Add Recipe"
-        onClicked: rm.add("New Recipe")
+        onClicked: recipeEditModel.add("New Recipe")
 
         background: Rectangle {
             color: button.pressed ? Constants.accentPressed : Constants.accent

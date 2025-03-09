@@ -22,7 +22,7 @@ public:
         NUTRIENTS
     };
 
-    RecipeModel(RecipeManager *manager, QObject *parent = nullptr);
+    RecipeModel(RecipeManager *manager, bool editable, QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
@@ -57,6 +57,7 @@ protected:
     QHash<int, QByteArray> roleNames() const override;
 private:
     QList<Recipe> m_data;
+    bool m_editable;
 
     int m_meal;
 

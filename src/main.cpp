@@ -74,8 +74,8 @@ int main(int argc, char *argv[])
      */
     RecipeManager *recipeManager = new RecipeManager(&app);
 
-    RecipeModel *recipeEditModel = new RecipeModel(recipeManager, &app);
-    RecipeModel *recipeSearchModel = new RecipeModel(recipeManager, &app);
+    RecipeModel *recipeEditModel = new RecipeModel(recipeManager, true, &app);
+    RecipeModel *recipeSearchModel = new RecipeModel(recipeManager, false, &app);
 
     engine.rootContext()->setContextProperty("recipeSearchModel", recipeSearchModel);
     engine.rootContext()->setContextProperty("recipeEditModel", recipeEditModel);
