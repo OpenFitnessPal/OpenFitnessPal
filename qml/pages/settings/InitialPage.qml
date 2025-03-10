@@ -8,6 +8,7 @@ Rectangle {
     signal meals
     signal search
     signal goals
+    signal dataButton
 
     id: initial
 
@@ -22,21 +23,23 @@ Rectangle {
         }
 
         BigButton {
-            id: meals
             name: "Meals"
             onClicked: initial.meals()
         }
 
         BigButton {
-            id: search
             name: "Search"
             onClicked: initial.search()
         }
 
         BigButton {
-            id: goals
             name: "Goals"
             onClicked: initial.goals()
+        }
+
+        BigButton {
+            name: "Data"
+            onClicked: initial.dataButton()
         }
     }
 }

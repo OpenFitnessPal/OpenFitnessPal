@@ -7,7 +7,7 @@
 
 int GoalManager::calories()
 {
-    if (m_calories == -1) m_calories = get("calories", 3000);
+    if (m_calories == -1) m_calories = get("calories", 2000);
 
     return m_calories;
 }
@@ -31,8 +31,10 @@ int GoalManager::carbs()
 
 void GoalManager::setCarbs(int newCarbs)
 {
+    if (m_carbs != newCarbs) {
     set("carbs", newCarbs);
     m_carbs = newCarbs;
+    }
 
     emit carbsChanged();
     emit carbsGramsChanged();
@@ -47,8 +49,10 @@ int GoalManager::fat()
 
 void GoalManager::setFat(int newFat)
 {
+    if (m_fat != newFat) {
     set("fat", newFat);
     m_fat = newFat;
+    }
 
     emit fatChanged();
     emit fatGramsChanged();
@@ -63,8 +67,10 @@ int GoalManager::protein()
 
 void GoalManager::setProtein(int newProtein)
 {
-    set("protein", newProtein);
-    m_protein = newProtein;
+    if (m_protein != newProtein) {
+        set("protein", newProtein);
+        m_protein = newProtein;
+    }
 
     emit proteinChanged();
     emit proteinGramsChanged();
@@ -87,6 +93,8 @@ int GoalManager::proteinGrams()
 
 void GoalManager::updateFields()
 {
+    m_object = readObject();
+
     QMapIterator iter(m_fields);
 
     while (iter.hasNext()) {
@@ -95,9 +103,14 @@ void GoalManager::updateFields()
         emit goalChanged(iter.key(), get(iter.key(), iter.value()));
     }
 
-    emit carbsGramsChanged();
-    emit fatGramsChanged();
-    emit proteinGramsChanged();
+    // Force-reset
+    m_carbs = -1;
+    m_fat = -1;
+    m_protein = -1;
+
+    setCarbs(carbs());
+    setFat(fat());
+    setProtein(protein());
 }
 
 GoalManager::GoalManager(QObject *parent)
@@ -111,24 +124,24 @@ GoalManager::GoalManager(QObject *parent)
 
 bool GoalManager::set(const QString &field, const int data)
 {
-    QJsonObject obj = readObject();
-    obj.insert(field, data);
+    m_object.insert(field, data);
 
-    bool ok = write(obj);
+    bool ok = write(m_object);
 
     emit goalChanged(field, data);
 
     return ok;
 }
 
-
 int GoalManager::get(const QString &field, const int defaultValue)
 {
+    if (m_object.empty()) {
+        m_object = readObject();
+    }
+
     if (!m_fields.contains(field)) m_fields.insert(field, defaultValue);
 
-    QJsonObject obj = readObject();
-
-    return obj.contains(field) ? obj.value(field).toInt(defaultValue) : defaultValue;
+    return m_object.contains(field) ? m_object.value(field).toInt(defaultValue) : defaultValue;
 }
 
 int GoalManager::getMacroGrams(const int value, const int caloriesPerGram)

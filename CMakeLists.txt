@@ -53,6 +53,7 @@ string(TIMESTAMP TODAY "%Y-%m-%d")
 set(Pal_BUILD_TIMESTAMP "${TODAY}")
 
 add_subdirectory("program_info")
+add_subdirectory("3rd_party")
 
 set(QRC_FILES
     icons.qrc
@@ -292,6 +293,8 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
+    QML_FILES qml/pages/settings/data/DataTab.qml
+    SOURCES include/BackupManager.h src/BackupManager.cpp
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
@@ -314,6 +317,7 @@ target_link_libraries(${Pal_EXEC_NAME}
     Qt6::Network
     Qt6::Charts
     Qt6::Widgets
+    QuaZip::QuaZip
     BuildConfig
 )
 

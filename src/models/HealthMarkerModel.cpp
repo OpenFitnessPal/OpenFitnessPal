@@ -124,7 +124,7 @@ void HealthMarkerModel::resetOptions()
     auto prev = m_options;
     m_options.clear();
     QStringList tmp;
-    tmp << "RHR"
+    tmp << "Resting HR"
         << "Mile Time"
         << "Sleep"
         << "Blood Pressure"

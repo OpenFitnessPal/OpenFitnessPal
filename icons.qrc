@@ -20,5 +20,6 @@
         <file alias="Health">icons/health.svg</file>
         <file alias="Markers">icons/markers.svg</file>
         <file alias="Symptoms">icons/symptoms.svg</file>
+        <file alias="Data">icons/data.svg</file>
     </qresource>
 </RCC>

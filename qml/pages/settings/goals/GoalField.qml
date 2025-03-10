@@ -52,7 +52,7 @@ Rectangle {
             bindTarget: null
             bindedProperty: ""
 
-            onTextChanged: goalManager.set(key, text)
+            onEditingFinished: goalManager.set(key, text)
             text: goalManager.get(key, defaultValue)
 
             Connections {

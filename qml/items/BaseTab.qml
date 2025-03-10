@@ -11,6 +11,8 @@ Rectangle {
 
     color: Constants.bg
 
+    focusPolicy: Qt.StrongFocus
+
     Shortcut {
         sequence: Qt.Key_Back
         onActivated: {
@@ -26,7 +28,7 @@ Rectangle {
 
         label: "Back"
         onClicked: {
-            navClicked();
+            navClicked()
             stack.pop()
         }
 

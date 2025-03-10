@@ -143,9 +143,9 @@ void DataManager::findNearest(QFile &f, QDir &dir, bool modify)
 
             if (date.isNull() || date == m_date) continue;
 
-            int distance = date.daysTo(m_date);
+            int distance = std::abs(date.daysTo(m_date));
 
-            if (distance < closestDate.daysTo(m_date)) {
+            if (distance < closestDate.daysTo(m_date) && distance != 0) {
                 closestDate = date;
             }
         }

@@ -11,30 +11,37 @@ BaseTab {
 
     color: Constants.bg
 
-    ColumnLayout {
-        uniformCellSizes: true
-        spacing: 0
-
+    ScrollView {
+        id: scroll
         anchors {
             top: nav.bottom
             right: parent.right
             left: parent.left
+            bottom: parent.bottom
 
             topMargin: 25 * Constants.scalar
         }
 
-        Repeater {
-            model: microsModel
+        ColumnLayout {
+            uniformCellSizes: true
+            spacing: 0
 
-            GoalField {
-                required property var model
+            width: parent.width - scroll.effectiveScrollBarWidth
 
-                Layout.fillWidth: true
-                label: model.name
-                key: model.data
-                defaultValue: model.defaultValue
+            // height: parent.height
+            Repeater {
+                model: microsModel
 
-                suffix: model.suffix
+                GoalField {
+                    required property var model
+
+                    Layout.fillWidth: true
+                    label: model.name
+                    key: model.data
+                    defaultValue: model.defaultValue
+
+                    suffix: model.suffix
+                }
             }
         }
     }

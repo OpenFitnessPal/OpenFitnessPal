@@ -71,7 +71,14 @@ ColumnLayout {
 
         from: 0
         to: 100
-        value: goalManager[key]
+
+        Component.onCompleted: {
+            value = goalManager[key]
+
+            goalManager[key + "Changed"].connect(() => {
+                                                     value = goalManager[key]
+                                                 })
+        }
 
         stepSize: 5
 

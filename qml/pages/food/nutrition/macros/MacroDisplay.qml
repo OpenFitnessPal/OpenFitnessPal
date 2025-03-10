@@ -10,6 +10,8 @@ RowLayout {
     required property var model
     required property int index
 
+    required property string key
+
     required property int value
     required property int percent
 
@@ -74,7 +76,7 @@ RowLayout {
         Layout.fillWidth: true
         horizontalAlignment: Text.AlignHCenter
 
-        text: goalManager.carbs + "%"
+        text: goalManager[key.toLowerCase()] + "%"
 
         color: Constants.accent
 

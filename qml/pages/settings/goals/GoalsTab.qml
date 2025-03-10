@@ -19,7 +19,7 @@ BaseTab {
 
         onResetGoal: (idx, result) => {
                          goalManager.set("goal", idx)
-                         calories.value = weight.value * (16 + idx * 2)
+                         goalManager.calories = weightManager.weight * (11 + idx * 2)
                          goal.text = result
                      }
     }
@@ -59,8 +59,10 @@ BaseTab {
                 suffix: "kcal"
                 label: "Calorie Target"
 
+                onValueChanged: goalManager.calories = value
+
                 key: "calories"
-                defaultValue: 3000
+                defaultValue: 2000
             }
 
             Rectangle {

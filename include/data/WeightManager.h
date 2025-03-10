@@ -13,11 +13,16 @@ class WeightManager : public DataManager
     QML_ELEMENT
 
     Q_PROPERTY(int weight READ get WRITE set NOTIFY weightChanged FINAL)
+
+    int m_weight = -1;
 public:
     WeightManager(QObject *parent = nullptr);
 
     Q_INVOKABLE bool set(const int weight);
-    Q_INVOKABLE int get();
+    Q_INVOKABLE int get(bool force = false);
+
+public slots:
+    void update();
 
 signals:
     void weightChanged();

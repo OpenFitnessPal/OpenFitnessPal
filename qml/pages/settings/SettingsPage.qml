@@ -35,6 +35,7 @@ Rectangle {
             onMeals: stack.push(meals)
             onGoals: stack.push(goals)
             onSearch: stack.push(search)
+            onDataButton: stack.push(data)
         }
 
         GoalsTab {
@@ -65,6 +66,11 @@ Rectangle {
         MealsTab {
             visible: false
             id: meals
+        }
+
+        DataTab {
+            visible: false
+            id: data
         }
     }
 }

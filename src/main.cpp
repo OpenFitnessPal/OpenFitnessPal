@@ -1,3 +1,4 @@
+#include "BackupManager.h"
 #include "DateManager.h"
 #include "GoalManager.h"
 #include "HealthMarkerModel.h"
@@ -68,6 +69,9 @@ int main(int argc, char *argv[])
 
     DateManager *date = new DateManager(&app);
     engine.rootContext()->setContextProperty("dateManager", date);
+
+    BackupManager *backup = new BackupManager(&app);
+    engine.rootContext()->setContextProperty("backupManager", backup);
 
     /**
      * RECIPES

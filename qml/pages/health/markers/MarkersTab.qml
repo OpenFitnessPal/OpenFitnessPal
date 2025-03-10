@@ -58,7 +58,7 @@ BaseTab {
         delegate: DelegateChooser {
             role: "name"
             DelegateChoice {
-                roleValue: "RHR"
+                roleValue: "Resting HR"
 
                 HeartRateMarker {
                     width: listView.width

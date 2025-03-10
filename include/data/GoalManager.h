@@ -4,6 +4,7 @@
 #include "DataManager.h"
 
 #include <QDir>
+#include <QJsonObject>
 #include <QObject>
 #include <QQmlEngine>
 
@@ -30,6 +31,8 @@ class GoalManager : public DataManager
     int m_protein = -1;
 
     QMap<QString, int> m_fields;
+
+    QJsonObject m_object;
 
 public:
     GoalManager(QObject *parent = nullptr);

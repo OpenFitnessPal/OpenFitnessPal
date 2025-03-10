@@ -114,6 +114,7 @@ Item {
                 model: macrosModel
 
                 MacroDisplay {
+                    key: labels[index]
                     value: values[index]
                     percent: percents[index] * 100.0
                 }
