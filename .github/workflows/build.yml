@@ -111,7 +111,7 @@ jobs:
       with:
         cache: on
         version: ${{ matrix.qt_version }}
-        modules: qtcharts qt5compat
+        modules: qtcharts qt5compat qtshadertools
 
     - name: Install Qt ${{ matrix.qt_version }} (Android, iOS)
       if: matrix.qt_target == 'android' || matrix.qt_target == 'ios'
@@ -121,7 +121,7 @@ jobs:
         version: ${{ matrix.qt_version }}
         target: ${{ matrix.qt_target }}
         arch: ${{ matrix.qt_arch }}
-        modules: qtcharts qt5compat
+        modules: qtcharts qt5compat qtshadertools
 
     - name: Check Variables (iOS)
       if: matrix.qt_target == 'ios'
