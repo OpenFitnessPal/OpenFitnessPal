@@ -83,6 +83,13 @@ jobs:
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
 
+    - name: Install zlib (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        curl https://raw.githubusercontent.com/horta/zlib.install/master/install.bat -o zlib.bat
+        ./zlib.bat
+        del zlib.bat
+        
     - name: Setup CCache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
