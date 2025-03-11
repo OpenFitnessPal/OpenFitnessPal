@@ -65,7 +65,7 @@ Section "@Pal_APP_NAME@"
 
   File "@Pal_EXEC_NAME@.exe"
   File *.dll
-  ; File /r "iconengines"
+  File /r "iconengines"
   File /r "imageformats"
   File /r "platforms"
   File /r "tls"

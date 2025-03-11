@@ -89,7 +89,7 @@ jobs:
         curl https://raw.githubusercontent.com/horta/zlib.install/master/install.bat -o zlib.bat
         ./zlib.bat
         del zlib.bat
-        
+
     - name: Setup CCache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
@@ -270,7 +270,7 @@ jobs:
       shell: cmd
       run: |
         cd ${{ env.INSTALL_DIR }}
-        ls ..
+        ls
         makensis -NOCD "${{ github.workspace }}\build\program_info\win_install.nsi"
 
       ##
