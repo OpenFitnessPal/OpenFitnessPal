@@ -249,6 +249,8 @@ jobs:
       if: runner.os == 'Windows'
       shell: cmd
       run: |
+        ls D:\a\OpenFitnessPal\Qt\6.8.0\msvc2022_64\bin
+
         mkdir ${{ env.INSTALL_DIR }}
         set PATH=%PATH%;"${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\bin"
 
