@@ -51,7 +51,7 @@ jobs:
             qt_host: mac
             qt_target: ios
             qt_host_arch: macos
-            qt_version: '6.8.0'
+            qt_version: '6.7.3'
             qt_arch: ios
 
     runs-on: ${{ matrix.os }}
@@ -243,6 +243,13 @@ jobs:
       run: |
         cd ${{ env.BUILD_DIR }}
         chmod a+x OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
+        tar czf ../OpenFitnessPal.tar.gz OpenFitnessPal.app
+
+    - name: Package (iOS)
+      if: matrix.name == 'iOS'
+      run: |
+        cd ${{ env.BUILD_DIR }}
+        chmod a+x OpenFitnessPal.app/OpenFitnessPal
         tar czf ../OpenFitnessPal.tar.gz OpenFitnessPal.app
 
     - name: Package (Windows, Portable)

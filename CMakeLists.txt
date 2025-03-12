@@ -354,7 +354,7 @@ if (ANDROID)
     add_android_openssl_libraries(${Pal_EXEC_NAME})
 endif()
 
-if(UNIX AND APPLE)
+if(APPLE)
     # Mac bundle settings
     set(MACOSX_BUNDLE_BUNDLE_NAME "${Pal_APP_NAME}")
     set(MACOSX_BUNDLE_INFO_STRING "${Pal_APP_NAME}: An offline, QR-Based scouter for FRC use.")
@@ -363,7 +363,12 @@ if(UNIX AND APPLE)
     set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${Pal_GIT_TAG_NUMERO}")
     set(MACOSX_BUNDLE_LONG_VERSION_STRING "${Pal_GIT_TAG_NUMERO}")
     set(MACOSX_BUNDLE_ICON_FILE ${Pal_APP_NAME}.icns)
-    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024 ${Pal_ORG_NAME}")
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024-2025 ${Pal_ORG_NAME}")
+
+    # signing
+    set(CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "3CM275U8S4")
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "${Pal_ORG_NAME}")
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE "Manual")
 
     # install as bundle
     set(INSTALL_BUNDLE "full")
