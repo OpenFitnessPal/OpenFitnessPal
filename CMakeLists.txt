@@ -11,7 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Core Quick QuickControls2 Network Charts Widgets)
+set(QT_MAJOR_VERSION 6)
+
+find_package(Qt6 6.7 REQUIRED COMPONENTS Core Quick QuickControls2 Network Charts Widgets Core5Compat)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
@@ -366,7 +368,7 @@ if(APPLE)
     set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024-2025 ${Pal_ORG_NAME}")
 
     # signing
-    set(CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "3CM275U8S4")
+    set(CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "")
     set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "${Pal_ORG_NAME}")
     set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE "Manual")
 

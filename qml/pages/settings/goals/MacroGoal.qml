@@ -32,7 +32,13 @@ ColumnLayout {
         font.pixelSize: 16 * Constants.scalar
         color: Constants.text
 
-        text: goalManager.getMacroGrams(value, label === "Fat" ? 9 : 4) + "g"
+        Component.onCompleted: {
+            text = goalManager[key + "Grams"] + "g"
+
+            goalManager[key + "GramsChanged"].connect(() => {
+                                                          text = goalManager[key + "Grams"] + "g"
+                                                      })
+        }
 
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
