@@ -249,6 +249,8 @@ jobs:
       if: matrix.name == 'iOS'
       shell: bash
       run: |
+        cd ${{ env.BUILD_DIR }}
+
         for file in $QTPATH/${{ matrix.qt_arch }}/lib/*.a
         do
           # _debug files are what we don't want
@@ -260,7 +262,6 @@ jobs:
           fi
         done
 
-        cd ${{ env.BUILD_DIR }}
         chmod a+x OpenFitnessPal.app/OpenFitnessPal
         tar czf ../OpenFitnessPal.tar.gz OpenFitnessPal.app
 
