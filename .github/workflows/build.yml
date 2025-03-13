@@ -157,7 +157,7 @@ jobs:
       run: |
         declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_host_arch }}
 
-        $QTPATH/${{ matrix.qt_arch }}/bin/qt-cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DQT_HOST_PATH=$QT_HOST_PATH
+        $QTPATH/${{ matrix.qt_arch }}/bin/qt-cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DQT_HOST_PATH=$QT_HOST_PATH -G "Ninja"
 
     - name: Build
       run: |
@@ -247,7 +247,18 @@ jobs:
 
     - name: Package (iOS)
       if: matrix.name == 'iOS'
+      shell: bash
       run: |
+        for file in $QTPATH/${{ matrix.qt_arch }}/lib/*.a
+        do
+          # _debug files are what we don't want
+          if [[ $file =~ _ ]]
+          then
+          else
+            cp $file OpenFitnessPal.app/Contents/Frameworks
+          fi
+        done
+
         cd ${{ env.BUILD_DIR }}
         chmod a+x OpenFitnessPal.app/OpenFitnessPal
         tar czf ../OpenFitnessPal.tar.gz OpenFitnessPal.app
