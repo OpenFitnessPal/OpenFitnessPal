@@ -165,3 +165,29 @@ NutrientUnion operator/(const NutrientUnion &a, const double &multiplier)
     return n;
 }
 
+
+bool operator==(const NutrientUnion &a, const NutrientUnion &b) {
+    return
+        (a.calcium == b.calcium) &&
+        (a.carbs == b.carbs) &&
+        (a.fat == b.fat) &&
+        (a.satFat == b.satFat) &&
+        (a.monoFat == b.monoFat) &&
+        (a.polyFat == b.polyFat) &&
+        (a.transFat == b.transFat) &&
+        (a.fiber == b.fiber) &&
+        (a.sugar == b.sugar) &&
+        (a.addedSugar == b.addedSugar) &&
+        (a.protein == b.protein) &&
+        (a.cholesterol == b.cholesterol) &&
+        (a.iron == b.iron) &&
+        (a.sodium == b.sodium) &&
+        (a.potassium == b.potassium) &&
+        (a.vitaminA == b.vitaminA) &&
+        (a.vitaminC == b.vitaminC) &&
+        (a.vitaminD == b.vitaminD);
+}
+
+bool operator!=(const NutrientUnion &a, const NutrientUnion &b) {
+    return !operator==(a, b);
+}

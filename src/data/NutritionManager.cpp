@@ -40,50 +40,20 @@ NutritionManager::NutritionManager(QObject *parent)
 
 NutrientUnion NutritionManager::load(int daysBack)
 {
-    int totalDays = 0;
+    auto weekList = list(daysBack);
+
     NutrientUnion total;
-    for (int i = 0; i < daysBack; ++i) {
-        NutrientUnion today;
-        int numMeals = 0;
-
-        QDir dir(m_dir);
-        if (!mkDate(i, dir)) continue;
-
-        if (!dir.cd("meals")) continue;
-
-        QDirIterator iter(dir);
-        while (iter.hasNext()) {
-            QFile f = iter.next();
-            QString baseName = iter.fileInfo().baseName();
-
-            if (baseName == "") continue;
-
-            ++numMeals;
-
-            f.open(QIODevice::ReadOnly | QIODevice::Text);
-
-            QByteArray data = f.readAll();
-            QJsonDocument doc = QJsonDocument::fromJson(data);
-
-            QJsonArray array = doc.array();
-
-            for (QJsonValueConstRef ref : std::as_const(array)) {
-                QJsonObject obj = ref.toObject();
-                FoodServing s = FoodServing::fromJson(obj);
-                today += s.nutrients();
-            }
-
-            f.close();
+    int numDays = 0;
+    for (const NutrientUnion &n : weekList) {
+        total += n;
+        if (n != NutrientUnion{}) {
+            numDays++;
         }
-
-        total += today;
-        if (numMeals > 0) ++totalDays;
     }
 
-    return total / totalDays;
+    return total / numDays;
 }
 
-// TODO: Combine these
 QList<NutrientUnion> NutritionManager::list(int daysBack)
 {
     int totalDays = 0;

@@ -254,6 +254,7 @@ jobs:
           # _debug files are what we don't want
           if [[ $file =~ _ ]]
           then
+            echo "$file skipped"
           else
             cp $file OpenFitnessPal.app/Contents/Frameworks
           fi
