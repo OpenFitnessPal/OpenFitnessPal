@@ -69,6 +69,7 @@ NutrientUnion operator+(const NutrientUnion &a, const NutrientUnion &b);
 NutrientUnion operator*(const NutrientUnion &n, const double &multiplier);
 NutrientUnion operator/(const NutrientUnion &n, const double &multiplier);
 bool operator==(const NutrientUnion &a, const NutrientUnion &b);
+bool operator!=(const NutrientUnion &a, const NutrientUnion &b);
 
 Q_DECLARE_METATYPE(NutrientUnion)
 

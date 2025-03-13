@@ -46,7 +46,8 @@ NutrientUnion NutritionManager::load(int daysBack)
     int numDays = 0;
     for (const NutrientUnion &n : weekList) {
         total += n;
-        if (n != NutrientUnion{}) {
+        // ?????
+        if (!(n == NutrientUnion{})) {
             numDays++;
         }
     }
