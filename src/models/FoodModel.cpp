@@ -72,6 +72,8 @@ void FoodModel::add(const FoodItem &item, const ServingSize &size, const double 
     m_data << s;
     endInsertRows();
 
+    CacheManager::cache(item);
+
     emit dataChanged();
     resetCalories();
 }

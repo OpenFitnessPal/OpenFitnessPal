@@ -9,8 +9,8 @@ ListView {
     id: listView
 
     function search(text) {
-        fm.search(text)
         busy.running = true
+        fm.search(text)
     }
 
     property bool offlineSearch: false
