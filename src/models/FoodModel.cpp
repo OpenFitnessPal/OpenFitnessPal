@@ -191,10 +191,14 @@ void FoodModel::search(const QString &query)
 
             emit searchComplete();
         }, Qt::SingleShotConnection);
+
+        connect(m_ofp, &OFPManager::searchFailed, this, &FoodModel::searchFailed);
     } else {
         for (const FoodItem &item : CacheManager::search(query)) {
             add(item);
         }
+
+        emit searchComplete();
     }
 }
 

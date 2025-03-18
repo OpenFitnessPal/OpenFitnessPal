@@ -19,16 +19,20 @@ class OFPManager : public QObject
 
 private:
     QNetworkAccessManager *m_manager;
+    int numTries;
 
 public:
     explicit OFPManager(QObject *parent = nullptr);
+    void process(const QByteArray &data, const QNetworkRequest &request);
 
 public slots:
-    void search(const QString &query, const SearchOptions &options = SearchOptions{}) const;
+    void search(const QString &query, const SearchOptions &options = SearchOptions{});
 
 signals:
     void searchComplete(const QList<FoodItem> results) const;
     void cancelAll() const;
+
+    void searchFailed(const QString &message) const;
 };
 
 #endif // OFPMANAGER_H

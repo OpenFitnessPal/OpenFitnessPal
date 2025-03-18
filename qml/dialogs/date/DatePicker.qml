@@ -12,11 +12,19 @@ AnimatedDialog {
     width: 420 * Constants.scalar
     height: 500 * Constants.scalar
 
-    standardButtons: Dialog.Ok | Dialog.Cancel
+    standardButtons: Dialog.Close
 
     ColumnLayout {
         anchors.fill: parent
         anchors.topMargin: 5
+
+        TextButton {
+            id: btn
+
+            name: "Today"
+
+            onClicked: dateManager.date = new Date()
+        }
 
         YearSpinBox {
             Layout.fillWidth: true
@@ -66,12 +74,6 @@ AnimatedDialog {
                 dateManager.date = newDate
             }
 
-            // Component.onCompleted: {
-            //     let newDate = new Date()
-            //     // slightly hacky way to ensure the timezone is correct
-            //     newDate.setUTCMinutes(newDate.getMinutes())
-            //     dateManager.date = newDate
-            // }
             delegate: Text {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

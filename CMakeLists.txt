@@ -103,6 +103,7 @@ set(ELEMENTS
     models/SymptomLogModel
 
     DateManager
+    BackupManager
 )
 
 set(LIB_ELEMENTS
@@ -146,6 +147,7 @@ set(QML_ELEMENTS
     screen/MainScreen
 
     dialogs/AnimatedDialog
+    dialogs/OMessageDialog
 
     # Date Picker
     dialogs/date/DatePicker
@@ -193,6 +195,9 @@ set(QML_ELEMENTS
 
     ## Search
     pages/settings/search/SearchTab
+
+    ## Data
+    pages/settings/data/DataTab
 
     # Overview
     pages/overview/OverviewPage
@@ -295,8 +300,7 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
-    QML_FILES qml/pages/settings/data/DataTab.qml
-    SOURCES include/BackupManager.h src/BackupManager.cpp
+    QML_FILES qml/items/TextButton.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

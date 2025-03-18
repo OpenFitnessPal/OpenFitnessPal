@@ -83,6 +83,7 @@ public:
 signals:
     void mealChanged();
     void searchComplete();
+    void searchFailed(const QString &message);
 
     void offlineSearchChanged();
 
