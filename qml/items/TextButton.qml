@@ -10,12 +10,9 @@ Rectangle {
     signal clicked
 
     required property string name
+    property int fontSize: 18
 
     color: Constants.button
-
-    Layout.fillWidth: true
-    Layout.preferredHeight: 40 * Constants.scalar
-    Layout.alignment: Qt.AlignTop
 
     MouseArea {
         hoverEnabled: true

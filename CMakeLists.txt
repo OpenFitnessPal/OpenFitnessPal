@@ -119,6 +119,7 @@ set(LIB_ELEMENTS
     Recipe
     Cardio
     SymptomLog
+    HealthMarker
 )
 
 foreach(ELEMENT ${ELEMENTS})
@@ -168,6 +169,7 @@ set(QML_ELEMENTS
     items/TextButton
 
     items/HMSField
+    items/TimeField
     items/UnlabeledTextField
     items/BloodPressureField
 
@@ -244,6 +246,7 @@ set(QML_ELEMENTS
 
     ## Progress
     pages/health/progress/HealthProgressTab
+    pages/health/progress/HealthDaysBackDialog
 
     # Food
     pages/food/FoodPage
@@ -305,8 +308,6 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
-    SOURCES lib/include/HealthMarker.h lib/src/HealthMarker.cpp
-    QML_FILES qml/items/TimeField.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

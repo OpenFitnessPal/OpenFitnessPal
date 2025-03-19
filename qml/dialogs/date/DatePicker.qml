@@ -24,6 +24,10 @@ AnimatedDialog {
             name: "Today"
 
             onClicked: dateManager.date = new Date()
+
+            Layout.fillWidth: true
+            Layout.preferredHeight: 40 * Constants.scalar
+            Layout.alignment: Qt.AlignTop
         }
 
         YearSpinBox {

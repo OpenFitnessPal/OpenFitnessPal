@@ -14,13 +14,16 @@ AnimatedDialog {
 
     property string key
 
+    property bool raw: false
+
     standardButtons: Dialog.Cancel | Dialog.Ok
 
     ColumnLayout {
         anchors.fill: parent
         Repeater {
             id: rep
-            model: healthMarkerModel.options
+            model: raw ? healthMarkerModel.rawOptions(
+                             ) : healthMarkerModel.options
 
             RadioButton {
                 implicitHeight: 30 * Constants.scalar

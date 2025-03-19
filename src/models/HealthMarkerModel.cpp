@@ -123,12 +123,7 @@ void HealthMarkerModel::resetOptions()
 {
     auto prev = m_options;
     m_options.clear();
-    QStringList tmp;
-    tmp << "Resting HR"
-        << "Mile Time"
-        << "Sleep"
-        << "Blood Pressure"
-        << "VO2 Max";
+    QStringList tmp = rawOptions();
 
     QStringList usedList = used();
 
@@ -139,6 +134,15 @@ void HealthMarkerModel::resetOptions()
     }
 
     if (prev != m_options) emit optionsChanged();
+}
+
+QStringList HealthMarkerModel::rawOptions() const
+{
+    return QStringList() << "Resting HR"
+                         << "Mile Time"
+                         << "Sleep"
+                         << "Blood Pressure"
+                         << "VO2 Max";
 }
 
 QList<QString> HealthMarkerModel::options() const
@@ -154,6 +158,7 @@ QHash<int, QByteArray> HealthMarkerModel::roleNames() const
     rez[IDX] = "idx";
     return rez;
 }
+
 
 QStringList HealthMarkerModel::used()
 {

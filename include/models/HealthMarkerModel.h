@@ -38,6 +38,8 @@ public:
     QStringList options() const;
     void resetOptions();
 
+    Q_INVOKABLE QStringList rawOptions() const;
+
 signals:
     void dateChanged();
 
@@ -53,7 +55,7 @@ private:
 
     HealthMarkerManager *m_manager;
     Q_PROPERTY(QDateTime date READ date WRITE setDate NOTIFY dateChanged FINAL)
-    Q_PROPERTY(QStringList options READ options RESET resetOptions NOTIFY optionsChanged FINAL CONSTANT)
+    Q_PROPERTY(QStringList options READ options RESET resetOptions NOTIFY optionsChanged FINAL)
 
     QStringList used();
 };

@@ -13,6 +13,15 @@ BaseTab {
 
     onNavClicked: tabBar.currentIndex = 0
 
+    DaysBackDialog {
+        id: backDialog
+
+        onSelect: (selection, label) => {
+                      select.text = label
+                      select.daysBack = selection
+                  }
+    }
+
     DaysBackButton {
         id: select
 

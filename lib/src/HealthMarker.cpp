@@ -1,5 +1,29 @@
 #include "HealthMarker.h"
 
+QString HealthMarker::getName() const
+{
+    return name;
+}
+
+void HealthMarker::setName(const QString &newName)
+{
+    if (name == newName)
+        return;
+    name = newName;
+}
+
+QVariant HealthMarker::getValue() const
+{
+    return value;
+}
+
+void HealthMarker::setValue(const QVariant &newValue)
+{
+    if (value == newValue)
+        return;
+    value = newValue;
+}
+
 QJsonObject HealthMarker::toJson() const
 {
     QJsonObject obj;
