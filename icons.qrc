@@ -21,5 +21,6 @@
         <file alias="Markers">icons/markers.svg</file>
         <file alias="Symptoms">icons/symptoms.svg</file>
         <file alias="Data">icons/data.svg</file>
+        <file alias="Progress">icons/progress.svg</file>
     </qresource>
 </RCC>

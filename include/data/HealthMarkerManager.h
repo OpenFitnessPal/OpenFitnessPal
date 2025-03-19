@@ -2,18 +2,11 @@
 #define HealthMarkerManager_H
 
 #include "DataManager.h"
+#include "HealthMarker.h"
 
 #include <QDir>
 #include <QObject>
 #include <QQmlEngine>
-
-typedef struct HealthMarker {
-    QString name;
-    QVariant value;
-
-    QJsonObject toJson() const;
-    static HealthMarker fromJson(const QJsonObject &obj);
-} HealthMarker;
 
 class HealthMarkerManager : public DataManager
 {

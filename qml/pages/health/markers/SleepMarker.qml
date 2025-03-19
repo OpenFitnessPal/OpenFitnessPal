@@ -17,19 +17,21 @@ Rectangle {
         onDeleteRequested: healthMarkerModel.remove(model.idx)
     }
 
-    TimeHMField {
+    HMSField {
         id: field
 
         labeled: true
+        useSeconds: false
 
-        Component.onCompleted: time = new Date(Date.parse(model.value))
-        onTimeChanged: model.value = time.toISOString()
+        Component.onCompleted: setTime = model.value
+        onTimeChanged: if (model.value !== time)
+                           model.value = time
 
         Connections {
             target: model
 
             function onValueChanged() {
-                field.time = new Date(Date.parse(model.value))
+                field.setTime = model.value
             }
         }
 

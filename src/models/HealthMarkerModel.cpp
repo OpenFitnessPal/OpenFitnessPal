@@ -65,7 +65,7 @@ void HealthMarkerModel::remove(int index)
 
 bool HealthMarkerModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (!index.isValid()) {
+    if (!index.isValid() || data(index, role).toJsonValue() == value.toJsonValue()) {
         return false;
     }
 

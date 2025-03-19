@@ -127,7 +127,7 @@ bool DataManager::mkDate(QDir &dir)
 
 void DataManager::findNearest(QFile &f, QDir &dir, bool modify)
 {
-    if (!f.exists() || (!modify && !dir.exists(m_modifiedFileName))) {
+    if (!f.exists() || !(modify || dir.exists(m_modifiedFileName))) {
         QDir rootDir(m_dir);
 
         QDateTime closestDate = QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0));
@@ -136,8 +136,9 @@ void DataManager::findNearest(QFile &f, QDir &dir, bool modify)
         while (iter.hasNext()) {
             iter.next();
             QString dirName = iter.fileName();
+            QDir dir = rootDir.absoluteFilePath(dirName);
 
-            if (!rootDir.exists(dirName + "/" + m_filename)) continue;
+            if (!dir.exists(m_filename) || !dir.exists(m_modifiedFileName)) continue;
 
             QDateTime date = QDateTime::fromString(dirName, "MM-dd-yyyy");
 

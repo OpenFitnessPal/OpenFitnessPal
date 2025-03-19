@@ -8,7 +8,6 @@
 HealthMarkerManager::HealthMarkerManager(QObject *parent)
     : DataManager{parent}
 {
-    // TOOD: this is custom
     m_filename = "health.json";
     m_useDate = true;
     m_nearest = true;
@@ -38,23 +37,4 @@ QList<HealthMarker> HealthMarkerManager::load()
     }
 
     return m_markers;
-}
-
-QJsonObject HealthMarker::toJson() const
-{
-    QJsonObject obj;
-
-    obj.insert("name", name);
-    obj.insert("value", value.toJsonValue());
-
-    return obj;
-}
-
-HealthMarker HealthMarker::fromJson(const QJsonObject &obj)
-{
-    HealthMarker marker;
-    marker.name = obj.value("name").toString();
-    marker.value = obj.value("value");
-
-    return marker;
 }

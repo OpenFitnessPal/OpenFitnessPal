@@ -85,8 +85,10 @@ set(ELEMENTS
     data/SearchSettingsManager
     data/MealNamesManager
     data/HealthMarkerManager
-    data/NutritionManager
     data/SymptomLogManager
+
+    data/NutritionManager
+    data/HealthMarkerProgressManager
 
     data/DataManager
 
@@ -163,9 +165,9 @@ set(QML_ELEMENTS
     items/BaseTab
     items/BigButton
     items/BigIcon
+    items/TextButton
 
-    items/TimeHMField
-    items/TimeMSField
+    items/HMSField
     items/UnlabeledTextField
     items/BloodPressureField
 
@@ -226,8 +228,8 @@ set(QML_ELEMENTS
     pages/health/HealthIndexPage
 
     ## Symptom Logs
-    pages/health/SymptomsTab
-    pages/health/SymptomLog
+    pages/health/symptoms/SymptomsTab
+    pages/health/symptoms/SymptomLog
 
     ## Markers
     pages/health/markers/MarkersTab
@@ -239,6 +241,9 @@ set(QML_ELEMENTS
     pages/health/markers/SleepMarker
     pages/health/markers/VO2MaxMarker
     pages/health/markers/BloodPressureMarker
+
+    ## Progress
+    pages/health/progress/HealthProgressTab
 
     # Food
     pages/food/FoodPage
@@ -300,7 +305,8 @@ qt_add_qml_module(${Pal_EXEC_NAME}
     QML_FILES ${QML_FILES}
 
     SOURCES ${SOURCES} ${HEADERS}
-    QML_FILES qml/items/TextButton.qml
+    SOURCES lib/include/HealthMarker.h lib/src/HealthMarker.cpp
+    QML_FILES qml/items/TimeField.qml
 )
 
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

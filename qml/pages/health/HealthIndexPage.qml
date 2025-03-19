@@ -7,6 +7,7 @@ import OpenFitnessPal
 Rectangle {
     signal markers
     signal symptoms
+    signal progress
 
     id: initial
 
@@ -23,6 +24,11 @@ Rectangle {
         BigButton {
             name: "Markers"
             onClicked: initial.markers()
+        }
+
+        BigButton {
+            name: "Progress"
+            onClicked: initial.progress()
         }
 
         BigButton {

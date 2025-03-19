@@ -25,7 +25,7 @@ Rectangle {
             Layout.maximumWidth: 40 * Constants.scalar
         }
 
-        TimeHMField {
+        TimeField {
             id: timeField
 
             Component.onCompleted: time = model.time

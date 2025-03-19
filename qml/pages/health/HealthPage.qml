@@ -34,6 +34,7 @@ Rectangle {
 
             onMarkers: stack.push(markersTab)
             onSymptoms: stack.push(symptomsTab)
+            onProgress: stack.push(progressTab)
         }
 
         MarkersTab {
@@ -43,6 +44,11 @@ Rectangle {
 
         SymptomsTab {
             id: symptomsTab
+            visible: false
+        }
+
+        HealthProgressTab {
+            id: progressTab
             visible: false
         }
     }
