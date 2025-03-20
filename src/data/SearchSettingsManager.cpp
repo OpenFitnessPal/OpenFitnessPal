@@ -1,5 +1,5 @@
 #include "data/SearchSettingsManager.h"
-#include <QtGui/qguiapplication.h>
+#include <QApplication>
 
 bool SearchSettingsManager::preferGenerics() const
 {

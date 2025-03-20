@@ -5,6 +5,9 @@
 #include <QStandardPaths>
 #include <QUrl>
 #include <JlCompress.h>
+#include <QFileInfo>
+#include <QFileDialog>
+#include <QBuffer>
 
 BackupManager::BackupManager(QObject *parent)
     : QObject{parent}
@@ -25,9 +28,9 @@ bool BackupManager::backup(const QUrl &url)
     return JlCompress::compressDir(name, dir.absolutePath(), true);
 }
 
-bool BackupManager::restore(const QUrl &url)
+bool BackupManager::restore(const QString &file)
 {
-    QString name = url.toString();
+    QString name = file;
 
 #ifdef Q_OS_WINDOWS
     name.replace("file:///", "");
@@ -40,5 +43,23 @@ bool BackupManager::restore(const QUrl &url)
     dir.removeRecursively();
     dir.mkpath(".");
 
-    return !JlCompress::extractDir(name, dir.absolutePath()).empty();
+    QFile f(name);
+    if (!f.open(QIODevice::ReadOnly)) {
+        qCritical() << "Failed to read file" << name;
+        return false;
+    } else {
+        qInfo() << "Successfully read:" << name;
+        QByteArray data = f.readAll();
+
+        QBuffer buffer(&data);
+        buffer.open(QIODevice::ReadOnly);
+
+        QuaZip zip(&buffer);
+
+        QStringList lst = JlCompress::extractDir(zip, dir.absolutePath());
+        // qDebug() << "Extracted" << lst;
+
+        f.close();
+        return lst.empty();
+    }
 }

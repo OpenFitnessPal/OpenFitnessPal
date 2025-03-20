@@ -2,7 +2,7 @@ import QtCore
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick.Dialogs
+import Qt.labs.platform
 
 import OpenFitnessPal
 
@@ -15,9 +15,8 @@ BaseTab {
 
     FileDialog {
         id: backupDialog
-        currentFolder: StandardPaths.writableLocation(
-                           StandardPaths.DownloadLocation)
-        onAccepted: backupManager.backup(selectedFile)
+        folder: StandardPaths.writableLocation(StandardPaths.DownloadLocation)
+        onAccepted: backupManager.backup(file)
         defaultSuffix: "zip"
         nameFilters: ["Zip files (*.zip)"]
         fileMode: FileDialog.SaveFile
@@ -25,16 +24,18 @@ BaseTab {
 
     FileDialog {
         id: restoreDialog
-        currentFolder: StandardPaths.writableLocation(
-                           StandardPaths.DownloadLocation)
+        folder: StandardPaths.writableLocation(StandardPaths.DownloadLocation)
         onAccepted: {
-            backupManager.restore(selectedFile)
+            console.log(folder, files)
+            backupManager.restore(folder, file)
 
             // hacky way to forcefully reload everything
             dateManager.date = new Date(0)
             dateManager.date = new Date()
+
+            recipeEditModel.load()
         }
-        nameFilters: ["Zip files (*.zip)"]
+        // nameFilters: ["Zip files (*.zip)"]
         fileMode: FileDialog.OpenFile
     }
 

@@ -41,6 +41,8 @@ QList<FoodServing> FoodManager::load()
 
     QJsonArray array = readArray();
 
+    qDebug() << "Loading" << m_date << m_meal << read();
+
     for (QJsonValueRef ref : array) {
         QJsonObject obj = ref.toObject();
         servings.append(FoodServing::fromJson(obj));
