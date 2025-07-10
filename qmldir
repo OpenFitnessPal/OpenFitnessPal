@@ -1,2 +1,0 @@
-module OpenFitnessPal
-singleton Constants 1.0 qml/Constants.qml

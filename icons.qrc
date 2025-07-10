@@ -1,8 +1,26 @@
 <RCC>
-    <qresource prefix="/icons">
-        <file alias="plus">icons/plus.svg</file>
-        <file alias="trash">icons/trash.svg</file>
-        <file alias="forward">icons/forward.svg</file>
-        <file alias="back">icons/back.svg</file>
+    <qresource prefix="/">
+        <file alias="Forward">icons/forward.svg</file>
+        <file alias="Back">icons/back.svg</file>
+        <file alias="Meals">icons/meals.svg</file>
+        <file alias="Search">icons/search.svg</file>
+        <file alias="Goals">icons/goals.svg</file>
+        <file alias="Reorder">icons/reorder.svg</file>
+        <file alias="Delete">icons/delete.svg</file>
+        <file alias="Overview">icons/overview.svg</file>
+        <file alias="More">icons/more.svg</file>
+        <file alias="Food">icons/food.svg</file>
+        <file alias="Exercise">icons/exercise.svg</file>
+        <file alias="OpenFitnessPal">program_info/OpenFitnessPal.svg</file>
+        <file alias="Add">icons/add.svg</file>
+        <file alias="Routines">icons/routines.svg</file>
+        <file alias="MoreVertical">icons/moreVert.svg</file>
+        <file alias="Cardio">icons/cardio.svg</file>
+        <file alias="Recipes">icons/recipes.svg</file>
+        <file alias="Health">icons/health.svg</file>
+        <file alias="Markers">icons/markers.svg</file>
+        <file alias="Symptoms">icons/symptoms.svg</file>
+        <file alias="Data">icons/data.svg</file>
+        <file alias="Progress">icons/progress.svg</file>
     </qresource>
 </RCC>

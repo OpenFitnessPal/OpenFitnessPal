@@ -1,51 +1,49 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
-#include "ExerciseRoutine.h"
-#include "FoodItem.h"
-#include "Recipe.h"
-#include "qjsvalue.h"
-#include "qqmlintegration.h"
-
+#include <QDateTime>
 #include <QDir>
 
-class Exercise;
 
-class DataManager
+/* Base class for all OpenFitnessPal data management. */
+class DataManager : public QObject
 {
+    Q_OBJECT
+
+    Q_PROPERTY(QDateTime date READ date WRITE setDate RESET resetDate NOTIFY dateChanged FINAL)
 public:
-    static void init ();
+    DataManager(QObject *parent);
 
-    enum DataError {
-        Success,
-        Failure,
-        NoOp
-    };
+    QDateTime date() const;
+    void setDate(const QDateTime &newDate);
+    void resetDate();
 
-public:
-    static DataError truncateSaveFoods(int meal, QDate date, const QList<FoodServing> &foods);
-    static QList<FoodServing> loadFoods(int meal, QDate date);
+protected:
+    bool m_useDate = false;
+    bool m_nearest = false;
+    QString m_filename = "";
+    QString m_modifiedFileName = "";
+    QString m_subdir = "";
 
-    static DataError truncateSaveRecipes(const QList<Recipe> &recipes);
-    static QList<Recipe> loadRecipes();
-    static QList<Recipe> searchRecipes(const QString &query);
+    QDateTime m_date;
+    QDir m_dir;
 
-    static DataError truncateSaveRoutines(const QList<ExerciseRoutine> &outines);
-    static QList<ExerciseRoutine> loadRoutines();
-    static QList<ExerciseRoutine> searchRoutines(const QString &query);
+    QByteArray read();
+    QJsonDocument readDoc();
+    QJsonObject readObject();
+    QJsonArray readArray();
 
-    static DataError truncateSaveExercises(const QList<Exercise> &exercises, QDate date);
-    static QList<Exercise> loadExercises(QDate date);
+    bool write(const QByteArray &data);
+    bool write(const QJsonDocument &doc);
+    bool write(const QJsonArray &arr);
+    bool write(const QJsonObject &obj);
 
-    static DataError saveInfo(QString field, QVariant data);
-    static QVariantMap loadInfo();
-    static QVariant getInfo(const QString &field, const QVariant &defaultValue);
+    bool mkDate(QDir &dir);
 
-    static DataError mv(const QString &newPath);
-    static void newPath (const QString &newPath);
+    void findNearest(QFile &f, QDir &dir, bool modify);
 
-private:
-    static QDir dataDir;
+signals:
+    void dateChanged();
 };
 
 #endif // DATAMANAGER_H

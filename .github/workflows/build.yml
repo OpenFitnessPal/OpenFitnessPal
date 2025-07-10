@@ -17,28 +17,45 @@ jobs:
       matrix:
         include:
 
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
+            name: Linux
             qt_host: linux
+            qt_target: desktop
             qt_version: '6.8.0'
             qt_arch: gcc_64
 
           - os: ubuntu-24.04
+            name: Android
             qt_host: linux
             qt_target: android
+            qt_host_arch: gcc_64
             qt_arch: android_arm64_v8a
             qt_version: '6.8.0'
 
           - os: windows-latest
+            name: Windows
             qt_host: windows
+            qt_target: desktop
             qt_version: '6.8.0'
             qt_arch: win64_msvc2022_64
 
           - os: macos-latest
+            name: macOS
             qt_host: mac
+            qt_target: desktop
             qt_version: '6.8.0'
-            qt_arch: clang_64
+            qt_arch: macos
+
+          - os: macos-latest
+            name: iOS
+            qt_host: mac
+            qt_target: ios
+            qt_host_arch: macos
+            qt_version: '6.7.3'
+            qt_arch: ios
 
     runs-on: ${{ matrix.os }}
+    name: ${{ matrix.name }}
 
     steps:
     - uses: actions/checkout@v4
@@ -57,6 +74,7 @@ jobs:
         echo "INSTALL_DIR=${{ github.workspace }}/install" >> $GITHUB_ENV
         echo "INSTALL_APPIMAGE_DIR=${{ github.workspace }}/install-appdir" >> $GITHUB_ENV
         echo "DATE=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_ENV
+        echo "QTPATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}" >> $GITHUB_ENV
 
     - name: Install MSVC (Windows)
       if: runner.os == 'Windows'
@@ -64,6 +82,13 @@ jobs:
 
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
+
+    - name: Install zlib (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        curl https://raw.githubusercontent.com/horta/zlib.install/master/install.bat -o zlib.bat
+        ./zlib.bat
+        del zlib.bat
 
     - name: Setup CCache
       uses: hendrikmuhs/ccache-action@v1.2
@@ -86,17 +111,27 @@ jobs:
       with:
         cache: on
         version: ${{ matrix.qt_version }}
-        modules: qtvirtualkeyboard qtshadertools
+        modules: qtcharts qt5compat qtshadertools
 
-    - name: Install Qt ${{ matrix.qt_version }} (Android)
-      if: matrix.qt_target == 'android'
+    - name: Install Qt ${{ matrix.qt_version }} (Android, iOS)
+      if: matrix.qt_target == 'android' || matrix.qt_target == 'ios'
       uses: jurplel/install-qt-action@v4.1.1
       with:
         cache: on
         version: ${{ matrix.qt_version }}
         target: ${{ matrix.qt_target }}
         arch: ${{ matrix.qt_arch }}
-        modules: qtvirtualkeyboard qtshadertools
+        modules: qtcharts qt5compat qtshadertools
+
+    - name: Check Variables (iOS)
+      if: matrix.qt_target == 'ios'
+      shell: bash
+      run: |
+        declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_host_arch }}
+
+        ls ${{ env.QTPATH }}
+        ls $QT_HOST_PATH
+        xcode-select -print-path
 
     - name: Install Build Dependencies (macOS)
       if: runner.os == 'macOS'
@@ -112,21 +147,22 @@ jobs:
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage"
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
 
-    - name: Configure (Linux)
-      if: runner.os == 'Linux'
-      run: |
-        declare QTPATH="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}"
-
-        cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=$QTPATH/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=$QTPATH/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -G "Ninja"
-
-    - name: Configure (Windows)
-      if: runner.os == 'Windows' || runner.os == 'macOS'
+    - name: Configure (Desktop)
+      if: matrix.qt_target == 'desktop'
       run: |
         cmake -S . -B ${{ env.BUILD_DIR }} -G "Ninja" -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
+
+    - name: Configure (Android, iOS)
+      if: matrix.qt_target == 'ios' || matrix.qt_target == 'android'
+      run: |
+        declare QT_HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_host_arch }}
+
+        $QTPATH/${{ matrix.qt_arch }}/bin/qt-cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DQT_HOST_PATH=$QT_HOST_PATH -G "Ninja"
 
     - name: Build
       run: |
         cmake --build ${{ env.BUILD_DIR }} --config ${{ inputs.build_type }} --parallel $(nproc)
+        ls ${{ env.BUILD_DIR }}
 
     - name: Package (Linux)
       if: runner.os == 'Linux' && matrix.qt_arch == 'gcc_64'
@@ -159,7 +195,6 @@ jobs:
       shell: bash
       run: |
         sudo apt-get install libxcb-cursor-dev libxcb-cursor0
-        sudo cmake --install ${{ env.BUILD_DIR }}/_deps/ofplib-build --prefix=/usr
 
         mkdir -p ${{ env.INSTALL_APPIMAGE_DIR }}/usr/{lib,qml/QtCore,bin}
 
@@ -179,28 +214,63 @@ jobs:
 
         ./linuxdeploy-x86_64.AppImage --appdir ${{ env.INSTALL_APPIMAGE_DIR }} --output appimage --plugin qt
 
-    - name: Package (macOS)
+    - name: Prepare Package (macOS, iOS)
       if: runner.os == 'macOS'
       run: |
-        export PATH="$PATH;${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/*/bin"
-        export QML_SOURCES_PATHS="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/macos/qml"
-
-        ls ${{ runner.workspace }}/Qt/${{ matrix.qt_version }}
+        declare HOST_PATH=${{ env.QTPATH }}/${{ matrix.qt_arch }}
+        export PATH="$PATH;$HOST_PATH/bin"
+        export QML_SOURCES_PATHS="$HOST_PATH/qml"
 
         cd ${{ env.BUILD_DIR }}
-        ls $QML_SOURCES_PATHS
-        macdeployqt OpenFitnessPal.app -qmldir=$QML_SOURCES_PATHS -qmlimport=$QML_SOURCES_PATHS
+
         ls
 
-        sudo codesign --sign - --deep --force --entitlements ../program_info/App.entitlements --options runtime OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
-        chmod a+x OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
+        echo
+
+        ls ..
+
+        echo
+
+        ls OpenFitnessPal.app
+
+        echo
+
+        macdeployqt OpenFitnessPal.app -qmldir=$QML_SOURCES_PATHS -qmlimport=$QML_SOURCES_PATHS
         cp ../program_info/OpenFitnessPal.icns OpenFitnessPal.app/Contents/Resources
+
+    - name: Package (macOS)
+      if: runner.os == 'macOS' && matrix.qt_target == 'desktop'
+      run: |
+        cd ${{ env.BUILD_DIR }}
+        chmod a+x OpenFitnessPal.app/Contents/MacOS/OpenFitnessPal
+        tar czf ../OpenFitnessPal.tar.gz OpenFitnessPal.app
+
+    - name: Package (iOS)
+      if: matrix.name == 'iOS'
+      shell: bash
+      run: |
+        cd ${{ env.BUILD_DIR }}
+
+        for file in $QTPATH/${{ matrix.qt_arch }}/lib/*.a
+        do
+          # _debug files are what we don't want
+          if [[ $file =~ _ ]]
+          then
+            echo "$file skipped"
+          else
+            cp $file OpenFitnessPal.app/Contents/Frameworks
+          fi
+        done
+
+        chmod a+x OpenFitnessPal.app/OpenFitnessPal
         tar czf ../OpenFitnessPal.tar.gz OpenFitnessPal.app
 
     - name: Package (Windows, Portable)
       if: runner.os == 'Windows'
       shell: cmd
       run: |
+        ls D:\a\OpenFitnessPal\Qt\6.8.0\msvc2022_64\bin
+
         mkdir ${{ env.INSTALL_DIR }}
         set PATH=%PATH%;"${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\bin"
 
@@ -208,7 +278,6 @@ jobs:
 
         cp -r ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\qml ${{ env.INSTALL_DIR }}
         cp ${{ env.BUILD_DIR }}\OpenFitnessPal.exe ${{ env.INSTALL_DIR }}
-        cp ${{ env.BUILD_DIR }}\_deps\ofplib-build\ofp.dll ${{ env.INSTALL_DIR }}
 
         if "${{ inputs.build_type }}" == "Debug" (
           cp C:\Windows\System32\ucrtbased.dll ${{ env.INSTALL_DIR }}
@@ -223,7 +292,7 @@ jobs:
       shell: cmd
       run: |
         cd ${{ env.INSTALL_DIR }}
-        ls ..
+        ls
         makensis -NOCD "${{ github.workspace }}\build\program_info\win_install.nsi"
 
       ##
@@ -259,11 +328,18 @@ jobs:
         path: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}-x86_64.AppImage
 
     - name: Upload tarball (macOS)
-      if: runner.os == 'macOS'
+      if: runner.os == 'macOS' && matrix.qt_target == 'desktop'
       uses: actions/upload-artifact@v4
       with:
         name: OpenFitnessPal-${{ runner.os }}-${{ env.VERSION }}-${{ inputs.build_type }}
         path: OpenFitnessPal.tar.gz
+
+    - name: Upload app (iOS)
+      if: matrix.qt_target == 'ios'
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenFitnessPal-iOS-${{ env.VERSION }}-${{ inputs.build_type }}
+        path: ${{ env.BUILD_DIR }}/OpenFitnessPal.app
 
     - name: Upload portable zip (Windows)
       if: runner.os == 'Windows'

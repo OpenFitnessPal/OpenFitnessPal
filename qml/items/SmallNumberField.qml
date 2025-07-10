@@ -1,0 +1,63 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+
+import OpenFitnessPal
+
+TextField {
+    required property string label
+
+    required property var bindTarget
+    required property var bindedProperty
+
+    property double from: 0
+    property double to: 9999
+
+    property bool attentive: true
+
+    implicitWidth: 100 * Constants.scalar
+    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+    id: repEdit
+
+    background: Rectangle {
+        border {
+            color: "gray"
+            width: 1
+        }
+
+        color: Constants.sub
+    }
+
+    rightPadding: txt.width + 2
+    color: attentive ? Constants.accent : Constants.text
+
+    inputMethodHints: Qt.ImhFormattedNumbersOnly
+    validator: DoubleValidator {
+        bottom: from
+        top: to
+        notation: "StandardNotation"
+    }
+
+    font.pixelSize: 18 * Constants.scalar
+
+    onEditingFinished: if (bindTarget !== null)
+                           bindTarget[bindedProperty] = text
+
+    text: bindTarget !== null ? bindTarget[bindedProperty] : ""
+
+    Text {
+        id: txt
+        text: label
+
+        font.pixelSize: 14 * Constants.scalar
+
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+
+            rightMargin: 5 * Constants.scalar
+        }
+
+        color: "gray"
+    }
+}

@@ -1,45 +1,40 @@
-#ifndef ExerciseSetsModel_H
-#define ExerciseSetsModel_H
+#ifndef EXERCISESETSMODEL_H
+#define EXERCISESETSMODEL_H
 
 #include "ExerciseSet.h"
 #include <QAbstractListModel>
-#include <QObject>
 
 class ExerciseSetsModel : public QAbstractListModel
 {
     Q_OBJECT
-    QML_ELEMENT
-public:
 
-    enum ESMRoleTypes
-    {
+public:
+    enum ESMRoleTypes {
         REPS = Qt::UserRole + 1,
         WEIGHT,
-        ID
+        IDX
     };
 
-    ExerciseSetsModel(QObject *parent = nullptr);
+    explicit ExerciseSetsModel(QObject *parent = nullptr);
+
+    // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role) const override;
 
-    Q_INVOKABLE QList<ExerciseSet> sets();
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
-    Q_INVOKABLE void add(int reps = 0, int weight = 0);
-    Q_INVOKABLE void add(const ExerciseSet &set);
-    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+    // Add data:
+    Q_INVOKABLE void add(const ExerciseSet &set, bool doSave = true);
+    Q_INVOKABLE void add(bool doSave = true);
+    Q_INVOKABLE bool remove(int row);
 
-    Q_INVOKABLE void setData(const QList<ExerciseSet> &newData);
-    Q_INVOKABLE QList<ExerciseSet> data();
+    static ExerciseSetsModel *fromJson(const QJsonArray &arr, QObject *parent);
+    QJsonArray toJson() const;
 
-    Q_INVOKABLE void clear();
+    QList<ExerciseSet> data();
 
-    Q_INVOKABLE void duplicateLast();
-
-    bool setData(const QModelIndex &index, const QVariant &value,
-                 int role = Qt::EditRole) override;
-
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
+signals:
+    void save();
 
 protected:
     QHash<int, QByteArray> roleNames() const override;
@@ -48,4 +43,6 @@ private:
     QList<ExerciseSet> m_data;
 };
 
-#endif // ExerciseSetsModel_H
+Q_DECLARE_METATYPE(ExerciseSetsModel)
+
+#endif // EXERCISESETSMODEL_H

@@ -2,14 +2,16 @@ name: Build Application
 
 on:
   push:
-    branches-ignore:
-      - 'stable'
+    branches:
+      - 'master'
     paths-ignore:
       - '**.md'
       - '**/LICENSE'
       - '.github/ISSUE_TEMPLATE/**'
       - '.markdownlint**'
   pull_request:
+    branches:
+      - 'master'
     paths-ignore:
       - '**.md'
       - '**/LICENSE'

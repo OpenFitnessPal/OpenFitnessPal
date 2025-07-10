@@ -1,21 +1,21 @@
 #include "BuildConfig.h"
 #include <QObject>
 
-const Config BuildConfig;
+Config BuildConfig;
 
 Config::Config()
 {
     // Name and copyright
-    APP_NAME = "@OFP_APP_NAME@";
-    ORG_NAME = "@OFP_ORG_NAME@";
-    GIT_REPO = "@OFP_GIT_REPO@";
+    APP_NAME = "@Pal_APP_NAME@";
+    ORG_NAME = "@Pal_ORG_NAME@";
+    GIT_REPO = "@Pal_GIT_REPO@";
 
-    BUILD_PLATFORM = "@OFP_BUILD_PLATFORM@";
-    BUILD_DATE = "@OFP_BUILD_TIMESTAMP@";
+    BUILD_PLATFORM = "@Pal_BUILD_PLATFORM@";
+    BUILD_DATE = "@Pal_BUILD_TIMESTAMP@";
 
-    GIT_COMMIT = "@OFP_GIT_COMMIT@";
-    GIT_TAG = "@OFP_GIT_TAG@";
-    GIT_REFSPEC = "@OFP_GIT_REFSPEC@";
+    GIT_COMMIT = "@Pal_GIT_COMMIT@";
+    GIT_TAG = "@Pal_GIT_TAG@";
+    GIT_REFSPEC = "@Pal_GIT_REFSPEC@";
 
     // Assume that builds outside of Git repos are "stable"
     if (GIT_REFSPEC == QStringLiteral("GITDIR-NOTFOUND")
@@ -43,4 +43,11 @@ Config::Config()
 QString Config::versionString() const
 {
     return QString("%1-%2").arg(GIT_TAG).arg(VERSION_CHANNEL);
+}
+
+QString Config::buildInfo() const
+{
+    return "<p>GitHub: <a href=" + GIT_REPO + ">" + GIT_REPO + "</a></p>" +
+       "<p>Built on " + BUILD_DATE + " for " + BUILD_PLATFORM + " platform.</p>" +
+       "<p>Version: " + versionString() + "</p>";
 }

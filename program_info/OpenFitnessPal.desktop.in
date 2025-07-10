@@ -1,7 +1,9 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Type=Application
-Name=@OFP_APP_NAME@
-Comment=A fitness-tracking application, track your foods & exercises.
-Icon=@OFP_APP_NAME@
-Categories=Utility
-Exec=@OFP_APP_NAME@
+Name=@Pal_APP_NAME@
+Comment=An offline, QR-Based scouter for FRC use.
+Exec=@Pal_EXEC_NAME@
+Icon=@Pal_APP_NAME@
+StartupWMClass=@Pal_EXEC_NAME@
+Categories=Education;Utility

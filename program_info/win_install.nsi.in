@@ -4,13 +4,13 @@
 
 Unicode true
 
-Name "@OFP_APP_NAME@"
-InstallDir "$LOCALAPPDATA\Programs\@OFP_APP_NAME@"
-InstallDirRegKey HKCU "Software\@OFP_APP_NAME@" "InstallDir"
+Name "@Pal_APP_NAME@"
+InstallDir "$LOCALAPPDATA\Programs\@Pal_APP_NAME@"
+InstallDirRegKey HKCU "Software\@Pal_APP_NAME@" "InstallDir"
 RequestExecutionLevel user
-OutFile "../@OFP_APP_NAME@-Setup.exe"
+OutFile "../@Pal_EXEC_NAME@-Setup.exe"
 
-!define MUI_ICON "../program_info/@OFP_APP_NAME@.ico"
+!define MUI_ICON "../program_info/@Pal_APP_NAME@.ico"
 
 ;--------------------------------
 
@@ -21,7 +21,7 @@ OutFile "../@OFP_APP_NAME@-Setup.exe"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
-!define MUI_FINISHPAGE_RUN "$InstDir\@OFP_APP_NAME@.exe"
+!define MUI_FINISHPAGE_RUN "$InstDir\@Pal_EXEC_NAME@.exe"
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -36,13 +36,13 @@ OutFile "../@OFP_APP_NAME@-Setup.exe"
 ;--------------------------------
 
 ; Version info
-VIProductVersion "@OFP_VERSION_WIN@"
-VIFileVersion "@OFP_VERSION_WIN@"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "@OFP_APP_NAME@"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "@OFP_APP_NAME@ Installer"
+VIProductVersion "@Pal_VERSION_WIN@"
+VIFileVersion "@Pal_VERSION_WIN@"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "@Pal_APP_NAME@"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "@Pal_APP_NAME@ Installer"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Carson Rueter"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "@OFP_GIT_TAG@"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "@OFP_GIT_TAG@"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "@Pal_GIT_TAG@"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "@Pal_GIT_TAG@"
 
 
 Section "Visual Studio Runtime"
@@ -55,41 +55,40 @@ SectionEnd
 ;--------------------------------
 
 ; The stuff to install
-Section "@OFP_APP_NAME@"
+Section "@Pal_APP_NAME@"
 
   SectionIn RO
 
-  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @OFP_APP_NAME@.exe /F'
+  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @Pal_EXEC_NAME@.exe /F'
 
   SetOutPath $INSTDIR
 
-  File "@OFP_APP_NAME@.exe"
+  File "@Pal_EXEC_NAME@.exe"
   File *.dll
   File /r "iconengines"
   File /r "imageformats"
   File /r "platforms"
-  File /r "styles"
   File /r "tls"
   File /r "qml"
 
   ; Write the installation path into the registry
-  WriteRegStr HKCU Software\@OFP_APP_NAME@ "InstallDir" "$INSTDIR"
+  WriteRegStr HKCU Software\@Pal_APP_NAME@ "InstallDir" "$INSTDIR"
 
   ; Write the uninstall keys for Windows
   ${GetParameters} $R0
   ${GetOptions} $R0 "/NoUninstaller" $R1
   ${If} ${Errors}
-    !define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\@OFP_APP_NAME@"
-    WriteRegStr HKCU "${UNINST_KEY}" "DisplayName" "@OFP_APP_NAME@"
-    WriteRegStr HKCU "${UNINST_KEY}" "DisplayIcon" "$INSTDIR\@OFP_APP_NAME@.exe"
+    !define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\@Pal_APP_NAME@"
+    WriteRegStr HKCU "${UNINST_KEY}" "DisplayName" "@Pal_APP_NAME@"
+    WriteRegStr HKCU "${UNINST_KEY}" "DisplayIcon" "$INSTDIR\@Pal_EXEC_NAME@.exe"
     WriteRegStr HKCU "${UNINST_KEY}" "UninstallString" '"$INSTDIR\uninstall.exe"'
     WriteRegStr HKCU "${UNINST_KEY}" "QuietUninstallString" '"$INSTDIR\uninstall.exe" /S'
     WriteRegStr HKCU "${UNINST_KEY}" "InstallLocation" "$INSTDIR"
-    WriteRegStr HKCU "${UNINST_KEY}" "Publisher" "@OFP_APP_NAME@ Contributors"
-    WriteRegStr HKCU "${UNINST_KEY}" "Version" "@OFP_GIT_TAG@"
-    WriteRegStr HKCU "${UNINST_KEY}" "DisplayVersion" "@OFP_GIT_TAG@"
-    WriteRegStr HKCU "${UNINST_KEY}" "VersionMajor" "@OFP_VERSION_MAJOR@"
-    WriteRegStr HKCU "${UNINST_KEY}" "VersionMinor" "@OFP_VERSION_MINOR@"
+    WriteRegStr HKCU "${UNINST_KEY}" "Publisher" "@Pal_APP_NAME@ Contributors"
+    WriteRegStr HKCU "${UNINST_KEY}" "Version" "@Pal_GIT_TAG@"
+    WriteRegStr HKCU "${UNINST_KEY}" "DisplayVersion" "@Pal_GIT_TAG@"
+    WriteRegStr HKCU "${UNINST_KEY}" "VersionMajor" "@Pal_VERSION_MAJOR@"
+    WriteRegStr HKCU "${UNINST_KEY}" "VersionMinor" "@Pal_VERSION_MINOR@"
     ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
     IntFmt $0 "0x%08X" $0
     WriteRegDWORD HKCU "${UNINST_KEY}" "EstimatedSize" "$0"
@@ -102,13 +101,13 @@ SectionEnd
 
 Section "Start Menu Shortcut" SM_SHORTCUTS
 
-  CreateShortcut "$SMPROGRAMS\@OFP_APP_NAME@.lnk" "$INSTDIR\@OFP_APP_NAME@.exe" "" "$INSTDIR\@OFP_APP_NAME@.exe" 0
+  CreateShortcut "$SMPROGRAMS\@Pal_EXEC_NAME@.lnk" "$INSTDIR\@Pal_EXEC_NAME@.exe" "" "$INSTDIR\@Pal_EXEC_NAME@.exe" 0
 
 SectionEnd
 
 Section /o "Desktop Shortcut" DESKTOP_SHORTCUTS
 
-  CreateShortcut "$DESKTOP\@OFP_APP_NAME@.lnk" "$INSTDIR\@OFP_APP_NAME@.exe" "" "$INSTDIR\@OFP_APP_NAME@.exe" 0
+  CreateShortcut "$DESKTOP\@Pal_EXEC_NAME@.lnk" "$INSTDIR\@Pal_EXEC_NAME@.exe" "" "$INSTDIR\@Pal_EXEC_NAME@.exe" 0
 
 SectionEnd
 
@@ -118,12 +117,12 @@ SectionEnd
 
 Section "Uninstall"
 
-  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @OFP_APP_NAME@.exe /F'
+  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @Pal_EXEC_NAME@.exe /F'
 
-  DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\@OFP_APP_NAME@"
-  DeleteRegKey HKCU SOFTWARE\@OFP_APP_NAME@
+  DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\@Pal_APP_NAME@"
+  DeleteRegKey HKCU SOFTWARE\@Pal_APP_NAME@
 
-  Delete $INSTDIR\@OFP_APP_NAME@.exe
+  Delete $INSTDIR\@Pal_EXEC_NAME@.exe
   Delete $INSTDIR\qt.conf
   Delete $INSTDIR\*.dll
 
@@ -133,11 +132,9 @@ Section "Uninstall"
   RMDir /r $INSTDIR\imageformats
   RMDir /r $INSTDIR\platforms
   RMDir /r $INSTDIR\styles
-  RMDir /r $INSTDIR\tls
-  RMDir /r $INSTDIR\qml
 
-  Delete "$SMPROGRAMS\@OFP_APP_NAME@.lnk"
-  Delete "$DESKTOP\@OFP_APP_NAME@.lnk"
+  Delete "$SMPROGRAMS\@Pal_EXEC_NAME@.lnk"
+  Delete "$DESKTOP\@Pal_EXEC_NAME@.lnk"
 
   RMDir "$INSTDIR"
 
@@ -151,7 +148,7 @@ Function .onInit
 ${GetParameters} $R0
 ${GetOptions} $R0 "/NoShortcuts" $R1
 ${IfNot} ${Errors}
-${OrIf} ${FileExists} "$InstDir\@OFP_APP_NAME@.exe"
+${OrIf} ${FileExists} "$InstDir\@Pal_EXEC_NAME@.exe"
   !insertmacro UnselectSection ${SM_SHORTCUTS}
   !insertmacro UnselectSection ${DESKTOP_SHORTCUTS}
 ${EndIf}

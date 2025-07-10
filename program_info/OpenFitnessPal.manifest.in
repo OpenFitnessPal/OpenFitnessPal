@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
-  <assemblyIdentity name="@OFP_APP_NAME@.Application.1" type="win32" version="@OFP_GIT_TAG@" />
+  <assemblyIdentity name="@Pal_APP_NAME@.Application.1" type="win32" version="@Pal_GIT_TAG@" />
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
     <security>
       <requestedPrivileges>
@@ -13,7 +13,7 @@
       <assemblyIdentity type="win32" name="Microsoft.Windows.Common-Controls" version="6.0.0.0" processorArchitecture="*" publicKeyToken="6595b64144ccf1df" language="*"/>
     </dependentAssembly>
   </dependency>
-  <description>A free, open-source fitness tracker.</description>
+  <description>An offline, QR-Based scouter for FRC use.</description>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
     <application>
       <!--The ID below indicates app support for Windows 7 -->
